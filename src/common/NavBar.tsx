@@ -1,7 +1,6 @@
 export default function NavBarCommon() {
   return (
-    <nav className="main-header navbar navbar-expand navbar-white navbar-light">
-      {/* Left navbar links */}
+    <nav className="main-header navbar navbar-expand main-bg">
       <ul className="navbar-nav">
         <li className="nav-item">
           <a
@@ -187,14 +186,9 @@ export default function NavBarCommon() {
           </a>
         </li>
         <li className="nav-item">
-          <a
-            className="nav-link"
-            data-widget="control-sidebar"
-            data-controlsidebar-slide="true"
-            href="#test"
-            role="button"
-          >
-            <i className="fas fa-th-large" />
+          <a className="nav-link" href="#test" role="button">
+            {/* <img src="/logo.png" alt="profile" /> */}
+            Admin
           </a>
         </li>
       </ul>
