@@ -1,9 +1,12 @@
-import React from "react";
-
 export default function RightNav() {
   return (
     <ul className="navbar-nav ml-auto">
-      {/* Navbar Search */}
+      <li className="nav-item">
+        <a className="nav-link" href="#test" role="button">
+          <i className="fas fa-envelope mx-2" />
+          CONTACT@DEV.COM
+        </a>
+      </li>
       <li className="nav-item">
         <a
           className="nav-link"
@@ -86,11 +89,9 @@ export default function RightNav() {
                 </p>
               </div>
             </div>
-            {/* Message End */}
           </a>
           <div className="dropdown-divider" />
           <a href="#test" className="dropdown-item">
-            {/* Message Start */}
             <div className="media">
               <img
                 src="dist/img/user3-128x128.jpg"
@@ -110,7 +111,6 @@ export default function RightNav() {
                 </p>
               </div>
             </div>
-            {/* Message End */}
           </a>
           <div className="dropdown-divider" />
           <a href="#test" className="dropdown-item dropdown-footer">
@@ -118,7 +118,6 @@ export default function RightNav() {
           </a>
         </div>
       </li>
-      {/* Notifications Dropdown Menu */}
       <li className="nav-item dropdown">
         <a className="nav-link" data-toggle="dropdown" href="#test">
           <i className="far fa-bell" />
