@@ -1,4 +1,4 @@
-export default function LayoutNav() {
+export default function NavbarLayout() {
   return (
     <>
       <ul className="navbar-nav">
