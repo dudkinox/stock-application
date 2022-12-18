@@ -17,7 +17,7 @@ export default function LayoutNav() {
         <li className="nav-item">
           <a className="nav-link" href="#test" role="button">
             <i className="fas fa-envelope mx-2" />
-            CONTACT@DEV.COM
+            CONTACT@DEV.COM       
           </a>
         </li>
         <li className="nav-item dropdown">
