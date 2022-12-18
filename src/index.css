@@ -3,3 +3,15 @@
 * {
   font-family: "Mali";
 }
+
+.main-bg {
+  background-color: #e91d63 !important;
+}
+
+a {
+  color: rgb(255, 255, 255) !important;
+}
+
+.nav-link.active {
+  color: #e91d63 !important;
+}
