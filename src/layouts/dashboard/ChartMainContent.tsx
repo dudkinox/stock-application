@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function ChartMainContent() {
   return (
     <section className="content">
@@ -7,57 +5,39 @@ export default function ChartMainContent() {
         <div className="row">
           <section className="col-lg-12 connectedSortable">
             <div className="card">
-              <div className="card-header">
-                <h3 className="card-title">
-                  <i className="fas fa-chart-pie mr-1" />
-                  Sales
-                </h3>
-                <div className="card-tools">
-                  <ul className="nav nav-pills ml-auto">
-                    <li className="nav-item">
-                      <a
-                        className="nav-link active"
-                        href="#revenue-chart"
-                        data-toggle="tab"
-                      >
-                        Area
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a
-                        className="nav-link"
-                        href="#sales-chart"
-                        data-toggle="tab"
-                      >
-                        Donut
-                      </a>
-                    </li>
-                  </ul>
+              <div className="card-header pb-0">
+                <div className="row col-12">
+                  <div className="col-3 text-center">
+                    <p className="">ยอดขายทั้งหมด</p>
+                    <p>1 เครื่อง</p>
+                  </div>
+                  <div className="col-3 text-center">
+                    <p className="">ยอดขายต่อเดือน </p>
+                    <p>1 เครื่อง</p>
+                  </div>
+                  <div className="col-3 text-center">
+                    <p className="">ยอดขายต่อสัปดาห์</p>
+                    <p>1 เครื่อง</p>
+                  </div>
+                  <div className="col-3 text-center">
+                    <p className="">ยอดขายต่อวัน</p>
+                    <p>1 เครื่อง</p>
+                  </div>
                 </div>
               </div>
               <div className="card-body">
-                <div className="tab-content p-0">
-                  <div
-                    className="chart tab-pane active"
-                    id="revenue-chart"
-                    style={{ position: "relative", height: 300 }}
-                  >
-                    <canvas
-                      id="revenue-chart-canvas"
-                      height={300}
-                      style={{ height: 300 }}
-                    />
+                <div className="row">
+                  <div className="mx-4">
+                    <input className="mx-2" type="checkbox" disabled />
+                    <label className="form-check-label">ชำระเเล้ว</label>
                   </div>
-                  <div
-                    className="chart tab-pane"
-                    id="sales-chart"
-                    style={{ position: "relative", height: 300 }}
-                  >
-                    <canvas
-                      id="sales-chart-canvas"
-                      height={300}
-                      style={{ height: 300 }}
-                    />
+                  <div>
+                    <input className="mx-2" type="checkbox" />
+                    <label className="form-check-label">ค้างชำระ</label>
+                  </div>
+                  <div className="mx-4">
+                    <input className="mx-2" type="checkbox" />
+                    <label className="form-check-label">ชำระหมดเเล้ว</label>
                   </div>
                 </div>
               </div>
