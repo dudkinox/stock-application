@@ -1,7 +1,7 @@
 import LeftNav from "./LeftNav";
 import RightNav from "./RightNav";
 
-export default function LayoutNav() {
+export default function NavbarLayout() {
   return (
     <>
       <LeftNav />
