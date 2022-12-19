@@ -1,5 +1,9 @@
-import React from "react";
+import Stock from "../../common/Stock";
 
 export default function StockPage() {
-  return <div>index</div>;
+  return (
+    <div className="wrapper">
+      <Stock />;
+    </div>
+  );
 }

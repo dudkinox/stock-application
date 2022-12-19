@@ -2,7 +2,6 @@ export default function SidebarCommon() {
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       <div className="sidebar">
-        {/* Sidebar user panel (optional) */}
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="image">
             <img
@@ -26,15 +25,15 @@ export default function SidebarCommon() {
             data-accordion="false"
           >
             <li className="nav-item menu-open">
-              <a href="#" className="nav-link active">
-                <i className="nav-icon fas fa-tachometer-alt" />
-                <p>สรุปยอดขายทั้งหมด</p>
+              <a href="/" className="nav-link active">
+                <i className="nav-icon fas fa-home" />
+                <p>หน้าเเรก</p>
               </a>
             </li>
             <li className="nav-item">
-              <a href="pages/widgets.html" className="nav-link">
-                <i className="nav-icon fas fa-th" />
-                <p>ตัวอย่าง</p>
+              <a href="/stock" className="nav-link">
+                <i className="nav-icon fas fa-shopping-cart" />
+                <p>คลังสินค้า</p>
               </a>
             </li>
             <li className="nav-item">

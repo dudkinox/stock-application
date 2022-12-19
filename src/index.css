@@ -15,3 +15,9 @@ a {
 .nav-link.active {
   color: #e91d63 !important;
 }
+
+.primary-btn {
+  background-color: #e91d63 !important;
+  border-color: #e91d63 !important;
+  box-shadow: none;
+}
