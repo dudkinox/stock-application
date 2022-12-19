@@ -21,3 +21,11 @@ a {
   border-color: #e91d63 !important;
   box-shadow: none;
 }
+
+.shm {
+  transition: opacity 0.15s linear;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+  transition-property: opacity;
+}
