@@ -11,15 +11,15 @@ export default function InsertModal() {
       <div>เพิ่ม/ลบ/เเก้ไข</div>
       <button
         className="btn primary-btn text-white w-100 mt-2"
-        data-bs-toggle="modal"
-        data-bs-target="#InsertStock"
+        data-toggle="modal"
+        data-target="#InsertStock"
         onClick={toggleShow}
       >
         <i className="nav-icon fas fa-plus" />
       </button>
 
       <div
-        className={`modal shm ${show ? "d-block" : ""}`}
+        className={`modal fade ${show ? "show" : ""}`}
         id="InsertStock"
         tabIndex={-1}
         aria-labelledby="InsertStockLabel"
@@ -31,29 +31,67 @@ export default function InsertModal() {
               <h5 className="modal-title">Modal Title</h5>
               <button
                 type="button"
-                className="btn-close border border-0 bg-white"
-                data-bs-dismiss="modal"
+                className="close"
+                data-dismiss="modal"
                 aria-label="Close"
-                onClick={toggleClose}
               >
-                {/* <span aria-hidden="true">&times;</span> */}
-                <i className="fas fa-times "></i>
+                <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div className="modal-body">
-              <p>Modal body text goes here.</p>
+              <div className="container">
+                <form>
+                  <div className="row mb-3">
+                    <div className="form-group mx-4">
+                      <label className="float-left">วันที่:</label>
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
+                            <i className="far fa-calendar-alt"></i>
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          className="form-control"
+                          data-inputmask-alias="datetime"
+                          data-inputmask-inputformat="dd/mm/yyyy"
+                          data-mask
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="float-left">เลขบัตรประชาชน:</label>
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
+                            <i className="far fa-id-card"></i>
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          className="form-control"
+                          minLength={13}
+                          maxLength={13}
+                          autoComplete="on"
+                          placeholder="x-xxxx-xxxxx-xx-x"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
             <div className="modal-footer">
+              <button type="button" className="btn primary-btn col-2">
+                บันทึก
+              </button>
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-danger col-2"
                 data-dismiss="modal"
                 onClick={toggleClose}
               >
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Save changes
+                ยกเลิก
               </button>
             </div>
           </div>
