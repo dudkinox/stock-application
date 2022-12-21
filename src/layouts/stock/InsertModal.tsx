@@ -55,7 +55,7 @@ export default function InsertModal() {
                           className="form-control"
                           id="datemask"
                           data-inputmask-alias="datetime"
-                          placeholder="dd/mm/yyyy"
+                          placeholder="DD/MM/YYYY"
                           data-mask
                         />
                       </div>
