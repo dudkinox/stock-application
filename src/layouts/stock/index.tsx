@@ -4,21 +4,24 @@ export default function StockLayout() {
   return (
     <>
       <div className="card-body">
-        <table id="example2" className="table table-bordered table-hover">
+        <table
+          id="example2"
+          className="table table-bordered table-hover table-responsive"
+        >
           <thead>
-            <tr>
-              <th className="col-2 text-center">
+            <tr className="text-center">
+              <th className="col-2">
                 <InsertModal />
               </th>
-              <th className="text-center">ลำดับ</th>
+              <th>ลำดับ</th>
               <th>Platform(s)</th>
               <th>Engine version</th>
               <th>CSS grade</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="col-2 text-center">
+            <tr className="text-center">
+              <td className="col-2">
                 <div className="row justify-content-center">
                   <button className="btn btn-warning mx-2">
                     <i className="nav-icon fas fa-pen" />
