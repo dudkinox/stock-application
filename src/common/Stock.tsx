@@ -6,13 +6,11 @@ export default function Stock() {
       <section className="content">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-12">
-              <div className="card mt-5">
-                <div className="card-header">
-                  <h3 className="card-title">สต๊อกสินค้า</h3>
-                </div>
-                <StockLayout />
+            <div className="card col-12 mt-5">
+              <div className="card-header">
+                <h2 className="card-title">สต๊อกสินค้า</h2>
               </div>
+              <StockLayout />
             </div>
           </div>
         </div>
