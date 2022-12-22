@@ -39,48 +39,54 @@ export default function InsertModal() {
               </button>
             </div>
             <div className="modal-body">
-              <div className="container">
-                <form>
-                  <div className="row mb-3">
-                    <div className="form-group mx-4">
-                      <label className="float-left">วันที่:</label>
-                      <div className="input-group">
-                        <div className="input-group-prepend">
-                          <span className="input-group-text">
-                            <i className="far fa-calendar-alt"></i>
-                          </span>
-                        </div>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="datemask"
-                          data-inputmask-alias="datetime"
-                          data-inputmask-inputformat="dd/mm/yyyy"
-                          placeholder="dd/mm/yyyy"
-                          data-mask
-                        />
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-6">
+                    <label className="float-left">วันที่:</label>
+                    <div className="input-group">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">
+                          <i className="far fa-calendar-alt"></i>
+                        </span>
                       </div>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="datemask"
+                        data-inputmask-alias="datetime"
+                        data-inputmask-inputformat="dd/mm/yyyy"
+                        placeholder="dd/mm/yyyy"
+                        data-mask
+                      />
                     </div>
+                  </div>
+                  <div className="col-12 col-sm-6">
                     <div className="form-group">
-                      <label className="float-left">เลขบัตรประชาชน:</label>
-                      <div className="input-group">
-                        <div className="input-group-prepend">
-                          <span className="input-group-text">
-                            <i className="far fa-id-card"></i>
-                          </span>
-                        </div>
+                      <div>
+                        <label
+                          htmlFor="exampleDataList"
+                          className="form-label float-left"
+                        >
+                          ค้นหา / เลือก เลขบัตรประชาชน
+                        </label>
                         <input
-                          type="text"
                           className="form-control"
-                          minLength={13}
-                          maxLength={13}
-                          autoComplete="on"
-                          placeholder="x-xxxx-xxxxx-xx-x"
+                          list="datalistOptions"
+                          id="exampleDataList"
+                          placeholder="Type to search..."
+                          autoComplete="off"
                         />
+                        <datalist id="datalistOptions">
+                          <option value="123123123"></option>
+                          <option value="2222"></option>
+                          <option value="Seattle"></option>
+                          <option value="Los Angeles"></option>
+                          <option value="Chicago"></option>
+                        </datalist>
                       </div>
                     </div>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
             <div className="modal-footer">

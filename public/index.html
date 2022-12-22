@@ -17,11 +17,25 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
     />
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css" />
     <link
       rel="stylesheet"
-      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+      href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css"
+    />
+    <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css" />
+    <link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css" />
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css" />
     <link
       rel="stylesheet"
       href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
@@ -38,12 +52,20 @@
     />
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css" />
+    <link rel="stylesheet" href="plugins/select2/css/select2.min.css" />
   </head>
   <body class="hold-transition sidebar-mini layout-fixed">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/select2/js/select2.full.min.js"></script>
     <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <script src="plugins/moment/moment.min.js"></script>
+    <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
+    <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <script src="dist/js/adminlte.min.js"></script>
     <script>
       $.widget.bridge("uibutton", $.ui.button);
     </script>
@@ -63,7 +85,7 @@
     <script src="dist/js/pages/dashboard.js"></script>
     <script>
       $(function () {
-        $("#datemask").inputmask("dd/mm/yyyy", { placeholder: "dd/mm/yyyy" });
+        $(".select2").select2();
       });
     </script>
   </body>
