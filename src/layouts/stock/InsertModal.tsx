@@ -21,8 +21,8 @@ export default function InsertModal() {
       stock_type: stockType,
     };
 
-    console.log(data);
-    StockApi.InsertStock(data);
+    console.log(date);
+    // StockApi.InsertStock(data);
   };
 
   return (
@@ -59,59 +59,53 @@ export default function InsertModal() {
             </div>
             <div className="modal-body">
               <div className="container-fluid">
-                <div className="row">
-                  <div className="col-6">
-                    <label className="float-left">วันที่:</label>
-                    <div className="input-group">
-                      <div className="input-group-prepend">
-                        <span className="input-group-text">
-                          <i className="far fa-calendar-alt"></i>
-                        </span>
-                      </div>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="datemask"
-                        data-inputmask-alias="datetime"
-                        data-inputmask-inputformat="dd/mm/yyyy"
-                        onChange={(e: any) => setDate(e.target.value)}
-                        placeholder="dd/mm/yyyy"
-                        data-mask
-                      />
+                <div className="form-group">
+                  <label className="float-left">วันที่:</label>
+                  <div className="input-group">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text">
+                        <i className="far fa-calendar-alt"></i>
+                      </span>
                     </div>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="datemask"
+                      data-inputmask-alias="datetime"
+                      data-inputmask-inputformat="dd/mm/yyyy"
+                      onChange={(e: any) => setDate(e.target.value)}
+                      placeholder="dd/mm/yyyy"
+                      data-mask
+                    />
                   </div>
-                  <div className="col-12 col-sm-6">
-                    <div className="form-group">
-                      <div>
-                        <label className="float-left">
-                          ค้นหา / เลือก เลขบัตรประชาชน
-                        </label>
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <span className="input-group-text">
-                              <i className="far fa-id-card"></i>
-                            </span>
-                          </div>
-                          <input
-                            className="form-control"
-                            list="datalistOptions"
-                            id="exampleDataList"
-                            minLength={13}
-                            maxLength={13}
-                            onChange={(e: any) => setIdCard(e.target.value)}
-                            placeholder="กรอกเลขบัตรประชาชน"
-                            autoComplete="off"
-                          />
-                          <datalist id="datalistOptions">
-                            <option value="123123123"></option>
-                            <option value="2222"></option>
-                            <option value="Seattle"></option>
-                            <option value="Los Angeles"></option>
-                            <option value="Chicago"></option>
-                          </datalist>
-                        </div>
-                      </div>
+                </div>
+                <div className="form-group">
+                  <label className="float-left">
+                    ค้นหา / เลือก เลขบัตรประชาชน:
+                  </label>
+                  <div className="input-group">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text">
+                        <i className="far fa-id-card"></i>
+                      </span>
                     </div>
+                    <input
+                      className="form-control"
+                      list="datalistOptions"
+                      id="exampleDataList"
+                      minLength={13}
+                      maxLength={13}
+                      onChange={(e: any) => setIdCard(e.target.value)}
+                      placeholder="กรอกเลขบัตรประชาชน 13 หลัก"
+                      autoComplete="off"
+                    />
+                    <datalist id="datalistOptions">
+                      <option value="123123123"></option>
+                      <option value="2222"></option>
+                      <option value="Seattle"></option>
+                      <option value="Los Angeles"></option>
+                      <option value="Chicago"></option>
+                    </datalist>
                   </div>
                 </div>
               </div>
@@ -119,14 +113,14 @@ export default function InsertModal() {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn primary-btn col-2 col-sm-auto"
+                className="btn primary-btn col-lg-2 col-sm-auto"
                 onClick={handlerSubmit}
               >
                 บันทึก
               </button>
               <button
                 type="button"
-                className="btn btn-danger col-2 col-sm-auto"
+                className="btn btn-danger col-lg-2 col-sm-auto"
                 data-dismiss="modal"
                 onClick={toggleClose}
               >

@@ -1,7 +1,23 @@
+import React, { useState, useEffect } from "react";
+import Https from "../../Https/Index";
+import StockInterface from "../../Interfaces/StockInterface";
 import InsertModal from "./InsertModal";
 import DetailModal from "./DetailModal";
 
 export default function StockLayout() {
+  const [stock, setStock] = useState<StockInterface[]>([]);
+
+  useEffect(() => {
+    Https.get("/apis/stocks/get")
+      .then((res: any) => {
+        setStock(res.data);
+        console.log(res.data);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <div className="card-body">
