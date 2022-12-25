@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const Https = axios.create({
-  baseURL: "https://stock.insurance-panyaintra.com",
-  // baseURL: `${process.env.ENDPOINT_URL}`,
+  baseURL: process.env.REACT_APP_HOST,
   headers: {
     "Content-type": "application/json",
   },
