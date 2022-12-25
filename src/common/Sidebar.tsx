@@ -1,4 +1,10 @@
+import { useContext } from "react";
+import { AppContext } from "../contexts";
+import { PathEnum } from "../enum/path.enum";
+
 export default function SidebarCommon() {
+  const { pathUrl } = useContext(AppContext);
+
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       <div className="sidebar">
@@ -17,7 +23,6 @@ export default function SidebarCommon() {
             </a>
           </div>
         </div>
-        {/* Sidebar Menu */}
         <nav className="mt-2">
           <ul
             className="nav nav-pills nav-sidebar flex-column"
@@ -25,14 +30,24 @@ export default function SidebarCommon() {
             role="menu"
             data-accordion="false"
           >
-            <li className="nav-item menu-open">
-              <a href="/" className="nav-link active">
+            <li className="nav-item">
+              <a
+                href="/"
+                className={`nav-link ${
+                  pathUrl === PathEnum.DASHBOARD ? "active" : ""
+                }`}
+              >
                 <i className="nav-icon fas fa-home" />
                 <p>หน้าเเรก</p>
               </a>
             </li>
             <li className="nav-item">
-              <a href="/stock" className="nav-link">
+              <a
+                href="/stock"
+                className={`nav-link ${
+                  pathUrl === PathEnum.STOCK ? "active" : ""
+                }`}
+              >
                 <i className="nav-icon fas fa-shopping-cart" />
                 <p>คลังสินค้า</p>
               </a>
