@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Https from "../../Https/Index";
-import StockInterface from "../../Interfaces/StockInterface";
+import StockInterface from "../../Models/StockModel";
 import InsertModal from "./InsertModal";
 import DetailModal from "./DetailModal";
 

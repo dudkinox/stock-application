@@ -1,4 +1,10 @@
 import React, { useState } from "react";
+import {
+  MenuEquipmentEnum,
+  MenuByeEnum,
+  MenuKayEnum,
+  MenuInstallmentPaymentEnum,
+} from "../../enum/menuInsert.enum";
 import StockApi from "../../services/StockServices";
 
 export default function InsertModal() {
@@ -7,13 +13,24 @@ export default function InsertModal() {
   const [idCard, setIdCard] = useState("");
   const [customerStatus, setCustomerStatus] = useState("");
   const [stockType, setStockType] = useState("");
+  const [isMenuInsert, setIsMenuInsert] = useState(false);
 
   const toggleShow = () => setShow(true);
   const toggleClose = () => setShow(false);
 
-  const handlerSubmit = (e: any) => {
-    e.preventDefault();
+  if (stockType === "อุปกรณ์") {
+    console.log("aaa");
+  }
 
+  const menuInsert = (stockType: string) => {
+    switch (stockType) {
+      case "อุปกรณ์":
+        setIsMenuInsert(true);
+        break;
+    }
+  };
+
+  const handlerSubmit = () => {
     var data = {
       date: date,
       id_card: idCard,
@@ -21,7 +38,7 @@ export default function InsertModal() {
       stock_type: stockType,
     };
 
-    console.log(date);
+    console.log(data);
     // StockApi.InsertStock(data);
   };
 
@@ -47,7 +64,7 @@ export default function InsertModal() {
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">`${process.env.ENDPOINT_URL}`</h5>
+              <h5 className="modal-title">เพิ่มสต๊อก</h5>
               <button
                 type="button"
                 className="close"
@@ -70,12 +87,8 @@ export default function InsertModal() {
                     <input
                       type="text"
                       className="form-control"
-                      id="datemask"
-                      data-inputmask-alias="datetime"
-                      data-inputmask-inputformat="dd/mm/yyyy"
                       onChange={(e: any) => setDate(e.target.value)}
                       placeholder="dd/mm/yyyy"
-                      data-mask
                     />
                   </div>
                 </div>
@@ -108,6 +121,71 @@ export default function InsertModal() {
                     </datalist>
                   </div>
                 </div>
+                <div className="form-group">
+                  <label className="float-left">ประวัติลูกค้า</label>
+                  <div className="input-group">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text">
+                        <i className="fas fa-history"></i>
+                      </span>
+                    </div>
+                    <select
+                      className="form-control"
+                      onChange={(e: any) => setCustomerStatus(e.target.value)}
+                      placeholder="ประวัติลูกค้า"
+                    >
+                      <option hidden selected>
+                        ประวัติลูกค้า
+                      </option>
+                      <option value="ลูกค้าดี">ลูกค้าดี</option>
+                      <option value="ลูกค้าโกง">ลูกค้าโกง</option>
+                      <option value="ลูกค้าจ่ายช้า">ลูกค้าจ่ายช้า</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label className="float-left">ประเภท</label>
+                  <div className="input-group">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text">
+                        <i className="far fa-file"></i>
+                      </span>
+                    </div>
+                    <select
+                      className="form-control"
+                      onChange={(e: any) => menuInsert(e.target.value)}
+                      placeholder="ประเภทลูกค้า"
+                    >
+                      <option hidden selected>
+                        ประเภท
+                      </option>
+                      <option value="ซื้อ">ซื้อ</option>
+                      <option value="ขาย">ขาย</option>
+                      <option value="ผ่อน">ผ่อน</option>
+                      <option value="อุปกรณ์">อุปกรณ์</option>
+                    </select>
+                  </div>
+                </div>
+                {isMenuInsert && (
+                  <div className="form-group">
+                    <label className="float-left">
+                      {MenuEquipmentEnum.CASES}
+                    </label>
+                    <div className="input-group">
+                      <div className="input-group-prepend">
+                        <span className="input-group-text">
+                          <i className="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control"
+                        onChange={(e: any) => setDate(e.target.value)}
+                        placeholder="dd/mm/yyyy"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             <div className="modal-footer">
