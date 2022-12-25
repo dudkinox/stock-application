@@ -1,8 +1,8 @@
 import Https from "../Https/Index";
-import StockInterface from "../Models/StockModel";
+import {} from "../Models/StockModel";
 
 const InsertStock = (data: any) => {
-  return Https.post<StockInterface>("/apis/stocks/insert", data)
+  return Https.post("/apis/stocks/insert", data)
     .then((res: any) => {
       console.log(res.data);
     })

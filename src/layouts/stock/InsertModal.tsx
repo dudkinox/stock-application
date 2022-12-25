@@ -18,10 +18,6 @@ export default function InsertModal() {
   const toggleShow = () => setShow(true);
   const toggleClose = () => setShow(false);
 
-  if (stockType === "อุปกรณ์") {
-    console.log("aaa");
-  }
-
   const menuInsert = (stockType: string) => {
     switch (stockType) {
       case "อุปกรณ์":
@@ -167,24 +163,134 @@ export default function InsertModal() {
                   </div>
                 </div>
                 {isMenuInsert && (
-                  <div className="form-group">
-                    <label className="float-left">
-                      {MenuEquipmentEnum.CASES}
-                    </label>
-                    <div className="input-group">
-                      <div className="input-group-prepend">
-                        <span className="input-group-text">
-                          <i className="far fa-calendar-alt"></i>
-                        </span>
+                  <>
+                    <div className="form-group">
+                      <label className="float-left">
+                        {MenuEquipmentEnum.CASES}
+                      </label>
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
+                            <i className="fas fa-mobile"></i>
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          className="form-control"
+                          onChange={(e: any) => setDate(e.target.value)}
+                          placeholder="dd/mm/yyyy"
+                        />
                       </div>
-                      <input
-                        type="text"
-                        className="form-control"
-                        onChange={(e: any) => setDate(e.target.value)}
-                        placeholder="dd/mm/yyyy"
-                      />
                     </div>
-                  </div>
+                    <div className="form-group">
+                      <label className="float-left">
+                        {MenuEquipmentEnum.FIRM}
+                      </label>
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
+                            <i className="fas fa-mobile-alt"></i>
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          className="form-control"
+                          onChange={(e: any) => setDate(e.target.value)}
+                          placeholder="dd/mm/yyyy"
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="float-left">
+                        {MenuEquipmentEnum.LEN}
+                      </label>
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
+                            <i className="fas fa-camera"></i>
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          className="form-control"
+                          onChange={(e: any) => setDate(e.target.value)}
+                          placeholder="dd/mm/yyyy"
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="float-left">
+                        {MenuEquipmentEnum.BIG_CHARGE}
+                      </label>
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
+                            <i className="fas fa-charging-station"></i>
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          className="form-control"
+                          onChange={(e: any) => setDate(e.target.value)}
+                          placeholder="dd/mm/yyyy"
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="float-left">
+                        {MenuEquipmentEnum.CHARGE}
+                      </label>
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
+                            <i className="fas fa-plug"></i>
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          className="form-control"
+                          onChange={(e: any) => setDate(e.target.value)}
+                          placeholder="dd/mm/yyyy"
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="float-left">
+                        {MenuEquipmentEnum.REPAIR}
+                      </label>
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
+                            <i className="fas fa-tools"></i>
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          className="form-control"
+                          onChange={(e: any) => setDate(e.target.value)}
+                          placeholder="dd/mm/yyyy"
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="float-left">
+                        {MenuEquipmentEnum.SUM}
+                      </label>
+                      <div className="input-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
+                            <i className="fas fa-money-bill"></i>
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          className="form-control"
+                          onChange={(e: any) => setDate(e.target.value)}
+                          placeholder="dd/mm/yyyy"
+                        />
+                      </div>
+                    </div>
+                  </>
                 )}
               </div>
             </div>

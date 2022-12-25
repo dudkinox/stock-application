@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Https from "../../Https/Index";
-import StockInterface from "../../Models/StockModel";
+import {} from "../../Models/StockModel";
 import InsertModal from "./InsertModal";
 import DetailModal from "./DetailModal";
 
 export default function StockLayout() {
-  const [stock, setStock] = useState<StockInterface[]>([]);
+  const [stock, setStock] = useState([]);
 
   useEffect(() => {
     Https.get("/apis/stocks/get")
