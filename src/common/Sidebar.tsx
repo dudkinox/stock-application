@@ -5,14 +5,15 @@ export default function SidebarCommon() {
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="image">
             <img
-              src="dist/img/user2-160x160.jpg"
+              src="https://img.icons8.com/color/48/null/admin-settings-male.png"
               className="img-circle elevation-2"
+              aria-hidden="true"
               alt="User Image"
             />
           </div>
           <div className="info">
-            <a href="#" className="d-block">
-              Alexander Pierce
+            <a href="#admin" className="d-block">
+              Admin
             </a>
           </div>
         </div>

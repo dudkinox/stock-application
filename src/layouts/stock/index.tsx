@@ -23,7 +23,7 @@ export default function StockLayout() {
       <div className="card-body">
         <table
           id="stockTable"
-          className="table table-bordered table-hover dtr-inline collapsed"
+          className="table table-bordered table-hover dtr-inline collapsed w-100"
         >
           <thead>
             <tr className="text-center">
