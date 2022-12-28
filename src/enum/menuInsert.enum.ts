@@ -18,7 +18,7 @@ export enum MenuByeEnum {
 
 export enum MenuKayEnum {
   CUSTOMER = "ชื่อลุกค้า",
-  TEL = "ราคา",
+  TEL = "เบอร์โทร",
   VERSION = "รุ่น",
   IMEI = "Imei เครื่อง",
   STAR_MONEY = "เงินดาวน์",
@@ -28,6 +28,6 @@ export enum MenuKayEnum {
 }
 
 export enum MenuInstallmentPaymentEnum {
-  INSTALLMENT_NO = "งวดที่'",
+  INSTALLMENT_NO = "งวดที่",
   PRICE_TOTAL = "จำนวนเงิน",
 }

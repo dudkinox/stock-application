@@ -1,11 +1,11 @@
 export interface StockEquipmentRequest {
-  cases: string;
-  firm: string;
-  len: string;
-  big_charge: string;
-  charge: string;
-  repair: string;
-  sum: string;
+  cases: number;
+  firm: number;
+  len: number;
+  big_charge: number;
+  charge: number;
+  repair: number;
+  sum: number;
 }
 
 export interface StockByeRequest {
@@ -27,7 +27,7 @@ export interface StockKayRequest {
   date_payment: string;
 }
 
-export interface StockKayRequest {
+export interface StockInstallmentRequest {
   installment_no: string;
   price_total: string;
 }
