@@ -81,6 +81,7 @@ export default function InsertModal() {
         FIRM: firm,
         LEN: len,
         Big_Charge: bigCharge,
+        CHARGE: charge,
         REPAIR: repair,
         SUM: sum,
       };
