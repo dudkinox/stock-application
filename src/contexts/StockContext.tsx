@@ -1,4 +1,9 @@
 import { createContext, ReactNode, useMemo, useState } from "react";
+import { camelToSnakeObject } from "../common/CamelToSnake";
+import StockRequest, {
+  StockEquipmentRequest,
+} from "../Models/Request/StockRequest";
+import StockApi from "../services/StockServices";
 
 interface StockContextProps {
   show: boolean;
@@ -12,13 +17,13 @@ interface StockContextProps {
   toggleClose: () => void;
   setIdCard: (value: string) => void;
   setCustomerStatus: (value: string) => void;
-  setCases: (value: string) => void;
-  setFirm: (value: string) => void;
-  setLen: (value: string) => void;
-  setBigCharge: (value: string) => void;
-  setCharge: (value: string) => void;
-  setRepair: (value: string) => void;
-  setSum: (value: string) => void;
+  setCases: (value: number | string) => void;
+  setFirm: (value: number | string) => void;
+  setLen: (value: number | string) => void;
+  setBigCharge: (value: number | string) => void;
+  setCharge: (value: number | string) => void;
+  setRepair: (value: number | string) => void;
+  setSum: (value: number | string) => void;
   setVersion: (value: string) => void;
   setPrice: (value: string) => void;
   setImei: (value: string) => void;
@@ -35,6 +40,7 @@ interface StockContextProps {
   menuInsert: (stockType: string) => void;
   setShow: (value: boolean) => void;
   stockType: string;
+  setStockType: (value: string) => void;
 }
 
 export const StockContext = createContext<StockContextProps>({
@@ -49,13 +55,13 @@ export const StockContext = createContext<StockContextProps>({
   toggleClose: () => {},
   setIdCard: (value: string) => {},
   setCustomerStatus: (value: string) => {},
-  setCases: (value: string) => {},
-  setFirm: (value: string) => {},
-  setLen: (value: string) => {},
-  setBigCharge: (value: string) => {},
-  setCharge: (value: string) => {},
-  setRepair: (value: string) => {},
-  setSum: (value: string) => {},
+  setCases: (value: number | string) => {},
+  setFirm: (value: number | string) => {},
+  setLen: (value: number | string) => {},
+  setBigCharge: (value: number | string) => {},
+  setCharge: (value: number | string) => {},
+  setRepair: (value: number | string) => {},
+  setSum: (value: number | string) => {},
   setVersion: (value: string) => {},
   setPrice: (value: string) => {},
   setImei: (value: string) => {},
@@ -72,6 +78,7 @@ export const StockContext = createContext<StockContextProps>({
   menuInsert: (stockType: string) => {},
   setShow: (value: boolean) => {},
   stockType: "",
+  setStockType: (value: string) => {},
 });
 
 interface ChildrenProps {
@@ -88,13 +95,13 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [idCard, setIdCard] = useState("");
   const [customerStatus, setCustomerStatus] = useState("");
   const [stockType, setStockType] = useState("");
-  const [cases, setCases] = useState("");
-  const [firm, setFirm] = useState("");
-  const [len, setLen] = useState("");
-  const [bigCharge, setBigCharge] = useState("");
-  const [charge, setCharge] = useState("");
-  const [repair, setRepair] = useState("");
-  const [sum, setSum] = useState("");
+  const [cases, setCases] = useState<number | string>(0);
+  const [firm, setFirm] = useState<number | string>(0);
+  const [len, setLen] = useState<number | string>(0);
+  const [bigCharge, setBigCharge] = useState<number | string>(0);
+  const [charge, setCharge] = useState<number | string>(0);
+  const [repair, setRepair] = useState<number | string>(0);
+  const [sum, setSum] = useState<number | string>(0);
   const [version, setVersion] = useState("");
   const [price, setPrice] = useState("");
   const [imei, setImei] = useState("");
@@ -146,22 +153,33 @@ export function StockContextProvider({ children }: ChildrenProps) {
 
   const handlerSubmit = useMemo(
     () => () => {
+      const baseInsert: StockRequest = {
+        date,
+        idCard,
+        customerStatus,
+        stockType,
+      };
+
       if (stockType === "อุปกรณ์") {
-        let data = {
-          DATE: date,
-          ID_CARD: idCard,
-          CUSTOMER_STATUS: customerStatus,
-          STOCK_TYPE: stockType,
-          CASES: cases,
-          FIRM: firm,
-          LEN: len,
-          Big_Charge: bigCharge,
-          CHARGE: charge,
-          REPAIR: repair,
-          SUM: sum,
+        const equipment: StockEquipmentRequest = {
+          ...baseInsert,
+          cases: Number(cases),
+          firm: Number(firm),
+          len: Number(len),
+          bigCharge: Number(bigCharge),
+          charge: Number(charge),
+          repair: Number(repair),
+          sum: Number(sum),
         };
 
-        console.log(data);
+        StockApi.InsertStock(camelToSnakeObject(equipment))
+          .then((res) => {
+            alert(res.data.message);
+          })
+          .catch((err) => {
+            alert("บันทึกข้อมูลไม่สำเร็จ");
+            alert(err);
+          });
       } else if (stockType === "ซื้อ") {
         let data = {
           DATE: date,
@@ -271,6 +289,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
       menuInsert,
       setShow,
       stockType,
+      setStockType,
     }),
     [
       show,
@@ -307,6 +326,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
       menuInsert,
       setShow,
       stockType,
+      setStockType,
     ]
   );
 

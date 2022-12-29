@@ -21,10 +21,16 @@ export default function InsertModal() {
     toggleClose,
     setIdCard,
     menuInsert,
+    setStockType,
   } = useContext(StockContext);
   function setCustomerStatus(value: string): void {
     throw new Error("Function not implemented.");
   }
+
+  const SelectStockType = (value: string) => {
+    setStockType(value);
+    menuInsert(value);
+  };
 
   return (
     <>
@@ -86,7 +92,7 @@ export default function InsertModal() {
                 />
                 <SelectChoice
                   label={"ประเภท"}
-                  setValue={menuInsert}
+                  setValue={SelectStockType}
                   icon={"far fa-file"}
                   topic={"ประเภท"}
                   options={["ซื้อ", "ขาย", "ผ่อน", "อุปกรณ์"]}
