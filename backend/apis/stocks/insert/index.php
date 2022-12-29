@@ -10,7 +10,7 @@ $requestBody = json_decode(file_get_contents('php://input'), true);
 $date = $requestBody["date"] ?? '';
 $idCard = $requestBody["id_card"] ?? '';
 $customerStatus = $requestBody["customer_status"] ?? '';
-$type = $requestBody["id_card"] ?? '';
+$type = $requestBody["stock_type"] ?? '';
 
 $query = "INSERT INTO stock (`DATE`, 
                                 ID_CARD, 
