@@ -5,10 +5,12 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header('Content-Type: application/json; charset=utf-8');
 require('../../../client/index.php');
 
-$date = isset($_POST['date']) ? $_POST['date'] : '';
-$idCard = isset($_POST['id_card']) ? $_POST['id_card'] : '';
-$customerStatus = isset($_POST['customer_status']) ? $_POST['customer_status'] : '';
-$type = isset($_POST['stock_type']) ? $_POST['stock_type'] : '';
+$requestBody = json_decode(file_get_contents('php://input'), true);
+
+$date = $requestBody["date"] ?? '';
+$idCard = $requestBody["id_card"] ?? '';
+$customerStatus = $requestBody["customer_status"] ?? '';
+$type = $requestBody["id_card"] ?? '';
 
 $query = "INSERT INTO stock (`DATE`, 
                                 ID_CARD, 
@@ -23,13 +25,13 @@ $insert = "";
 
 switch ($type) {
         case 'อุปกรณ์':
-                $cases = isset($_POST['cases']) ? $_POST['cases'] : '';
-                $firm = isset($_POST['firm']) ? $_POST['firm'] : '';
-                $len = isset($_POST['len']) ? $_POST['len'] : '';
-                $bigCharge = isset($_POST['big_charge']) ? $_POST['big_charge'] : '';
-                $charge = isset($_POST['charge']) ? $_POST['charge'] : '';
-                $repair = isset($_POST['repair']) ? $_POST['repair'] : '';
-                $sum = isset($_POST['sum']) ? $_POST['sum'] : '';
+                $cases = $requestBody["cases"] ?? 0;
+                $firm = $requestBody["firm"] ?? 0;
+                $len = $requestBody["len"] ?? 0;
+                $bigCharge = $requestBody["big_charge"] ?? 0;
+                $charge = $requestBody["charge"] ?? 0;
+                $repair = $requestBody["repair"] ?? 0;
+                $sum = $requestBody["sum"] ?? 0;
 
                 $insert = "INSERT INTO equipment(ID_CARD, 
                                                 CASES, 
@@ -49,11 +51,11 @@ switch ($type) {
                         '" . $sum . "')";
                 break;
         case 'ซื้อ':
-                $version = isset($_POST['version']) ? $_POST['version'] : '';
-                $price = isset($_POST['price']) ? $_POST['price'] : '';
-                $imei = isset($_POST['imei']) ? $_POST['imei'] : '';
-                $source = isset($_POST['source']) ? $_POST['source'] : '';
-                $battery = isset($_POST['battery']) ? $_POST['battery'] : '';
+                $version = $requestBody["version"] ?? '';
+                $price = $requestBody["price"] ?? 0;
+                $imei = $requestBody["imei"] ?? '';
+                $source = $requestBody["source"] ?? '';
+                $battery = $requestBody["battery"] ?? '';
 
                 $insert = "INSERT INTO bye (ID_CARD, 
                                         `VERSION`, 
@@ -69,14 +71,14 @@ switch ($type) {
                         '" . $battery . "')";
                 break;
         case 'ขาย':
-                $customer = isset($_POST['customer']) ? $_POST['customer'] : '';
-                $tel = isset($_POST['tel']) ? $_POST['tel'] : '';
-                $version = isset($_POST['version']) ? $_POST['version'] : '';
-                $imei = isset($_POST['imei']) ? $_POST['imei'] : '';
-                $starMoney = isset($_POST['star_money']) ? $_POST['star_money'] : '';
-                $month = isset($_POST['month']) ? $_POST['month'] : '';
-                $installment = isset($_POST['installment']) ? $_POST['installment'] : '';
-                $datePayment = isset($_POST['date_payment']) ? $_POST['date_payment'] : '';
+                $customer = $requestBody["customer"] ?? '';
+                $tel = $requestBody["tel"] ?? '';
+                $version = $requestBody["version"] ?? '';
+                $imei = $requestBody["imei"] ?? '';
+                $starMoney = $requestBody["star_money"] ?? 0;
+                $month = $requestBody["month"] ?? 0;
+                $installment = $requestBody["installment"] ?? 0;
+                $datePayment = $requestBody["date_payment"] ?? '';
 
                 $insert = "INSERT INTO kay ( 
                                         ID_CARD, 
@@ -99,8 +101,8 @@ switch ($type) {
                                 '" . $datePayment . "');";
                 break;
         case 'ผ่อน':
-                $installmentNo = isset($_POST['installment_no']) ? $_POST['installment_no'] : '';
-                $priceTotal = isset($_POST['price_total']) ? $_POST['price_total'] : '';
+                $installmentNo = $requestBody["installment_no"] ?? 0;
+                $priceTotal = $requestBody["price_total"] ?? 0;
 
                 $insert = "INSERT INTO installment_payment (
                                         ID_CARD
