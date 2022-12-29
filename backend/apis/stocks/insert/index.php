@@ -123,6 +123,6 @@ if ($conn->query($query) === TRUE && $conn->query($insert) === TRUE) {
             \"code\": \"000\" }";
 } else {
         echo "{ \"status\": \"error\",
-            \"message\": \"เพิ่มข้อมูลไม่สำเร็จ\",
+            \"message\": \"Error: " . $sql . "<br>" . $conn->error . "\",
             \"code\": \"001\" }";
 }
