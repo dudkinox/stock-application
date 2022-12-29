@@ -1,14 +1,8 @@
 import Https from "../Https/Index";
-import {} from "../Models/StockModel";
+import { InsertStockResponse } from "../Models/Response/InsertStockResponse";
 
-const InsertStock = (data: any) => {
-  return Https.post("/apis/stocks/insert", data)
-    .then((res: any) => {
-      console.log(res.data);
-    })
-    .catch((err: any) => {
-      console.log(err);
-    });
+const InsertStock = (payload: any) => {
+  return Https.post<InsertStockResponse>("/apis/stocks/insert", payload);
 };
 
 const StockApi = { InsertStock };
