@@ -111,7 +111,7 @@ switch ($type) {
                                         '" . $priceTotal . "');";
         default:
                 echo "{ \"status\": \"error\",
-                        \"message\": \"เพิ่มข้อมูลไม่สำเร็จ\",
+                        \"message\": \"เพิ่มข้อมูลไม่สำเร็จ ส่งค่าผิด\",
                         \"code\": \"001\" }";
                 exit;
                 break;
