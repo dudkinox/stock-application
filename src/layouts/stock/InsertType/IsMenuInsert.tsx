@@ -21,56 +21,63 @@ export default function IsMenuInsert() {
         icon={"fas fa-mobile"}
         setValue={setCases}
         type={"number"}
-        placeholder={"เคส"}
+        min={0}
         minLength={0}
+        placeholder={"เคส"}
       />
       <TextInput
         label={MenuEquipmentEnum.FIRM}
         icon={"fas fa-mobile-alt"}
         setValue={setFirm}
         type={"number"}
-        placeholder={"ฟิล์ม"}
+        min={0}
         minLength={0}
+        placeholder={"ฟิล์ม"}
       />
       <TextInput
         label={MenuEquipmentEnum.LEN}
         icon={"fas fa-camera"}
         setValue={setLen}
         type={"number"}
-        placeholder={"กันเลนส์"}
+        min={0}
         minLength={0}
+        placeholder={"กันเลนส์"}
       />
       <TextInput
         label={MenuEquipmentEnum.BIG_CHARGE}
         icon={"fas fa-charging-station"}
         setValue={setBigCharge}
         type={"number"}
-        placeholder={"หัวชาร์จใหญ่"}
+        min={0}
         minLength={0}
+        placeholder={"หัวชาร์จใหญ่"}
       />
       <TextInput
         label={MenuEquipmentEnum.CHARGE}
         icon={"fas fa-plug"}
         setValue={setCharge}
         type={"number"}
-        placeholder={"สายชาร์จ"}
+        min={0}
         minLength={0}
+        placeholder={"สายชาร์จ"}
       />
       <TextInput
         label={MenuEquipmentEnum.REPAIR}
         icon={"fas fa-tools"}
         setValue={setRepair}
         type={"number"}
-        placeholder={"ซ่อม"}
+        min={0}
         minLength={0}
+        placeholder={"ซ่อม"}
       />
       <TextInput
         label={MenuEquipmentEnum.SUM}
         icon={"fas fa-money-bill"}
         setValue={setSum}
         type={"number"}
-        placeholder={"ราคา"}
+        min={0}
         minLength={0}
+        placeholder={"ราคา"}
       />
     </>
   );

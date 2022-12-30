@@ -2,6 +2,9 @@ import { createContext, ReactNode, useMemo, useState } from "react";
 import { camelToSnakeObject } from "../common/CamelToSnake";
 import StockRequest, {
   StockEquipmentRequest,
+  StockByeRequest,
+  StockKayRequest,
+  StockInstallmentPaymentRequest,
 } from "../Models/Request/StockRequest";
 import StockApi from "../services/StockServices";
 
@@ -69,12 +72,12 @@ export const StockContext = createContext<StockContextProps>({
   setBattery: (value: string) => {},
   setCustomer: (value: string) => {},
   setTel: (value: string) => {},
-  setStarMoney: (value: string) => {},
-  setMonth: (value: string) => {},
-  setInstallment: (value: string) => {},
+  setStarMoney: (value: number | string) => {},
+  setMonth: (value: number | string) => {},
+  setInstallment: (value: number | string) => {},
   setDatePayment: (value: string) => {},
   setInstallmentNo: (value: string) => {},
-  setPriceTotal: (value: string) => {},
+  setPriceTotal: (value: number | string) => {},
   menuInsert: (stockType: string) => {},
   setShow: (value: boolean) => {},
   stockType: "",
@@ -92,8 +95,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [kayMenuInsert, setKayMenuInsert] = useState(false);
   const [installmentMenuInsert, setInstallmentMenuInsert] = useState(false);
   const [date, setDate] = useState<string>("");
-  const [idCard, setIdCard] = useState("");
-  const [customerStatus, setCustomerStatus] = useState("");
+  const [idCard, setIdCard] = useState<string>("");
+  const [customerStatus, setCustomerStatus] = useState<string>("");
   const [stockType, setStockType] = useState("");
   const [cases, setCases] = useState<number | string>(0);
   const [firm, setFirm] = useState<number | string>(0);
@@ -102,19 +105,19 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [charge, setCharge] = useState<number | string>(0);
   const [repair, setRepair] = useState<number | string>(0);
   const [sum, setSum] = useState<number | string>(0);
-  const [version, setVersion] = useState("");
-  const [price, setPrice] = useState("");
-  const [imei, setImei] = useState("");
-  const [source, setSource] = useState("");
-  const [battery, setBattery] = useState("");
-  const [customer, setCustomer] = useState("");
-  const [tel, setTel] = useState("");
-  const [starMoney, setStarMoney] = useState("");
-  const [month, setMonth] = useState("");
-  const [installment, setInstallment] = useState("");
-  const [datePayment, setDatePayment] = useState("");
-  const [installmentNo, setInstallmentNo] = useState("");
-  const [priceTotal, setPriceTotal] = useState("");
+  const [version, setVersion] = useState<string>("");
+  const [price, setPrice] = useState<number | string>(0);
+  const [imei, setImei] = useState<string>("");
+  const [source, setSource] = useState<string>("");
+  const [battery, setBattery] = useState<string>("");
+  const [customer, setCustomer] = useState<string>("");
+  const [tel, setTel] = useState<string>("");
+  const [starMoney, setStarMoney] = useState<number | string>(0);
+  const [month, setMonth] = useState<number | string>(0);
+  const [installment, setInstallment] = useState<number | string>(0);
+  const [datePayment, setDatePayment] = useState<string>("");
+  const [installmentNo, setInstallmentNo] = useState<number | string>(0);
+  const [priceTotal, setPriceTotal] = useState<number | string>(0);
 
   const toggleShow = useMemo(() => () => setShow(true), []);
   const toggleClose = useMemo(() => () => setShow(false), []);
@@ -172,56 +175,40 @@ export function StockContextProvider({ children }: ChildrenProps) {
           sum: Number(sum),
         };
 
-        StockApi.InsertStock(camelToSnakeObject(equipment))
-          .then((res) => {
-            alert(res.data.message);
-          })
-          .catch((err) => {
-            alert("บันทึกข้อมูลไม่สำเร็จ");
-            alert(err);
-          });
+        StockApi.InsertStock(camelToSnakeObject(equipment));
       } else if (stockType === "ซื้อ") {
-        let data = {
-          DATE: date,
-          ID_CARD: idCard,
-          CUSTOMER_STATUS: customerStatus,
-          STOCK_TYPE: stockType,
-          VERSION: version,
-          PRICE: price,
-          IMEI: imei,
-          SOURCE: source,
-          BATTERY: battery,
+        const bye: StockByeRequest = {
+          ...baseInsert,
+          version: version,
+          price: Number(price),
+          imei: imei,
+          source: source,
+          battery: battery,
         };
 
-        console.log(data);
+        console.log(bye);
       } else if (stockType === "ขาย") {
-        let data = {
-          date: date,
-          id_card: idCard,
-          CUSTOMER_STATUS: customerStatus,
-          stock_type: stockType,
-          CUSTOMER: customer,
-          TEL: tel,
-          VERSION: version,
-          IMEI: imei,
-          START_MONEY: starMoney,
-          MONTH: month,
-          INSTALLMENT: installment,
-          DATE_PAYMENT: datePayment,
+        const kay: StockKayRequest = {
+          ...baseInsert,
+          customer: customer,
+          tel: tel,
+          version: version,
+          imei: imei,
+          starMoney: starMoney,
+          month: month,
+          installment: installment,
+          datePayment: datePayment,
         };
 
-        console.log(data);
+        console.log(kay);
       } else {
-        let data = {
-          DATE: date,
-          ID_CARD: idCard,
-          CUSTOMER_STATUS: customerStatus,
-          STOCK_TYPE: stockType,
-          INSTALLMENT_NO: installmentNo,
-          PRICE_TOTAL: priceTotal,
+        const installmentPayment: StockInstallmentPaymentRequest = {
+          ...baseInsert,
+          installmentNo: Number(installmentNo),
+          priceTotal: Number(priceTotal),
         };
 
-        console.log(data);
+        console.log(installmentPayment);
       }
       console.log(stockType);
     },

@@ -88,9 +88,10 @@ export default function KayMenuInsert() {
             </span>
           </div>
           <input
-            type="text"
+            type="number"
             className="form-control"
             onChange={(e: any) => setStarMoney(e.target.value)}
+            min={0}
             placeholder="เงินดาวน์"
           />
         </div>
@@ -104,9 +105,10 @@ export default function KayMenuInsert() {
             </span>
           </div>
           <input
-            type="text"
+            type="number"
             className="form-control"
             onChange={(e: any) => setMonth(e.target.value)}
+            min={0}
             placeholder="จำนวนเดือนที่ผ่อน"
           />
         </div>
@@ -120,9 +122,10 @@ export default function KayMenuInsert() {
             </span>
           </div>
           <input
-            type="text"
+            type="number"
             className="form-control"
             onChange={(e: any) => setInstallment(e.target.value)}
+            min={0}
             placeholder="เดือนละ"
           />
         </div>

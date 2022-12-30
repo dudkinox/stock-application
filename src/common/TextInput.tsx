@@ -4,6 +4,7 @@ interface TextInputProps {
   placeholder?: string;
   type: string;
   icon: string;
+  min?: number;
   maxLength?: number;
   minLength?: number;
 }
@@ -14,6 +15,7 @@ export default function TextInput({
   placeholder,
   type,
   icon,
+  min,
   maxLength,
   minLength,
 }: TextInputProps) {
@@ -31,6 +33,7 @@ export default function TextInput({
           className="form-control"
           maxLength={maxLength}
           minLength={minLength}
+          min={min}
           onChange={(e: any) => setValue(e.target.value)}
           placeholder={placeholder}
         />
