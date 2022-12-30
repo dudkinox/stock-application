@@ -17,9 +17,10 @@ export default function ByeMenuInsert() {
       />
       <TextInput
         label={MenuByeEnum.PRICE}
+        type={"number"}
         icon={"fas fa-money-bill"}
         setValue={setPrice}
-        type={"text"}
+        min={0}
         placeholder={"ราคา"}
       />
       <TextInput

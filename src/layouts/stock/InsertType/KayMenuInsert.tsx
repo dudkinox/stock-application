@@ -40,9 +40,11 @@ export default function KayMenuInsert() {
             </span>
           </div>
           <input
-            type="text"
+            type="tel"
             className="form-control"
             onChange={(e: any) => setTel(e.target.value)}
+            minLength={10}
+            maxLength={10}
             placeholder="เบอร์โทร"
           />
         </div>

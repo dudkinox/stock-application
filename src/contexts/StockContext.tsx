@@ -186,7 +186,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
           battery: battery,
         };
 
-        console.log(bye);
+        console.log(camelToSnakeObject(bye));
       } else if (stockType === "ขาย") {
         const kay: StockKayRequest = {
           ...baseInsert,
@@ -200,7 +200,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
           datePayment: datePayment,
         };
 
-        console.log(kay);
+        console.log(camelToSnakeObject(kay));
       } else {
         const installmentPayment: StockInstallmentPaymentRequest = {
           ...baseInsert,
@@ -208,9 +208,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
           priceTotal: Number(priceTotal),
         };
 
-        console.log(installmentPayment);
+        console.log(camelToSnakeObject(installmentPayment));
       }
-      console.log(stockType);
     },
     [
       battery,
