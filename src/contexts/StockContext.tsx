@@ -163,6 +163,16 @@ export function StockContextProvider({ children }: ChildrenProps) {
         stockType,
       };
 
+      var baseParams =
+        "?date=" +
+        baseInsert.date +
+        "&id_card=" +
+        baseInsert.idCard +
+        "&customer_status=" +
+        baseInsert.customerStatus +
+        "&stock_type=" +
+        baseInsert.stockType;
+
       if (stockType === "อุปกรณ์") {
         const equipment: StockEquipmentRequest = {
           ...baseInsert,
@@ -175,7 +185,30 @@ export function StockContextProvider({ children }: ChildrenProps) {
           sum: Number(sum),
         };
 
-        StockApi.InsertStock(camelToSnakeObject(equipment));
+        const params =
+          baseParams +
+          "&cases=" +
+          equipment.cases +
+          "&firm=" +
+          equipment.firm +
+          "&len=" +
+          equipment.len +
+          "&big_charge=" +
+          equipment.bigCharge +
+          "&charge=" +
+          equipment.charge +
+          "&repair=" +
+          equipment.repair +
+          "&sum=" +
+          equipment.sum;
+
+        StockApi.InsertStock(params)
+          .then((res) => {
+            alert(res.data.message);
+          })
+          .catch((err) => {
+            alert(err.response.data.message);
+          });
       } else if (stockType === "ซื้อ") {
         const bye: StockByeRequest = {
           ...baseInsert,
