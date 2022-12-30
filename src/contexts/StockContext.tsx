@@ -219,7 +219,26 @@ export function StockContextProvider({ children }: ChildrenProps) {
           battery: battery,
         };
 
-        console.log(camelToSnakeObject(bye));
+        const params =
+          baseParams +
+          "&version=" +
+          bye.version +
+          "&price=" +
+          bye.price +
+          "&imei=" +
+          bye.imei +
+          "&source=" +
+          bye.source +
+          "&battery=" +
+          bye.battery;
+
+        StockApi.InsertStock(params)
+          .then((res) => {
+            alert(res.data.message);
+          })
+          .catch((err) => {
+            alert(err.response.data.message);
+          });
       } else if (stockType === "ขาย") {
         const kay: StockKayRequest = {
           ...baseInsert,
@@ -233,7 +252,30 @@ export function StockContextProvider({ children }: ChildrenProps) {
           datePayment: datePayment,
         };
 
-        console.log(camelToSnakeObject(kay));
+        const params =
+          baseParams +
+          "&customer=" +
+          kay.customer +
+          "&tel=" +
+          kay.tel +
+          "&version=" +
+          kay.imei +
+          "&start_money=" +
+          kay.starMoney +
+          "&month=" +
+          kay.month +
+          "&installment=" +
+          kay.installment +
+          "&date_payment=" +
+          kay.datePayment;
+
+        StockApi.InsertStock(params)
+          .then((res) => {
+            alert(res.data.message);
+          })
+          .catch((err) => {
+            alert(err.response.data.message);
+          });
       } else {
         const installmentPayment: StockInstallmentPaymentRequest = {
           ...baseInsert,
@@ -241,7 +283,20 @@ export function StockContextProvider({ children }: ChildrenProps) {
           priceTotal: Number(priceTotal),
         };
 
-        console.log(camelToSnakeObject(installmentPayment));
+        const params =
+          baseParams +
+          "&installment_no=" +
+          installmentPayment.installmentNo +
+          "&price_total" +
+          installmentPayment.priceTotal;
+
+        StockApi.InsertStock(params)
+          .then((res) => {
+            alert(res.data.message);
+          })
+          .catch((err) => {
+            alert(err.response.data.message);
+          });
       }
     },
     [
