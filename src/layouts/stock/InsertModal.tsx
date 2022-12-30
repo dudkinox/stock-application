@@ -22,10 +22,8 @@ export default function InsertModal() {
     setIdCard,
     menuInsert,
     setStockType,
+    setCustomerStatus,
   } = useContext(StockContext);
-  function setCustomerStatus(value: string): void {
-    throw new Error("Function not implemented.");
-  }
 
   const SelectStockType = (value: string) => {
     setStockType(value);
