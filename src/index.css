@@ -20,4 +20,14 @@ a {
   background-color: #e91d63 !important;
   border-color: #e91d63 !important;
   box-shadow: none;
+  color: rgb(255, 255, 255) !important;
+}
+
+a.nav-link.active {
+  color: #fff !important;
+}
+
+.dark-mode .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
+.dark-mode .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+  background-color: #d11b59;
 }

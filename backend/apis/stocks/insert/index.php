@@ -1,18 +1,11 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 header('Content-Type: application/json; charset=utf-8');
-header("Access-Control-Allow-Credentials: true");
-// header("Access-Control-Allow-Headers: X-Custom-Header");
 require('../../../client/index.php');
 
-$requestBody = json_decode(file_get_contents('php://input'), true);
-
-$date = $requestBody["date"] ?? '';
-$idCard = $requestBody["id_card"] ?? '';
-$customerStatus = $requestBody["customer_status"] ?? '';
-$type = $requestBody["stock_type"] ?? '';
+$date = isset($_GET["date"]) ? $_GET["date"] : '';
+$idCard = isset($_GET["id_card"]) ? $_GET["id_card"] : '';
+$customerStatus = isset($_GET["customer_status"]) ? $_GET["customer_status"] : '';
+$type = isset($_GET["stock_type"]) ? $_GET["stock_type"] : '';
 
 $query = "INSERT INTO stock (`DATE`, 
                                 ID_CARD, 
@@ -27,13 +20,13 @@ $insert = "";
 
 switch ($type) {
         case 'อุปกรณ์':
-                $cases = $requestBody["cases"] ?? 0;
-                $firm = $requestBody["firm"] ?? 0;
-                $len = $requestBody["len"] ?? 0;
-                $bigCharge = $requestBody["big_charge"] ?? 0;
-                $charge = $requestBody["charge"] ?? 0;
-                $repair = $requestBody["repair"] ?? 0;
-                $sum = $requestBody["sum"] ?? 0;
+                $cases = isset($_GET["cases"]) ? $_GET["cases"] : 0;
+                $firm = isset($_GET["firm"]) ? $_GET["firm"] : 0;
+                $len = isset($_GET["len"]) ? $_GET["len"] : 0;
+                $bigCharge = isset($_GET["big_charge"]) ? $_GET["big_charge"] : 0;
+                $charge = isset($_GET["charge"]) ? $_GET["charge"] : 0;
+                $repair = isset($_GET["repair"]) ? $_GET["repair"] : 0;
+                $sum = isset($_GET["sum"]) ? $_GET["sum"] : 0;
 
                 $insert = "INSERT INTO equipment(ID_CARD, 
                                                 CASES, 
@@ -53,11 +46,11 @@ switch ($type) {
                         '" . $sum . "')";
                 break;
         case 'ซื้อ':
-                $version = $requestBody["version"] ?? '';
-                $price = $requestBody["price"] ?? 0;
-                $imei = $requestBody["imei"] ?? '';
-                $source = $requestBody["source"] ?? '';
-                $battery = $requestBody["battery"] ?? '';
+                $version = isset($_GET["version"]) ? $_GET["version"] : '';
+                $price = isset($_GET["price"]) ? $_GET["price"] : 0;
+                $imei = isset($_GET["imei"]) ? $_GET["imei"] : '';
+                $source = isset($_GET["source"]) ? $_GET["source"] : '';
+                $battery = isset($_GET["battery"]) ? $_GET["battery"] : '';
 
                 $insert = "INSERT INTO bye (ID_CARD, 
                                         `VERSION`, 
@@ -73,14 +66,14 @@ switch ($type) {
                         '" . $battery . "')";
                 break;
         case 'ขาย':
-                $customer = $requestBody["customer"] ?? '';
-                $tel = $requestBody["tel"] ?? '';
-                $version = $requestBody["version"] ?? '';
-                $imei = $requestBody["imei"] ?? '';
-                $starMoney = $requestBody["star_money"] ?? 0;
-                $month = $requestBody["month"] ?? 0;
-                $installment = $requestBody["installment"] ?? 0;
-                $datePayment = $requestBody["date_payment"] ?? '';
+                $customer = isset($_GET["customer"]) ? $_GET["customer"] : '';
+                $tel = isset($_GET["tel"]) ? $_GET["tel"] : '';
+                $version = isset($_GET["version"]) ? $_GET["version"] : '';
+                $imei = isset($_GET["imei"]) ? $_GET["imei"] : '';
+                $starMoney = isset($_GET["star_money"]) ? $_GET["star_money"] : 0;
+                $month = isset($_GET["month"]) ? $_GET["month"] : 0;
+                $installment = isset($_GET["installment"]) ? $_GET["installment"] : 0;
+                $datePayment = isset($_GET["date_payment"]) ? $_GET["date_payment"] : '';
 
                 $insert = "INSERT INTO kay ( 
                                         ID_CARD, 
@@ -103,8 +96,8 @@ switch ($type) {
                                 '" . $datePayment . "');";
                 break;
         case 'ผ่อน':
-                $installmentNo = $requestBody["installment_no"] ?? 0;
-                $priceTotal = $requestBody["price_total"] ?? 0;
+                $installmentNo = isset($_GET["installment_no"]) ? $_GET["installment_no"] : 0;
+                $priceTotal = isset($_GET["price_total"]) ? $_GET["price_total"] : 0;
 
                 $insert = "INSERT INTO installment_payment (
                                         ID_CARD

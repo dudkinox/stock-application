@@ -1,21 +1,11 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, ReactNode, useMemo, useState } from "react";
 
 interface AppContextProps {
-  message: number;
-  setMessage: (message: number) => void;
-  click: () => void;
+  pathUrl: string;
 }
 
 export const AppContext = createContext<AppContextProps>({
-  message: 0,
-  setMessage: () => {},
-  click: () => {},
+  pathUrl: "",
 });
 
 interface ChildrenProps {
@@ -23,19 +13,13 @@ interface ChildrenProps {
 }
 
 export function AppContextProvider({ children }: ChildrenProps) {
-  const [message, setMessage] = useState<number>(0);
-
-  const click = useCallback(() => {
-    setMessage(message + 1);
-  }, [message]);
+  const [pathUrl] = useState<string>(window.location.pathname);
 
   const values = useMemo(
     () => ({
-      message,
-      setMessage,
-      click,
+      pathUrl,
     }),
-    [click, message, setMessage]
+    [pathUrl]
   );
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
