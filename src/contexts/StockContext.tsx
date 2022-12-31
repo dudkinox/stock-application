@@ -1,11 +1,11 @@
-import { createContext, ReactNode, useMemo, useState } from "react";
-import { camelToSnakeObject } from "../common/CamelToSnake";
+import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import StockRequest, {
   StockEquipmentRequest,
   StockByeRequest,
   StockKayRequest,
   StockInstallmentPaymentRequest,
 } from "../Models/Request/StockRequest";
+import { GetStockResponse } from "../Models/Response/GetStockResponse";
 import StockApi from "../services/StockServices";
 
 interface StockContextProps {
@@ -44,6 +44,8 @@ interface StockContextProps {
   setShow: (value: boolean) => void;
   stockType: string;
   setStockType: (value: string) => void;
+  stock: GetStockResponse[];
+  setStock: (value: GetStockResponse[]) => void;
 }
 
 export const StockContext = createContext<StockContextProps>({
@@ -82,6 +84,8 @@ export const StockContext = createContext<StockContextProps>({
   setShow: (value: boolean) => {},
   stockType: "",
   setStockType: (value: string) => {},
+  stock: [],
+  setStock: (value: GetStockResponse[]) => {},
 });
 
 interface ChildrenProps {
@@ -118,6 +122,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [datePayment, setDatePayment] = useState<string>("");
   const [installmentNo, setInstallmentNo] = useState<number | string>(0);
   const [priceTotal, setPriceTotal] = useState<number | string>(0);
+  const [stock, setStock] = useState<GetStockResponse[]>([]);
 
   const toggleShow = useMemo(() => () => setShow(true), []);
   const toggleClose = useMemo(() => () => setShow(false), []);
@@ -173,131 +178,151 @@ export function StockContextProvider({ children }: ChildrenProps) {
         "&stock_type=" +
         baseInsert.stockType;
 
-      if (stockType === "อุปกรณ์") {
-        const equipment: StockEquipmentRequest = {
-          ...baseInsert,
-          cases: Number(cases),
-          firm: Number(firm),
-          len: Number(len),
-          bigCharge: Number(bigCharge),
-          charge: Number(charge),
-          repair: Number(repair),
-          sum: Number(sum),
-        };
+      var params = "";
+      switch (stockType) {
+        case "อุปกรณ์":
+          const equipment: StockEquipmentRequest = {
+            ...baseInsert,
+            cases: Number(cases),
+            firm: Number(firm),
+            len: Number(len),
+            bigCharge: Number(bigCharge),
+            charge: Number(charge),
+            repair: Number(repair),
+            sum: Number(sum),
+          };
 
-        const params =
-          baseParams +
-          "&cases=" +
-          equipment.cases +
-          "&firm=" +
-          equipment.firm +
-          "&len=" +
-          equipment.len +
-          "&big_charge=" +
-          equipment.bigCharge +
-          "&charge=" +
-          equipment.charge +
-          "&repair=" +
-          equipment.repair +
-          "&sum=" +
-          equipment.sum;
+          params =
+            baseParams +
+            "&cases=" +
+            equipment.cases +
+            "&firm=" +
+            equipment.firm +
+            "&len=" +
+            equipment.len +
+            "&big_charge=" +
+            equipment.bigCharge +
+            "&charge=" +
+            equipment.charge +
+            "&repair=" +
+            equipment.repair +
+            "&sum=" +
+            equipment.sum;
 
-        StockApi.InsertStock(params)
-          .then((res) => {
-            alert(res.data.message);
-          })
-          .catch((err) => {
-            alert(err.response.data.message);
-          });
-      } else if (stockType === "ซื้อ") {
-        const bye: StockByeRequest = {
-          ...baseInsert,
-          version: version,
-          price: Number(price),
-          imei: imei,
-          source: source,
-          battery: battery,
-        };
+          StockApi.InsertStock(params)
+            .then((res) => {
+              alert(res.data.message);
+            })
+            .catch((err) => {
+              alert(err.response.data.message);
+            });
+          break;
+        case "ซื้อ":
+          const bye: StockByeRequest = {
+            ...baseInsert,
+            version: version,
+            price: Number(price),
+            imei: imei,
+            source: source,
+            battery: battery,
+          };
 
-        const params =
-          baseParams +
-          "&version=" +
-          bye.version +
-          "&price=" +
-          bye.price +
-          "&imei=" +
-          bye.imei +
-          "&source=" +
-          bye.source +
-          "&battery=" +
-          bye.battery;
+          params =
+            baseParams +
+            "&version=" +
+            bye.version +
+            "&price=" +
+            bye.price +
+            "&imei=" +
+            bye.imei +
+            "&source=" +
+            bye.source +
+            "&battery=" +
+            bye.battery;
 
-        StockApi.InsertStock(params)
-          .then((res) => {
-            alert(res.data.message);
-          })
-          .catch((err) => {
-            alert(err.response.data.message);
-          });
-      } else if (stockType === "ขาย") {
-        const kay: StockKayRequest = {
-          ...baseInsert,
-          customer: customer,
-          tel: tel,
-          version: version,
-          imei: imei,
-          starMoney: starMoney,
-          month: month,
-          installment: installment,
-          datePayment: datePayment,
-        };
+          StockApi.InsertStock(params)
+            .then((res) => {
+              alert(res.data.message);
+            })
+            .catch((err) => {
+              alert(err.response.data.message);
+            });
+          break;
+        case "ขาย":
+          const kay: StockKayRequest = {
+            ...baseInsert,
+            customer: customer,
+            tel: tel,
+            version: version,
+            imei: imei,
+            starMoney: starMoney,
+            month: month,
+            installment: installment,
+            datePayment: datePayment,
+          };
 
-        const params =
-          baseParams +
-          "&customer=" +
-          kay.customer +
-          "&tel=" +
-          kay.tel +
-          "&version=" +
-          kay.imei +
-          "&start_money=" +
-          kay.starMoney +
-          "&month=" +
-          kay.month +
-          "&installment=" +
-          kay.installment +
-          "&date_payment=" +
-          kay.datePayment;
+          params =
+            baseParams +
+            "&customer=" +
+            kay.customer +
+            "&tel=" +
+            kay.tel +
+            "&version=" +
+            kay.imei +
+            "&start_money=" +
+            kay.starMoney +
+            "&month=" +
+            kay.month +
+            "&installment=" +
+            kay.installment +
+            "&date_payment=" +
+            kay.datePayment;
 
-        StockApi.InsertStock(params)
-          .then((res) => {
-            alert(res.data.message);
-          })
-          .catch((err) => {
-            alert(err.response.data.message);
-          });
-      } else {
-        const installmentPayment: StockInstallmentPaymentRequest = {
-          ...baseInsert,
-          installmentNo: Number(installmentNo),
-          priceTotal: Number(priceTotal),
-        };
+          StockApi.InsertStock(params)
+            .then((res) => {
+              alert(res.data.message);
+            })
+            .catch((err) => {
+              alert(err.response.data.message);
+            });
+          break;
+        default:
+          const installmentPayment: StockInstallmentPaymentRequest = {
+            ...baseInsert,
+            installmentNo: Number(installmentNo),
+            priceTotal: Number(priceTotal),
+          };
 
-        const params =
-          baseParams +
-          "&installment_no=" +
-          installmentPayment.installmentNo +
-          "&price_total" +
-          installmentPayment.priceTotal;
+          params =
+            baseParams +
+            "&installment_no=" +
+            installmentPayment.installmentNo +
+            "&price_total" +
+            installmentPayment.priceTotal;
 
-        StockApi.InsertStock(params)
-          .then((res) => {
-            alert(res.data.message);
-          })
-          .catch((err) => {
-            alert(err.response.data.message);
-          });
+          StockApi.InsertStock(params)
+            .then((res) => {
+              alert(res.data.message);
+            })
+            .catch((err) => {
+              alert(err.response.data.message);
+            });
+          StockApi.GetStock()
+            .then((res) => {
+              setStock(res.data);
+            })
+            .catch((err) => {
+              alert(err.response.data.message);
+            });
+          break;
       }
+      StockApi.GetStock()
+        .then((res) => {
+          setStock(res.data);
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
     },
     [
       battery,
@@ -326,6 +351,16 @@ export function StockContextProvider({ children }: ChildrenProps) {
       version,
     ]
   );
+
+  useEffect(() => {
+    StockApi.GetStock()
+      .then((res) => {
+        setStock(res.data);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+  }, []);
 
   const values = useMemo(
     () => ({
@@ -364,6 +399,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setShow,
       stockType,
       setStockType,
+      stock,
+      setStock,
     }),
     [
       show,
@@ -401,6 +438,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setShow,
       stockType,
       setStockType,
+      stock,
+      setStock,
     ]
   );
 
