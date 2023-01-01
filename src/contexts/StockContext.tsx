@@ -6,7 +6,7 @@ import StockRequest, {
   StockInstallmentPaymentRequest,
 } from "../Models/Request/StockRequest";
 import { GetStockResponse } from "../Models/Response/GetStockResponse";
-import StockApi from "../services/StockServices";
+import StockService from "../services/StockServices";
 
 interface StockContextProps {
   show: boolean;
@@ -159,6 +159,19 @@ export function StockContextProvider({ children }: ChildrenProps) {
     []
   );
 
+  const insertStock = useMemo(
+    () => (params: string) => {
+      StockService.InsertStock(params)
+        .then((res) => {
+          alert(res.data.message);
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
+    },
+    []
+  );
+
   const handlerSubmit = useMemo(
     () => () => {
       const baseInsert: StockRequest = {
@@ -208,14 +221,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
             equipment.repair +
             "&sum=" +
             equipment.sum;
-
-          StockApi.InsertStock(params)
-            .then((res) => {
-              alert(res.data.message);
-            })
-            .catch((err) => {
-              alert(err.response.data.message);
-            });
+          insertStock(params);
           break;
         case "ซื้อ":
           const bye: StockByeRequest = {
@@ -240,13 +246,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
             "&battery=" +
             bye.battery;
 
-          StockApi.InsertStock(params)
-            .then((res) => {
-              alert(res.data.message);
-            })
-            .catch((err) => {
-              alert(err.response.data.message);
-            });
+          insertStock(params);
           break;
         case "ขาย":
           const kay: StockKayRequest = {
@@ -278,13 +278,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
             "&date_payment=" +
             kay.datePayment;
 
-          StockApi.InsertStock(params)
-            .then((res) => {
-              alert(res.data.message);
-            })
-            .catch((err) => {
-              alert(err.response.data.message);
-            });
+          insertStock(params);
           break;
         default:
           const installmentPayment: StockInstallmentPaymentRequest = {
@@ -300,23 +294,10 @@ export function StockContextProvider({ children }: ChildrenProps) {
             "&price_total" +
             installmentPayment.priceTotal;
 
-          StockApi.InsertStock(params)
-            .then((res) => {
-              alert(res.data.message);
-            })
-            .catch((err) => {
-              alert(err.response.data.message);
-            });
-          StockApi.GetStock()
-            .then((res) => {
-              setStock(res.data);
-            })
-            .catch((err) => {
-              alert(err.response.data.message);
-            });
+          insertStock(params);
           break;
       }
-      StockApi.GetStock()
+      StockService.GetStock()
         .then((res) => {
           setStock(res.data);
         })
@@ -336,6 +317,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
       firm,
       idCard,
       imei,
+      insertStock,
       installment,
       installmentNo,
       len,
@@ -353,14 +335,14 @@ export function StockContextProvider({ children }: ChildrenProps) {
   );
 
   useEffect(() => {
-    StockApi.GetStock()
+    StockService.GetStock()
       .then((res) => {
         setStock(res.data);
       })
       .catch((err) => {
         alert(err.response.data.message);
       });
-  }, []);
+  }, [setStock]);
 
   const values = useMemo(
     () => ({
