@@ -352,21 +352,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
       });
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await StockService.GetStock()
-        .then((res) => {
-          setLoad(true);
-          setStock(res.data);
-          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-        })
-        .catch((err) => {
-          alert(err.response.data.message);
-        });
-    };
-    fetchData();
-  }, []);
-
   const values = useMemo(
     () => ({
       show,

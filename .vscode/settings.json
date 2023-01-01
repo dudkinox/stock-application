@@ -1,5 +1,14 @@
 {
   "cSpell.words": [
+    "Cond",
+    "controlsidebar",
+    "datemask",
+    "IMEI",
+    "inputformat",
+    "inputmask",
+    "pushmenu",
+    "sabaipho",
+    "uibutton",
     "กรอกเลขบัตรประชาชน",
     "กรองจากทั้งหมด",
     "ก่อนหน้า",
@@ -49,6 +58,8 @@
     "รายการ",
     "รายการต่อหน้า",
     "รายละเอียด",
+    "ลบข้อมูลไม่สำเร็จ",
+    "ลบข้อมูลสำเร็จ",
     "ลำดับ",
     "ลูกค้าโกง",
     "ลูกค้าจ่ายช้า",
@@ -77,15 +88,6 @@
     "เเก้ไข",
     "เเบต",
     "เเบตเตอรี",
-    "เเหล่งที",
-    "Cond",
-    "controlsidebar",
-    "datemask",
-    "IMEI",
-    "inputformat",
-    "inputmask",
-    "pushmenu",
-    "sabaipho",
-    "uibutton"
+    "เเหล่งที"
   ]
 }

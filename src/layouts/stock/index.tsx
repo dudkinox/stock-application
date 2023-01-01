@@ -1,10 +1,41 @@
 import InsertModal from "./InsertModal";
 import DetailModal from "./DetailModal";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { StockContext } from "../../contexts/StockContext";
+import StockService from "../../services/StockServices";
+import initTable from "../../common/DataTable";
 
 export default function StockLayout() {
-  const { stock } = useContext(StockContext);
+  const { stock, setStock } = useContext(StockContext);
+
+  useEffect(() => {
+    StockService.GetStock()
+      .then((res) => {
+        setStock(res.data);
+        setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+  }, [setStock]);
+
+  const deleteStock = (id: string) => () => {
+    StockService.DeleteStockById(id)
+      .then((res) => {
+        alert(res.data.message);
+        StockService.GetStock()
+          .then((res) => {
+            setStock(res.data);
+            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+          })
+          .catch((err) => {
+            alert(err.response.data.message);
+          });
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+  };
 
   return (
     <>
@@ -35,7 +66,10 @@ export default function StockLayout() {
                       <button className="btn btn-warning mx-2">
                         <i className="nav-icon fas fa-pen" />
                       </button>
-                      <button className="btn btn-danger">
+                      <button
+                        className="btn btn-danger"
+                        onClick={deleteStock(item.ID)}
+                      >
                         <i className="nav-icon fas fa-trash" />
                       </button>
                     </div>
