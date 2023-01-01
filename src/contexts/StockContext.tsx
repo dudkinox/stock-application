@@ -299,7 +299,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
         StockService.GetStock()
           .then((res) => {
             setStock(res.data);
-            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 200);
           })
           .catch((err) => {
             alert(err.response.data.message);
@@ -340,7 +340,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
       await StockService.GetStock()
         .then((res) => {
           setStock(res.data);
-          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 200);
         })
         .catch((err) => {
           alert(err.response.data.message);
@@ -354,7 +354,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
       await StockService.GetStock()
         .then((res) => {
           setStock(res.data);
-          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 200);
         })
         .catch((err) => {
           alert(err.response.data.message);

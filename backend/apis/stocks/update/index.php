@@ -6,5 +6,5 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 $date = isset($_GET['date']) ? $_GET['date'] :
 
     $query = "UPDATE stock 
-SET `DATE`=''
+SET `DATE`='" . $date . "'
 WHERE ID = '" . $_GET["id"] . "'";

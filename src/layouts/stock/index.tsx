@@ -12,7 +12,7 @@ export default function StockLayout() {
     StockService.GetStock()
       .then((res) => {
         setStock(res.data);
-        setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+        setTimeout(() => initTable(res.data.length.toString() ?? "0"), 200);
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -26,7 +26,7 @@ export default function StockLayout() {
         StockService.GetStock()
           .then((res) => {
             setStock(res.data);
-            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 200);
           })
           .catch((err) => {
             alert(err.response.data.message);
