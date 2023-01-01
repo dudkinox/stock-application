@@ -306,6 +306,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
       StockService.GetStock()
         .then((res) => {
           setStock(res.data);
+          setTimeout(() => initTable(), 100);
         })
         .catch((err) => {
           alert(err.response.data.message);
@@ -357,6 +358,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
         .then((res) => {
           setLoad(true);
           setStock(res.data);
+          setTimeout(() => initTable(), 100);
         })
         .catch((err) => {
           alert(err.response.data.message);
