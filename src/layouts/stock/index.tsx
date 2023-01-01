@@ -2,7 +2,6 @@ import InsertModal from "./InsertModal";
 import DetailModal from "./DetailModal";
 import { useContext } from "react";
 import { StockContext } from "../../contexts/StockContext";
-import initTable from "../../common/DataTable";
 
 export default function StockLayout() {
   const { stock } = useContext(StockContext);
@@ -53,7 +52,6 @@ export default function StockLayout() {
           </tbody>
         </table>
       </div>
-      {stock.length > 0 && setTimeout(() => initTable(), 100)}
     </>
   );
 }

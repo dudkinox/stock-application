@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
+import initTable from "../common/DataTable";
 import StockRequest, {
   StockEquipmentRequest,
   StockByeRequest,
@@ -343,6 +344,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
     StockService.GetStock()
       .then((res) => {
         setStock(res.data);
+        setTimeout(() => initTable(), 100);
       })
       .catch((err) => {
         alert(err.response.data.message);
