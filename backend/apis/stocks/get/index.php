@@ -5,8 +5,10 @@ require('../../../client/index.php');
 $query = "SELECT * FROM stock";
 $result = $conn->query($query);
 
+$i = 1;
+echo '[';
 while ($row = $result->fetch_assoc()) {
-    echo '
+  echo '
     {
       "ID": "' . $row["ID"] . '",
       "DATE": "' . $row["DATE"] . '",
@@ -14,7 +16,9 @@ while ($row = $result->fetch_assoc()) {
       "CUSTOMER_STATUS": "' . $row["CUSTOMER_STATUS"] . '",
       "STOCK_TYPE": "' . $row["STOCK_TYPE"] . '"  
     }';
-    if ($row < $result->num_rows) {
-        echo ',';
-    }
+  if ($i != $result->num_rows) {
+    echo ',';
+  }
+  $i++;
 }
+echo ']';
