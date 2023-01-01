@@ -11,8 +11,9 @@ export default function StockLayout() {
   useEffect(() => {
     StockService.GetStock()
       .then((res) => {
+        setStock([]);
         setStock(res.data);
-        setTimeout(() => initTable(res.data.length.toString() ?? "0"), 200);
+        setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -25,8 +26,9 @@ export default function StockLayout() {
         alert(res.data.message);
         StockService.GetStock()
           .then((res) => {
+            setStock([]);
             setStock(res.data);
-            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 200);
+            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
           })
           .catch((err) => {
             alert(err.response.data.message);
