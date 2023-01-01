@@ -336,14 +336,17 @@ export function StockContextProvider({ children }: ChildrenProps) {
   );
 
   useEffect(() => {
-    StockService.GetStock()
-      .then((res) => {
-        setStock(res.data);
-        setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-      });
+    const fetchData = async () => {
+      await StockService.GetStock()
+        .then((res) => {
+          setStock(res.data);
+          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
+    };
+    fetchData();
   }, []);
 
   useEffect(() => {
