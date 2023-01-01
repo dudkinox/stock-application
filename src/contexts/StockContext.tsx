@@ -168,7 +168,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
     () => (params: string) => {
       StockService.InsertStock(params)
         .then((res) => {
-          setShow(false);
           alert(res.data.message);
         })
         .catch((err) => {
