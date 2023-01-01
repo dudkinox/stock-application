@@ -46,6 +46,8 @@ interface StockContextProps {
   setStockType: (value: string) => void;
   stock: GetStockResponse[];
   setStock: (value: GetStockResponse[]) => void;
+  load: boolean;
+  setLoad: (value: boolean) => void;
 }
 
 export const StockContext = createContext<StockContextProps>({
@@ -86,6 +88,8 @@ export const StockContext = createContext<StockContextProps>({
   setStockType: (value: string) => {},
   stock: [],
   setStock: (value: GetStockResponse[]) => {},
+  load: false,
+  setLoad: (value: boolean) => {},
 });
 
 interface ChildrenProps {
@@ -123,6 +127,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [installmentNo, setInstallmentNo] = useState<number | string>(0);
   const [priceTotal, setPriceTotal] = useState<number | string>(0);
   const [stock, setStock] = useState<GetStockResponse[]>([]);
+  const [load, setLoad] = useState(false);
 
   const toggleShow = useMemo(() => () => setShow(true), []);
   const toggleClose = useMemo(() => () => setShow(false), []);
@@ -353,14 +358,47 @@ export function StockContextProvider({ children }: ChildrenProps) {
   );
 
   useEffect(() => {
-    StockApi.GetStock()
-      .then((res) => {
-        setStock(res.data);
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-      });
+    const fetchData = async () => {
+      await StockApi.GetStock()
+        .then((res) => {
+          setLoad(true);
+          setStock(res.data);
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
+    };
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    ($("#stock-table") as any).DataTable({
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      ordering: true,
+      info: true,
+      autoWidth: false,
+      responsive: true,
+      bDestroy: false,
+      stateSave: true,
+      retrieve: true,
+      order: [[0, "desc"]],
+      language: {
+        zeroRecords: "ไม่พบข้อมูล",
+        info: "แสดงหน้า PAGE จาก PAGES",
+        infoFiltered: "(กรองจากทั้งหมด MAX รายการ)",
+        search: "ค้นหา:",
+        loadingRecords: "รอสักครู่",
+        paginate: {
+          first: "หน้าแรก",
+          last: "หน้าสุดท้าย",
+          next: "ถัดไป",
+          previous: "ก่อนหน้า",
+        },
+      },
+    });
+  }, [stock]);
 
   const values = useMemo(
     () => ({
@@ -401,6 +439,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setStockType,
       stock,
       setStock,
+      load,
+      setLoad,
     }),
     [
       show,
@@ -440,6 +480,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setStockType,
       stock,
       setStock,
+      load,
+      setLoad,
     ]
   );
 

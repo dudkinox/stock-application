@@ -4,7 +4,8 @@ import { useContext } from "react";
 import { StockContext } from "../../contexts/StockContext";
 
 export default function StockLayout() {
-  const { stock } = useContext(StockContext);
+  const { stock, load } = useContext(StockContext);
+
   return (
     <>
       {stock !== undefined && (
