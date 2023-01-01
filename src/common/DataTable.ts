@@ -1,4 +1,4 @@
-export default function initTable() {
+export default function initTable(max: string) {
   ($("#stock-table") as any).DataTable({
     responsive: true,
     autoWidth: true,
@@ -14,7 +14,7 @@ export default function initTable() {
     language: {
       zeroRecords: "ไม่พบข้อมูล",
       infoEmpty: "ไม่พบข้อมูล",
-      infoFiltered: "(กรองจากทั้งหมด MAX รายการ)",
+      infoFiltered: `(กรองจากทั้งหมด ${max} รายการ)`,
       search: "ค้นหา:",
       loadingRecords: "รอสักครู่",
       paginate: {
