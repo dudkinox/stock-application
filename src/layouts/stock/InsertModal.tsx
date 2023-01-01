@@ -11,14 +11,12 @@ import InstallmentMenuInsert from "./InsertType/InstallmentMenuInsert";
 export default function InsertModal() {
   const {
     show,
-    toggleShow,
     setDate,
     isMenuInsert,
     byeMenuInsert,
     kayMenuInsert,
     installmentMenuInsert,
     handlerSubmit,
-    toggleClose,
     setIdCard,
     menuInsert,
     setStockType,
@@ -37,7 +35,6 @@ export default function InsertModal() {
         className="btn primary-btn text-white w-100 mt-2"
         data-toggle="modal"
         data-target="#InsertStock"
-        onClick={toggleShow}
       >
         <i className="nav-icon fas fa-plus" />
       </button>
@@ -106,6 +103,7 @@ export default function InsertModal() {
               <button
                 type="button"
                 className="btn primary-btn col-lg-2 col-sm-auto"
+                data-dismiss="modal"
                 onClick={handlerSubmit}
               >
                 บันทึก
@@ -114,7 +112,6 @@ export default function InsertModal() {
                 type="button"
                 className="btn btn-danger col-lg-2 col-sm-auto"
                 data-dismiss="modal"
-                onClick={toggleClose}
               >
                 ยกเลิก
               </button>

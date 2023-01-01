@@ -1,16 +1,11 @@
 {
   "cSpell.words": [
-    "Cond",
-    "controlsidebar",
-    "datemask",
-    "IMEI",
-    "inputformat",
-    "inputmask",
-    "pushmenu",
-    "sabaipho",
-    "uibutton",
     "กรอกเลขบัตรประชาชน",
     "กรองจากทั้งหมด",
+    "กรุณากรอกเลขบัตรประชาชนให้ครบ",
+    "กรุณากรอกเลขให้ครบ",
+    "กรุณากรอกวันที",
+    "กรุณาวันที",
     "ก่อนหน้า",
     "กันเลนส์",
     "กำไร",
@@ -88,6 +83,15 @@
     "เเก้ไข",
     "เเบต",
     "เเบตเตอรี",
-    "เเหล่งที"
+    "เเหล่งที",
+    "Cond",
+    "controlsidebar",
+    "datemask",
+    "IMEI",
+    "inputformat",
+    "inputmask",
+    "pushmenu",
+    "sabaipho",
+    "uibutton"
   ]
 }

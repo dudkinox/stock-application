@@ -11,14 +11,12 @@ import StockService from "../services/StockServices";
 
 interface StockContextProps {
   show: boolean;
-  toggleShow: () => void;
   setDate: (value: string) => void;
   isMenuInsert: boolean;
   byeMenuInsert: boolean;
   kayMenuInsert: boolean;
   installmentMenuInsert: boolean;
   handlerSubmit: () => void;
-  toggleClose: () => void;
   setIdCard: (value: string) => void;
   setCustomerStatus: (value: string) => void;
   setCases: (value: number | string) => void;
@@ -47,20 +45,16 @@ interface StockContextProps {
   setStockType: (value: string) => void;
   stock: GetStockResponse[];
   setStock: (value: GetStockResponse[]) => void;
-  load: boolean;
-  setLoad: (value: boolean) => void;
 }
 
 export const StockContext = createContext<StockContextProps>({
   show: false,
-  toggleShow: () => {},
   setDate: (value: string) => {},
   isMenuInsert: false,
   byeMenuInsert: false,
   kayMenuInsert: false,
   installmentMenuInsert: false,
   handlerSubmit: () => {},
-  toggleClose: () => {},
   setIdCard: (value: string) => {},
   setCustomerStatus: (value: string) => {},
   setCases: (value: number | string) => {},
@@ -89,8 +83,6 @@ export const StockContext = createContext<StockContextProps>({
   setStockType: (value: string) => {},
   stock: [],
   setStock: (value: GetStockResponse[]) => {},
-  load: false,
-  setLoad: (value: boolean) => {},
 });
 
 interface ChildrenProps {
@@ -128,10 +120,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [installmentNo, setInstallmentNo] = useState<number | string>(0);
   const [priceTotal, setPriceTotal] = useState<number | string>(0);
   const [stock, setStock] = useState<GetStockResponse[]>([]);
-  const [load, setLoad] = useState(false);
-
-  const toggleShow = useMemo(() => () => setShow(true), []);
-  const toggleClose = useMemo(() => () => setShow(false), []);
 
   const menuInsert = useMemo(
     () => (stockType: string) => {
@@ -187,130 +175,136 @@ export function StockContextProvider({ children }: ChildrenProps) {
         stockType,
       };
 
-      var baseParams =
-        "?date=" +
-        baseInsert.date +
-        "&id_card=" +
-        baseInsert.idCard +
-        "&customer_status=" +
-        baseInsert.customerStatus +
-        "&stock_type=" +
-        baseInsert.stockType;
+      if (baseInsert.date === "") {
+        alert("กรุณากรอกวันที่");
+      } else if (baseInsert.idCard.length !== 13) {
+        alert(" กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
+      } else {
+        var baseParams =
+          "?date=" +
+          baseInsert.date +
+          "&id_card=" +
+          baseInsert.idCard +
+          "&customer_status=" +
+          baseInsert.customerStatus +
+          "&stock_type=" +
+          baseInsert.stockType;
 
-      var params = "";
-      switch (stockType) {
-        case "อุปกรณ์":
-          const equipment: StockEquipmentRequest = {
-            ...baseInsert,
-            cases: Number(cases),
-            firm: Number(firm),
-            len: Number(len),
-            bigCharge: Number(bigCharge),
-            charge: Number(charge),
-            repair: Number(repair),
-            sum: Number(sum),
-          };
+        var params = "";
+        switch (stockType) {
+          case "อุปกรณ์":
+            const equipment: StockEquipmentRequest = {
+              ...baseInsert,
+              cases: Number(cases),
+              firm: Number(firm),
+              len: Number(len),
+              bigCharge: Number(bigCharge),
+              charge: Number(charge),
+              repair: Number(repair),
+              sum: Number(sum),
+            };
 
-          params =
-            baseParams +
-            "&cases=" +
-            equipment.cases +
-            "&firm=" +
-            equipment.firm +
-            "&len=" +
-            equipment.len +
-            "&big_charge=" +
-            equipment.bigCharge +
-            "&charge=" +
-            equipment.charge +
-            "&repair=" +
-            equipment.repair +
-            "&sum=" +
-            equipment.sum;
-          insertStock(params);
-          break;
-        case "ซื้อ":
-          const bye: StockByeRequest = {
-            ...baseInsert,
-            version: version,
-            price: Number(price),
-            imei: imei,
-            source: source,
-            battery: battery,
-          };
+            params =
+              baseParams +
+              "&cases=" +
+              equipment.cases +
+              "&firm=" +
+              equipment.firm +
+              "&len=" +
+              equipment.len +
+              "&big_charge=" +
+              equipment.bigCharge +
+              "&charge=" +
+              equipment.charge +
+              "&repair=" +
+              equipment.repair +
+              "&sum=" +
+              equipment.sum;
+            insertStock(params);
+            break;
+          case "ซื้อ":
+            const bye: StockByeRequest = {
+              ...baseInsert,
+              version: version,
+              price: Number(price),
+              imei: imei,
+              source: source,
+              battery: battery,
+            };
 
-          params =
-            baseParams +
-            "&version=" +
-            bye.version +
-            "&price=" +
-            bye.price +
-            "&imei=" +
-            bye.imei +
-            "&source=" +
-            bye.source +
-            "&battery=" +
-            bye.battery;
+            params =
+              baseParams +
+              "&version=" +
+              bye.version +
+              "&price=" +
+              bye.price +
+              "&imei=" +
+              bye.imei +
+              "&source=" +
+              bye.source +
+              "&battery=" +
+              bye.battery;
 
-          insertStock(params);
-          break;
-        case "ขาย":
-          const kay: StockKayRequest = {
-            ...baseInsert,
-            customer: customer,
-            tel: tel,
-            version: version,
-            imei: imei,
-            starMoney: starMoney,
-            month: month,
-            installment: installment,
-            datePayment: datePayment,
-          };
+            insertStock(params);
+            break;
+          case "ขาย":
+            const kay: StockKayRequest = {
+              ...baseInsert,
+              customer: customer,
+              tel: tel,
+              version: version,
+              imei: imei,
+              starMoney: starMoney,
+              month: month,
+              installment: installment,
+              datePayment: datePayment,
+            };
 
-          params =
-            baseParams +
-            "&customer=" +
-            kay.customer +
-            "&tel=" +
-            kay.tel +
-            "&version=" +
-            kay.imei +
-            "&start_money=" +
-            kay.starMoney +
-            "&month=" +
-            kay.month +
-            "&installment=" +
-            kay.installment +
-            "&date_payment=" +
-            kay.datePayment;
+            params =
+              baseParams +
+              "&customer=" +
+              kay.customer +
+              "&tel=" +
+              kay.tel +
+              "&version=" +
+              kay.imei +
+              "&start_money=" +
+              kay.starMoney +
+              "&month=" +
+              kay.month +
+              "&installment=" +
+              kay.installment +
+              "&date_payment=" +
+              kay.datePayment;
 
-          insertStock(params);
-          break;
-        default:
-          const installmentPayment: StockInstallmentPaymentRequest = {
-            ...baseInsert,
-            installmentNo: Number(installmentNo),
-            priceTotal: Number(priceTotal),
-          };
+            insertStock(params);
+            break;
+          default:
+            const installmentPayment: StockInstallmentPaymentRequest = {
+              ...baseInsert,
+              installmentNo: Number(installmentNo),
+              priceTotal: Number(priceTotal),
+            };
 
-          params =
-            baseParams +
-            "&installment_no=" +
-            installmentPayment.installmentNo +
-            "&price_total" +
-            installmentPayment.priceTotal;
+            params =
+              baseParams +
+              "&installment_no=" +
+              installmentPayment.installmentNo +
+              "&price_total" +
+              installmentPayment.priceTotal;
 
-          insertStock(params);
-          break;
+            insertStock(params);
+            break;
+        }
+        StockService.GetStock()
+          .then((res) => {
+            setStock(res.data);
+            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+          })
+          .catch((err) => {
+            alert(err.response.data.message);
+          });
       }
-      StockService.GetStock()
-        .then((res) => {
-          setStock(res.data);
-          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-        })
-        .catch((err) => {
-          alert(err.response.data.message);
-        });
     },
     [
       battery,
@@ -352,17 +346,29 @@ export function StockContextProvider({ children }: ChildrenProps) {
       });
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      await StockService.GetStock()
+        .then((res) => {
+          setStock(res.data);
+          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
+    };
+    fetchData();
+  }, []);
+
   const values = useMemo(
     () => ({
       show,
-      toggleShow,
       setDate,
       isMenuInsert,
       byeMenuInsert,
       kayMenuInsert,
       installmentMenuInsert,
       handlerSubmit,
-      toggleClose,
       setIdCard,
       setCustomerStatus,
       setCases,
@@ -391,19 +397,15 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setStockType,
       stock,
       setStock,
-      load,
-      setLoad,
     }),
     [
       show,
-      toggleShow,
       setDate,
       isMenuInsert,
       byeMenuInsert,
       kayMenuInsert,
       installmentMenuInsert,
       handlerSubmit,
-      toggleClose,
       setIdCard,
       setCustomerStatus,
       setCases,
@@ -432,8 +434,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setStockType,
       stock,
       setStock,
-      load,
-      setLoad,
     ]
   );
 

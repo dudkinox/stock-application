@@ -14,12 +14,6 @@ export default function NavbarLayout() {
         </li>
       </ul>
       <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <a className="nav-link" href="#test" role="button">
-            <i className="fas fa-envelope mx-2" />
-            CONTACT@DEV.COM
-          </a>
-        </li>
         <li className="nav-item dropdown">
           <a className="nav-link" data-toggle="dropdown" href="#test">
             <i className="far fa-bell" />
