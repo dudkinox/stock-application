@@ -101,12 +101,13 @@ switch ($type) {
                 $priceTotal = isset($_GET["price_total"]) ? $_GET["price_total"] : 0;
 
                 $insert = "INSERT INTO installment_payment (
-                                        ID_CARD
-                                        INSTALLMENT_NO
+                                        ID_CARD,
+                                        INSTALLMENT_NO,
                                         PRICE_TOTAL) 
                                 VALUES ('" . $idCard . "', 
                                         '" . $installmentNo . "', 
                                         '" . $priceTotal . "');";
+                break;
         default:
                 echo "{ \"status\": \"error\",
                         \"message\": \"เพิ่มข้อมูลไม่สำเร็จ ส่งค่าผิด\",
