@@ -80,7 +80,10 @@ export default function StockLayout() {
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.STOCK_TYPE}</td>
                   <td>
-                    <DetailModal />
+                    <DetailModal
+                      idCard={item.ID_CARD}
+                      typeStock={item.STOCK_TYPE}
+                    />
                   </td>
                 </tr>
               );
