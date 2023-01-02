@@ -12,6 +12,7 @@ import ByeMenuInsert from "../../layouts/stock/InsertType/ByeMenuInsert";
 import InstallmentMenuInsert from "../../layouts/stock/InsertType/InstallmentMenuInsert";
 import IsMenuInsert from "../../layouts/stock/InsertType/IsMenuInsert";
 import KayMenuInsert from "../../layouts/stock/InsertType/KayMenuInsert";
+import TableCommon from "../../common/Table";
 
 export default function StockPage() {
   const {
@@ -135,59 +136,52 @@ export default function StockPage() {
             }
           />
           <div className="card-body">
-            <table
-              id="stock-table"
-              className="table table-bordered table-hover dtr-inline collapsed w-100"
-            >
-              <thead>
-                <tr className="text-center">
-                  <th>รหัสเอกสาร</th>
-                  <th>
-                    <div>เพิ่ม/ลบ/เเก้ไข</div>
-                    <button
-                      className="btn primary-btn text-white w-100 mt-2"
-                      data-toggle="modal"
-                      data-target="#InsertStock"
-                    >
-                      <i className="nav-icon fas fa-plus" />
-                    </button>
-                  </th>
-                  <th>เลขบัตรประชาชน</th>
-                  <th>ประวัติลูกค้า</th>
-                  <th>ประเภท</th>
-                  <th>รายละเอียด</th>
+            <TableCommon
+              columns={[
+                "รหัสเอกสาร",
+                <>
+                  <div>เพิ่ม/ลบ/เเก้ไข</div>
+                  <button
+                    className="btn primary-btn text-white w-100 mt-2"
+                    data-toggle="modal"
+                    data-target="#InsertStock"
+                  >
+                    <i className="nav-icon fas fa-plus" />
+                  </button>
+                </>,
+                "เลขบัตรประชาชน",
+                "ประวัติลูกค้า",
+                "ประเภท",
+                "รายละเอียด",
+              ]}
+              row={stock.map((item, i) => (
+                <tr key={i} className="text-center">
+                  <td>{item.ID}</td>
+                  <td>
+                    <div className="row justify-content-center">
+                      <button className="btn btn-warning mx-2">
+                        <i className="nav-icon fas fa-pen" />
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={deleteStock(item.ID)}
+                      >
+                        <i className="nav-icon fas fa-trash" />
+                      </button>
+                    </div>
+                  </td>
+                  <td>{item.ID_CARD}</td>
+                  <td>{item.CUSTOMER_STATUS}</td>
+                  <td>{item.STOCK_TYPE}</td>
+                  <td>
+                    <DetailModal
+                      idCard={item.ID_CARD}
+                      typeStock={item.STOCK_TYPE}
+                    />
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {stock.map((item, i) => (
-                  <tr key={i} className="text-center">
-                    <td>{item.ID}</td>
-                    <td>
-                      <div className="row justify-content-center">
-                        <button className="btn btn-warning mx-2">
-                          <i className="nav-icon fas fa-pen" />
-                        </button>
-                        <button
-                          className="btn btn-danger"
-                          onClick={deleteStock(item.ID)}
-                        >
-                          <i className="nav-icon fas fa-trash" />
-                        </button>
-                      </div>
-                    </td>
-                    <td>{item.ID_CARD}</td>
-                    <td>{item.CUSTOMER_STATUS}</td>
-                    <td>{item.STOCK_TYPE}</td>
-                    <td>
-                      <DetailModal
-                        idCard={item.ID_CARD}
-                        typeStock={item.STOCK_TYPE}
-                      />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+              ))}
+            />
           </div>
         </>
       }
