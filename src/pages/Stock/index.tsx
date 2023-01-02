@@ -1,18 +1,22 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import initTable from "../../common/DataTable";
 import { StockContext } from "../../contexts/StockContext";
 import ContentLayOut from "../../layouts/ContentLayOut";
-import DetailModal from "../../layouts/stock/DetailModal";
 import StockService from "../../services/StockServices";
 import ModalCommon from "../../common/Modal";
 import DataList from "../../common/DataList";
 import SelectChoice from "../../common/Select";
 import TextInput from "../../common/TextInput";
-import ByeMenuInsert from "../../layouts/stock/InsertType/ByeMenuInsert";
-import InstallmentMenuInsert from "../../layouts/stock/InsertType/InstallmentMenuInsert";
-import IsMenuInsert from "../../layouts/stock/InsertType/IsMenuInsert";
-import KayMenuInsert from "../../layouts/stock/InsertType/KayMenuInsert";
+import ByeMenuInsert from "../../layouts/stock/ByeMenuInsert";
+import InstallmentMenuInsert from "../../layouts/stock/InstallmentMenuInsert";
+import IsMenuInsert from "../../layouts/stock/IsMenuInsert";
+import KayMenuInsert from "../../layouts/stock/KayMenuInsert";
 import TableCommon from "../../common/Table";
+import {
+  MenuByeArray,
+  MenuEquipmentArray,
+  MenuInstallmentPaymentArray,
+} from "../../enum/menuInsert.enum";
 
 export default function StockPage() {
   const {
@@ -29,6 +33,8 @@ export default function StockPage() {
     installmentMenuInsert,
     handlerSubmit,
   } = useContext(StockContext);
+  const [itemList, setItemList] = useState<any>({});
+  const [typeStock, setTypeStock] = useState<string>("");
 
   const SelectStockType = (value: string) => {
     setStockType(value);
@@ -73,6 +79,7 @@ export default function StockPage() {
         <>
           <ModalCommon
             title={"เพิ่มข้อมูล"}
+            id={"insert-modal"}
             content={
               <>
                 <div className="modal-body">
@@ -135,6 +142,59 @@ export default function StockPage() {
               </>
             }
           />
+          <ModalCommon
+            title={`รายละเอียด ${typeStock}`}
+            id={"detail-modal"}
+            content={
+              <>
+                <div className="modal-body">
+                  <div className="container-fluid">
+                    <div className="row justify-content-center col-12 mb-3">
+                      {Object.keys(itemList).map((key, index) => {
+                        if (index > 1) {
+                          return (
+                            <>
+                              <div className="col-2 my-3">
+                                <label className="col-form-label">
+                                  {typeStock === "อุปกรณ์"
+                                    ? MenuEquipmentArray[index - 2]
+                                    : typeStock === "ซื้อ"
+                                    ? MenuByeArray[index - 2]
+                                    : typeStock === "ขาย"
+                                    ? MenuByeArray[index - 2]
+                                    : MenuInstallmentPaymentArray[index - 2]}
+                                </label>
+                              </div>
+                              <div className="col-4 my-3">
+                                <input
+                                  type="text"
+                                  className="form-control col-auto"
+                                  placeholder=""
+                                  value={itemList[key]}
+                                  readOnly
+                                />
+                              </div>
+                            </>
+                          );
+                        } else {
+                          return null;
+                        }
+                      })}
+                    </div>
+                  </div>
+                </div>
+                <div className="mb-4 text-center">
+                  <button
+                    type="button"
+                    className="btn btn-danger col-3"
+                    data-dismiss="modal"
+                  >
+                    ปิด
+                  </button>
+                </div>
+              </>
+            }
+          />
           <div className="card-body">
             <TableCommon
               columns={[
@@ -144,7 +204,7 @@ export default function StockPage() {
                   <button
                     className="btn primary-btn text-white w-100 mt-2"
                     data-toggle="modal"
-                    data-target="#InsertStock"
+                    data-target="#insert-modal"
                   >
                     <i className="nav-icon fas fa-plus" />
                   </button>
@@ -174,10 +234,17 @@ export default function StockPage() {
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.STOCK_TYPE}</td>
                   <td>
-                    <DetailModal
-                      idCard={item.ID_CARD}
-                      typeStock={item.STOCK_TYPE}
-                    />
+                    <button
+                      className="btn primary-btn text-white"
+                      data-toggle="modal"
+                      data-target="#detail-modal"
+                      onClick={() => {
+                        setItemList(item);
+                        setTypeStock(item.STOCK_TYPE);
+                      }}
+                    >
+                      รายละเอียด
+                    </button>
                   </td>
                 </tr>
               ))}

@@ -1,6 +1,6 @@
-import { MenuKayEnum } from "../../../enum/menuInsert.enum";
+import { MenuKayEnum } from "../../enum/menuInsert.enum";
 import { useContext } from "react";
-import { StockContext } from "../../../contexts/StockContext";
+import { StockContext } from "../../contexts/StockContext";
 
 export default function KayMenuInsert() {
   const {

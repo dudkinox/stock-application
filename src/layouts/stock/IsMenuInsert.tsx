@@ -1,7 +1,7 @@
-import TextInput from "../../../common/TextInput";
-import { MenuEquipmentEnum } from "../../../enum/menuInsert.enum";
+import TextInput from "../../common/TextInput";
+import { MenuEquipmentEnum } from "../../enum/menuInsert.enum";
 import { useContext } from "react";
-import { StockContext } from "../../../contexts/StockContext";
+import { StockContext } from "../../contexts/StockContext";
 
 export default function IsMenuInsert() {
   const {

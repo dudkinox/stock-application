@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { StockContext } from "../../../contexts/StockContext";
-import { MenuInstallmentPaymentEnum } from "../../../enum/menuInsert.enum";
+import { StockContext } from "../../contexts/StockContext";
+import { MenuInstallmentPaymentEnum } from "../../enum/menuInsert.enum";
 
 export default function InstallmentMenuInsert() {
   const { setInstallmentNo, setPriceTotal } = useContext(StockContext);

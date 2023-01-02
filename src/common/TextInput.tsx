@@ -7,6 +7,7 @@ interface TextInputProps {
   min?: number;
   maxLength?: number;
   minLength?: number;
+  readonly?: boolean;
 }
 
 export default function TextInput({
@@ -18,6 +19,7 @@ export default function TextInput({
   min,
   maxLength,
   minLength,
+  readonly,
 }: TextInputProps) {
   return (
     <div className="form-group">
@@ -36,6 +38,7 @@ export default function TextInput({
           min={min}
           onChange={(e: any) => setValue(e.target.value)}
           placeholder={placeholder}
+          readOnly={readonly}
         />
       </div>
     </div>

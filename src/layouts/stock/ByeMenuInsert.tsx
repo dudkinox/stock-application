@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import TextInput from "../../../common/TextInput";
-import { StockContext } from "../../../contexts/StockContext";
-import { MenuByeEnum } from "../../../enum/menuInsert.enum";
+import TextInput from "../../common/TextInput";
+import { StockContext } from "../../contexts/StockContext";
+import { MenuByeEnum } from "../../enum/menuInsert.enum";
 
 export default function ByeMenuInsert() {
   const { setVersion, setPrice, setImei, setSource, setBattery } =
