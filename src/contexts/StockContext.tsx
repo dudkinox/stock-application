@@ -10,7 +10,6 @@ import { GetStockResponse } from "../Models/Response/GetStockResponse";
 import StockService from "../services/StockServices";
 
 interface StockContextProps {
-  show: boolean;
   setDate: (value: string) => void;
   isMenuInsert: boolean;
   byeMenuInsert: boolean;
@@ -40,7 +39,6 @@ interface StockContextProps {
   setInstallmentNo: (value: string) => void;
   setPriceTotal: (value: string) => void;
   menuInsert: (stockType: string) => void;
-  setShow: (value: boolean) => void;
   stockType: string;
   setStockType: (value: string) => void;
   stock: GetStockResponse[];
@@ -48,7 +46,6 @@ interface StockContextProps {
 }
 
 export const StockContext = createContext<StockContextProps>({
-  show: false,
   setDate: (value: string) => {},
   isMenuInsert: false,
   byeMenuInsert: false,
@@ -78,7 +75,6 @@ export const StockContext = createContext<StockContextProps>({
   setInstallmentNo: (value: string) => {},
   setPriceTotal: (value: number | string) => {},
   menuInsert: (stockType: string) => {},
-  setShow: (value: boolean) => {},
   stockType: "",
   setStockType: (value: string) => {},
   stock: [],
@@ -90,7 +86,6 @@ interface ChildrenProps {
 }
 
 export function StockContextProvider({ children }: ChildrenProps) {
-  const [show, setShow] = useState(false);
   const [isMenuInsert, setIsMenuInsert] = useState(false);
   const [byeMenuInsert, setByeMenuInsert] = useState(false);
   const [kayMenuInsert, setKayMenuInsert] = useState(false);
@@ -368,7 +363,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
 
   const values = useMemo(
     () => ({
-      show,
       setDate,
       isMenuInsert,
       byeMenuInsert,
@@ -398,14 +392,12 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setInstallmentNo,
       setPriceTotal,
       menuInsert,
-      setShow,
       stockType,
       setStockType,
       stock,
       setStock,
     }),
     [
-      show,
       setDate,
       isMenuInsert,
       byeMenuInsert,
@@ -435,7 +427,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setInstallmentNo,
       setPriceTotal,
       menuInsert,
-      setShow,
       stockType,
       setStockType,
       stock,
