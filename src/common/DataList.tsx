@@ -6,6 +6,8 @@ interface DataListProps {
   maxLength?: number;
   minLength?: number;
   data: string[];
+  value?: string;
+  isReadOnly?: boolean;
 }
 
 export default function DataList({
@@ -16,6 +18,8 @@ export default function DataList({
   maxLength,
   minLength,
   data,
+  value,
+  isReadOnly,
 }: DataListProps) {
   return (
     <div className="form-group">
@@ -35,6 +39,8 @@ export default function DataList({
           onChange={(e: any) => setValue(e.target.value)}
           placeholder={placeholder}
           autoComplete="off"
+          value={value}
+          readOnly={isReadOnly}
         />
         <datalist id="datalistOptions">
           {data.map((item, index) => (

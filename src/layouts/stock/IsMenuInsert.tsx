@@ -5,12 +5,19 @@ import { StockContext } from "../../contexts/StockContext";
 
 export default function IsMenuInsert() {
   const {
+    cases,
     setCases,
+    firm,
     setFirm,
+    len,
     setLen,
+    bigCharge,
     setBigCharge,
+    charge,
     setCharge,
+    repair,
     setRepair,
+    sum,
     setSum,
   } = useContext(StockContext);
 
@@ -24,6 +31,7 @@ export default function IsMenuInsert() {
         min={0}
         minLength={0}
         placeholder={"เคส"}
+        value={cases}
       />
       <TextInput
         label={MenuEquipmentEnum.FIRM}
@@ -33,6 +41,7 @@ export default function IsMenuInsert() {
         min={0}
         minLength={0}
         placeholder={"ฟิล์ม"}
+        value={firm}
       />
       <TextInput
         label={MenuEquipmentEnum.LEN}
@@ -42,6 +51,7 @@ export default function IsMenuInsert() {
         min={0}
         minLength={0}
         placeholder={"กันเลนส์"}
+        value={len}
       />
       <TextInput
         label={MenuEquipmentEnum.BIG_CHARGE}
@@ -51,6 +61,7 @@ export default function IsMenuInsert() {
         min={0}
         minLength={0}
         placeholder={"หัวชาร์จใหญ่"}
+        value={bigCharge}
       />
       <TextInput
         label={MenuEquipmentEnum.CHARGE}
@@ -60,6 +71,7 @@ export default function IsMenuInsert() {
         min={0}
         minLength={0}
         placeholder={"สายชาร์จ"}
+        value={charge}
       />
       <TextInput
         label={MenuEquipmentEnum.REPAIR}
@@ -69,6 +81,7 @@ export default function IsMenuInsert() {
         min={0}
         minLength={0}
         placeholder={"ซ่อม"}
+        value={repair}
       />
       <TextInput
         label={MenuEquipmentEnum.SUM}
@@ -78,6 +91,7 @@ export default function IsMenuInsert() {
         min={0}
         minLength={0}
         placeholder={"ราคา"}
+        value={sum}
       />
     </>
   );

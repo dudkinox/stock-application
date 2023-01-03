@@ -4,13 +4,21 @@ import { StockContext } from "../../contexts/StockContext";
 
 export default function KayMenuInsert() {
   const {
+    customer,
     setCustomer,
+    tel,
     setTel,
+    version,
     setVersion,
+    imei,
     setImei,
+    starMoney,
     setStarMoney,
+    month,
     setMonth,
+    installment,
     setInstallment,
+    datePayment,
     setDatePayment,
   } = useContext(StockContext);
   return (
@@ -28,6 +36,7 @@ export default function KayMenuInsert() {
             className="form-control"
             onChange={(e: any) => setCustomer(e.target.value)}
             placeholder="ชื่อลูกค้า"
+            value={customer}
           />
         </div>
       </div>
@@ -46,6 +55,7 @@ export default function KayMenuInsert() {
             minLength={10}
             maxLength={10}
             placeholder="เบอร์โทร"
+            value={tel}
           />
         </div>
       </div>
@@ -62,6 +72,7 @@ export default function KayMenuInsert() {
             className="form-control"
             onChange={(e: any) => setVersion(e.target.value)}
             placeholder="รุ่น"
+            value={version}
           />
         </div>
       </div>
@@ -78,6 +89,7 @@ export default function KayMenuInsert() {
             className="form-control"
             onChange={(e: any) => setImei(e.target.value)}
             placeholder="imei เครื่อง"
+            value={imei}
           />
         </div>
       </div>
@@ -95,6 +107,7 @@ export default function KayMenuInsert() {
             onChange={(e: any) => setStarMoney(e.target.value)}
             min={0}
             placeholder="เงินดาวน์"
+            value={starMoney}
           />
         </div>
       </div>
@@ -112,6 +125,7 @@ export default function KayMenuInsert() {
             onChange={(e: any) => setMonth(e.target.value)}
             min={0}
             placeholder="จำนวนเดือนที่ผ่อน"
+            value={month}
           />
         </div>
       </div>
@@ -129,6 +143,7 @@ export default function KayMenuInsert() {
             onChange={(e: any) => setInstallment(e.target.value)}
             min={0}
             placeholder="เดือนละ"
+            value={installment}
           />
         </div>
       </div>
@@ -145,6 +160,7 @@ export default function KayMenuInsert() {
             className="form-control"
             onChange={(e: any) => setDatePayment(e.target.value)}
             placeholder="ชำระทุกวันที่"
+            value={datePayment}
           />
         </div>
       </div>

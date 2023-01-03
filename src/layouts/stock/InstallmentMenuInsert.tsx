@@ -3,7 +3,8 @@ import { StockContext } from "../../contexts/StockContext";
 import { MenuInstallmentPaymentEnum } from "../../enum/menuInsert.enum";
 
 export default function InstallmentMenuInsert() {
-  const { setInstallmentNo, setPriceTotal } = useContext(StockContext);
+  const { installmentNo, setInstallmentNo, priceTotal, setPriceTotal } =
+    useContext(StockContext);
   return (
     <>
       <div className="form-group">
@@ -21,6 +22,7 @@ export default function InstallmentMenuInsert() {
             className="form-control"
             onChange={(e: any) => setInstallmentNo(e.target.value)}
             placeholder="งวดที่"
+            value={installmentNo}
           />
         </div>
       </div>
@@ -39,6 +41,7 @@ export default function InstallmentMenuInsert() {
             className="form-control"
             onChange={(e: any) => setPriceTotal(e.target.value)}
             placeholder="จำนวนเงิน"
+            value={priceTotal}
           />
         </div>
       </div>

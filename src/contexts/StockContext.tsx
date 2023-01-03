@@ -10,33 +10,56 @@ import { GetStockResponse } from "../Models/Response/GetStockResponse";
 import StockService from "../services/StockServices";
 
 interface StockContextProps {
+  date: string;
   setDate: (value: string) => void;
   isMenuInsert: boolean;
   byeMenuInsert: boolean;
   kayMenuInsert: boolean;
   installmentMenuInsert: boolean;
   handlerSubmit: () => void;
+  idCard: string;
   setIdCard: (value: string) => void;
+  customerStatus: string;
   setCustomerStatus: (value: string) => void;
+  cases: number | string;
   setCases: (value: number | string) => void;
+  firm: number | string;
   setFirm: (value: number | string) => void;
+  len: number | string;
   setLen: (value: number | string) => void;
+  bigCharge: number | string;
   setBigCharge: (value: number | string) => void;
+  charge: number | string;
   setCharge: (value: number | string) => void;
+  repair: number | string;
   setRepair: (value: number | string) => void;
+  sum: number | string;
   setSum: (value: number | string) => void;
+  version: string;
   setVersion: (value: string) => void;
+  price: number | string;
   setPrice: (value: string) => void;
+  imei: string;
   setImei: (value: string) => void;
+  source: number | string;
   setSource: (value: string) => void;
+  battery: number | string;
   setBattery: (value: string) => void;
+  customer: string;
   setCustomer: (value: string) => void;
+  tel: string;
   setTel: (value: string) => void;
+  starMoney: number | string;
   setStarMoney: (value: string) => void;
+  month: number | string;
   setMonth: (value: string) => void;
+  installment: number | string;
   setInstallment: (value: string) => void;
+  datePayment: string;
   setDatePayment: (value: string) => void;
+  installmentNo: number | string;
   setInstallmentNo: (value: string) => void;
+  priceTotal: number | string;
   setPriceTotal: (value: string) => void;
   menuInsert: (stockType: string) => void;
   stockType: string;
@@ -46,33 +69,56 @@ interface StockContextProps {
 }
 
 export const StockContext = createContext<StockContextProps>({
+  date: "",
   setDate: (value: string) => {},
   isMenuInsert: false,
   byeMenuInsert: false,
   kayMenuInsert: false,
   installmentMenuInsert: false,
   handlerSubmit: () => {},
+  idCard: "",
   setIdCard: (value: string) => {},
+  customerStatus: "",
   setCustomerStatus: (value: string) => {},
+  cases: 0,
   setCases: (value: number | string) => {},
+  firm: 0,
   setFirm: (value: number | string) => {},
+  len: 0,
   setLen: (value: number | string) => {},
+  bigCharge: 0,
   setBigCharge: (value: number | string) => {},
+  charge: 0,
   setCharge: (value: number | string) => {},
+  repair: 0,
   setRepair: (value: number | string) => {},
+  sum: 0,
   setSum: (value: number | string) => {},
+  version: "",
   setVersion: (value: string) => {},
+  price: 0,
   setPrice: (value: string) => {},
+  imei: "",
   setImei: (value: string) => {},
+  source: 0,
   setSource: (value: string) => {},
+  battery: 0,
   setBattery: (value: string) => {},
+  customer: "",
   setCustomer: (value: string) => {},
+  tel: "",
   setTel: (value: string) => {},
+  starMoney: 0,
   setStarMoney: (value: number | string) => {},
+  month: 0,
   setMonth: (value: number | string) => {},
+  installment: 0,
   setInstallment: (value: number | string) => {},
+  datePayment: "",
   setDatePayment: (value: string) => {},
+  installmentNo: 0,
   setInstallmentNo: (value: string) => {},
+  priceTotal: 0,
   setPriceTotal: (value: number | string) => {},
   menuInsert: (stockType: string) => {},
   stockType: "",
@@ -345,33 +391,56 @@ export function StockContextProvider({ children }: ChildrenProps) {
 
   const values = useMemo(
     () => ({
+      date,
       setDate,
       isMenuInsert,
       byeMenuInsert,
       kayMenuInsert,
       installmentMenuInsert,
       handlerSubmit,
+      idCard,
       setIdCard,
+      customerStatus,
       setCustomerStatus,
+      cases,
       setCases,
+      firm,
       setFirm,
+      len,
       setLen,
+      bigCharge,
       setBigCharge,
+      charge,
       setCharge,
+      repair,
       setRepair,
+      sum,
       setSum,
+      version,
       setVersion,
+      price,
       setPrice,
+      imei,
       setImei,
+      source,
       setSource,
+      battery,
       setBattery,
+      customer,
       setCustomer,
+      tel,
       setTel,
+      starMoney,
       setStarMoney,
+      month,
       setMonth,
+      installment,
       setInstallment,
+      datePayment,
       setDatePayment,
+      installmentNo,
       setInstallmentNo,
+      priceTotal,
       setPriceTotal,
       menuInsert,
       stockType,
@@ -380,33 +449,56 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setStock,
     }),
     [
+      date,
       setDate,
       isMenuInsert,
       byeMenuInsert,
       kayMenuInsert,
       installmentMenuInsert,
       handlerSubmit,
+      idCard,
       setIdCard,
+      customerStatus,
       setCustomerStatus,
+      cases,
       setCases,
+      firm,
       setFirm,
+      len,
       setLen,
+      bigCharge,
       setBigCharge,
+      charge,
       setCharge,
+      repair,
       setRepair,
+      sum,
       setSum,
+      version,
       setVersion,
+      price,
       setPrice,
+      imei,
       setImei,
+      source,
       setSource,
+      battery,
       setBattery,
+      customer,
       setCustomer,
+      tel,
       setTel,
+      starMoney,
       setStarMoney,
+      month,
       setMonth,
+      installment,
       setInstallment,
+      datePayment,
       setDatePayment,
+      installmentNo,
       setInstallmentNo,
+      priceTotal,
       setPriceTotal,
       menuInsert,
       stockType,

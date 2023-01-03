@@ -4,8 +4,18 @@ import { StockContext } from "../../contexts/StockContext";
 import { MenuByeEnum } from "../../enum/menuInsert.enum";
 
 export default function ByeMenuInsert() {
-  const { setVersion, setPrice, setImei, setSource, setBattery } =
-    useContext(StockContext);
+  const {
+    version,
+    setVersion,
+    price,
+    setPrice,
+    imei,
+    setImei,
+    source,
+    setSource,
+    battery,
+    setBattery,
+  } = useContext(StockContext);
   return (
     <>
       <TextInput
@@ -14,6 +24,7 @@ export default function ByeMenuInsert() {
         setValue={setVersion}
         type={"text"}
         placeholder={"รุ่น"}
+        value={version}
       />
       <TextInput
         label={MenuByeEnum.PRICE}
@@ -22,6 +33,7 @@ export default function ByeMenuInsert() {
         setValue={setPrice}
         min={0}
         placeholder={"ราคา"}
+        value={price}
       />
       <TextInput
         label={MenuByeEnum.IMEI}
@@ -29,6 +41,7 @@ export default function ByeMenuInsert() {
         setValue={setImei}
         type={"text"}
         placeholder={"imei เครื่อง"}
+        value={imei}
       />
       <TextInput
         label={MenuByeEnum.SOURCE}
@@ -36,6 +49,7 @@ export default function ByeMenuInsert() {
         setValue={setSource}
         type={"text"}
         placeholder={"แหล่งที่มา"}
+        value={source}
       />
       <TextInput
         label={MenuByeEnum.BATTERY}
@@ -43,6 +57,7 @@ export default function ByeMenuInsert() {
         setValue={setBattery}
         type={"text"}
         placeholder={"แบตเตอรี่"}
+        value={battery}
       />
     </>
   );
