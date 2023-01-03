@@ -17,7 +17,7 @@ import {
   MenuEquipmentArray,
   MenuInstallmentPaymentArray,
 } from "../../enum/menuInsert.enum";
-import { StockEquipmentRequest } from "../../Models/StockModel";
+import { camelToSnakeObject } from '../../common/CamelToSnake';
 
 export default function StockPage() {
   const {
@@ -33,24 +33,43 @@ export default function StockPage() {
     setStockType,
     cases,
     setCases,
+    firm,
     setFirm,
+    len,
     setLen,
+    bigCharge,
     setBigCharge,
+    charge,
     setCharge,
+    repair,
     setRepair,
+    sum,
     setSum,
+    version,
     setVersion,
+    price,
     setPrice,
+    imei,
     setImei,
+    source,
     setSource,
+    battery,
     setBattery,
+    customer,
     setCustomer,
+    tel,
     setTel,
+    starMoney,
     setStarMoney,
+    month,
     setMonth,
+    installment,
     setInstallment,
+    datePayment,
     setDatePayment,
+    installmentNo,
     setInstallmentNo,
+    priceTotal,
     setPriceTotal,
     menuInsert,
     isMenuInsert,
@@ -128,32 +147,51 @@ export default function StockPage() {
   };
 
   const updateStockHandler = (id: string, stockType: string) => () => {
-    var payload: StockEquipmentRequest = {
-      cases: 0,
-      firm: 0,
-      len: 0,
-      big_charge: 0,
-      charge: 0,
-      repair: 0,
-      sum: 0
-    };
+    var payload = {};
 
     switch (stockType) {
       case "อุปกรณ์":
         payload = {
           cases,
-          firm: 0,
-          len: 0,
-          big_charge: 0,
-          charge: 0,
-          repair: 0,
-          sum: 0,
+          firm,
+          len,
+          bigCharge,
+          charge,
+          repair,
+          sum,
+        };
+        break;
+      case "ขาย":
+        payload = {
+          customer,
+          tel,
+          version,
+          imei,
+          starMoney,
+          month,
+          installment,
+          datePayment,
+        };
+        break;
+      case "ซื้อ":
+        payload = {
+          version,
+          price,
+          imei,
+          source,
+          battery,
+        };
+        break;
+      case "ผ่อน":
+        payload = {
+          installmentNo,
+          priceTotal,
         };
         break;
     }
 
-    console.log(payload);
-    // StockService.UpdateStock(id, stockType);
+    // console.log(payload);
+    StockService.UpdateStock(id, stockType, camelToSnakeObject(payload));
   };
 
   useEffect(() => {
@@ -254,7 +292,7 @@ export default function StockPage() {
                       data-dismiss="modal"
                       onClick={updateStockHandler(updateId, updateStockType)}
                     >
-                      บันทึก
+                      อัพเดต
                     </button>
                   ) : (
                     <button
