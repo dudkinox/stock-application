@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import initTable from "../../common/DataTable";
+import initTable, { destroyTable } from "../../common/DataTable";
 import { StockContext } from "../../contexts/StockContext";
 import ContentLayOut from "../../layouts/ContentLayOut";
 import StockService from "../../services/StockServices";
@@ -47,7 +47,7 @@ export default function StockPage() {
         alert(res.data.message);
         StockService.GetStock()
           .then((res) => {
-            setStock([]);
+            setTimeout(() => destroyTable());
             setStock(res.data);
             setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
           })

@@ -26,3 +26,7 @@ export default function initTable(max: string) {
     },
   });
 }
+
+export function destroyTable() {
+  ($("#stock-table") as any).DataTable().destroy();
+}

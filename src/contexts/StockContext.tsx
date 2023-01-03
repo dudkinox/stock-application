@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
-import initTable from "../common/DataTable";
+import initTable, { destroyTable } from "../common/DataTable";
 import StockRequest, {
   StockEquipmentRequest,
   StockByeRequest,
@@ -293,7 +293,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
         }
         StockService.GetStock()
           .then((res) => {
-            setStock([]);
+            destroyTable();
             setStock(res.data);
             setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
           })
@@ -332,33 +332,15 @@ export function StockContextProvider({ children }: ChildrenProps) {
   );
 
   useEffect(() => {
-    const fetchData = async () => {
-      await StockService.GetStock()
-        .then((res) => {
-          setStock([]);
-          setStock(res.data);
-          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-        })
-        .catch((err) => {
-          alert(err.response.data.message);
-        });
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await StockService.GetStock()
-        .then((res) => {
-          setStock([]);
-          setStock(res.data);
-          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-        })
-        .catch((err) => {
-          alert(err.response.data.message);
-        });
-    };
-    fetchData();
+    StockService.GetStock()
+      .then((res) => {
+        destroyTable();
+        setStock(res.data);
+        setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
   }, []);
 
   const values = useMemo(
