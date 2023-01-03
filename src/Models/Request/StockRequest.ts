@@ -6,13 +6,13 @@ export default interface StockRequest {
 }
 
 export interface StockEquipmentRequest extends StockRequest {
-  cases: number | string;
-  firm: number | string;
-  len: number | string;
-  bigCharge: number | string;
-  charge: number | string;
-  repair: number | string;
-  sum: number | string;
+  cases?: number | string;
+  firm?: number | string;
+  len?: number | string;
+  bigCharge?: number | string;
+  charge?: number | string;
+  repair?: number | string;
+  sum?: number | string;
 }
 
 export interface StockByeRequest extends StockRequest {

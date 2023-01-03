@@ -14,6 +14,17 @@ const GetDetailStockService = (idCard: string) => {
   return Https.get<any>(`/apis/stocks/detail/?id_card=${idCard}`);
 };
 
+const GetFindByIdStockService = (id: string, stockType: string) => {
+  return Https.get<any>(`/apis/stocks/find/?id=${id}&stock_type=${stockType}`);
+};
+
+const UpdateStockService = (id: string, stockType: string, payload: any) => {
+  return Https.post<any>(
+    `/apis/stocks/update/?id=${id}&stock_type=${stockType}`,
+    payload
+  );
+};
+
 const DeleteStockByIdService = (id: string) => {
   return Https.get<StatusStockResponse>(`/apis/stocks/delete/?id=${id}`);
 };
@@ -21,6 +32,8 @@ const DeleteStockByIdService = (id: string) => {
 const StockService = {
   InsertStock: InsertStockService,
   GetStock: GetStockService,
+  GetFindStockById: GetFindByIdStockService,
+  UpdateStock: UpdateStockService,
   DeleteStockById: DeleteStockByIdService,
   GetDetailStockService: GetDetailStockService,
 };
