@@ -128,14 +128,31 @@ export default function StockPage() {
   };
 
   const updateStockHandler = (id: string, stockType: string) => () => {
-    var payload: StockEquipmentRequest;
+    var payload: StockEquipmentRequest = {
+      cases: 0,
+      firm: 0,
+      len: 0,
+      big_charge: 0,
+      charge: 0,
+      repair: 0,
+      sum: 0
+    };
 
     switch (stockType) {
       case "อุปกรณ์":
-        // payload.cases = cases;
+        payload = {
+          cases,
+          firm: 0,
+          len: 0,
+          big_charge: 0,
+          charge: 0,
+          repair: 0,
+          sum: 0,
+        };
         break;
     }
 
+    console.log(payload);
     // StockService.UpdateStock(id, stockType);
   };
 
