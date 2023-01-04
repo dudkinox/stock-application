@@ -1,15 +1,14 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
+header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 require('../../../client/index.php');
 
 $id = isset($_GET['id']) ? $_GET['id'] : '';
-$stockType = isset($_GET['stock_type']) ? $_GET['stock_type'] :
+$stockType = isset($_GET['stock_type']) ? $_GET['stock_type'] : '';
 
-    $requestBody = json_decode(file_get_contents('php://input'), true);
+$requestBody = json_decode(file_get_contents('php://input'), true);
 
 $queryIdCard = "SELECT ID_CARD FROM stock WHERE ID = '" . $id . "'";
 $resultIdCard = $conn->query($queryIdCard);

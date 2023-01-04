@@ -17,7 +17,7 @@ import {
   MenuEquipmentArray,
   MenuInstallmentPaymentArray,
 } from "../../enum/menuInsert.enum";
-import { camelToSnakeObject } from '../../common/CamelToSnake';
+import { camelToSnakeObject } from "../../common/CamelToSnake";
 
 export default function StockPage() {
   const {
@@ -114,7 +114,7 @@ export default function StockPage() {
     menuInsert(stockType);
     StockService.GetFindStockById(id, stockType)
       .then((res) => {
-        setUpdateId(res.data.ID);
+        setUpdateId(id);
         setUpdateStockType(res.data.STOCK_TYPE);
         setDate(res.data.DATE);
         setIdCard(res.data.ID_CARD);
@@ -142,16 +142,17 @@ export default function StockPage() {
         setPriceTotal(res.data.PRICE_TOTAL);
       })
       .catch((err) => {
-        console.log(err);
+        alert(err);
       });
   };
 
-  const updateStockHandler = (id: string, stockType: string) => () => {
+  const updateStockHandler = (stockType: string) => () => {
     var payload = {};
 
     switch (stockType) {
       case "อุปกรณ์":
         payload = {
+          date,
           cases,
           firm,
           len,
@@ -163,6 +164,7 @@ export default function StockPage() {
         break;
       case "ขาย":
         payload = {
+          date,
           customer,
           tel,
           version,
@@ -175,6 +177,7 @@ export default function StockPage() {
         break;
       case "ซื้อ":
         payload = {
+          date,
           version,
           price,
           imei,
@@ -184,14 +187,20 @@ export default function StockPage() {
         break;
       case "ผ่อน":
         payload = {
+          date,
           installmentNo,
           priceTotal,
         };
         break;
     }
 
-    // console.log(payload);
-    StockService.UpdateStock(id, stockType, camelToSnakeObject(payload));
+    StockService.UpdateStock(updateId, stockType, camelToSnakeObject(payload))
+      .then((res) => {
+        alert(res.data.message);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
   };
 
   useEffect(() => {
@@ -290,7 +299,7 @@ export default function StockPage() {
                       type="button"
                       className="btn primary-btn col-lg-2 col-sm-auto"
                       data-dismiss="modal"
-                      onClick={updateStockHandler(updateId, updateStockType)}
+                      onClick={updateStockHandler(updateStockType)}
                     >
                       อัพเดต
                     </button>
