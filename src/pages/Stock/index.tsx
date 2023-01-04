@@ -250,7 +250,7 @@ export default function StockPage() {
                       <>
                         <TextInput
                           label={"ประวัติลูกค้า:"}
-                          icon={"far fa-history"}
+                          icon={"fas fa-history"}
                           setValue={setCustomerStatus}
                           type={"text"}
                           placeholder={"ประวัติลูกค้า"}
