@@ -90,8 +90,8 @@ export default function StockPage() {
     menuInsert(value);
   };
 
-  const deleteStock = (id: string) => () => {
-    StockService.DeleteStockById(id)
+  const deleteStock = (idCard: string) => () => {
+    StockService.DeleteStockById(idCard)
       .then((res) => {
         alert(res.data.message);
         StockService.GetStock()
@@ -422,7 +422,7 @@ export default function StockPage() {
                       </button>
                       <button
                         className="btn btn-danger"
-                        onClick={deleteStock(item.ID)}
+                        onClick={deleteStock(item.ID_CARD)}
                       >
                         <i className="nav-icon fas fa-trash" />
                       </button>

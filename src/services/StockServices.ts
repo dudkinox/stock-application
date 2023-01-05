@@ -25,8 +25,10 @@ const UpdateStockService = (id: string, stockType: string, payload: any) => {
   );
 };
 
-const DeleteStockByIdService = (id: string) => {
-  return Https.get<StatusStockResponse>(`/apis/stocks/delete/?id=${id}`);
+const DeleteStockByIdService = (idCard: string) => {
+  return Https.get<StatusStockResponse>(
+    `/apis/stocks/delete/?id_card=${idCard}`
+  );
 };
 
 const StockService = {

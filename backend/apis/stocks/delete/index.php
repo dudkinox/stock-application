@@ -11,7 +11,7 @@ $rowStockType = $resultStockType->fetch_assoc()["STOCK_TYPE"];
 $queryDeleteStock = "DELETE FROM stock WHERE ID_CARD = '" . $idCard . "'";
 
 $queryDeleteStockType = "";
-switch ($resultStockType) {
+switch ($rowStockType) {
     case 'อุปกรณ์':
         $queryDeleteStockType = "DELETE FROM equipment WHERE ID_CARD = '" . $idCard . "'";
         break;
