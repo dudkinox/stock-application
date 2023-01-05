@@ -308,8 +308,10 @@ export function StockContextProvider({ children }: ChildrenProps) {
               "&tel=" +
               kay.tel +
               "&version=" +
+              kay.version +
+              "&imei=" +
               kay.imei +
-              "&start_money=" +
+              "&star_money=" +
               kay.starMoney +
               "&month=" +
               kay.month +
