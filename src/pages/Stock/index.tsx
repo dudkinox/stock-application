@@ -16,6 +16,7 @@ import {
   MenuByeArray,
   MenuEquipmentArray,
   MenuInstallmentPaymentArray,
+  MenuKayArray,
 } from "../../enum/menuInsert.enum";
 import { camelToSnakeObject } from "../../common/CamelToSnake";
 
@@ -203,6 +204,20 @@ export default function StockPage() {
       });
   };
 
+  const openDetailModal = (idCard: string, stockType: string) => () => {
+    setTypeStock(stockType);
+    StockService.GetDetailStockService(idCard)
+      .then((res) => {
+        setItemList(res.data);
+        // console.log(res.data);
+
+        console.log(itemList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     StockService.GetStock()
       .then((res) => {
@@ -344,7 +359,7 @@ export default function StockPage() {
                                     : typeStock === "ซื้อ"
                                     ? MenuByeArray[index - 2]
                                     : typeStock === "ขาย"
-                                    ? MenuByeArray[index - 2]
+                                    ? MenuKayArray[index - 2]
                                     : MenuInstallmentPaymentArray[index - 2]}
                                 </label>
                               </div>
@@ -424,10 +439,7 @@ export default function StockPage() {
                       className="btn primary-btn text-white"
                       data-toggle="modal"
                       data-target="#detail-modal"
-                      onClick={() => {
-                        setItemList(item);
-                        setTypeStock(item.STOCK_TYPE);
-                      }}
+                      onClick={openDetailModal(item.ID_CARD, item.STOCK_TYPE)}
                     >
                       รายละเอียด
                     </button>
