@@ -2,11 +2,34 @@
 header('Content-Type: application/json; charset=utf-8');
 require('../../../client/index.php');
 
-$id = isset($_GET['id']) ? $_GET['id'] : '';
+$idCard = isset($_GET['id_card']) ? $_GET['id_card'] : '';
 
-$query = "DELETE FROM stock WHERE ID = '" . $_GET["id"] . "'";
+$queryStockType = "SELECT STOCK_TYPE FROM stock WHERE ID_CARD = '" . $idCard . "'";
+$resultStockType = $conn->query($queryStockType);
+$rowStockType = $resultStockType->fetch_assoc()["STOCK_TYPE"];
 
-if ($conn->query($query) === TRUE) {
+$queryDeleteStock = "DELETE FROM stock WHERE ID_CARD = '" . $idCard . "'";
+
+$queryDeleteStockType = "";
+switch ($resultStockType) {
+    case 'อุปกรณ์':
+        $queryDeleteStockType = "DELETE FROM equipment WHERE ID_CARD = '" . $idCard . "'";
+        break;
+    case 'ขาย':
+        $queryDeleteStockType = "DELETE FROM kay WHERE ID_CARD = '" . $idCard . "'";
+        break;
+    case 'ซื้อ':
+        $queryDeleteStockType = "DELETE FROM bye WHERE ID_CARD = '" . $idCard . "'";
+        break;
+    default:
+        $queryDeleteStockType = "DELETE FROM installment_payment WHERE ID_CARD = '" . $idCard . "'";
+        break;
+}
+
+if (
+    $conn->query($queryDeleteStock) === TRUE &&
+    $conn->query($queryDeleteStockType) === TRUE
+) {
     echo "{ \"status\": \"success\",
         \"message\": \"ลบข้อมูลสำเร็จ\",
         \"code\": \"000\" }";
