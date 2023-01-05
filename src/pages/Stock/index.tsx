@@ -209,12 +209,9 @@ export default function StockPage() {
     StockService.GetDetailStockService(idCard)
       .then((res) => {
         setItemList(res.data);
-        // console.log(res.data);
-
-        console.log(itemList);
       })
       .catch((err) => {
-        console.log(err);
+        alert(err);
       });
   };
 

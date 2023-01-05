@@ -207,6 +207,31 @@ export function StockContextProvider({ children }: ChildrenProps) {
     []
   );
 
+  const clearInputValue = () => {
+    setDate("");
+    setIdCard("");
+    setCustomerStatus("");
+    setStockType("");
+    setFirm("");
+    setLen("");
+    setBigCharge("");
+    setCharge("");
+    setRepair("");
+    setSum("");
+    setVersion("");
+    setPrice("");
+    setImei("");
+    setSource("");
+    setBattery("");
+    setCustomer("");
+    setTel("");
+    setStarMoney("");
+    setMonth("");
+    setInstallment("");
+    setDatePayment("");
+    setInstallmentNo("");
+    setPriceTotal("");
+  };
   const handlerSubmit = useMemo(
     () => () => {
       const baseInsert: StockRequest = {
@@ -344,6 +369,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
             destroyTable();
             setStock(res.data);
             setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+            clearInputValue();
           })
           .catch((err) => {
             alert(err.response.data.message);
