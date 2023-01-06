@@ -15,6 +15,8 @@ while ($row = $result->fetch_assoc()) {
         "NAME": "' . $row["NAME"] . '",
         "LAST_NAME": "' . $row["LAST_NAME"] . '",
         "INSTALLMENT_MONTH": "' . $row["INSTALLMENT_MONTH"] . '",
+        "NUMBER_INSTALLMENT": "' . $row["NUMBER_INSTALLMENT"] . '",
+        "PAYMENT": "' . $row["PAYMENT"] . '",
         "DATE_PAYMENT": "' . $row["DATE_PAYMENT"] . '",
         "CUSTOMER_STATUS": "' . $row["CUSTOMER_STATUS"] . '",
         "PROCESS": "' . $row["PROCESS"] . '"  
