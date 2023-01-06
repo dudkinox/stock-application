@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import initTable, { destroyTable } from "../common/DataTable";
+import { AlertError, AlertSuccess, AlertWarning } from "../common/ToastrCommon";
 import StockRequest, {
   StockEquipmentRequest,
   StockByeRequest,
@@ -198,10 +199,10 @@ export function StockContextProvider({ children }: ChildrenProps) {
     () => (params: string) => {
       StockService.InsertStock(params)
         .then((res) => {
-          alert(res.data.message);
+          AlertSuccess(res.data.message);
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          AlertError(err.response.data.message);
         });
     },
     []
@@ -242,9 +243,9 @@ export function StockContextProvider({ children }: ChildrenProps) {
       };
 
       if (baseInsert.date === "") {
-        alert("กรุณากรอกวันที่");
+        AlertWarning("กรุณากรอกวันที่");
       } else if (baseInsert.idCard.length !== 13) {
-        alert(" กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
+        AlertWarning("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
       } else {
         var baseParams =
           "?date=" +
@@ -372,7 +373,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
             clearInputValue();
           })
           .catch((err) => {
-            alert(err.response.data.message);
+            AlertError(err.response.data.message);
           });
       }
     },
@@ -413,7 +414,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        AlertError(err.response.data.message);
       });
   }, []);
 

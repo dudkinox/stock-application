@@ -19,6 +19,7 @@ import {
   MenuKayArray,
 } from "../../enum/menuInsert.enum";
 import { camelToSnakeObject } from "../../common/CamelToSnake";
+import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 
 export default function StockPage() {
   const {
@@ -93,7 +94,7 @@ export default function StockPage() {
   const deleteStock = (idCard: string) => () => {
     StockService.DeleteStockById(idCard)
       .then((res) => {
-        alert(res.data.message);
+        AlertSuccess(res.data.message);
         StockService.GetStock()
           .then((res) => {
             setTimeout(() => destroyTable());
@@ -101,11 +102,11 @@ export default function StockPage() {
             setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
           })
           .catch((err) => {
-            alert(err.response.data.message);
+            AlertError(err.response.data.message);
           });
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        AlertError(err.response.data.message);
       });
   };
 
@@ -143,7 +144,7 @@ export default function StockPage() {
         setPriceTotal(res.data.PRICE_TOTAL);
       })
       .catch((err) => {
-        alert(err);
+        AlertError(err.response.data.message);
       });
   };
 
@@ -197,10 +198,10 @@ export default function StockPage() {
 
     StockService.UpdateStock(updateId, stockType, camelToSnakeObject(payload))
       .then((res) => {
-        alert(res.data.message);
+        AlertSuccess(res.data.message);
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        AlertError(err.response.data.message);
       });
   };
 
@@ -211,7 +212,7 @@ export default function StockPage() {
         setItemList(res.data);
       })
       .catch((err) => {
-        alert(err);
+        AlertError(err.response.data.message);
       });
   };
 
@@ -222,7 +223,7 @@ export default function StockPage() {
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        AlertError(err.response.data.message);
       });
   }, [setStock]);
 
