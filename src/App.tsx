@@ -5,6 +5,7 @@ import NavBarCommon from "./common/NavBar";
 import SidebarCommon from "./common/Sidebar";
 import CustomerPage from "./pages/Customer";
 import { StockContextProvider } from "./contexts/StockContext";
+import { CustomerContextProvider } from "./contexts/CustomerContext";
 
 export default function App() {
   return (
@@ -22,7 +23,14 @@ export default function App() {
               </StockContextProvider>
             }
           />
-          <Route path="/customer" element={<CustomerPage />} />
+          <Route
+            path="/customer"
+            element={
+              <CustomerContextProvider>
+                <CustomerPage />
+              </CustomerContextProvider>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </>
