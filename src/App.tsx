@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard";
 import StockPage from "./pages/Stock";
 import NavBarCommon from "./common/NavBar";
 import SidebarCommon from "./common/Sidebar";
+import CustomerPage from "./pages/Customer";
 import { StockContextProvider } from "./contexts/StockContext";
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
               </StockContextProvider>
             }
           />
+          <Route path="/customer" element={<CustomerPage />} />
         </Routes>
       </BrowserRouter>
     </>

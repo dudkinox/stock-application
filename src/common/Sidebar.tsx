@@ -52,6 +52,17 @@ export default function SidebarCommon() {
                 <p>คลังสินค้า</p>
               </a>
             </li>
+            <li className="nav-item">
+              <a
+                href="/customer"
+                className={`nav-link ${
+                  pathUrl === PathEnum.CUSTOMER ? "active" : ""
+                }`}
+              >
+                <i className="nav-icon fas fa-users" />
+                <p>ข้อมูลลูกค้า</p>
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
