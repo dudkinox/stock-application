@@ -10,6 +10,7 @@ $query = "INSERT INTO customer(
                             `NAME`, 
                             LAST_NAME, 
                             INSTALLMENT_MONTH, 
+                            NUMBER_INSTALLMENT,
                             DATE_PAYMENT, 
                             CUSTOMER_STATUS, 
                             PROCESS) 
@@ -17,6 +18,7 @@ $query = "INSERT INTO customer(
                 '" . $requestBody["name"] . "',
                 '" . $requestBody["last_name"] . "',
                 '" . $requestBody["installment_month"] . "',
+                '" . $requestBody["number_installment"] . "',
                 '" . $requestBody["date_payment"] . "',
                 '" . $requestBody["customer_status"] . "',
                 '" . $requestBody["process"] . "')";
