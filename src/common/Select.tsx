@@ -5,6 +5,7 @@ interface SelectChoiceProps {
   icon: string;
   topic: string;
   options: string[];
+  value: string;
 }
 
 export default function SelectChoice({
@@ -14,6 +15,7 @@ export default function SelectChoice({
   icon,
   topic,
   options,
+  value,
 }: SelectChoiceProps) {
   return (
     <div className="form-group">
@@ -28,6 +30,7 @@ export default function SelectChoice({
           className="form-control"
           onChange={(e: any) => setValue(e.target.value)}
           placeholder={placeholder}
+          value={value}
         >
           <option hidden selected>
             {topic}

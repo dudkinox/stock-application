@@ -8,6 +8,14 @@ const insertCustomerService = (data: any) => {
   return Https.post(`apis/customers/insert/`, data);
 };
 
+const getCustomerByIdService = (id: string) => {
+  return Https.get(`apis/customers/find/?id=${id}`);
+};
+
+const updateCustomerService = (id: string, payload: any) => {
+  return Https.post(`apis/customers/update/?id=${id}`, payload);
+};
+
 const deleteCustomerService = (id: string) => {
   return Https.get(`apis/customers/delete/?id=${id}`);
 };
@@ -15,6 +23,8 @@ const deleteCustomerService = (id: string) => {
 const CustomerServices = {
   getCustomer: getCustomerService,
   insertCustomer: insertCustomerService,
+  getCustomerById: getCustomerByIdService,
+  updateCustomer: updateCustomerService,
   deleteCustomer: deleteCustomerService,
 };
 

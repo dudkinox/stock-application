@@ -9,6 +9,8 @@ import CustomerServices from "../../services/CustomerServices";
 import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 import initTable, { destroyTable } from "../../common/DataTable";
 import SelectChoice from "../../common/Select";
+import { CustomerRequest } from "../../Models/Request/CustomerRequest";
+import { camelToSnakeObject } from "../../common/CamelToSnake";
 
 export default function CustomerPage() {
   const {
@@ -35,6 +37,50 @@ export default function CustomerPage() {
     handlerSubmit,
   } = useContext(CustomerContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [updateId, setUpdateId] = useState<string>("");
+
+  const openModalUpdate = (id: string) => () => {
+    ($("#insert-modal") as any).modal("show");
+    setIsUpdate(true);
+    CustomerServices.getCustomerById(id)
+      .then((res) => {
+        setUpdateId(id);
+        setIdCard(res.data.ID_CARD);
+        setName(res.data.NAME);
+        setLastName(res.data.LAST_NAME);
+        setInstallmentMonth(res.data.INSTALLMENT_MONTH);
+        setNumberInstallment(res.data.NUMBER_INSTALLMENT);
+        setPayment(res.data.PAYMENT);
+        setDatePayment(res.data.DATE_PAYMENT);
+        setCustomerStatus(res.data.CUSTOMER_STATUS);
+        setProcess(res.data.PROCESS);
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+      });
+  };
+
+  const updateStockHandler = (id: string) => () => {
+    let payload: CustomerRequest = {
+      idCard,
+      name,
+      lastName,
+      installmentMonth,
+      numberInstallment,
+      payment,
+      datePayment,
+      customerStatus,
+      process,
+    };
+
+    CustomerServices.updateCustomer(id, camelToSnakeObject(payload))
+      .then((res) => {
+        AlertSuccess(res.data.message);
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+      });
+  };
 
   const deleteCustomer = (id: string) => () => {
     CustomerServices.deleteCustomer(id)
@@ -138,36 +184,22 @@ export default function CustomerPage() {
                       placeholder={"วันที่ต้องชำระ"}
                       value={datePayment}
                     />
-                    {isUpdate ? (
-                      <>
-                        <TextInput
-                          label={"ประวัติลูกค้า:"}
-                          icon={"fas fa-history"}
-                          setValue={setCustomerStatus}
-                          type={"text"}
-                          placeholder={"ประวัติลูกค้า"}
-                          value={customerStatus}
-                          readonly={true}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <SelectChoice
-                          label={"ประวัติลูกค้า"}
-                          setValue={setCustomerStatus}
-                          icon={"fas fa-history"}
-                          topic={"ประวัติลูกค้า"}
-                          options={["ลูกค้าดี", "ลูกค้าโกง", "ลูกค้าจ่ายช้า"]}
-                          placeholder={"ประวัติลูกค้า"}
-                        />
-                      </>
-                    )}
-                    <TextInput
-                      label={"สถานะ:"}
-                      icon={"far fa-calendar-alt"}
+                    <SelectChoice
+                      label={"ประวัติลูกค้า"}
+                      setValue={setCustomerStatus}
+                      icon={"fas fa-history"}
+                      topic={"ประวัติลูกค้า"}
+                      options={["ลูกค้าดี", "ลูกค้าโกง", "ลูกค้าจ่ายช้า"]}
+                      placeholder={"ประวัติลูกค้า"}
+                      value={customerStatus}
+                    />
+                    <SelectChoice
+                      label={"สถานะ"}
                       setValue={setProcess}
-                      type={"text"}
-                      placeholder={"สถานะ"}
+                      placeholder="เลือกสถานะ"
+                      icon={"fas fa-history"}
+                      topic={"เลือกสถานะ"}
+                      options={["กำลังผ่อน", "ชำระครบถ้วน", "ไม่ระบุ"]}
                       value={process}
                     />
                   </div>
@@ -178,7 +210,7 @@ export default function CustomerPage() {
                       type="button"
                       className="btn primary-btn col-lg-2 col-sm-auto"
                       data-dismiss="modal"
-                      //   onClick={updateStockHandler(updateStockType)}
+                      onClick={updateStockHandler(updateId)}
                     >
                       อัพเดต
                     </button>
@@ -234,7 +266,7 @@ export default function CustomerPage() {
                     <div className="row justify-content-center">
                       <button
                         className="btn btn-warning mx-2"
-                        //   onClick={openModalUpdate(item.ID, item.STOCK_TYPE)}
+                        onClick={openModalUpdate(item.ID)}
                       >
                         <i className="nav-icon fas fa-pen" />
                       </button>

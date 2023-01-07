@@ -289,6 +289,7 @@ export default function StockPage() {
                           topic={"ประวัติลูกค้า"}
                           options={["ลูกค้าดี", "ลูกค้าโกง", "ลูกค้าจ่ายช้า"]}
                           placeholder={"ประวัติลูกค้า"}
+                          value={"ประวัติลูกค้า"}
                         />
                         <SelectChoice
                           label={"ประเภท"}
@@ -297,6 +298,7 @@ export default function StockPage() {
                           topic={"ประเภท"}
                           options={["ซื้อ", "ขาย", "ผ่อน", "อุปกรณ์"]}
                           placeholder={"ประเภทลูกค้า"}
+                          value={"ประเภท"}
                         />
                       </>
                     )}
