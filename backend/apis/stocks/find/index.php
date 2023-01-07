@@ -3,9 +3,9 @@ header('Content-Type: application/json; charset=utf-8');
 require('../../../client/index.php');
 
 $id = isset($_GET['id']) ? $_GET['id'] : '';
-$type = isset($_GET['stock_type']) ? $_GET['stock_type'] :
+$type = isset($_GET['stock_type']) ? $_GET['stock_type'] : "";
 
-    $formatStockType = "";
+$formatStockType = "";
 switch ($type) {
     case 'อุปกรณ์':
         $formatStockType = "equipment";
