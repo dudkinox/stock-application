@@ -121,6 +121,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
           setCustomer(res.data);
           setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
           clearInputValue();
+          console.log(customer);
         })
         .catch((err) => {
           AlertError(err.response.data.message);
@@ -128,6 +129,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
     },
     [
       idCard,
+      customer,
       name,
       lastName,
       installmentMonth,
