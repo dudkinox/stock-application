@@ -28,6 +28,7 @@ interface CustomerContextProps {
   process: string;
   setProcess: (value: string) => void;
   handlerSubmit: () => void;
+  reGetCustomer: () => void;
 }
 
 export const CustomerContext = createContext<CustomerContextProps>({
@@ -52,6 +53,7 @@ export const CustomerContext = createContext<CustomerContextProps>({
   process: "",
   setProcess: (value: string) => {},
   handlerSubmit: () => {},
+  reGetCustomer: () => {},
 });
 
 interface ChildrenProps {
@@ -70,29 +72,29 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   const [customerStatus, setCustomerStatus] = useState<string>("");
   const [process, setProcess] = useState<string>("");
 
+  const reGetCustomer = useMemo(
+    () => () => {
+      CustomerServices.getCustomer().then((res) => {
+        destroyTable();
+        setCustomer(res.data);
+        setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+      });
+    },
+    []
+  );
+
   const insertCustomer = useMemo(
     () => (data: any) => {
       CustomerServices.insertCustomer(data)
         .then((res) => {
           AlertSuccess(res.data.message);
-          CustomerServices.getCustomer()
-            .then((res) => {
-              destroyTable();
-              setCustomer(res.data);
-              setTimeout(
-                () => initTable(res.data.length.toString() ?? "0"),
-                100
-              );
-            })
-            .catch((err) => {
-              AlertError(err.response.data.message);
-            });
+          reGetCustomer()
         })
         .catch((err) => {
           AlertError(err.response.data.message);
         });
     },
-    []
+    [reGetCustomer]
   );
 
   const clearInputValue = () => {
@@ -178,6 +180,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       process,
       setProcess,
       handlerSubmit,
+      reGetCustomer,
     }),
     [
       customer,
@@ -201,6 +204,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       process,
       setProcess,
       handlerSubmit,
+      reGetCustomer,
     ]
   );
 

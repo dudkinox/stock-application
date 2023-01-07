@@ -35,6 +35,7 @@ export default function CustomerPage() {
     process,
     setProcess,
     handlerSubmit,
+    reGetCustomer,
   } = useContext(CustomerContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
@@ -76,11 +77,7 @@ export default function CustomerPage() {
     CustomerServices.updateCustomer(id, camelToSnakeObject(payload))
       .then((res) => {
         AlertSuccess(res.data.message);
-        CustomerServices.getCustomer().then((res) => {
-          destroyTable();
-          setCustomer(res.data);
-          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-        });
+        reGetCustomer();
       })
       .catch((err) => {
         AlertError(err.response.data.message);
