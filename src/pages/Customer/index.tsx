@@ -6,8 +6,8 @@ import TextInput from "../../common/TextInput";
 import DataList from "../../common/DataList";
 import { CustomerContext } from "../../contexts/CustomerContext";
 import CustomerServices from "../../services/CustomerServices";
-import { AlertError } from "../../common/ToastrCommon";
-import initTable from "../../common/DataTable";
+import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
+import initTable, { destroyTable } from "../../common/DataTable";
 import SelectChoice from "../../common/Select";
 
 export default function CustomerPage() {
@@ -35,6 +35,25 @@ export default function CustomerPage() {
     handlerSubmit,
   } = useContext(CustomerContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
+
+  const deleteCustomer = (id: string) => () => {
+    CustomerServices.deleteCustomer(id)
+      .then((res) => {
+        AlertSuccess(res.data.message);
+        CustomerServices.getCustomer()
+          .then((res) => {
+            setTimeout(() => destroyTable());
+            setCustomer(res.data);
+            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+          })
+          .catch((err) => {
+            AlertError(err.response.data.message);
+          });
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+      });
+  };
 
   useEffect(() => {
     CustomerServices.getCustomer()
@@ -221,7 +240,7 @@ export default function CustomerPage() {
                       </button>
                       <button
                         className="btn btn-danger"
-                        //   onClick={deleteStock(item.ID_CARD)}
+                        onClick={deleteCustomer(item.ID)}
                       >
                         <i className="nav-icon fas fa-trash" />
                       </button>

@@ -233,6 +233,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
     setInstallmentNo("");
     setPriceTotal("");
   };
+
   const handlerSubmit = useMemo(
     () => () => {
       const baseInsert: StockRequest = {

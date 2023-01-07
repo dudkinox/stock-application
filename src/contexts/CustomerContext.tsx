@@ -97,8 +97,8 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   };
 
   const handlerSubmit = useMemo(
-    () => () => {
-      var baseInsert: CustomerRequest = {
+    () => async () => {
+      const baseInsert: CustomerRequest = {
         idCard,
         name,
         lastName,
@@ -143,6 +143,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   useEffect(() => {
     CustomerServices.getCustomer()
       .then((res) => {
+        destroyTable();
         setCustomer(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
       })
