@@ -75,6 +75,18 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       CustomerServices.insertCustomer(data)
         .then((res) => {
           AlertSuccess(res.data.message);
+          CustomerServices.getCustomer()
+            .then((res) => {
+              destroyTable();
+              setCustomer(res.data);
+              setTimeout(
+                () => initTable(res.data.length.toString() ?? "0"),
+                100
+              );
+            })
+            .catch((err) => {
+              AlertError(err.response.data.message);
+            });
         })
         .catch((err) => {
           AlertError(err.response.data.message);
@@ -97,7 +109,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   };
 
   const handlerSubmit = useMemo(
-    () => async () => {
+    () => () => {
       const baseInsert: CustomerRequest = {
         idCard,
         name,
@@ -114,18 +126,8 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         AlertWarning("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
       } else {
         insertCustomer(camelToSnakeObject(baseInsert));
+        clearInputValue();
       }
-      CustomerServices.getCustomer()
-        .then((res) => {
-          destroyTable();
-          setCustomer(res.data);
-          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-          clearInputValue();
-          // console.log(customer);
-        })
-        .catch((err) => {
-          AlertError(err.response.data.message);
-        });
     },
     [
       idCard,

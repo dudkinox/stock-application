@@ -156,7 +156,7 @@ export default function CustomerPage() {
                       label={"ต้องผ่อนต่อเดือน:"}
                       icon={"far fa-calendar-alt"}
                       setValue={setInstallmentMonth}
-                      type={"text"}
+                      type={"number"}
                       placeholder={"จำนวนเงินที่ต้องผ่อนต่อเดือน"}
                       value={installmentMonth}
                     />
@@ -164,7 +164,7 @@ export default function CustomerPage() {
                       label={"จำนวนงวดที่ผ่อนแล้ว:"}
                       icon={"far fa-calendar-alt"}
                       setValue={setNumberInstallment}
-                      type={"text"}
+                      type={"number"}
                       placeholder={"จำนวนงวดที่ผ่อนแล้ว"}
                       value={numberInstallment}
                     />
@@ -172,7 +172,7 @@ export default function CustomerPage() {
                       label={"ยอดชำระปัจจุบัน:"}
                       icon={"far fa-calendar-alt"}
                       setValue={setPayment}
-                      type={"text"}
+                      type={"number"}
                       placeholder={"ยอดชำระปัจจุบัน"}
                       value={payment}
                     />
