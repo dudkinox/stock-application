@@ -76,6 +76,11 @@ export default function CustomerPage() {
     CustomerServices.updateCustomer(id, camelToSnakeObject(payload))
       .then((res) => {
         AlertSuccess(res.data.message);
+        CustomerServices.getCustomer().then((res) => {
+          destroyTable();
+          setCustomer(res.data);
+          setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+        });
       })
       .catch((err) => {
         AlertError(err.response.data.message);

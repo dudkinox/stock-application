@@ -131,7 +131,6 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
     },
     [
       idCard,
-      // customer,
       name,
       lastName,
       installmentMonth,
