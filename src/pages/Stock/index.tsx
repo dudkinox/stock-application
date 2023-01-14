@@ -20,6 +20,8 @@ import {
 } from "../../enum/menuInsert.enum";
 import { camelToSnakeObject } from "../../common/CamelToSnake";
 import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
+import CustomerServices from "../../services/CustomerServices";
+import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
 
 export default function StockPage() {
   const {
@@ -84,6 +86,9 @@ export default function StockPage() {
   const [typeStock, setTypeStock] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
+  const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
+    []
+  );
   const [updateStockType, setUpdateStockType] = useState<string>("");
 
   const SelectStockType = (value: string) => {
@@ -227,6 +232,12 @@ export default function StockPage() {
       });
   }, [setStock]);
 
+  useEffect(() => {
+    CustomerServices.getCustomer().then((res) => {
+      setSelectCustomer(res.data);
+    });
+  }, []);
+
   return (
     <ContentLayOut
       title={"stock"}
@@ -252,7 +263,7 @@ export default function StockPage() {
                       label={"ค้นหา / เลือก เลขบัตรประชาชน:"}
                       setValue={setIdCard}
                       icon={"far fa-id-card"}
-                      data={["1", "2", "3"]}
+                      data={selectCustomer.map((item) => item.ID_CARD)}
                       placeholder={"เลขบัตรประชาชน"}
                       minLength={13}
                       maxLength={13}

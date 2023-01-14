@@ -1,7 +1,8 @@
 import Https from "../Https/Index";
+import { GetCustomerResponse } from "../Models/Response/GetCustomerResponse";
 
 const getCustomerService = () => {
-  return Https.get(`apis/customers/get/`);
+  return Https.get<GetCustomerResponse[]>(`apis/customers/get/`);
 };
 
 const insertCustomerService = (data: any) => {
