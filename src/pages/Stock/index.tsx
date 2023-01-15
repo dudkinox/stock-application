@@ -255,8 +255,7 @@ export default function StockPage() {
                       label={"วันที่:"}
                       icon={"far fa-calendar-alt"}
                       setValue={setDate}
-                      type={"text"}
-                      placeholder={"dd/mm/yyyy"}
+                      type={"date"}
                       value={date}
                     />
                     <DataList
