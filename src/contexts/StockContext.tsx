@@ -67,6 +67,8 @@ interface StockContextProps {
   setStockType: (value: string) => void;
   stock: GetStockResponse[];
   setStock: (value: GetStockResponse[]) => void;
+  isShowModal: boolean;
+  setIsShowModal: (value: boolean) => void;
 }
 
 export const StockContext = createContext<StockContextProps>({
@@ -126,6 +128,8 @@ export const StockContext = createContext<StockContextProps>({
   setStockType: (value: string) => {},
   stock: [],
   setStock: (value: GetStockResponse[]) => {},
+  isShowModal: false,
+  setIsShowModal: (value: boolean) => {},
 });
 
 interface ChildrenProps {
@@ -162,6 +166,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [installmentNo, setInstallmentNo] = useState<number | string>(0);
   const [priceTotal, setPriceTotal] = useState<number | string>(0);
   const [stock, setStock] = useState<GetStockResponse[]>([]);
+  const [isShowModal, setIsShowModal] = useState(false);
 
   const menuInsert = useMemo(
     () => (stockType: string) => {
@@ -232,6 +237,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
     setDatePayment("");
     setInstallmentNo("");
     setPriceTotal("");
+    setIsShowModal(false);
   };
 
   const handlerSubmit = useMemo(
@@ -248,6 +254,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
       } else if (baseInsert.idCard.length !== 13) {
         AlertWarning("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
       } else {
+        setIsShowModal(true);
         var baseParams =
           "?date=" +
           baseInsert.date +
@@ -477,64 +484,43 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setStockType,
       stock,
       setStock,
+      isShowModal,
+      setIsShowModal,
     }),
     [
       date,
-      setDate,
       isMenuInsert,
       byeMenuInsert,
       kayMenuInsert,
       installmentMenuInsert,
       handlerSubmit,
       idCard,
-      setIdCard,
       customerStatus,
-      setCustomerStatus,
       cases,
-      setCases,
       firm,
-      setFirm,
       len,
-      setLen,
       bigCharge,
-      setBigCharge,
       charge,
-      setCharge,
       repair,
-      setRepair,
       sum,
-      setSum,
       version,
-      setVersion,
       price,
-      setPrice,
       imei,
-      setImei,
       source,
-      setSource,
       battery,
-      setBattery,
       customer,
-      setCustomer,
       tel,
-      setTel,
       starMoney,
-      setStarMoney,
       month,
-      setMonth,
       installment,
-      setInstallment,
       datePayment,
-      setDatePayment,
       installmentNo,
-      setInstallmentNo,
       priceTotal,
-      setPriceTotal,
       menuInsert,
       stockType,
-      setStockType,
       stock,
-      setStock,
+      isShowModal,
+      setIsShowModal,
     ]
   );
 

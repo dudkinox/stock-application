@@ -81,6 +81,7 @@ export default function StockPage() {
     kayMenuInsert,
     installmentMenuInsert,
     handlerSubmit,
+    isShowModal,
   } = useContext(StockContext);
   const [itemList, setItemList] = useState<any>({});
   const [typeStock, setTypeStock] = useState<string>("");
@@ -338,7 +339,7 @@ export default function StockPage() {
                     <button
                       type="button"
                       className="btn primary-btn col-lg-2 col-sm-auto"
-                      data-dismiss="modal"
+                      data-dismiss={isShowModal && `modal`}
                       onClick={handlerSubmit}
                     >
                       บันทึก

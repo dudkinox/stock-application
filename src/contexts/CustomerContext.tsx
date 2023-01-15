@@ -29,6 +29,8 @@ interface CustomerContextProps {
   setProcess: (value: string) => void;
   handlerSubmit: () => void;
   reGetCustomer: () => void;
+  isShowModal: boolean;
+  setIsShowModal: (value: boolean) => void;
 }
 
 export const CustomerContext = createContext<CustomerContextProps>({
@@ -54,6 +56,8 @@ export const CustomerContext = createContext<CustomerContextProps>({
   setProcess: (value: string) => {},
   handlerSubmit: () => {},
   reGetCustomer: () => {},
+  isShowModal: false,
+  setIsShowModal: (value: boolean) => {},
 });
 
 interface ChildrenProps {
@@ -71,6 +75,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   const [datePayment, setDatePayment] = useState<string>("");
   const [customerStatus, setCustomerStatus] = useState<string>("");
   const [process, setProcess] = useState<string>("");
+  const [isShowModal, setIsShowModal] = useState(false);
 
   const reGetCustomer = useMemo(
     () => () => {
@@ -88,7 +93,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       CustomerServices.insertCustomer(data)
         .then((res) => {
           AlertSuccess(res.data.message);
-          reGetCustomer()
+          reGetCustomer();
         })
         .catch((err) => {
           AlertError(err.response.data.message);
@@ -108,6 +113,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
     setDatePayment("");
     setCustomerStatus("");
     setProcess("");
+    setIsShowModal(false);
   };
 
   const handlerSubmit = useMemo(
@@ -127,6 +133,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       if (baseInsert.idCard.length !== 13) {
         AlertWarning("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
       } else {
+        setIsShowModal(true);
         insertCustomer(camelToSnakeObject(baseInsert));
         clearInputValue();
       }
@@ -181,6 +188,8 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setProcess,
       handlerSubmit,
       reGetCustomer,
+      isShowModal,
+      setIsShowModal,
     }),
     [
       customer,
@@ -205,6 +214,8 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setProcess,
       handlerSubmit,
       reGetCustomer,
+      isShowModal,
+      setIsShowModal,
     ]
   );
 

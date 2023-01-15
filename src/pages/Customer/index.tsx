@@ -36,6 +36,7 @@ export default function CustomerPage() {
     setProcess,
     handlerSubmit,
     reGetCustomer,
+    isShowModal,
   } = useContext(CustomerContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
@@ -220,7 +221,7 @@ export default function CustomerPage() {
                     <button
                       type="button"
                       className="btn primary-btn col-lg-2 col-sm-auto"
-                      data-dismiss="modal"
+                      data-dismiss={isShowModal && `modal`}
                       onClick={handlerSubmit}
                     >
                       บันทึก
