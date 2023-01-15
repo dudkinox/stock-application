@@ -132,6 +132,14 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
 
       if (baseInsert.idCard.length !== 13) {
         AlertWarning("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
+      } else if (baseInsert.name === "" || null) {
+        AlertWarning("กรุณากรอกชื่อ");
+      } else if (baseInsert.lastName === "" || null) {
+        AlertWarning("กรุณากรอกนามสกุล");
+      } else if (baseInsert.customerStatus === "ประวัติลูกค้า") {
+        AlertWarning("กรุณาเลือกประวัติลุกค้า");
+      } else if (baseInsert.process === "เลือกสถานะ") {
+        AlertWarning("กรุณาเลือกเลือกสถานะ");
       } else {
         setIsShowModal(true);
         insertCustomer(camelToSnakeObject(baseInsert));
