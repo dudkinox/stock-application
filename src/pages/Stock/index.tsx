@@ -300,7 +300,12 @@ export default function StockPage() {
                           topic={"ประวัติลูกค้า"}
                           options={["ลูกค้าดี", "ลูกค้าโกง", "ลูกค้าจ่ายช้า"]}
                           placeholder={"ประวัติลูกค้า"}
-                          value={"ประวัติลูกค้า"}
+                          value={
+                            selectCustomer
+                              .filter((fil) => fil.ID_CARD === idCard)
+                              .map((item) => item.CUSTOMER_STATUS)[0] ??
+                            "ประวัติลูกค้า"
+                          }
                         />
                         <SelectChoice
                           label={"ประเภท"}
