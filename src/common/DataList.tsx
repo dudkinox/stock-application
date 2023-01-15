@@ -5,7 +5,7 @@ interface DataListProps {
   icon: string;
   maxLength?: number;
   minLength?: number;
-  data: string[];
+  data?: string[];
   value?: string;
   isReadOnly?: boolean;
 }
@@ -43,9 +43,7 @@ export default function DataList({
           readOnly={isReadOnly}
         />
         <datalist id="datalistOptions">
-          {data.map((item, index) => (
-            <option key={index} value={item} />
-          ))}
+          {data ?? [].map((item, index) => <option key={index} value={item} />)}
         </datalist>
       </div>
     </div>

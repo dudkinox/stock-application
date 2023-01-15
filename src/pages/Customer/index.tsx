@@ -132,7 +132,6 @@ export default function CustomerPage() {
                       label={"ค้นหา / เลือก เลขบัตรประชาชน:"}
                       setValue={setIdCard}
                       icon={"far fa-id-card"}
-                      data={["1", "2", "3"]}
                       placeholder={"เลขบัตรประชาชน"}
                       minLength={13}
                       maxLength={13}
