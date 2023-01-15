@@ -4,7 +4,10 @@ interface TextInputProps {
   placeholder?: string;
   type: string;
   icon: string;
-  min?: number;
+  min?: number | string;
+  max?: number | string;
+  id?: string;
+  name?: string;
   maxLength?: number;
   minLength?: number;
   readonly?: boolean;
@@ -18,14 +21,19 @@ export default function TextInput({
   type,
   icon,
   min,
+  max,
+  id,
+  name,
   maxLength,
   minLength,
   readonly,
-  value
+  value,
 }: TextInputProps) {
   return (
     <div className="form-group">
-      <label className="float-left">{label}</label>
+      <label htmlFor={id} className="float-left">
+        {label}
+      </label>
       <div className="input-group">
         <div className="input-group-prepend">
           <span className="input-group-text">
@@ -38,6 +46,9 @@ export default function TextInput({
           maxLength={maxLength}
           minLength={minLength}
           min={min}
+          max={max}
+          id={id}
+          name={name}
           onChange={(e: any) => setValue(e.target.value)}
           placeholder={placeholder}
           readOnly={readonly}

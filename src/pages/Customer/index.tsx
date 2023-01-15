@@ -178,12 +178,14 @@ export default function CustomerPage() {
                       placeholder={"ยอดชำระปัจจุบัน"}
                       value={payment}
                     />
-                    <TextInput
+                    <SelectChoice
                       label={"วันที่ต้องชำระ:"}
                       icon={"far fa-calendar-alt"}
                       setValue={setDatePayment}
-                      type={"text"}
-                      placeholder={"วันที่ต้องชำระ"}
+                      topic={"เลือกวันที่"}
+                      options={Array.from({ length: 30 }, (_, i) =>
+                        (i + 1).toString()
+                      )}
                       value={datePayment}
                     />
                     <SelectChoice
