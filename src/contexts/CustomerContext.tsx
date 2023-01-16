@@ -69,10 +69,10 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   const [idCard, setIdCard] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
-  const [installmentMonth, setInstallmentMonth] = useState<string>("");
-  const [numberInstallment, setNumberInstallment] = useState<string>("");
-  const [payment, setPayment] = useState<string>("");
-  const [datePayment, setDatePayment] = useState<string>("");
+  const [installmentMonth, setInstallmentMonth] = useState<string>("0");
+  const [numberInstallment, setNumberInstallment] = useState<string>("0");
+  const [payment, setPayment] = useState<string>("0");
+  const [datePayment, setDatePayment] = useState<string>("0");
   const [customerStatus, setCustomerStatus] = useState<string>("");
   const [process, setProcess] = useState<string>("");
   const [isShowModal, setIsShowModal] = useState(false);
