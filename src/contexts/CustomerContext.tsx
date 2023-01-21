@@ -69,10 +69,10 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   const [idCard, setIdCard] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
-  const [installmentMonth, setInstallmentMonth] = useState<string>("");
-  const [numberInstallment, setNumberInstallment] = useState<string>("");
-  const [payment, setPayment] = useState<string>("");
-  const [datePayment, setDatePayment] = useState<string>("");
+  const [installmentMonth, setInstallmentMonth] = useState<string>("0");
+  const [numberInstallment, setNumberInstallment] = useState<string>("0");
+  const [payment, setPayment] = useState<string>("0");
+  const [datePayment, setDatePayment] = useState<string>("0");
   const [customerStatus, setCustomerStatus] = useState<string>("");
   const [process, setProcess] = useState<string>("");
   const [isShowModal, setIsShowModal] = useState(false);
@@ -132,6 +132,14 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
 
       if (baseInsert.idCard.length !== 13) {
         AlertWarning("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
+      } else if (baseInsert.name === "" || null) {
+        AlertWarning("กรุณากรอกชื่อ");
+      } else if (baseInsert.lastName === "" || null) {
+        AlertWarning("กรุณากรอกนามสกุล");
+      } else if (baseInsert.customerStatus === "ประวัติลูกค้า") {
+        AlertWarning("กรุณาเลือกประวัติลุกค้า");
+      } else if (baseInsert.process === "เลือกสถานะ") {
+        AlertWarning("กรุณาเลือกเลือกสถานะ");
       } else {
         setIsShowModal(true);
         insertCustomer(camelToSnakeObject(baseInsert));

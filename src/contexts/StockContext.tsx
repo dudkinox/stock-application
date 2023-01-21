@@ -156,13 +156,13 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [price, setPrice] = useState<number | string>(0);
   const [imei, setImei] = useState<string>("");
   const [source, setSource] = useState<string>("");
-  const [battery, setBattery] = useState<string>("");
+  const [battery, setBattery] = useState<string>("0");
   const [customer, setCustomer] = useState<string>("");
   const [tel, setTel] = useState<string>("");
   const [starMoney, setStarMoney] = useState<number | string>(0);
   const [month, setMonth] = useState<number | string>(0);
   const [installment, setInstallment] = useState<number | string>(0);
-  const [datePayment, setDatePayment] = useState<string>("");
+  const [datePayment, setDatePayment] = useState<string>("0");
   const [installmentNo, setInstallmentNo] = useState<number | string>(0);
   const [priceTotal, setPriceTotal] = useState<number | string>(0);
   const [stock, setStock] = useState<GetStockResponse[]>([]);
@@ -253,17 +253,20 @@ export function StockContextProvider({ children }: ChildrenProps) {
         AlertWarning("กรุณากรอกวันที่");
       } else if (baseInsert.idCard.length !== 13) {
         AlertWarning("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
+      } else if (baseInsert.customerStatus === "ประวัติลุกค้า") {
+        AlertWarning("กรุณาเลือกประวัติลุกค้า");
+      } else if (baseInsert.stockType === "ประเภท") {
+        AlertWarning("กรุณาเลือกประเภท");
       } else {
         setIsShowModal(true);
         var baseParams =
-          "?date=" +
-          baseInsert.date +
-          "&id_card=" +
-          baseInsert.idCard +
-          "&customer_status=" +
-          baseInsert.customerStatus +
-          "&stock_type=" +
-          baseInsert.stockType;
+          "?date=" + baseInsert.date +
+            "&id_card=" +
+            baseInsert.idCard +
+            "&customer_status=" +
+            baseInsert.customerStatus +
+            "&stock_type=" +
+            baseInsert.stockType;
 
         var params = "";
         switch (stockType) {
