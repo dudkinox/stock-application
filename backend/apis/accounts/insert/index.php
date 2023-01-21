@@ -6,13 +6,14 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 require('../../../client/index.php');
 
 $requestBody = json_decode(file_get_contents('php://input'), true);
+$hashPassword = password_hash($requestBody["password"], PASSWORD_BCRYPT);
 
 $query = "INSERT INTO user(USERNAME, 
                         `PASSWORD`, 
                         MAJOR, 
                         PERMISSION) 
         VALUES ('" . $requestBody["username"] . "',
-                '" . $requestBody["password"] . "',
+                '" . $hashPassword . "',
                 '" . $requestBody["major"] . "',
                 '" . $requestBody["permission"] . "')";
 
