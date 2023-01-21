@@ -111,7 +111,6 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
     setNumberInstallment("");
     setPayment("");
     setDatePayment("");
-    setCustomerStatus("");
     setProcess("");
     setIsShowModal(false);
   };

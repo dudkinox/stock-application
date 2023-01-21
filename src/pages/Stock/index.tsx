@@ -304,7 +304,7 @@ export default function StockPage() {
                             selectCustomer
                               .filter((fil) => fil.ID_CARD === idCard)
                               .map((item) => item.CUSTOMER_STATUS)[0] ??
-                            "ประวัติลูกค้า"
+                            customerStatus
                           }
                         />
                         <SelectChoice
@@ -314,7 +314,7 @@ export default function StockPage() {
                           topic={"ประเภท"}
                           options={["ซื้อ", "ขาย", "ผ่อน", "อุปกรณ์"]}
                           placeholder={"ประเภทลูกค้า"}
-                          value={"ประเภท"}
+                          value={stockType}
                         />
                       </>
                     )}
