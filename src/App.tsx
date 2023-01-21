@@ -6,6 +6,7 @@ import SidebarCommon from "./common/Sidebar";
 import CustomerPage from "./pages/Customer";
 import { StockContextProvider } from "./contexts/StockContext";
 import { CustomerContextProvider } from "./contexts/CustomerContext";
+import ManageUser from "./pages/ManageUser/indes";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
               </CustomerContextProvider>
             }
           />
+          <Route path="/manage-user" element={<ManageUser />} />
         </Routes>
       </BrowserRouter>
     </>
