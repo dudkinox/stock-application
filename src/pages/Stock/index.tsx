@@ -242,7 +242,13 @@ export default function StockPage() {
 
   useEffect(() => {
     setCustomerFind(selectCustomer.find((fil) => fil.ID_CARD === idCard));
-  }, [idCard, selectCustomer]);
+    setCustomerStatus(customerFind?.CUSTOMER_STATUS ?? "");
+  }, [
+    customerFind?.CUSTOMER_STATUS,
+    idCard,
+    selectCustomer,
+    setCustomerStatus,
+  ]);
 
   return (
     <ContentLayOut
