@@ -3,7 +3,7 @@ import { AppContext } from "../contexts";
 import { PathEnum } from "../enum/path.enum";
 
 export default function SidebarCommon() {
-  const { pathUrl } = useContext(AppContext);
+  const { pathUrl, isLogin } = useContext(AppContext);
 
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -23,59 +23,79 @@ export default function SidebarCommon() {
             </a>
           </div>
         </div>
-        <nav className="mt-2">
-          <ul
-            className="nav nav-pills nav-sidebar flex-column"
-            data-widget="treeview"
-            role="menu"
-            data-accordion="false"
-          >
-            <li className="nav-item">
-              <a
-                href="/"
-                className={`nav-link ${
-                  pathUrl === PathEnum.DASHBOARD ? "active" : ""
-                }`}
-              >
-                <i className="nav-icon fas fa-home" />
-                <p>หน้าเเรก</p>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                href="/stock"
-                className={`nav-link ${
-                  pathUrl === PathEnum.STOCK ? "active" : ""
-                }`}
-              >
-                <i className="nav-icon fas fa-shopping-cart" />
-                <p>คลังสินค้า</p>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                href="/customer"
-                className={`nav-link ${
-                  pathUrl === PathEnum.CUSTOMER ? "active" : ""
-                }`}
-              >
-                <i className="nav-icon fas fa-users" />
-                <p>ข้อมูลลูกค้า</p>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                href="/manage-user"
-                className={`nav-link ${
-                  pathUrl === PathEnum.MANAGE_USER ? "active" : ""
-                }`}
-              >
-                <i className="nav-icon fas fa-user-plus" />
-                <p>จัดการผู้ใช้</p>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        {isLogin !== "" && (
+          <nav className="mt-2">
+            <ul
+              className="nav nav-pills nav-sidebar flex-column"
+              data-widget="treeview"
+              role="menu"
+              data-accordion="false"
+            >
+              <li className="nav-item">
+                <a
+                  href="/"
+                  className={`nav-link ${
+                    pathUrl === PathEnum.DASHBOARD ? "active" : ""
+                  }`}
+                >
+                  <i className="nav-icon fas fa-home" />
+                  <p>หน้าเเรก</p>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  href="/stock"
+                  className={`nav-link ${
+                    pathUrl === PathEnum.STOCK ? "active" : ""
+                  }`}
+                >
+                  <i className="nav-icon fas fa-shopping-cart" />
+                  <p>คลังสินค้า</p>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  href="/customer"
+                  className={`nav-link ${
+                    pathUrl === PathEnum.CUSTOMER ? "active" : ""
+                  }`}
+                >
+                  <i className="nav-icon fas fa-users" />
+                  <p>ข้อมูลลูกค้า</p>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  href="/manage-user"
+                  className={`nav-link ${
+                    pathUrl === PathEnum.MANAGE_USER ? "active" : ""
+                  }`}
+                >
+                  <i className="nav-icon fas fa-user-plus" />
+                  <p>จัดการผู้ใช้</p>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  href="/login"
+                  className={`nav-link ${
+                    pathUrl === PathEnum.LOGOUT ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    sessionStorage.clear();
+                  }}
+                >
+                  <img
+                    className="nav-icon"
+                    src="https://img.icons8.com/dusk/30/null/logout-rounded.png"
+                    alt="logout"
+                  />
+                  <p>ออกจากระบบ</p>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        )}
       </div>
     </aside>
   );

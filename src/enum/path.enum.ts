@@ -3,4 +3,5 @@ export enum PathEnum {
   STOCK = "/stock",
   CUSTOMER = "/customer",
   MANAGE_USER = "/manage-user",
+  LOGOUT = "/logout",
 }
