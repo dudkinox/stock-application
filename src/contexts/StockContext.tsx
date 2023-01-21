@@ -253,20 +253,27 @@ export function StockContextProvider({ children }: ChildrenProps) {
         AlertWarning("กรุณากรอกวันที่");
       } else if (baseInsert.idCard.length !== 13) {
         AlertWarning("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
-      } else if (baseInsert.customerStatus === "ประวัติลุกค้า") {
+      } else if (
+        baseInsert.customerStatus === "ประวัติลุกค้า" ||
+        baseInsert.customerStatus === ""
+      ) {
         AlertWarning("กรุณาเลือกประวัติลุกค้า");
-      } else if (baseInsert.stockType === "ประเภท") {
+      } else if (
+        baseInsert.stockType === "ประเภท" ||
+        baseInsert.stockType === ""
+      ) {
         AlertWarning("กรุณาเลือกประเภท");
       } else {
         setIsShowModal(true);
         var baseParams =
-          "?date=" + baseInsert.date +
-            "&id_card=" +
-            baseInsert.idCard +
-            "&customer_status=" +
-            baseInsert.customerStatus +
-            "&stock_type=" +
-            baseInsert.stockType;
+          "?date=" +
+          baseInsert.date +
+          "&id_card=" +
+          baseInsert.idCard +
+          "&customer_status=" +
+          baseInsert.customerStatus +
+          "&stock_type=" +
+          baseInsert.stockType;
 
         var params = "";
         switch (stockType) {

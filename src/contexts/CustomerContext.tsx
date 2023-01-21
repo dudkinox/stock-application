@@ -131,13 +131,21 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
 
       if (baseInsert.idCard.length !== 13) {
         AlertWarning("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
-      } else if (baseInsert.name === "" || null) {
+      } else if (baseInsert.name === "") {
         AlertWarning("กรุณากรอกชื่อ");
-      } else if (baseInsert.lastName === "" || null) {
+      } else if (baseInsert.lastName === "") {
         AlertWarning("กรุณากรอกนามสกุล");
-      } else if (baseInsert.customerStatus === "ประวัติลูกค้า") {
+      } else if (baseInsert.datePayment === "0") {
+        AlertWarning("กรุณาเลือกวันที่");
+      } else if (
+        baseInsert.customerStatus === "ประวัติลูกค้า" ||
+        baseInsert.customerStatus === ""
+      ) {
         AlertWarning("กรุณาเลือกประวัติลุกค้า");
-      } else if (baseInsert.process === "เลือกสถานะ") {
+      } else if (
+        baseInsert.process === "เลือกสถานะ" ||
+        baseInsert.process === ""
+      ) {
         AlertWarning("กรุณาเลือกเลือกสถานะ");
       } else {
         setIsShowModal(true);
