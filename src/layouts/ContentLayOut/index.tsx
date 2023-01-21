@@ -18,7 +18,7 @@ export default function ContentLayOut({
       <section className="content">
         <div className="container-fluid">
           <div className="row">
-            <div className="card col-12 mt-5">
+            <div className="card col-12">
               <div className="card-header">
                 <h2 className="card-title">{topic}</h2>
               </div>
