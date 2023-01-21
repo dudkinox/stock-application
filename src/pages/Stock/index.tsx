@@ -19,9 +19,15 @@ import {
   MenuKayArray,
 } from "../../enum/menuInsert.enum";
 import { camelToSnakeObject } from "../../common/CamelToSnake";
-import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
+import {
+  AlertError,
+  AlertSuccess,
+  AlertWarning,
+} from "../../common/ToastrCommon";
 import CustomerServices from "../../services/CustomerServices";
 import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../contexts";
 
 export default function StockPage() {
   const {
@@ -83,6 +89,7 @@ export default function StockPage() {
     handlerSubmit,
     isShowModal,
   } = useContext(StockContext);
+  const { setPathUrl } = useContext(AppContext);
   const [itemList, setItemList] = useState<any>({});
   const [typeStock, setTypeStock] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
@@ -92,6 +99,8 @@ export default function StockPage() {
     []
   );
   const [updateStockType, setUpdateStockType] = useState<string>("");
+  const customerExists = selectCustomer.find((fil) => fil.ID_CARD === idCard);
+  const navigate = useNavigate();
 
   const SelectStockType = (value: string) => {
     setStockType(value);
@@ -241,13 +250,31 @@ export default function StockPage() {
   }, []);
 
   useEffect(() => {
-    setCustomerFind(selectCustomer.find((fil) => fil.ID_CARD === idCard));
+    setCustomerFind(customerExists);
     setCustomerStatus(customerFind?.CUSTOMER_STATUS ?? "");
   }, [
+    customerExists,
     customerFind?.CUSTOMER_STATUS,
     idCard,
     selectCustomer,
     setCustomerStatus,
+  ]);
+
+  useEffect(() => {
+    if (idCard.length === 13 && !customerExists) {
+      $("#insert-modal").hide();
+      $(".modal-backdrop.fade.show").remove();
+      AlertWarning("กรุณากรอกข้อมูลลูกค้าก่อนทำรายการ Stock");
+      setPathUrl("/customer");
+      navigate("/customer", { state: true });
+    }
+  }, [
+    customerExists,
+    customerFind,
+    idCard,
+    navigate,
+    selectCustomer,
+    setPathUrl,
   ]);
 
   return (

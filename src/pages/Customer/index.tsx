@@ -11,6 +11,7 @@ import initTable, { destroyTable } from "../../common/DataTable";
 import SelectChoice from "../../common/Select";
 import { CustomerRequest } from "../../Models/Request/CustomerRequest";
 import { camelToSnakeObject } from "../../common/CamelToSnake";
+import { useLocation } from "react-router-dom";
 
 export default function CustomerPage() {
   const {
@@ -40,6 +41,7 @@ export default function CustomerPage() {
   } = useContext(CustomerContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
+  const stateLocation = useLocation();
 
   const openModalUpdate = (id: string) => () => {
     ($("#insert-modal") as any).modal("show");
@@ -114,6 +116,10 @@ export default function CustomerPage() {
         AlertError(err.response.data.message);
       });
   }, [setCustomer]);
+
+  useEffect(() => {
+    stateLocation.state && document.getElementById("insert-customer")?.click();
+  }, [stateLocation.state]);
 
   return (
     <ContentLayOut
@@ -250,6 +256,7 @@ export default function CustomerPage() {
                     className="btn primary-btn text-white w-100 mt-2"
                     data-toggle="modal"
                     data-target="#insert-modal"
+                    id="insert-customer"
                   >
                     <i className="nav-icon fas fa-plus" />
                   </button>
