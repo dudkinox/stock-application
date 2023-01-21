@@ -1,0 +1,30 @@
+{
+  "name": "stock-iphone",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.2.3",
+    "dotenv": "^16.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.7.0",
+    "react-scripts": "^5.0.1",
+    "toastr": "^2.1.4"
+  },
+  "homepage": "https://sabaiphone-admin.com",
+  "devDependencies": {
+    "@types/jquery": "^3.5.16",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@types/toastr": "^2.1.40",
+    "@vitejs/plugin-react": "^3.0.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0"
+  }
+}
