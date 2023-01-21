@@ -371,7 +371,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
               baseParams +
               "&installment_no=" +
               installmentPayment.installmentNo +
-              "&price_total" +
+              "&price_total=" +
               installmentPayment.priceTotal;
 
             insertStock(params);
