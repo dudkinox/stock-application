@@ -43,7 +43,8 @@ export default function DataList({
           readOnly={isReadOnly}
         />
         <datalist id="datalistOptions">
-          {data ?? [].map((item, index) => <option key={index} value={item} />)}
+          {data?.map((item, index) => <option key={index} value={item} />) ??
+            []}
         </datalist>
       </div>
     </div>
