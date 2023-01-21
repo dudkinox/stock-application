@@ -12,7 +12,6 @@ while ($row = $result->fetch_assoc()) {
         {
         "ID": "' . $row["ID"] . '",
         "USERNAME": "' . $row["USERNAME"] . '",
-        "PASSWORD": "' . $row["PASSWORD"] . '",
         "MAJOR": "' . $row["MAJOR"] . '",
         "PERMISSION": "' . $row["PERMISSION"] . '"
         }';

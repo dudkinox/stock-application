@@ -29,7 +29,6 @@ export default function ManageUser() {
                 </>,
                 "สาขา",
                 "ชื่อผู้ใช้ / username",
-                "รหัสผ่าน",
                 "สิทธิการเข้าถึง",
               ]}
               row={[]}
