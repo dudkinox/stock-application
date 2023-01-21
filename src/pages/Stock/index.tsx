@@ -87,6 +87,7 @@ export default function StockPage() {
   const [typeStock, setTypeStock] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
+  const [customerFind, setCustomerFind] = useState<GetCustomerResponse>();
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
     []
   );
@@ -239,6 +240,10 @@ export default function StockPage() {
     });
   }, []);
 
+  useEffect(() => {
+    setCustomerFind(selectCustomer.find((fil) => fil.ID_CARD === idCard));
+  }, [idCard, selectCustomer]);
+
   return (
     <ContentLayOut
       title={"stock"}
@@ -293,6 +298,17 @@ export default function StockPage() {
                       </>
                     ) : (
                       <>
+                        {customerFind && (
+                          <TextInput
+                            label={"ชื่อลูกค้า:"}
+                            icon={"far fa-id-card"}
+                            setValue={() => {}}
+                            type={"text"}
+                            readonly={true}
+                            bgColor={"bg-secondary"}
+                            value={`${customerFind.NAME} ${customerFind.LAST_NAME}`}
+                          />
+                        )}
                         <SelectChoice
                           label={"ประวัติลูกค้า"}
                           setValue={setCustomerStatus}
@@ -301,10 +317,7 @@ export default function StockPage() {
                           options={["ลูกค้าดี", "ลูกค้าโกง", "ลูกค้าจ่ายช้า"]}
                           placeholder={"ประวัติลูกค้า"}
                           value={
-                            selectCustomer
-                              .filter((fil) => fil.ID_CARD === idCard)
-                              .map((item) => item.CUSTOMER_STATUS)[0] ??
-                            customerStatus
+                            customerFind?.CUSTOMER_STATUS ?? customerStatus
                           }
                         />
                         <SelectChoice

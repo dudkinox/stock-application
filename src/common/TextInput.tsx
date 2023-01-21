@@ -12,6 +12,7 @@ interface TextInputProps {
   minLength?: number;
   readonly?: boolean;
   value?: number | string;
+  bgColor?: string;
 }
 
 export default function TextInput({
@@ -28,6 +29,7 @@ export default function TextInput({
   minLength,
   readonly,
   value,
+  bgColor,
 }: TextInputProps) {
   return (
     <div className="form-group">
@@ -42,7 +44,7 @@ export default function TextInput({
         </div>
         <input
           type={type}
-          className="form-control"
+          className={`form-control ${bgColor}`}
           maxLength={maxLength}
           minLength={minLength}
           min={min}
