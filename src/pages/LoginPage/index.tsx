@@ -1,5 +1,5 @@
 import ContentLayOut from "../../layouts/ContentLayOut";
-import Logo from "../../assets/logo-png.png";
+import Logo from "../../assets/logo.png";
 
 export default function LoginPage() {
   return (
