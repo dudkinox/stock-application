@@ -31,8 +31,8 @@ export default function LoginPage() {
       page={
         <>
           <div className="row my-3">
-            <div className="col-3"></div>
-            <div className="col-6">
+            <div className="col-xl-3 col-sm-1"></div>
+            <div className="col-xl-6 col-sm-10">
               <div className="card card-outline card-primary">
                 <div className="card-header text-center">
                   <a href="#login">
@@ -83,7 +83,7 @@ export default function LoginPage() {
                 </div>
               </div>
             </div>
-            <div className="col-3"></div>
+            <div className="col-xl-3 col-sm-1"></div>
           </div>
         </>
       }
