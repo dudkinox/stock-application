@@ -6,6 +6,7 @@ import SidebarCommon from "./common/Sidebar";
 import CustomerPage from "./pages/Customer";
 import { StockContextProvider } from "./contexts/StockContext";
 import { CustomerContextProvider } from "./contexts/CustomerContext";
+import { UserContextProvider } from "./contexts/ManageUserContext";
 import ManageUser from "./pages/ManageUser";
 import LoginPage from "./pages/LoginPage";
 import { useContext, useEffect } from "react";
@@ -43,7 +44,14 @@ export default function App() {
               </CustomerContextProvider>
             }
           />
-          <Route path="/manage-user" element={<ManageUser />} />
+          <Route
+            path="/manage-user"
+            element={
+              <UserContextProvider>
+                <ManageUser />
+              </UserContextProvider>
+            }
+          />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
