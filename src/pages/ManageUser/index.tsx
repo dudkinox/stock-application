@@ -27,7 +27,16 @@ export default function ManageUser() {
                     <i className="nav-icon fas fa-plus" />
                   </button>
                 </>,
-                "สาขา",
+                <>
+                  <div>สาขา</div>
+                  <button
+                    className="btn primary-btn text-white w-100 mt-2"
+                    data-toggle="modal"
+                    data-target="#insert-major-modal"
+                  >
+                    <i className="nav-icon fas fa-plus" />
+                  </button>
+                </>,
                 "ชื่อผู้ใช้ / username",
                 "สิทธิการเข้าถึง",
               ]}
