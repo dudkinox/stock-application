@@ -168,7 +168,7 @@ export default function ManageUser() {
           <ModalCommon
             title={"เพิ่มสาขา"}
             id={"insert-major-modal"}
-            content={<MajorManage isShowModal={isShowModal} />}
+            content={<MajorManage />}
           />
           <div className="card-body">
             <TableCommon

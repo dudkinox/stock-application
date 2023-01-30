@@ -6,7 +6,12 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 require('../../../client/index.php');
 
 $requestBody = json_decode(file_get_contents('php://input'), true);
-
+if ($requestBody["name"] == "") {
+    echo "{ \"status\": \"success\",
+        \"message\": \"เพิ่มสาขาสำเร็จ\",
+        \"code\": \"000\" }";
+    exit;
+}
 $query = "INSERT INTO major(`NAME`) VALUES ('" . $requestBody["name"] . "')";
 
 if ($conn->query($query) === TRUE) {

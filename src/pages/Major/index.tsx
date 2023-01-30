@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TableCommon from "../../common/Table";
 import TextInput from "../../common/TextInput";
 import MajorServices from "../../services/MajorService";
@@ -8,14 +8,12 @@ import {
   AlertSuccess,
   AlertWarning,
 } from "../../common/ToastrCommon";
+import MajorResponse from "../../Models/Response/GetMajorResponse";
 
-interface MajorManageProps {
-  isShowModal: boolean;
-}
-
-export default function MajorManage({ isShowModal }: MajorManageProps) {
+export default function MajorManage() {
   const [rowTableMajor, setRowTableMajor] = useState<boolean>(false);
   const [addMajor, setAddMajor] = useState<string>("");
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
 
   const addMajorHandler = () => {
     setRowTableMajor(true);
@@ -40,6 +38,16 @@ export default function MajorManage({ isShowModal }: MajorManageProps) {
     }
   };
 
+  useEffect(() => {
+    MajorServices.getMajors()
+      .then((res) => {
+        setFetchMajor(res.data);
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+      });
+  }, [setFetchMajor, addMajor]);
+
   return (
     <>
       <div className="modal-body">
@@ -59,36 +67,44 @@ export default function MajorManage({ isShowModal }: MajorManageProps) {
               "จัดการ",
             ]}
             row={
-              rowTableMajor && (
-                <>
-                  <td>
-                    <TextInput
-                      label={"พิมพ์ชื่อสาขาที่ต้องการเพิ่ม"}
-                      setValue={setAddMajor}
-                      type={"text"}
-                      icon={"fa fa-building"}
-                      value={addMajor}
-                    />
-                  </td>
-                  <td className="d-flex justify-content-around my-4 border-0">
-                    <button
-                      onClick={addMajorSubmitHandler}
-                      className="btn primary-btn"
-                    >
-                      เพิ่ม
-                    </button>
-                    <button
-                      className="btn primary-btn"
-                      onClick={() => {
-                        setRowTableMajor(false);
-                        setAddMajor("");
-                      }}
-                    >
-                      ยกเลิก
-                    </button>
-                  </td>
-                </>
-              )
+              <>
+                {fetchMajor.map((item, i) => (
+                  <tr key={i}>
+                    <td>{item.NAME}</td>
+                    <td></td>
+                  </tr>
+                ))}
+                {rowTableMajor && (
+                  <tr>
+                    <td>
+                      <TextInput
+                        label={"พิมพ์ชื่อสาขาที่ต้องการเพิ่ม"}
+                        setValue={setAddMajor}
+                        type={"text"}
+                        icon={"fa fa-building"}
+                        value={addMajor}
+                      />
+                    </td>
+                    <td className="d-flex justify-content-around my-4 border-0">
+                      <button
+                        onClick={addMajorSubmitHandler}
+                        className="btn primary-btn"
+                      >
+                        เพิ่ม
+                      </button>
+                      <button
+                        className="btn primary-btn"
+                        onClick={() => {
+                          setRowTableMajor(false);
+                          setAddMajor("");
+                        }}
+                      >
+                        ยกเลิก
+                      </button>
+                    </td>
+                  </tr>
+                )}
+              </>
             }
           />
         </div>
