@@ -30,6 +30,8 @@ export default function ManageUser() {
 
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
+  const [addMajor, setAddMajor] = useState<string>("");
+  const [rowTableMajor, setRowTableMajor] = useState<boolean>(false);
 
   const openModalUpdate = (id: string) => () => {
     ($("#insert-modal") as any).modal("show");
@@ -81,6 +83,10 @@ export default function ManageUser() {
       .catch((err) => {
         AlertError(err.response.data.message);
       });
+  };
+
+  const addMajorHandler = () => {
+    setRowTableMajor(true);
   };
 
   useEffect(() => {
@@ -153,6 +159,75 @@ export default function ManageUser() {
                       บันทึก
                     </button>
                   )}
+                  <button
+                    type="button"
+                    className="btn btn-danger col-lg-2 col-sm-auto"
+                    data-dismiss="modal"
+                  >
+                    ยกเลิก
+                  </button>
+                </div>
+              </>
+            }
+          />
+          <ModalCommon
+            title={"เพิ่มสาขา"}
+            id={"insert-major-modal"}
+            content={
+              <>
+                <div className="modal-body">
+                  <div className="container-fluid">
+                    <TableCommon
+                      id="major-table"
+                      columns={[
+                        <>
+                          <div>ชื่อสาขา</div>
+                          <button
+                            onClick={addMajorHandler}
+                            className="btn primary-btn text-white w-100 mt-2"
+                          >
+                            <i className="nav-icon fas fa-plus" />
+                          </button>
+                        </>,
+                        "จัดการ",
+                      ]}
+                      row={
+                        rowTableMajor && (
+                          <>
+                            <td>
+                              <TextInput
+                                label={"พิมพ์ชื่อสาขาที่ต้องการเพิ่ม"}
+                                setValue={setAddMajor}
+                                type={"text"}
+                                icon={"fa fa-building"}
+                              />
+                            </td>
+                            <td className="d-flex justify-content-around my-4 border-0">
+                              <button className="btn primary-btn">เพิ่ม</button>
+                              <button
+                                className="btn primary-btn"
+                                onClick={() => {
+                                  setRowTableMajor(false);
+                                }}
+                              >
+                                ยกเลิก
+                              </button>
+                            </td>
+                          </>
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn primary-btn col-lg-2 col-sm-auto"
+                    data-dismiss={isShowModal && `modal`}
+                    onClick={handlerSubmit}
+                  >
+                    บันทึก
+                  </button>
                   <button
                     type="button"
                     className="btn btn-danger col-lg-2 col-sm-auto"

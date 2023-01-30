@@ -1,12 +1,13 @@
 interface TableCommonProps {
   columns: any[];
   row: any;
+  id?: string;
 }
 
-export default function TableCommon({ columns, row }: TableCommonProps) {
+export default function TableCommon({ columns, row, id }: TableCommonProps) {
   return (
     <table
-      id="stock-table"
+      id={id ?? "stock-table"}
       className="table table-bordered table-hover dtr-inline collapsed w-100"
     >
       <thead>

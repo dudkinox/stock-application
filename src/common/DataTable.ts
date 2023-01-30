@@ -1,5 +1,5 @@
-export default function initTable(max: string) {
-  ($("#stock-table") as any).DataTable({
+export default function initTable(max: string, id?: string) {
+  ($(id ?? "#stock-table") as any).DataTable({
     responsive: true,
     autoWidth: true,
     paging: true,
@@ -27,6 +27,6 @@ export default function initTable(max: string) {
   });
 }
 
-export function destroyTable() {
-  ($("#stock-table") as any).DataTable().destroy();
+export function destroyTable(id?: string) {
+  ($(id ?? "#stock-table") as any).DataTable().destroy();
 }

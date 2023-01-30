@@ -56,8 +56,13 @@ export function UserContextProvider({ children }: ChildrenProps) {
     () => () => {
       UserServices.getUser().then((res) => {
         destroyTable();
+        destroyTable("major-table");
         setUser(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+        setTimeout(
+          () => initTable(res.data.length.toString() ?? "0", "major-table"),
+          100
+        );
       });
     },
     []
@@ -94,9 +99,18 @@ export function UserContextProvider({ children }: ChildrenProps) {
         permission,
       };
 
-      setIsShowModal(true);
-      insertUser(camelToSnakeObject(baseInsert));
-      clearInputValue();
+      if (
+        baseInsert.username === "" ||
+        baseInsert.password === "" ||
+        baseInsert.major === "" ||
+        baseInsert.permission === ""
+      ) {
+        AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
+      } else {
+        setIsShowModal(true);
+        insertUser(camelToSnakeObject(baseInsert));
+        clearInputValue();
+      }
     },
     [username, password, major, permission, insertUser]
   );
@@ -105,8 +119,13 @@ export function UserContextProvider({ children }: ChildrenProps) {
     UserServices.getUser()
       .then((res) => {
         destroyTable();
+        destroyTable("major-table");
         setUser(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+        setTimeout(
+          () => initTable(res.data.length.toString() ?? "0", "major-table"),
+          100
+        );
       })
       .catch((err) => {
         AlertError(err.response.data.message);
