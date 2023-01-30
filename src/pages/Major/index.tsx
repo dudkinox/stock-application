@@ -51,7 +51,7 @@ export default function MajorManage() {
   return (
     <>
       <div className="modal-body">
-        <div className="container-fluid">
+        <div className="container-fluid text-center">
           <TableCommon
             id="major-table"
             columns={[
@@ -71,7 +71,16 @@ export default function MajorManage() {
                 {fetchMajor.map((item, i) => (
                   <tr key={i}>
                     <td>{item.NAME}</td>
-                    <td></td>
+                    <td>
+                      <div className="row justify-content-center">
+                        <button className="btn btn-warning mx-2">
+                          <i className="nav-icon fas fa-pen" />
+                        </button>
+                        <button className="btn btn-danger">
+                          <i className="nav-icon fas fa-trash" />
+                        </button>
+                      </div>
+                    </td>
                   </tr>
                 ))}
                 {rowTableMajor && (
