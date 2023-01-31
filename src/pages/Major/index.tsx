@@ -72,6 +72,7 @@ export default function MajorManage() {
       .then((res) => {
         AlertSuccess(res.data.message);
         setAddMajor("");
+        setIsUpdate(false);
         fetchMajorHandler();
       })
       .catch((err) => {
