@@ -24,6 +24,10 @@ export default function initTable(max: string, id?: string) {
         previous: "ก่อนหน้า",
       },
     },
+    lengthMenu: [
+      [5, 10, 25, 50, 100, 200, 500, 1000, -1],
+      [5, 10, 25, 50, 100, 200, 500, 1000, "ทั้งหมด"],
+    ],
   });
 }
 

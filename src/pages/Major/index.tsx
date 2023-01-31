@@ -30,6 +30,7 @@ export default function MajorManage() {
         .then((res) => {
           AlertSuccess(res.data.message);
           setAddMajor("");
+          fetchMajorHandler();
         })
         .catch((err) => {
           AlertError(err.response.data.message);
@@ -39,7 +40,7 @@ export default function MajorManage() {
     }
   };
 
-  useEffect(() => {
+  const fetchMajorHandler = () => {
     MajorServices.getMajors()
       .then((res) => {
         destroyTable("#major-table");
@@ -52,7 +53,11 @@ export default function MajorManage() {
       .catch((err) => {
         AlertError(err.response.data.message);
       });
-  }, [setFetchMajor, addMajor]);
+  };
+
+  useEffect(() => {
+    fetchMajorHandler();
+  }, [setFetchMajor]);
 
   return (
     <>
@@ -89,41 +94,42 @@ export default function MajorManage() {
                     </td>
                   </tr>
                 ))}
-                {rowTableMajor && (
-                  <tr>
-                    <td>
-                      <TextInput
-                        label={"พิมพ์ชื่อสาขาที่ต้องการเพิ่ม"}
-                        setValue={setAddMajor}
-                        type={"text"}
-                        icon={"fa fa-building"}
-                        value={addMajor}
-                      />
-                    </td>
-                    <td className="d-flex justify-content-around my-4 border-0">
-                      <button
-                        onClick={addMajorSubmitHandler}
-                        className="btn primary-btn"
-                      >
-                        เพิ่ม
-                      </button>
-                      <button
-                        className="btn primary-btn"
-                        onClick={() => {
-                          setRowTableMajor(false);
-                          setAddMajor("");
-                        }}
-                      >
-                        ยกเลิก
-                      </button>
-                    </td>
-                  </tr>
-                )}
               </>
             }
           />
         </div>
+        {rowTableMajor && (
+          <div className="row container-fluid col-12 mt-3 text-center">
+            <div className="col-7">
+              <TextInput
+                label={"พิมพ์ชื่อสาขาที่ต้องการเพิ่ม"}
+                setValue={setAddMajor}
+                type={"text"}
+                icon={"fa fa-building"}
+                value={addMajor}
+              />
+            </div>
+            <div className="col-5 mt-4 d-flex justify-content-around">
+              <button
+                onClick={addMajorSubmitHandler}
+                className="btn primary-btn h-75 col-4"
+              >
+                เพิ่ม
+              </button>
+              <button
+                className="btn primary-btn h-75 col-4"
+                onClick={() => {
+                  setRowTableMajor(false);
+                  setAddMajor("");
+                }}
+              >
+                ยกเลิก
+              </button>
+            </div>
+          </div>
+        )}
       </div>
+
       <div className="modal-footer">
         <button
           type="button"
