@@ -40,6 +40,17 @@ export default function MajorManage() {
     }
   };
 
+  const deleteMajorHandler = (id: number) => {
+    MajorServices.deleteMajor(id)
+      .then((res) => {
+        AlertSuccess(res.data.message);
+        fetchMajorHandler();
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+      });
+  };
+
   const fetchMajorHandler = () => {
     MajorServices.getMajors()
       .then((res) => {
@@ -87,7 +98,10 @@ export default function MajorManage() {
                         <button className="btn btn-warning mx-2">
                           <i className="nav-icon fas fa-pen" />
                         </button>
-                        <button className="btn btn-danger">
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteMajorHandler(item.ID)}
+                        >
                           <i className="nav-icon fas fa-trash" />
                         </button>
                       </div>
