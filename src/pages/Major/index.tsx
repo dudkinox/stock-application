@@ -9,6 +9,7 @@ import {
   AlertWarning,
 } from "../../common/ToastrCommon";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
+import initTable, { destroyTable } from "../../common/DataTable";
 
 export default function MajorManage() {
   const [rowTableMajor, setRowTableMajor] = useState<boolean>(false);
@@ -41,7 +42,12 @@ export default function MajorManage() {
   useEffect(() => {
     MajorServices.getMajors()
       .then((res) => {
+        destroyTable("#major-table");
         setFetchMajor(res.data);
+        setTimeout(
+          () => initTable(res.data.length.toString() ?? "0", "#major-table"),
+          100
+        );
       })
       .catch((err) => {
         AlertError(err.response.data.message);

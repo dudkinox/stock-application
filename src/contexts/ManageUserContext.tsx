@@ -56,16 +56,11 @@ export function UserContextProvider({ children }: ChildrenProps) {
     () => () => {
       UserServices.getUser().then((res) => {
         destroyTable();
-        destroyTable("major-table");
         setUser(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-        setTimeout(
-          () => initTable(res.data.length.toString() ?? "0", "major-table"),
-          100
-        );
       });
     },
-    []
+    [setUser]
   );
 
   const insertUser = useMemo(
@@ -119,18 +114,13 @@ export function UserContextProvider({ children }: ChildrenProps) {
     UserServices.getUser()
       .then((res) => {
         destroyTable();
-        destroyTable("major-table");
         setUser(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-        setTimeout(
-          () => initTable(res.data.length.toString() ?? "0", "major-table"),
-          100
-        );
       })
       .catch((err) => {
         AlertError(err.response.data.message);
       });
-  }, []);
+  }, [setUser]);
 
   const values = useMemo(
     () => ({
