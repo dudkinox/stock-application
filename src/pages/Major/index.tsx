@@ -68,6 +68,11 @@ export default function MajorManage() {
       name: update,
     };
 
+    if (payload.name === "") {
+      AlertWarning("กรุณากรอกชื่อสาขา");
+      return;
+    }
+
     MajorServices.updateMajor(payload, idUpdate)
       .then((res) => {
         AlertSuccess(res.data.message);
