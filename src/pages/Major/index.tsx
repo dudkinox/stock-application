@@ -159,7 +159,10 @@ export default function MajorManage() {
                               </button>
                               <button
                                 className="btn btn-danger"
-                                onClick={() => setIsUpdate(false)}
+                                onClick={() => {
+                                  setIsUpdate(false);
+                                  fetchMajorHandler();
+                                }}
                               >
                                 ยกเลิก
                               </button>
