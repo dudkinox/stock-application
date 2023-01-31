@@ -14,10 +14,15 @@ const deleteMajorService = (id: number) => {
   return Https.get<StatusResponse>(`/apis/majors/delete/?id=${id}`);
 };
 
+const updateMajorService = (data: MajorRequest, id: number) => {
+  return Https.post<StatusResponse>(`/apis/majors/update/?id=${id}`, data);
+};
+
 const MajorServices = {
   addMajor: addMajorService,
   getMajors: getMajorsService,
   deleteMajor: deleteMajorService,
+  updateMajor: updateMajorService,
 };
 
 export default MajorServices;

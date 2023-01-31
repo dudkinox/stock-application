@@ -15,6 +15,8 @@ export default function MajorManage() {
   const [rowTableMajor, setRowTableMajor] = useState<boolean>(false);
   const [addMajor, setAddMajor] = useState<string>("");
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [idUpdate, setIdUpdate] = useState<number>(0);
 
   const addMajorHandler = () => {
     setRowTableMajor(true);
@@ -51,6 +53,32 @@ export default function MajorManage() {
       });
   };
 
+  const inputUpdate = (id: number, name: string) => {
+    $(`#${id}`).html(
+      `<input type="text" class="form-control" id="update-major" value="${name}" />`
+    );
+    setIdUpdate(id);
+    setIsUpdate(true);
+  };
+
+  const updateMajorHandler = () => {
+    const update = $("#update-major").val() as string;
+
+    const payload: MajorRequest = {
+      name: update,
+    };
+
+    MajorServices.updateMajor(payload, idUpdate)
+      .then((res) => {
+        AlertSuccess(res.data.message);
+        setAddMajor("");
+        fetchMajorHandler();
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+      });
+  };
+
   const fetchMajorHandler = () => {
     MajorServices.getMajors()
       .then((res) => {
@@ -69,6 +97,12 @@ export default function MajorManage() {
   useEffect(() => {
     fetchMajorHandler();
   }, [setFetchMajor]);
+
+  useEffect(() => {
+    if (!isUpdate) {
+      fetchMajorHandler();
+    }
+  }, [isUpdate]);
 
   return (
     <>
@@ -92,18 +126,45 @@ export default function MajorManage() {
               <>
                 {fetchMajor.map((item, i) => (
                   <tr key={i}>
-                    <td>{item.NAME}</td>
+                    <td id={`${item.ID}`}>{item.NAME}</td>
                     <td>
-                      <div className="row justify-content-center">
-                        <button className="btn btn-warning mx-2">
-                          <i className="nav-icon fas fa-pen" />
-                        </button>
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => deleteMajorHandler(item.ID)}
-                        >
-                          <i className="nav-icon fas fa-trash" />
-                        </button>
+                      <div
+                        className="row justify-content-center"
+                        id={`update-${item.ID}`}
+                      >
+                        {!isUpdate ? (
+                          <>
+                            <button
+                              className="btn btn-warning mx-2"
+                              onClick={() => inputUpdate(item.ID, item.NAME)}
+                            >
+                              <i className="nav-icon fas fa-pen" />
+                            </button>
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => deleteMajorHandler(item.ID)}
+                            >
+                              <i className="nav-icon fas fa-trash" />
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <>
+                              <button
+                                className="btn primary-btn mx-2"
+                                onClick={updateMajorHandler}
+                              >
+                                บันทึก
+                              </button>
+                              <button
+                                className="btn btn-danger"
+                                onClick={() => setIsUpdate(false)}
+                              >
+                                ยกเลิก
+                              </button>
+                            </>
+                          </>
+                        )}
                       </div>
                     </td>
                   </tr>
