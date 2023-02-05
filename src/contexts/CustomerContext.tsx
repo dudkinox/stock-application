@@ -173,6 +173,14 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         destroyTable();
         setCustomer(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+
+        CustomerServices.notificationLine()
+          .then((res) => {
+            console.log("true");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         AlertError(err.response.data.message);
