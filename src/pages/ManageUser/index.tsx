@@ -10,6 +10,9 @@ import UserServices from "../../services/UserServices";
 import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 import { camelToSnakeObject } from "../../common/CamelToSnake";
 import MajorManage from "../Major";
+import MajorResponse from "../../Models/Response/GetMajorResponse";
+import MajorServices from "../../services/MajorService";
+import SelectChoice from "../../common/Select";
 
 export default function ManageUser() {
   const {
@@ -28,7 +31,7 @@ export default function ManageUser() {
     isShowModal,
     setIsShowModal,
   } = useContext(UserContext);
-
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
 
@@ -95,6 +98,16 @@ export default function ManageUser() {
       });
   }, [setUser]);
 
+  useEffect(() => {
+    MajorServices.getMajors()
+      .then((res) => {
+        setFetchMajor(res.data);
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+      });
+  }, [setFetchMajor]);
+
   return (
     <ContentLayOut
       title={"Manage user"}
@@ -108,13 +121,13 @@ export default function ManageUser() {
               <>
                 <div className="modal-body">
                   <div className="container-fluid">
-                    <TextInput
-                      label={"สาขา:"}
-                      icon={"far fa-calendar-alt"}
+                    <SelectChoice
+                      topic="เลือกสาขา"
                       setValue={setMajor}
-                      type={"text"}
-                      placeholder={"สาขา"}
+                      icon="far fa-calendar-alt"
+                      label={"สาขา:"}
                       value={major}
+                      options={fetchMajor.map((item) => item.NAME)}
                     />
                     <TextInput
                       label={"ชื่อผู้ใช้:"}
@@ -125,12 +138,20 @@ export default function ManageUser() {
                       value={username}
                     />
                     <TextInput
-                      label={"สิทธิการเข้าถึง:"}
-                      icon={"far fa-calendar-alt"}
+                      label={"รหัสผ่าน:"}
+                      icon={"fa fa-unlock-alt"}
+                      setValue={setPassword}
+                      type={"password"}
+                      placeholder={"รหัสผ่าน"}
+                      value={password}
+                    />
+                    <SelectChoice
+                      topic="สิทธิการเข้าถึง"
                       setValue={setPermission}
-                      type={"text"}
-                      placeholder={"สิทธิการเข้าถึง"}
+                      icon="fa fa-eye"
+                      label={"สิทธิการเข้าถึง:"}
                       value={permission}
+                      options={["admin", "manager", "viewer"]}
                     />
                   </div>
                 </div>
@@ -168,7 +189,12 @@ export default function ManageUser() {
           <ModalCommon
             title={"เพิ่มสาขา"}
             id={"insert-major-modal"}
-            content={<MajorManage />}
+            content={
+              <MajorManage
+                fetchMajor={fetchMajor}
+                setFetchMajor={setFetchMajor}
+              />
+            }
           />
           <div className="card-body">
             <TableCommon

@@ -11,10 +11,17 @@ import {
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import initTable, { destroyTable } from "../../common/DataTable";
 
-export default function MajorManage() {
+interface MajorManageProps {
+  fetchMajor: MajorResponse[];
+  setFetchMajor: (value: MajorResponse[]) => void;
+}
+
+export default function MajorManage({
+  fetchMajor,
+  setFetchMajor,
+}: MajorManageProps) {
   const [rowTableMajor, setRowTableMajor] = useState<boolean>(false);
   const [addMajor, setAddMajor] = useState<string>("");
-  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [idUpdate, setIdUpdate] = useState<number>(0);
 
@@ -166,7 +173,6 @@ export default function MajorManage() {
                                 className="btn btn-danger"
                                 onClick={() => {
                                   setIsUpdate(false);
-                                  fetchMajorHandler();
                                 }}
                               >
                                 ยกเลิก

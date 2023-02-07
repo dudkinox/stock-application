@@ -6,6 +6,14 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 require('../../../client/index.php');
 
 $requestBody = json_decode(file_get_contents('php://input'), true);
+
+if ($requestBody["username"] == "") {
+    echo "{ \"status\": \"success\",
+        \"message\": \"เพิ่มข้อมูลสำเร็จ\",
+        \"code\": \"000\" }";
+    exit();
+}
+
 $hashPassword = password_hash($requestBody["password"], PASSWORD_BCRYPT);
 
 $query = "INSERT INTO user(USERNAME, 
