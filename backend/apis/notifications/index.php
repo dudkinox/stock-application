@@ -17,7 +17,7 @@ curl_setopt_array($curl, array(
     CURLOPT_CUSTOMREQUEST => 'POST',
     CURLOPT_POSTFIELDS => 'message=' . $message,
     CURLOPT_HTTPHEADER => array(
-        'Authorization: Bearer BDxg7pqkJwVaysieNbaDILGMZdQvSjjNM0UIG8OQpFI',
+        'Authorization: Bearer AALDtW9mChJkQrVKbxkwwHUG27lNxiMhhCGnhfCQvtT',
         'Content-Type: application/x-www-form-urlencoded'
     ),
 ));
