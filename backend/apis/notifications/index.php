@@ -1,24 +1,27 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Methods: POST');
-// header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
-$url        = 'https://notify-api.line.me/api/notify';
-$token      = 'BDxg7pqkJwVaysieNbaDILGMZdQvSjjNM0UIG8OQpFI';
-$headers    = [
-    'Content-Type: application/x-www-form-urlencoded',
-    'Authorization: Bearer ' . $token
-];
-$fields     = 'real test';
+$message = isset($_GET['message']) ? $_GET['message'] : '';
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$result = curl_exec($ch);
-curl_close($ch);
+$curl = curl_init();
 
-$result = json_decode($result, TRUE);
-var_dump($result);
+curl_setopt_array($curl, array(
+    CURLOPT_URL => 'https://notify-api.line.me/api/notify',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_POSTFIELDS => 'message=' . $message,
+    CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer BDxg7pqkJwVaysieNbaDILGMZdQvSjjNM0UIG8OQpFI',
+        'Content-Type: application/x-www-form-urlencoded'
+    ),
+));
+
+$response = curl_exec($curl);
+curl_close($curl);
+echo $response;
