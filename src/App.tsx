@@ -11,9 +11,10 @@ import ManageUser from "./pages/ManageUser";
 import LoginPage from "./pages/LoginPage";
 import { useContext, useEffect } from "react";
 import { AppContext } from "./contexts";
+import { PermissionEnum } from "./enum/permission.enum";
 
 export default function App() {
-  const { isLogin } = useContext(AppContext);
+  const { isLogin, typeUser } = useContext(AppContext);
 
   useEffect(() => {
     if (isLogin === "" && window.location.pathname !== "/login") {
@@ -44,14 +45,16 @@ export default function App() {
               </CustomerContextProvider>
             }
           />
-          <Route
-            path="/manage-user"
-            element={
-              <UserContextProvider>
-                <ManageUser />
-              </UserContextProvider>
-            }
-          />
+          {typeUser === PermissionEnum.ADMIN && (
+            <Route
+              path="/manage-user"
+              element={
+                <UserContextProvider>
+                  <ManageUser />
+                </UserContextProvider>
+              }
+            />
+          )}
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>

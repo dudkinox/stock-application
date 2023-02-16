@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { AppContext } from "../contexts";
 import { PathEnum } from "../enum/path.enum";
+import { PermissionEnum } from "../enum/permission.enum";
 
 export default function SidebarCommon() {
-  const { pathUrl, isLogin } = useContext(AppContext);
+  const { pathUrl, isLogin, typeUser } = useContext(AppContext);
 
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -64,17 +65,19 @@ export default function SidebarCommon() {
                   <p>ข้อมูลลูกค้า</p>
                 </a>
               </li>
-              <li className="nav-item">
-                <a
-                  href="/manage-user"
-                  className={`nav-link ${
-                    pathUrl === PathEnum.MANAGE_USER ? "active" : ""
-                  }`}
-                >
-                  <i className="nav-icon fas fa-user-plus" />
-                  <p>จัดการผู้ใช้</p>
-                </a>
-              </li>
+              {typeUser === PermissionEnum.ADMIN && (
+                <li className="nav-item">
+                  <a
+                    href="/manage-user"
+                    className={`nav-link ${
+                      pathUrl === PathEnum.MANAGE_USER ? "active" : ""
+                    }`}
+                  >
+                    <i className="nav-icon fas fa-user-plus" />
+                    <p>จัดการผู้ใช้</p>
+                  </a>
+                </li>
+              )}
               <li className="nav-item">
                 <a
                   href="/login"

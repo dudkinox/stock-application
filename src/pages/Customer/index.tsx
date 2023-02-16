@@ -12,6 +12,8 @@ import SelectChoice from "../../common/Select";
 import { CustomerRequest } from "../../Models/Request/CustomerRequest";
 import { camelToSnakeObject } from "../../common/CamelToSnake";
 import { useLocation } from "react-router-dom";
+import { AppContext } from "../../contexts/index";
+import { PermissionEnum } from "../../enum/permission.enum";
 
 export default function CustomerPage() {
   const {
@@ -39,9 +41,37 @@ export default function CustomerPage() {
     reGetCustomer,
     isShowModal,
   } = useContext(CustomerContext);
+  const { isEdit } = useContext(AppContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
   const stateLocation = useLocation();
+
+  const customerTableHeaders = [
+    "รหัสลูกค้า",
+    "เลขบัตรประชาชน",
+    "ชื่อ-สกุล",
+    "ต้องผ่อนต่อเดือน",
+    "จำนวนงวดที่ผ่อนแล้ว",
+    "ยอดชำระปัจจุบัน",
+    "วันที่ต้องชำระ",
+    "ประวัติลูกค้า",
+    "สถานะ",
+  ];
+
+  const editableCustomerTableHeaders = [
+    ...customerTableHeaders,
+    <>
+      <div>เพิ่ม/ลบ/แก้ไข</div>
+      <button
+        className="btn primary-btn text-white w-100 mt-2"
+        data-toggle="modal"
+        data-target="#insert-modal"
+        id="insert-customer"
+      >
+        <i className="nav-icon fas fa-plus" />
+      </button>
+    </>,
+  ];
 
   const openModalUpdate = (id: string) => () => {
     ($("#insert-modal") as any).modal("show");
@@ -248,47 +278,12 @@ export default function CustomerPage() {
           />
           <div className="card-body">
             <TableCommon
-              columns={[
-                "รหัสลูกค้า",
-                <>
-                  <div>เพิ่ม/ลบ/เเก้ไข</div>
-                  <button
-                    className="btn primary-btn text-white w-100 mt-2"
-                    data-toggle="modal"
-                    data-target="#insert-modal"
-                    id="insert-customer"
-                  >
-                    <i className="nav-icon fas fa-plus" />
-                  </button>
-                </>,
-                "เลขบัตรประชาชน",
-                "ชื่อ-สกุล",
-                "ต้องผ่อนต่อเดือน",
-                "จำนวนงวดที่ผ่อนแล้ว",
-                "ยอดชำระปัจจุบัน",
-                "วันที่ต้องชำระ",
-                "ประวัติลูกค้า",
-                "สถานะ",
-              ]}
+              columns={
+                isEdit() ? editableCustomerTableHeaders : customerTableHeaders
+              }
               row={customer.map((item, i) => (
                 <tr key={i} className="text-center">
                   <td>{item.ID}</td>
-                  <td>
-                    <div className="row justify-content-center">
-                      <button
-                        className="btn btn-warning mx-2"
-                        onClick={openModalUpdate(item.ID)}
-                      >
-                        <i className="nav-icon fas fa-pen" />
-                      </button>
-                      <button
-                        className="btn btn-danger"
-                        onClick={deleteCustomer(item.ID)}
-                      >
-                        <i className="nav-icon fas fa-trash" />
-                      </button>
-                    </div>
-                  </td>
                   <td>{item.ID_CARD}</td>
                   <td>
                     {item.NAME} {item.LAST_NAME}
@@ -299,6 +294,24 @@ export default function CustomerPage() {
                   <td>{item.DATE_PAYMENT}</td>
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.PROCESS}</td>
+                  {isEdit() && (
+                    <td>
+                      <div className="row justify-content-center">
+                        <button
+                          className="btn btn-warning mx-2"
+                          onClick={openModalUpdate(item.ID)}
+                        >
+                          <i className="nav-icon fas fa-pen" />
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={deleteCustomer(item.ID)}
+                        >
+                          <i className="nav-icon fas fa-trash" />
+                        </button>
+                      </div>
+                    </td>
+                  )}
                 </tr>
               ))}
             />

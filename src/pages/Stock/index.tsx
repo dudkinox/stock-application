@@ -28,6 +28,7 @@ import CustomerServices from "../../services/CustomerServices";
 import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../contexts";
+import { PermissionEnum } from "../../enum/permission.enum";
 
 export default function StockPage() {
   const {
@@ -89,7 +90,7 @@ export default function StockPage() {
     handlerSubmit,
     isShowModal,
   } = useContext(StockContext);
-  const { setPathUrl } = useContext(AppContext);
+  const { setPathUrl, isEdit } = useContext(AppContext);
   const [itemList, setItemList] = useState<any>({});
   const [typeStock, setTypeStock] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
@@ -101,6 +102,28 @@ export default function StockPage() {
   const [updateStockType, setUpdateStockType] = useState<string>("");
   const customerExists = selectCustomer.find((fil) => fil.ID_CARD === idCard);
   const navigate = useNavigate();
+
+  const stockTableHeaders = [
+    "รหัสเอกสาร",
+    "เลขบัตรประชาชน",
+    "ประวัติลูกค้า",
+    "ประเภท",
+    "รายละเอียด",
+  ];
+
+  const editableStockTableHeaders = [
+    ...stockTableHeaders,
+    <>
+      <div>เพิ่ม/ลบ/เเก้ไข</div>
+      <button
+        className="btn primary-btn text-white w-100 mt-2"
+        data-toggle="modal"
+        data-target="#insert-modal"
+      >
+        <i className="nav-icon fas fa-plus" />
+      </button>
+    </>,
+  ];
 
   const SelectStockType = (value: string) => {
     setStockType(value);
@@ -457,42 +480,10 @@ export default function StockPage() {
           />
           <div className="card-body">
             <TableCommon
-              columns={[
-                "รหัสเอกสาร",
-                <>
-                  <div>เพิ่ม/ลบ/เเก้ไข</div>
-                  <button
-                    className="btn primary-btn text-white w-100 mt-2"
-                    data-toggle="modal"
-                    data-target="#insert-modal"
-                  >
-                    <i className="nav-icon fas fa-plus" />
-                  </button>
-                </>,
-                "เลขบัตรประชาชน",
-                "ประวัติลูกค้า",
-                "ประเภท",
-                "รายละเอียด",
-              ]}
+              columns={isEdit() ? editableStockTableHeaders : stockTableHeaders}
               row={stock.map((item, i) => (
                 <tr key={i} className="text-center">
                   <td>{item.ID}</td>
-                  <td>
-                    <div className="row justify-content-center">
-                      <button
-                        className="btn btn-warning mx-2"
-                        onClick={openModalUpdate(item.ID, item.STOCK_TYPE)}
-                      >
-                        <i className="nav-icon fas fa-pen" />
-                      </button>
-                      <button
-                        className="btn btn-danger"
-                        onClick={deleteStock(item.ID_CARD)}
-                      >
-                        <i className="nav-icon fas fa-trash" />
-                      </button>
-                    </div>
-                  </td>
                   <td>{item.ID_CARD}</td>
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.STOCK_TYPE}</td>
@@ -506,6 +497,24 @@ export default function StockPage() {
                       รายละเอียด
                     </button>
                   </td>
+                  {isEdit() && (
+                    <td>
+                      <div className="row justify-content-center">
+                        <button
+                          className="btn btn-warning mx-2"
+                          onClick={openModalUpdate(item.ID, item.STOCK_TYPE)}
+                        >
+                          <i className="nav-icon fas fa-pen" />
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={deleteStock(item.ID_CARD)}
+                        >
+                          <i className="nav-icon fas fa-trash" />
+                        </button>
+                      </div>
+                    </td>
+                  )}
                 </tr>
               ))}
             />

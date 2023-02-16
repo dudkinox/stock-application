@@ -13,6 +13,7 @@ import MajorManage from "../Major";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import MajorServices from "../../services/MajorService";
 import SelectChoice from "../../common/Select";
+import { AppContext } from "../../contexts/index";
 
 export default function ManageUser() {
   const {
@@ -29,7 +30,6 @@ export default function ManageUser() {
     handlerSubmit,
     reGetUser,
     isShowModal,
-    setIsShowModal,
   } = useContext(UserContext);
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
