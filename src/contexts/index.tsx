@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useMemo, useState } from "react";
+import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
+import MajorServices from "../services/MajorService";
 
 interface AppContextProps {
   pathUrl: string;
@@ -19,6 +20,11 @@ interface ChildrenProps {
 export function AppContextProvider({ children }: ChildrenProps) {
   const [pathUrl, setPathUrl] = useState<string>(window.location.pathname);
   const isLogin = sessionStorage.getItem("account") ?? "";
+  const [typeUser, setTypeUser] = useState<string>("");
+
+  useEffect(() => {
+    MajorServices.getMajors();
+  }, []);
 
   const values = useMemo(
     () => ({
