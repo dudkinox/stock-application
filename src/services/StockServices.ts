@@ -6,16 +6,24 @@ const InsertStockService = (payload: string) => {
   return Https.get<StatusStockResponse>(`/apis/stocks/insert/${payload}`);
 };
 
-const GetStockService = () => {
-  return Https.get<GetStockResponse[]>(`/apis/stocks/get/`);
+const GetStockService = (major: string) => {
+  return Https.get<GetStockResponse[]>(`/apis/stocks/get/?major=${major}`);
 };
 
-const GetDetailStockService = (idCard: string) => {
-  return Https.get<any>(`/apis/stocks/detail/?id_card=${idCard}`);
+const GetDetailStockService = (idCard: string, major: string) => {
+  return Https.get<any>(
+    `/apis/stocks/detail/?id_card=${idCard}&major=${major}`
+  );
 };
 
-const GetFindByIdStockService = (id: string, stockType: string) => {
-  return Https.get<any>(`/apis/stocks/find/?id=${id}&stock_type=${stockType}`);
+const GetFindByIdStockService = (
+  id: string,
+  major: string,
+  stockType: string
+) => {
+  return Https.get<any>(
+    `/apis/stocks/find/?id=${id}&major=${major}&stock_type=${stockType}`
+  );
 };
 
 const UpdateStockService = (id: string, stockType: string, payload: any) => {
@@ -25,9 +33,9 @@ const UpdateStockService = (id: string, stockType: string, payload: any) => {
   );
 };
 
-const DeleteStockByIdService = (idCard: string) => {
+const DeleteStockByIdService = (idCard: string, major: string) => {
   return Https.get<StatusStockResponse>(
-    `/apis/stocks/delete/?id_card=${idCard}`
+    `/apis/stocks/delete/?id_card=${idCard}&major=${major}`
   );
 };
 

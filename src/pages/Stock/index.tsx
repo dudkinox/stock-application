@@ -90,7 +90,7 @@ export default function StockPage() {
     handlerSubmit,
     isShowModal,
   } = useContext(StockContext);
-  const { setPathUrl, isEdit } = useContext(AppContext);
+  const { setPathUrl, isEdit, majorUser } = useContext(AppContext);
   const [itemList, setItemList] = useState<any>({});
   const [typeStock, setTypeStock] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
@@ -131,10 +131,10 @@ export default function StockPage() {
   };
 
   const deleteStock = (idCard: string) => () => {
-    StockService.DeleteStockById(idCard)
+    StockService.DeleteStockById(idCard, majorUser)
       .then((res) => {
         AlertSuccess(res.data.message);
-        StockService.GetStock()
+        StockService.GetStock(majorUser)
           .then((res) => {
             setTimeout(() => destroyTable());
             setStock(res.data);
@@ -153,7 +153,7 @@ export default function StockPage() {
     ($("#insert-modal") as any).modal("show");
     setIsUpdate(true);
     menuInsert(stockType);
-    StockService.GetFindStockById(id, stockType)
+    StockService.GetFindStockById(id, majorUser, stockType)
       .then((res) => {
         setUpdateId(id);
         setUpdateStockType(res.data.STOCK_TYPE);
@@ -246,7 +246,7 @@ export default function StockPage() {
 
   const openDetailModal = (idCard: string, stockType: string) => () => {
     setTypeStock(stockType);
-    StockService.GetDetailStockService(idCard)
+    StockService.GetDetailStockService(idCard, majorUser)
       .then((res) => {
         setItemList(res.data);
       })
@@ -256,7 +256,7 @@ export default function StockPage() {
   };
 
   useEffect(() => {
-    StockService.GetStock()
+    StockService.GetStock(majorUser)
       .then((res) => {
         setStock(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
@@ -267,7 +267,7 @@ export default function StockPage() {
   }, [setStock]);
 
   useEffect(() => {
-    CustomerServices.getCustomer().then((res) => {
+    CustomerServices.getCustomer(majorUser).then((res) => {
       setSelectCustomer(res.data);
     });
   }, []);

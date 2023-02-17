@@ -41,7 +41,7 @@ export default function CustomerPage() {
     reGetCustomer,
     isShowModal,
   } = useContext(CustomerContext);
-  const { isEdit } = useContext(AppContext);
+  const { isEdit, majorUser } = useContext(AppContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
   const stateLocation = useLocation();
@@ -76,7 +76,7 @@ export default function CustomerPage() {
   const openModalUpdate = (id: string) => () => {
     ($("#insert-modal") as any).modal("show");
     setIsUpdate(true);
-    CustomerServices.getCustomerById(id)
+    CustomerServices.getCustomerById(id, majorUser)
       .then((res) => {
         setUpdateId(id);
         setIdCard(res.data.ID_CARD);
@@ -105,9 +105,10 @@ export default function CustomerPage() {
       datePayment,
       customerStatus,
       process,
+      major: majorUser,
     };
 
-    CustomerServices.updateCustomer(id, camelToSnakeObject(payload))
+    CustomerServices.updateCustomer(id, majorUser, camelToSnakeObject(payload))
       .then((res) => {
         AlertSuccess(res.data.message);
         reGetCustomer();
@@ -121,7 +122,7 @@ export default function CustomerPage() {
     CustomerServices.deleteCustomer(id)
       .then((res) => {
         AlertSuccess(res.data.message);
-        CustomerServices.getCustomer()
+        CustomerServices.getCustomer(majorUser)
           .then((res) => {
             setTimeout(() => destroyTable());
             setCustomer(res.data);
@@ -137,7 +138,7 @@ export default function CustomerPage() {
   };
 
   useEffect(() => {
-    CustomerServices.getCustomer()
+    CustomerServices.getCustomer(majorUser)
       .then((res) => {
         setCustomer(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);

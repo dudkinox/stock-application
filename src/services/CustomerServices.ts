@@ -1,20 +1,20 @@
 import Https from "../Https/Index";
 import { GetCustomerResponse } from "../Models/Response/GetCustomerResponse";
 
-const getCustomerService = () => {
-  return Https.get<GetCustomerResponse[]>(`apis/customers/get/`);
+const getCustomerService = (major: string) => {
+  return Https.get<GetCustomerResponse[]>(`apis/customers/get/?major=${major}`);
 };
 
-const insertCustomerService = (data: any) => {
-  return Https.post(`apis/customers/insert/`, data);
+const insertCustomerService = (data: any, major: string) => {
+  return Https.post(`apis/customers/insert/?major=${major}`, data);
 };
 
-const getCustomerByIdService = (id: string) => {
-  return Https.get(`apis/customers/find/?id=${id}`);
+const getCustomerByIdService = (id: string, major: string) => {
+  return Https.get(`apis/customers/find/?id=${id}?major=${major}`);
 };
 
-const updateCustomerService = (id: string, payload: any) => {
-  return Https.post(`apis/customers/update/?id=${id}`, payload);
+const updateCustomerService = (id: string, major: string, payload: any) => {
+  return Https.post(`apis/customers/update/?id=${id}&major=${major}`, payload);
 };
 
 const deleteCustomerService = (id: string) => {

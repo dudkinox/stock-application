@@ -8,4 +8,5 @@ export interface CustomerRequest {
   datePayment: string;
   customerStatus: string;
   process: string;
+  major: string;
 }

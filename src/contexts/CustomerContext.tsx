@@ -1,10 +1,18 @@
-import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+  useContext,
+} from "react";
 import { camelToSnakeObject } from "../common/CamelToSnake";
 import initTable, { destroyTable } from "../common/DataTable";
 import { AlertError, AlertSuccess, AlertWarning } from "../common/ToastrCommon";
 import { CustomerRequest } from "../Models/Request/CustomerRequest";
 import { GetCustomerResponse } from "../Models/Response/GetCustomerResponse";
 import CustomerServices from "../services/CustomerServices";
+import { AppContext } from "./index";
 
 interface CustomerContextProps {
   customer: GetCustomerResponse[];
@@ -65,6 +73,7 @@ interface ChildrenProps {
 }
 
 export function CustomerContextProvider({ children }: ChildrenProps) {
+  const { majorUser } = useContext(AppContext);
   const [customer, setCustomer] = useState<GetCustomerResponse[]>([]);
   const [idCard, setIdCard] = useState<string>("");
   const [name, setName] = useState<string>("");
@@ -79,7 +88,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
 
   const reGetCustomer = useMemo(
     () => () => {
-      CustomerServices.getCustomer().then((res) => {
+      CustomerServices.getCustomer(majorUser).then((res) => {
         destroyTable();
         setCustomer(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
@@ -90,7 +99,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
 
   const insertCustomer = useMemo(
     () => (data: any) => {
-      CustomerServices.insertCustomer(data)
+      CustomerServices.insertCustomer(majorUser, data)
         .then((res) => {
           AlertSuccess(res.data.message);
           reGetCustomer();
@@ -127,6 +136,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         datePayment,
         customerStatus,
         process,
+        major: majorUser,
       };
 
       if (baseInsert.idCard.length !== 13) {
@@ -164,11 +174,12 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       customerStatus,
       process,
       insertCustomer,
+      majorUser
     ]
   );
 
   useEffect(() => {
-    CustomerServices.getCustomer()
+    CustomerServices.getCustomer(majorUser)
       .then((res) => {
         destroyTable();
         setCustomer(res.data);
