@@ -11,11 +11,13 @@ $type = isset($_GET["stock_type"]) ? $_GET["stock_type"] : '';
 $query = "INSERT INTO stock (`DATE`, 
                                 ID_CARD, 
                                 CUSTOMER_STATUS, 
-                                STOCK_TYPE) 
+                                STOCK_TYPE,
+                                MAJOR) 
         VALUES ('" . $date . "', 
                 '" . $idCard . "', 
                 '" . $customerStatus . "', 
-                '" . $type . "');";
+                '" . $type . "',
+                '" . $_GET["major"] . "');";
 
 $insert = "";
 
@@ -36,7 +38,8 @@ switch ($type) {
                                                 BIG_CHARGE, 
                                                 CHARGE, 
                                                 REPAIR, 
-                                                `SUM`) 
+                                                `SUM`,
+                                                MAJOR) 
                 VALUES ('" . $idCard . "',
                         '" . $cases . "',
                         '" . $firm . "',
@@ -44,7 +47,8 @@ switch ($type) {
                         '" . $bigCharge . "',
                         '" . $charge . "',
                         '" . $repair . "',
-                        '" . $sum . "')";
+                        '" . $sum . "',
+                        '" . $_GET["major"] . "')";
                 break;
         case 'ซื้อ':
                 $version = isset($_GET["version"]) ? $_GET["version"] : '';
@@ -58,13 +62,15 @@ switch ($type) {
                                         PRICE, 
                                         IMEI, 
                                         SOURCE, 
-                                        BATTERY) 
+                                        BATTERY,
+                                        MAJOR) 
                 VALUES ('" . $idCard . "', 
                         '" . $version . "', 
                         '" . $price . "', 
                         '" . $imei . "', 
                         '" . $source . "', 
-                        '" . $battery . "')";
+                        '" . $battery . "',
+                        '" . $_GET["major"] . "')";
                 break;
         case 'ขาย':
                 $customer = isset($_GET["customer"]) ? $_GET["customer"] : '';
@@ -85,7 +91,8 @@ switch ($type) {
                                         STAR_MONEY, 
                                         `MONTH`, 
                                         INSTALLMENT, 
-                                        DATE_PAYMENT) 
+                                        DATE_PAYMENT,
+                                        MAJOR) 
                         VALUES ('" . $idCard . "', 
                                 '" . $customer . "', 
                                 '" . $tel . "', 
@@ -94,7 +101,8 @@ switch ($type) {
                                 '" . $starMoney . "', 
                                 '" . $month . "', 
                                 '" . $installment . "', 
-                                '" . $datePayment . "');";
+                                '" . $datePayment . "',
+                                '" . $_GET["major"] . "');";
                 break;
         case 'ผ่อน':
                 $installmentNo = isset($_GET["installment_no"]) ? $_GET["installment_no"] : 0;
@@ -103,10 +111,12 @@ switch ($type) {
                 $insert = "INSERT INTO installment_payment (
                                         ID_CARD,
                                         INSTALLMENT_NO,
-                                        PRICE_TOTAL) 
+                                        PRICE_TOTAL,
+                                        MAJOR) 
                                 VALUES ('" . $idCard . "', 
                                         '" . $installmentNo . "', 
-                                        '" . $priceTotal . "');";
+                                        '" . $priceTotal . "',
+                                        '" . $_GET["major"] . "');";
                 break;
         default:
                 echo "{ \"status\": \"error\",

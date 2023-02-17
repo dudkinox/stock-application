@@ -4,7 +4,9 @@ require('../../../client/index.php');
 
 $idCard = isset($_GET['id_card']) ? $_GET['id_card'] : '';
 
-$queryStockType = "SELECT STOCK_TYPE FROM stock WHERE ID_CARD = '" . $idCard . "'";
+$queryStockType = "SELECT STOCK_TYPE FROM stock 
+                WHERE ID_CARD = '" . $idCard . "' 
+                AND MAJOR = '" . $_GET["major"] . "'";
 $resultStockType = $conn->query($queryStockType);
 $rowStockType = $resultStockType->fetch_assoc();
 
@@ -24,7 +26,8 @@ switch ($rowStockType["STOCK_TYPE"]) {
         break;
 }
 
-$query = "SELECT * FROM " . $table . " WHERE ID_CARD = '" . $idCard . "'";
+$query = "SELECT * FROM " . $table . " WHERE ID_CARD = '" . $idCard . "' 
+        AND MAJOR = '" . $_GET["major"] . "'";
 $result = $conn->query($query);
 $row = $result->fetch_assoc();
 
@@ -32,6 +35,7 @@ echo '{';
 echo '
     "ID": "' . $row["ID"] . '",
     "ID_CARD": "' . $row["ID_CARD"] . '",
+    "MAJOR": "' . $row["MAJOR"] . '",
 ';
 switch ($rowStockType["STOCK_TYPE"]) {
     case 'อุปกรณ์':

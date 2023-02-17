@@ -23,7 +23,7 @@ switch ($type) {
 
 $query = "SELECT * FROM stock AS a 
 INNER JOIN " . $formatStockType . " AS b 
-ON a.ID_CARD = b.ID_CARD WHERE a.ID=" . $id;
+ON a.ID_CARD = b.ID_CARD WHERE a.MAJOR='" . $_GET["major"] . "' AND a.ID=" . $id;
 $result = $conn->query($query);
 $row = $result->fetch_assoc();
 
@@ -34,6 +34,7 @@ echo '
 "ID_CARD": "' . $row["ID_CARD"] . '",
 "CUSTOMER_STATUS": "' . $row["CUSTOMER_STATUS"] . '",
 "STOCK_TYPE": "' . $row["STOCK_TYPE"] . '",
+"MAJOR": "' . $row["MAJOR"] . '",
 ';
 switch ($type) {
     case 'อุปกรณ์':

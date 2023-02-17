@@ -16,7 +16,8 @@ $query = "INSERT INTO customer(
                             PAYMENT,
                             DATE_PAYMENT, 
                             CUSTOMER_STATUS, 
-                            PROCESS) 
+                            PROCESS,
+                            MAJOR) 
         VALUES ('" . $requestBody["id_card"] . "',
                 '" . $requestBody["name"] . "',
                 '" . $requestBody["last_name"] . "',
@@ -25,7 +26,8 @@ $query = "INSERT INTO customer(
                 '" . $requestBody["payment"] . "',
                 '" . $requestBody["date_payment"] . "',
                 '" . $requestBody["customer_status"] . "',
-                '" . $requestBody["process"] . "')";
+                '" . $requestBody["process"] . "',
+                '" . $requestBody["major"] . "')";
 
 if ($conn->query($query) === TRUE) {
     echo "{ \"status\": \"success\",

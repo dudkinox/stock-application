@@ -29,13 +29,13 @@ switch ($stockType) {
         CHARGE='" . $requestBody["charge"] . "',
         REPAIR='" . $requestBody["repair"] . "',
         `SUM`='" . $requestBody["sum"] . "' 
-        WHERE ID_CARD = '" . $idCard . "'";
+        WHERE ID_CARD = '" . $idCard . "' AND MAJOR = '" . $_GET["major"] . "'";
         break;
     case 'ผ่อน':
         $queryUpdateStock = "UPDATE installment_payment SET 
         INSTALLMENT_NO='" . $requestBody["installment_no"] . "',
         PRICE_TOTAL='" . $requestBody["price_total"] . "'
-        WHERE ID_CARD = '" . $idCard . "'";
+        WHERE ID_CARD = '" . $idCard . "' AND MAJOR = '" . $_GET["major"] . "'";
         break;
     case 'ขาย':
         $queryUpdateStock = "UPDATE kay SET 
@@ -47,7 +47,7 @@ switch ($stockType) {
         `MONTH`='" . $requestBody["month"] . "',
         INSTALLMENT='" . $requestBody["installment"] . "',
         DATE_PAYMENT='" . $requestBody["date_payment"] . "' 
-        WHERE ID_CARD = '" . $idCard . "'";
+        WHERE ID_CARD = '" . $idCard . "' AND MAJOR = '" . $_GET["major"] . "'";
         break;
     case 'ซื้อ':
         $queryUpdateStock = "UPDATE `bye` SET 
@@ -56,7 +56,7 @@ switch ($stockType) {
         IMEI='" . $requestBody["imei"] . "',
         SOURCE='" . $requestBody["source"] . "',
         BATTERY='" . $requestBody["battery"] . "' 
-        WHERE ID_CARD = '" . $idCard . "'";
+        WHERE ID_CARD = '" . $idCard . "' AND MAJOR = '" . $_GET["major"] . "'";
         break;
 }
 
