@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+  useContext,
+} from "react";
 import initTable, { destroyTable } from "../common/DataTable";
 import { AlertError, AlertSuccess, AlertWarning } from "../common/ToastrCommon";
 import StockRequest, {
@@ -9,6 +16,7 @@ import StockRequest, {
 } from "../Models/Request/StockRequest";
 import { GetStockResponse } from "../Models/Response/GetStockResponse";
 import StockService from "../services/StockServices";
+import { AppContext } from "./index";
 
 interface StockContextProps {
   date: string;
@@ -167,6 +175,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [priceTotal, setPriceTotal] = useState<number | string>(0);
   const [stock, setStock] = useState<GetStockResponse[]>([]);
   const [isShowModal, setIsShowModal] = useState(false);
+  const { majorUser } = useContext(AppContext);
 
   const menuInsert = useMemo(
     () => (stockType: string) => {
@@ -377,7 +386,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
             insertStock(params);
             break;
         }
-        StockService.GetStock()
+        StockService.GetStock(majorUser)
           .then((res) => {
             destroyTable();
             setStock(res.data);
@@ -419,7 +428,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   );
 
   useEffect(() => {
-    StockService.GetStock()
+    StockService.GetStock(majorUser)
       .then((res) => {
         destroyTable();
         setStock(res.data);
