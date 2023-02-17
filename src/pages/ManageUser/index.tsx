@@ -13,7 +13,7 @@ import MajorManage from "../Major";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import MajorServices from "../../services/MajorService";
 import SelectChoice from "../../common/Select";
-import { AppContext } from "../../contexts/index";
+import AccountServices from "../../services/AccountService";
 
 export default function ManageUser() {
   const {
@@ -35,10 +35,10 @@ export default function ManageUser() {
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
 
-  const openModalUpdate = (id: string) => () => {
+  const openModalUpdate = (id: string, username: string) => () => {
     ($("#insert-modal") as any).modal("show");
     setIsUpdate(true);
-    UserServices.getUserById(id)
+    AccountServices.getFindUser(username)
       .then((res) => {
         setUpdateId(id);
         setUsername(res.data.USERNAME);
@@ -50,7 +50,7 @@ export default function ManageUser() {
       });
   };
 
-  const updateStockHandler = (id: string) => () => {
+  const updateAccountHandler = (id: string) => () => {
     let payload: UserRequest = {
       username,
       password,
@@ -137,14 +137,16 @@ export default function ManageUser() {
                       placeholder={"ชื่อผู้ใช้"}
                       value={username}
                     />
-                    <TextInput
-                      label={"รหัสผ่าน:"}
-                      icon={"fa fa-unlock-alt"}
-                      setValue={setPassword}
-                      type={"password"}
-                      placeholder={"รหัสผ่าน"}
-                      value={password}
-                    />
+                    {!isUpdate ? (
+                      <TextInput
+                        label={"รหัสผ่าน:"}
+                        icon={"fa fa-unlock-alt"}
+                        setValue={setPassword}
+                        type={"password"}
+                        placeholder={"รหัสผ่าน"}
+                        value={password}
+                      />
+                    ) : null}
                     <SelectChoice
                       topic="สิทธิการเข้าถึง"
                       setValue={setPermission}
@@ -161,7 +163,7 @@ export default function ManageUser() {
                       type="button"
                       className="btn primary-btn col-lg-2 col-sm-auto"
                       data-dismiss="modal"
-                      onClick={updateStockHandler(updateId)}
+                      onClick={updateAccountHandler(updateId)}
                     >
                       อัพเดต
                     </button>
@@ -228,7 +230,7 @@ export default function ManageUser() {
                     <div className="row justify-content-center">
                       <button
                         className="btn btn-warning mx-2"
-                        onClick={openModalUpdate(item.ID)}
+                        onClick={openModalUpdate(item.ID, item.USERNAME)}
                       >
                         <i className="nav-icon fas fa-pen" />
                       </button>
