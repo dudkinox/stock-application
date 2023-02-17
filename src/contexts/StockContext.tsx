@@ -256,6 +256,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
         idCard,
         customerStatus,
         stockType,
+        major: majorUser,
       };
 
       if (baseInsert.date === "") {
@@ -276,7 +277,9 @@ export function StockContextProvider({ children }: ChildrenProps) {
           "&customer_status=" +
           baseInsert.customerStatus +
           "&stock_type=" +
-          baseInsert.stockType;
+          baseInsert.stockType +
+          "&major=" +
+          baseInsert.major;
 
         var params = "";
         switch (stockType) {

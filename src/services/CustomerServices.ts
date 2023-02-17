@@ -5,8 +5,8 @@ const getCustomerService = (major: string) => {
   return Https.get<GetCustomerResponse[]>(`apis/customers/get/?major=${major}`);
 };
 
-const insertCustomerService = (data: any, major: string) => {
-  return Https.post(`apis/customers/insert/?major=${major}`, data);
+const insertCustomerService = (data: any) => {
+  return Https.post(`apis/customers/insert/`, data);
 };
 
 const getCustomerByIdService = (id: string, major: string) => {

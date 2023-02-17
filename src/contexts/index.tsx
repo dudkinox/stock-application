@@ -10,7 +10,6 @@ interface AppContextProps {
   typeUser: string;
   isEdit: () => boolean;
   majorUser: string;
-  setMajorUser: (value: string) => void;
 }
 
 export const AppContext = createContext<AppContextProps>({
@@ -20,7 +19,6 @@ export const AppContext = createContext<AppContextProps>({
   typeUser: "",
   isEdit: () => false,
   majorUser: "",
-  setMajorUser: (value: string) => {},
 });
 
 interface ChildrenProps {
@@ -31,7 +29,7 @@ export function AppContextProvider({ children }: ChildrenProps) {
   const [pathUrl, setPathUrl] = useState<string>(window.location.pathname);
   const isLogin = sessionStorage.getItem("account") ?? "";
   const [typeUser, setTypeUser] = useState<string>("");
-  const [majorUser, setMajorUser] = useState<string>("");
+  const majorUser = sessionStorage.getItem("major") ?? "";
 
   const isEdit = () => {
     return (
@@ -43,12 +41,12 @@ export function AppContextProvider({ children }: ChildrenProps) {
     AccountServices.getFindUser(isLogin)
       .then((res) => {
         setTypeUser(res.data.PERMISSION);
-        setMajorUser(res.data.MAJOR);
+        sessionStorage.setItem("major", res.data.MAJOR);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
       });
-  }, []);
+  }, [setTypeUser]);
 
   const values = useMemo(
     () => ({
@@ -58,9 +56,8 @@ export function AppContextProvider({ children }: ChildrenProps) {
       typeUser,
       isEdit,
       majorUser,
-      setMajorUser,
     }),
-    [pathUrl, setPathUrl, isLogin, typeUser, isEdit, majorUser, setMajorUser]
+    [pathUrl, setPathUrl, isLogin, typeUser, isEdit, majorUser]
   );
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;

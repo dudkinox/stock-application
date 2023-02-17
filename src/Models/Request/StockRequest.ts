@@ -3,6 +3,7 @@ export default interface StockRequest {
   idCard: string;
   customerStatus: string;
   stockType: string;
+  major: string;
 }
 
 export interface StockEquipmentRequest extends StockRequest {

@@ -9,4 +9,5 @@ export interface GetCustomerResponse {
   DATE_PAYMENT: string;
   CUSTOMER_STATUS: string;
   PROCESS: string;
+  MAJOR: string;
 }

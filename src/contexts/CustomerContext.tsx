@@ -99,7 +99,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
 
   const insertCustomer = useMemo(
     () => (data: any) => {
-      CustomerServices.insertCustomer(majorUser, data)
+      CustomerServices.insertCustomer(data)
         .then((res) => {
           AlertSuccess(res.data.message);
           reGetCustomer();
