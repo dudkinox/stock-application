@@ -13,6 +13,7 @@ import { CustomerRequest } from "../Models/Request/CustomerRequest";
 import { GetCustomerResponse } from "../Models/Response/GetCustomerResponse";
 import CustomerServices from "../services/CustomerServices";
 import { AppContext } from "./index";
+import { StockContext } from "./StockContext";
 
 interface CustomerContextProps {
   customer: GetCustomerResponse[];
@@ -74,8 +75,9 @@ interface ChildrenProps {
 
 export function CustomerContextProvider({ children }: ChildrenProps) {
   const { majorUser } = useContext(AppContext);
+  const stockContext = useContext(StockContext);
   const [customer, setCustomer] = useState<GetCustomerResponse[]>([]);
-  const [idCard, setIdCard] = useState<string>("");
+  const [idCard, setIdCard] = useState<string>(stockContext.idCard);
   const [name, setName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [installmentMonth, setInstallmentMonth] = useState<string>("0");
@@ -174,7 +176,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       customerStatus,
       process,
       insertCustomer,
-      majorUser
+      majorUser,
     ]
   );
 

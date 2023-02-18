@@ -259,9 +259,6 @@ export default function StockPage() {
     StockService.GetStock(majorUser)
       .then((res) => {
         setStock(res.data);
-        console.log("====================================");
-        console.log(majorUser);
-        console.log("====================================");
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
       })
       .catch((err) => {

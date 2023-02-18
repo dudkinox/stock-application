@@ -40,9 +40,11 @@ export default function App() {
           <Route
             path="/customer"
             element={
-              <CustomerContextProvider>
-                <CustomerPage />
-              </CustomerContextProvider>
+              <StockContextProvider>
+                <CustomerContextProvider>
+                  <CustomerPage />
+                </CustomerContextProvider>
+              </StockContextProvider>
             }
           />
           {typeUser === PermissionEnum.ADMIN && (
