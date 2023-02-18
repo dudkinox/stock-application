@@ -42,10 +42,10 @@ const DeleteStockByIdService = (idCard: string, major: string) => {
 const StockService = {
   InsertStock: InsertStockService,
   GetStock: GetStockService,
+  GetDetailStockService: GetDetailStockService,
   GetFindStockById: GetFindByIdStockService,
   UpdateStock: UpdateStockService,
   DeleteStockById: DeleteStockByIdService,
-  GetDetailStockService: GetDetailStockService,
 };
 
 export default StockService;

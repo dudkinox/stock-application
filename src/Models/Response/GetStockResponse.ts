@@ -4,4 +4,5 @@ export interface GetStockResponse {
   ID_CARD: string;
   CUSTOMER_STATUS: string;
   STOCK_TYPE: string;
+  MAJOR: string;
 }

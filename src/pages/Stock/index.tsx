@@ -244,9 +244,9 @@ export default function StockPage() {
       });
   };
 
-  const openDetailModal = (idCard: string, stockType: string) => () => {
+  const openDetailModal = (idCard: string, stockType: string, major: string) => () => {
     setTypeStock(stockType);
-    StockService.GetDetailStockService(idCard, majorUser)
+    StockService.GetDetailStockService(idCard, major)
       .then((res) => {
         setItemList(res.data);
       })
@@ -492,7 +492,7 @@ export default function StockPage() {
                       className="btn primary-btn text-white"
                       data-toggle="modal"
                       data-target="#detail-modal"
-                      onClick={openDetailModal(item.ID_CARD, item.STOCK_TYPE)}
+                      onClick={openDetailModal(item.ID_CARD, item.STOCK_TYPE, item.MAJOR)}
                     >
                       รายละเอียด
                     </button>
