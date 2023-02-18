@@ -6,6 +6,7 @@ interface SelectChoiceProps {
   topic: string;
   options: string[];
   value: string;
+  
 }
 
 export default function SelectChoice({

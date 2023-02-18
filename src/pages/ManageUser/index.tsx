@@ -101,7 +101,12 @@ export default function ManageUser() {
   useEffect(() => {
     MajorServices.getMajors()
       .then((res) => {
-        setFetchMajor(res.data);
+        const data = res.data;
+        data.push({
+          ID: "",
+          NAME: "admin",
+        });
+        setFetchMajor(data);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
