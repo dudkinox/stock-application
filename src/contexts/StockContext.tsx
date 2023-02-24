@@ -67,7 +67,7 @@ interface StockContextProps {
   datePayment: string;
   setDatePayment: (value: string) => void;
   installmentNo: number | string;
-  setInstallmentNo: (value: string) => void;
+  setInstallmentNo: (value: number) => void;
   priceTotal: number | string;
   setPriceTotal: (value: string) => void;
   menuInsert: (stockType: string) => void;
@@ -128,7 +128,7 @@ export const StockContext = createContext<StockContextProps>({
   datePayment: "",
   setDatePayment: (value: string) => {},
   installmentNo: 0,
-  setInstallmentNo: (value: string) => {},
+  setInstallmentNo: (value: number) => {},
   priceTotal: 0,
   setPriceTotal: (value: number | string) => {},
   menuInsert: (stockType: string) => {},

@@ -244,16 +244,17 @@ export default function StockPage() {
       });
   };
 
-  const openDetailModal = (idCard: string, stockType: string, major: string) => () => {
-    setTypeStock(stockType);
-    StockService.GetDetailStockService(idCard, major)
-      .then((res) => {
-        setItemList(res.data);
-      })
-      .catch((err) => {
-        AlertError(err.response.data.message);
-      });
-  };
+  const openDetailModal =
+    (idCard: string, stockType: string, major: string) => () => {
+      setTypeStock(stockType);
+      StockService.GetDetailStockService(idCard, major)
+        .then((res) => {
+          setItemList(res.data);
+        })
+        .catch((err) => {
+          AlertError(err.response.data.message);
+        });
+    };
 
   useEffect(() => {
     StockService.GetStock(majorUser)
@@ -390,7 +391,9 @@ export default function StockPage() {
                     {isMenuInsert && <IsMenuInsert />}
                     {byeMenuInsert && <ByeMenuInsert />}
                     {kayMenuInsert && <KayMenuInsert />}
-                    {installmentMenuInsert && <InstallmentMenuInsert />}
+                    {installmentMenuInsert && (
+                      <InstallmentMenuInsert selectCustomer={selectCustomer} />
+                    )}
                   </div>
                 </div>
                 <div className="modal-footer">
@@ -492,7 +495,11 @@ export default function StockPage() {
                       className="btn primary-btn text-white"
                       data-toggle="modal"
                       data-target="#detail-modal"
-                      onClick={openDetailModal(item.ID_CARD, item.STOCK_TYPE, item.MAJOR)}
+                      onClick={openDetailModal(
+                        item.ID_CARD,
+                        item.STOCK_TYPE,
+                        item.MAJOR
+                      )}
                     >
                       รายละเอียด
                     </button>
