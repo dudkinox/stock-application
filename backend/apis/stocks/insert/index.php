@@ -119,7 +119,7 @@ switch ($type) {
                                         '" . $_GET["major"] . "');";
 
                 $customerInstallMent = "UPDATE customer 
-                                        SET INSTALLMENT_MONTH='" . $installmentNo . "'
+                                        SET NUMBER_INSTALLMENT='" . $installmentNo . "'
                                         WHERE ID_CARD='" . $idCard . "' AND MAJOR='" . $_GET["major"] . "'";
                 if ($conn->query($customerInstallMent) === FALSE) {
                         echo "{ \"status\": \"error\",

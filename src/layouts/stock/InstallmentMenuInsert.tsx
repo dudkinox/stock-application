@@ -14,6 +14,8 @@ export default function InstallmentMenuInsert({
     useContext(StockContext);
 
   useEffect(() => {
+    console.log(selectCustomer);
+
     setInstallmentNo(Number(selectCustomer[0].NUMBER_INSTALLMENT) + 1);
   }, [selectCustomer]);
 
