@@ -29,6 +29,8 @@ import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../contexts";
 import { PermissionEnum } from "../../enum/permission.enum";
+import MajorResponse from "../../Models/Response/GetMajorResponse";
+import MajorServices from "../../services/MajorService";
 
 export default function StockPage() {
   const {
@@ -89,13 +91,16 @@ export default function StockPage() {
     installmentMenuInsert,
     handlerSubmit,
     isShowModal,
+    majorInsert: majorAdminChange,
+    setMajorInsert,
   } = useContext(StockContext);
-  const { setPathUrl, isEdit, majorUser } = useContext(AppContext);
+  const { setPathUrl, isEdit, majorUser, typeUser } = useContext(AppContext);
   const [itemList, setItemList] = useState<any>({});
   const [typeStock, setTypeStock] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
   const [customerFind, setCustomerFind] = useState<GetCustomerResponse>();
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
     []
   );
@@ -130,8 +135,8 @@ export default function StockPage() {
     menuInsert(value);
   };
 
-  const deleteStock = (idCard: string) => () => {
-    StockService.DeleteStockById(idCard, majorUser)
+  const deleteStock = (idCard: string, major: string) => () => {
+    StockService.DeleteStockById(idCard, major)
       .then((res) => {
         AlertSuccess(res.data.message);
         StockService.GetStock(majorUser)
@@ -301,6 +306,16 @@ export default function StockPage() {
     setPathUrl,
   ]);
 
+  useEffect(() => {
+    MajorServices.getMajors()
+      .then((res) => {
+        setFetchMajor(res.data);
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+      });
+  }, [setFetchMajor]);
+
   return (
     <ContentLayOut
       title={"stock"}
@@ -386,6 +401,16 @@ export default function StockPage() {
                           placeholder={"ประเภทลูกค้า"}
                           value={stockType}
                         />
+                        {typeUser === PermissionEnum.ADMIN && (
+                          <SelectChoice
+                            topic="เลือกสาขา"
+                            setValue={setMajorInsert}
+                            icon="far fa-calendar-alt"
+                            label={"สาขา:"}
+                            value={majorAdminChange}
+                            options={fetchMajor.map((item) => item.NAME)}
+                          />
+                        )}
                       </>
                     )}
                     {isMenuInsert && <IsMenuInsert />}
@@ -515,7 +540,7 @@ export default function StockPage() {
                         </button>
                         <button
                           className="btn btn-danger"
-                          onClick={deleteStock(item.ID_CARD)}
+                          onClick={deleteStock(item.ID_CARD, item.MAJOR)}
                         >
                           <i className="nav-icon fas fa-trash" />
                         </button>

@@ -117,6 +117,15 @@ switch ($type) {
                                         '" . $installmentNo . "', 
                                         '" . $priceTotal . "',
                                         '" . $_GET["major"] . "');";
+
+                $customerInstallMent = "UPDATE customer 
+                                        SET INSTALLMENT_MONTH='" . $installmentNo . "'
+                                        WHERE ID_CARD='" . $idCard . "' AND MAJOR='" . $_GET["major"] . "'";
+                if ($conn->query($customerInstallMent) === FALSE) {
+                        echo "{ \"status\": \"error\",
+                                \"message\": \"Error: " . $sql . "<br>" . $conn->error . "\",
+                                \"code\": \"001\" }";
+                }
                 break;
         default:
                 echo "{ \"status\": \"error\",

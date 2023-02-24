@@ -40,6 +40,8 @@ interface CustomerContextProps {
   reGetCustomer: () => void;
   isShowModal: boolean;
   setIsShowModal: (value: boolean) => void;
+  majorInsert: string;
+  setMajorInsert: (value: string) => void;
 }
 
 export const CustomerContext = createContext<CustomerContextProps>({
@@ -67,6 +69,8 @@ export const CustomerContext = createContext<CustomerContextProps>({
   reGetCustomer: () => {},
   isShowModal: false,
   setIsShowModal: (value: boolean) => {},
+  majorInsert: "",
+  setMajorInsert: (value: string) => {},
 });
 
 interface ChildrenProps {
@@ -87,6 +91,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   const [customerStatus, setCustomerStatus] = useState<string>("");
   const [process, setProcess] = useState<string>("");
   const [isShowModal, setIsShowModal] = useState(false);
+  const [majorInsert, setMajorInsert] = useState<string>("");
 
   const reGetCustomer = useMemo(
     () => () => {
@@ -138,7 +143,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         datePayment,
         customerStatus,
         process,
-        major: majorUser,
+        major: majorInsert,
       };
 
       if (baseInsert.idCard.length !== 13) {
@@ -226,6 +231,8 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       reGetCustomer,
       isShowModal,
       setIsShowModal,
+      majorInsert,
+      setMajorInsert,
     }),
     [
       customer,
@@ -252,6 +259,8 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       reGetCustomer,
       isShowModal,
       setIsShowModal,
+      majorInsert,
+      setMajorInsert,
     ]
   );
 
