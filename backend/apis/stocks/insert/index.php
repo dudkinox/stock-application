@@ -118,8 +118,14 @@ switch ($type) {
                                         '" . $priceTotal . "',
                                         '" . $_GET["major"] . "');";
 
+                $queryPayment = "SELECT PAYMENT FROM customer WHERE ID_CARD='" . $idCard . "' AND MAJOR='" . $_GET["major"] . "'";
+                $resultPayment = $conn->query($queryPayment);
+                $rowPayment = $resultPayment->fetch_assoc();
+                $sum = number_format($rowPayment["PAYMENT"]) + number_format($priceTotal);
+
                 $customerInstallMent = "UPDATE customer 
-                                        SET NUMBER_INSTALLMENT='" . $installmentNo . "'
+                                        SET NUMBER_INSTALLMENT='" . $installmentNo . "' ,
+                                        PAYMENT = '" . $sum . "' 
                                         WHERE ID_CARD='" . $idCard . "' AND MAJOR='" . $_GET["major"] . "'";
                 if ($conn->query($customerInstallMent) === FALSE) {
                         echo "{ \"status\": \"error\",
