@@ -121,7 +121,7 @@ switch ($type) {
                 $queryPayment = "SELECT PAYMENT FROM customer WHERE ID_CARD='" . $idCard . "' AND MAJOR='" . $_GET["major"] . "'";
                 $resultPayment = $conn->query($queryPayment);
                 $rowPayment = $resultPayment->fetch_assoc();
-                $sum = number_format($rowPayment["PAYMENT"]) + number_format($priceTotal);
+                $sum = number_format($rowPayment["PAYMENT"], 2) + number_format($priceTotal, 2);
 
                 $customerInstallMent = "UPDATE customer 
                                         SET NUMBER_INSTALLMENT='" . $installmentNo . "' ,
