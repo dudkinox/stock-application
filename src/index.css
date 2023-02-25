@@ -31,3 +31,15 @@ a.nav-link.active {
 .dark-mode .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
   background-color: #d11b59;
 }
+
+.dark-mode input:-webkit-autofill,
+.dark-mode input:-webkit-autofill:focus,
+.dark-mode input:-webkit-autofill:hover,
+.dark-mode select:-webkit-autofill,
+.dark-mode select:-webkit-autofill:focus,
+.dark-mode select:-webkit-autofill:hover,
+.dark-mode textarea:-webkit-autofill,
+.dark-mode textarea:-webkit-autofill:focus,
+.dark-mode textarea:-webkit-autofill:hover {
+  -webkit-text-fill-color: #f00;
+}
