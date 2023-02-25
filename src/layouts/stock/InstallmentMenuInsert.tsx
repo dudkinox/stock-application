@@ -17,6 +17,7 @@ export default function InstallmentMenuInsert({
     console.log(selectCustomer);
 
     setInstallmentNo(Number(selectCustomer[0].NUMBER_INSTALLMENT) + 1);
+    setPriceTotal(selectCustomer[0].INSTALLMENT_MONTH);
   }, [selectCustomer]);
 
   return (
