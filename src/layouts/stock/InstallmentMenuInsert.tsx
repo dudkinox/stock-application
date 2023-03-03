@@ -1,10 +1,23 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { StockContext } from "../../contexts/StockContext";
 import { MenuInstallmentPaymentEnum } from "../../enum/menuInsert.enum";
+import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
 
-export default function InstallmentMenuInsert() {
+interface InstallmentMenuInsertProps {
+  selectCustomer: GetCustomerResponse[];
+}
+
+export default function InstallmentMenuInsert({
+  selectCustomer,
+}: InstallmentMenuInsertProps) {
   const { installmentNo, setInstallmentNo, priceTotal, setPriceTotal } =
     useContext(StockContext);
+
+  useEffect(() => {
+    setInstallmentNo(Number(selectCustomer[0].NUMBER_INSTALLMENT) + 1);
+    setPriceTotal(selectCustomer[0].INSTALLMENT_MONTH);
+  }, [selectCustomer]);
+
   return (
     <>
       <div className="form-group">

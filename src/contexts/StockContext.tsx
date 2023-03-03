@@ -15,6 +15,7 @@ import StockRequest, {
   StockInstallmentPaymentRequest,
 } from "../Models/Request/StockRequest";
 import { GetStockResponse } from "../Models/Response/GetStockResponse";
+import MajorServices from "../services/MajorService";
 import StockService from "../services/StockServices";
 import { AppContext } from "./index";
 
@@ -67,7 +68,7 @@ interface StockContextProps {
   datePayment: string;
   setDatePayment: (value: string) => void;
   installmentNo: number | string;
-  setInstallmentNo: (value: string) => void;
+  setInstallmentNo: (value: number) => void;
   priceTotal: number | string;
   setPriceTotal: (value: string) => void;
   menuInsert: (stockType: string) => void;
@@ -77,6 +78,8 @@ interface StockContextProps {
   setStock: (value: GetStockResponse[]) => void;
   isShowModal: boolean;
   setIsShowModal: (value: boolean) => void;
+  majorInsert: string;
+  setMajorInsert: (value: string) => void;
 }
 
 export const StockContext = createContext<StockContextProps>({
@@ -128,7 +131,7 @@ export const StockContext = createContext<StockContextProps>({
   datePayment: "",
   setDatePayment: (value: string) => {},
   installmentNo: 0,
-  setInstallmentNo: (value: string) => {},
+  setInstallmentNo: (value: number) => {},
   priceTotal: 0,
   setPriceTotal: (value: number | string) => {},
   menuInsert: (stockType: string) => {},
@@ -138,6 +141,8 @@ export const StockContext = createContext<StockContextProps>({
   setStock: (value: GetStockResponse[]) => {},
   isShowModal: false,
   setIsShowModal: (value: boolean) => {},
+  majorInsert: "",
+  setMajorInsert: (value: string) => {},
 });
 
 interface ChildrenProps {
@@ -175,6 +180,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [priceTotal, setPriceTotal] = useState<number | string>(0);
   const [stock, setStock] = useState<GetStockResponse[]>([]);
   const [isShowModal, setIsShowModal] = useState(false);
+  const [majorInsert, setMajorInsert] = useState<string>("");
   const { majorUser } = useContext(AppContext);
 
   const menuInsert = useMemo(
@@ -256,7 +262,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
         idCard,
         customerStatus,
         stockType,
-        major: majorUser,
+        major: majorInsert,
       };
 
       if (baseInsert.date === "") {
@@ -502,6 +508,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setStock,
       isShowModal,
       setIsShowModal,
+      majorInsert,
+      setMajorInsert,
     }),
     [
       date,
@@ -537,6 +545,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       stock,
       isShowModal,
       setIsShowModal,
+      majorInsert,
+      setMajorInsert,
     ]
   );
 

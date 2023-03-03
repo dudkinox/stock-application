@@ -29,6 +29,8 @@ import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../contexts";
 import { PermissionEnum } from "../../enum/permission.enum";
+import MajorResponse from "../../Models/Response/GetMajorResponse";
+import MajorServices from "../../services/MajorService";
 
 export default function StockPage() {
   const {
@@ -89,13 +91,16 @@ export default function StockPage() {
     installmentMenuInsert,
     handlerSubmit,
     isShowModal,
+    majorInsert: majorAdminChange,
+    setMajorInsert,
   } = useContext(StockContext);
-  const { setPathUrl, isEdit, majorUser } = useContext(AppContext);
+  const { setPathUrl, isEdit, majorUser, typeUser } = useContext(AppContext);
   const [itemList, setItemList] = useState<any>({});
   const [typeStock, setTypeStock] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
   const [customerFind, setCustomerFind] = useState<GetCustomerResponse>();
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
     []
   );
@@ -130,8 +135,8 @@ export default function StockPage() {
     menuInsert(value);
   };
 
-  const deleteStock = (idCard: string) => () => {
-    StockService.DeleteStockById(idCard, majorUser)
+  const deleteStock = (idCard: string, major: string) => () => {
+    StockService.DeleteStockById(idCard, major)
       .then((res) => {
         AlertSuccess(res.data.message);
         StockService.GetStock(majorUser)
@@ -244,16 +249,17 @@ export default function StockPage() {
       });
   };
 
-  const openDetailModal = (idCard: string, stockType: string, major: string) => () => {
-    setTypeStock(stockType);
-    StockService.GetDetailStockService(idCard, major)
-      .then((res) => {
-        setItemList(res.data);
-      })
-      .catch((err) => {
-        AlertError(err.response.data.message);
-      });
-  };
+  const openDetailModal =
+    (idCard: string, stockType: string, major: string) => () => {
+      setTypeStock(stockType);
+      StockService.GetDetailStockService(idCard, major)
+        .then((res) => {
+          setItemList(res.data);
+        })
+        .catch((err) => {
+          AlertError(err.response.data.message);
+        });
+    };
 
   useEffect(() => {
     StockService.GetStock(majorUser)
@@ -299,6 +305,16 @@ export default function StockPage() {
     selectCustomer,
     setPathUrl,
   ]);
+
+  useEffect(() => {
+    MajorServices.getMajors()
+      .then((res) => {
+        setFetchMajor(res.data);
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+      });
+  }, [setFetchMajor]);
 
   return (
     <ContentLayOut
@@ -385,12 +401,24 @@ export default function StockPage() {
                           placeholder={"ประเภทลูกค้า"}
                           value={stockType}
                         />
+                        {typeUser === PermissionEnum.ADMIN && (
+                          <SelectChoice
+                            topic="เลือกสาขา"
+                            setValue={setMajorInsert}
+                            icon="far fa-calendar-alt"
+                            label={"สาขา:"}
+                            value={majorAdminChange}
+                            options={fetchMajor.map((item) => item.NAME)}
+                          />
+                        )}
                       </>
                     )}
                     {isMenuInsert && <IsMenuInsert />}
                     {byeMenuInsert && <ByeMenuInsert />}
                     {kayMenuInsert && <KayMenuInsert />}
-                    {installmentMenuInsert && <InstallmentMenuInsert />}
+                    {installmentMenuInsert && (
+                      <InstallmentMenuInsert selectCustomer={selectCustomer} />
+                    )}
                   </div>
                 </div>
                 <div className="modal-footer">
@@ -492,7 +520,11 @@ export default function StockPage() {
                       className="btn primary-btn text-white"
                       data-toggle="modal"
                       data-target="#detail-modal"
-                      onClick={openDetailModal(item.ID_CARD, item.STOCK_TYPE, item.MAJOR)}
+                      onClick={openDetailModal(
+                        item.ID_CARD,
+                        item.STOCK_TYPE,
+                        item.MAJOR
+                      )}
                     >
                       รายละเอียด
                     </button>
@@ -508,7 +540,7 @@ export default function StockPage() {
                         </button>
                         <button
                           className="btn btn-danger"
-                          onClick={deleteStock(item.ID_CARD)}
+                          onClick={deleteStock(item.ID_CARD, item.MAJOR)}
                         >
                           <i className="nav-icon fas fa-trash" />
                         </button>

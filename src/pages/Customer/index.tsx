@@ -14,6 +14,8 @@ import { camelToSnakeObject } from "../../common/CamelToSnake";
 import { useLocation } from "react-router-dom";
 import { AppContext } from "../../contexts/index";
 import { PermissionEnum } from "../../enum/permission.enum";
+import MajorServices from "../../services/MajorService";
+import MajorResponse from "../../Models/Response/GetMajorResponse";
 
 export default function CustomerPage() {
   const {
@@ -40,10 +42,13 @@ export default function CustomerPage() {
     handlerSubmit,
     reGetCustomer,
     isShowModal,
+    majorInsert: majorAdminChange,
+    setMajorInsert,
   } = useContext(CustomerContext);
-  const { isEdit, majorUser } = useContext(AppContext);
+  const { isEdit, majorUser, typeUser } = useContext(AppContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const stateLocation = useLocation();
 
   const customerTableHeaders = [
@@ -105,10 +110,14 @@ export default function CustomerPage() {
       datePayment,
       customerStatus,
       process,
-      major: majorUser,
+      major: majorAdminChange,
     };
 
-    CustomerServices.updateCustomer(id, majorUser, camelToSnakeObject(payload))
+    CustomerServices.updateCustomer(
+      id,
+      majorAdminChange,
+      camelToSnakeObject(payload)
+    )
       .then((res) => {
         AlertSuccess(res.data.message);
         reGetCustomer();
@@ -152,6 +161,16 @@ export default function CustomerPage() {
     stateLocation.state && document.getElementById("insert-customer")?.click();
   }, [stateLocation.state]);
 
+  useEffect(() => {
+    MajorServices.getMajors()
+      .then((res) => {
+        setFetchMajor(res.data);
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+      });
+  }, [setFetchMajor]);
+
   return (
     <ContentLayOut
       title={"Customer"}
@@ -175,6 +194,16 @@ export default function CustomerPage() {
                       value={idCard}
                       isReadOnly={isUpdate}
                     />
+                    {typeUser === PermissionEnum.ADMIN && (
+                      <SelectChoice
+                        topic="เลือกสาขา"
+                        setValue={setMajorInsert}
+                        icon="far fa-calendar-alt"
+                        label={"สาขา:"}
+                        value={majorAdminChange}
+                        options={fetchMajor.map((item) => item.NAME)}
+                      />
+                    )}
                     <TextInput
                       label={"ชื่อ:"}
                       icon={"far fa-calendar-alt"}
