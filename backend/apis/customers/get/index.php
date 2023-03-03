@@ -2,7 +2,12 @@
 header('Content-Type: application/json; charset=utf-8');
 require('../../../client/index.php');
 
-$query = "SELECT * FROM customer WHERE MAJOR = '" . $_GET["major"] . "'";
+$major = isset($_GET['major']) ? $_GET['major'] : '';
+$where = "";
+if ($major != "admin") {
+    $where = "WHERE MAJOR = '" . $major . "'";
+}
+$query = "SELECT * FROM customer " . $where;
 $result = $conn->query($query);
 
 $i = 1;
@@ -19,6 +24,7 @@ while ($row = $result->fetch_assoc()) {
         "PAYMENT": "' . $row["PAYMENT"] . '",
         "DATE_PAYMENT": "' . $row["DATE_PAYMENT"] . '",
         "CUSTOMER_STATUS": "' . $row["CUSTOMER_STATUS"] . '",
+        "TOTAL_PRICE": "' . $row["TOTAL_PRICE"] . '",
         "PROCESS": "' . $row["PROCESS"] . '",
         "MAJOR": "' . $row["MAJOR"] . '"
         }';

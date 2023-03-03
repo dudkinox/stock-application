@@ -4,9 +4,13 @@ require('../../../client/index.php');
 
 $idCard = isset($_GET['id_card']) ? $_GET['id_card'] : '';
 
+$major = isset($_GET['major']) ? $_GET['major'] : '';
+$where = "";
+if ($major != "admin") {
+    $where = "AND MAJOR = '" . $major . "'";
+}
 $queryStockType = "SELECT STOCK_TYPE FROM stock 
-                WHERE ID_CARD = '" . $idCard . "' 
-                AND MAJOR = '" . $_GET["major"] . "'";
+                WHERE ID_CARD = '" . $idCard . "' " . $where;
 $resultStockType = $conn->query($queryStockType);
 $rowStockType = $resultStockType->fetch_assoc();
 
@@ -26,8 +30,8 @@ switch ($rowStockType["STOCK_TYPE"]) {
         break;
 }
 
-$query = "SELECT * FROM " . $table . " WHERE ID_CARD = '" . $idCard . "' 
-        AND MAJOR = '" . $_GET["major"] . "'";
+$query = "SELECT * FROM " . $table . " 
+    WHERE ID_CARD = '" . $idCard . "' " . $where;
 $result = $conn->query($query);
 $row = $result->fetch_assoc();
 

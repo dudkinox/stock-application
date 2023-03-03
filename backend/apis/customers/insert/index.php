@@ -16,6 +16,7 @@ $query = "INSERT INTO customer(
                             PAYMENT,
                             DATE_PAYMENT, 
                             CUSTOMER_STATUS, 
+                            TOTAL_PRICE,
                             PROCESS,
                             MAJOR) 
         VALUES ('" . $requestBody["id_card"] . "',
@@ -26,6 +27,7 @@ $query = "INSERT INTO customer(
                 '" . $requestBody["payment"] . "',
                 '" . $requestBody["date_payment"] . "',
                 '" . $requestBody["customer_status"] . "',
+                '" . $requestBody["total_price"] . "',
                 '" . $requestBody["process"] . "',
                 '" . $requestBody["major"] . "')";
 
