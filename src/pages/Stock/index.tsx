@@ -254,6 +254,7 @@ export default function StockPage() {
       setTypeStock(stockType);
       StockService.GetDetailStockService(idCard, major)
         .then((res) => {
+          console.log(res.data);
           setItemList(res.data);
         })
         .catch((err) => {

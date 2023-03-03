@@ -61,4 +61,4 @@ export enum MenuInstallmentPaymentEnum {
   PRICE_TOTAL = "จำนวนเงิน",
 }
 
-export const MenuInstallmentPaymentArray = ["งวดที่", "จำนวนเงิน"];
+export const MenuInstallmentPaymentArray = ["สาขา", "งวดที่", "จำนวนเงิน"];
