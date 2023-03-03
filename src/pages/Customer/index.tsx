@@ -27,6 +27,8 @@ export default function CustomerPage() {
     setName,
     lastName,
     setLastName,
+    totalPrice,
+    setTotalPrice,
     installmentMonth,
     setInstallmentMonth,
     numberInstallment,
@@ -55,6 +57,7 @@ export default function CustomerPage() {
     "รหัสลูกค้า",
     "เลขบัตรประชาชน",
     "ชื่อ-สกุล",
+    "ราคาเต็ม",
     "ต้องผ่อนต่อเดือน",
     "จำนวนงวดที่ผ่อนแล้ว",
     "ยอดชำระปัจจุบัน",
@@ -104,6 +107,7 @@ export default function CustomerPage() {
       idCard,
       name,
       lastName,
+      totalPrice,
       installmentMonth,
       numberInstallment,
       payment,
@@ -206,7 +210,7 @@ export default function CustomerPage() {
                     )}
                     <TextInput
                       label={"ชื่อ:"}
-                      icon={"far fa-calendar-alt"}
+                      icon={"fas fa-user"}
                       setValue={setName}
                       type={"text"}
                       placeholder={"ชื่อ"}
@@ -214,11 +218,20 @@ export default function CustomerPage() {
                     />
                     <TextInput
                       label={"นามสกุล:"}
-                      icon={"far fa-calendar-alt"}
+                      icon={"fas fa-user"}
                       setValue={setLastName}
                       type={"text"}
                       placeholder={"นามสกุล"}
                       value={lastName}
+                    />
+                    <TextInput
+                      label={"ราคาเต็ม:"}
+                      icon={"fas fa-money-bill"}
+                      setValue={setTotalPrice}
+                      type={"number"}
+                      placeholder={"ราคาเต็ม"}
+                      value={totalPrice}
+                      min={0}
                     />
                     <TextInput
                       label={"ต้องผ่อนต่อเดือน:"}
@@ -227,6 +240,7 @@ export default function CustomerPage() {
                       type={"number"}
                       placeholder={"จำนวนเงินที่ต้องผ่อนต่อเดือน"}
                       value={installmentMonth}
+                      min={0}
                     />
                     <TextInput
                       label={"จำนวนงวดที่ผ่อนแล้ว:"}
@@ -235,6 +249,7 @@ export default function CustomerPage() {
                       type={"number"}
                       placeholder={"จำนวนงวดที่ผ่อนแล้ว"}
                       value={numberInstallment}
+                      min={0}
                     />
                     <TextInput
                       label={"ยอดชำระปัจจุบัน:"}
@@ -318,6 +333,7 @@ export default function CustomerPage() {
                   <td>
                     {item.NAME} {item.LAST_NAME}
                   </td>
+                  <td>{item.TOTAL_PRICE}</td>
                   <td>{item.INSTALLMENT_MONTH}</td>
                   <td>{item.NUMBER_INSTALLMENT}</td>
                   <td>{item.PAYMENT}</td>

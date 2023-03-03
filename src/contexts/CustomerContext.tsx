@@ -24,6 +24,8 @@ interface CustomerContextProps {
   setName: (value: string) => void;
   lastName: string;
   setLastName: (value: string) => void;
+  totalPrice: number | string;
+  setTotalPrice: (value: number | string) => void;
   installmentMonth: string;
   setInstallmentMonth: (value: string) => void;
   numberInstallment: string;
@@ -53,6 +55,8 @@ export const CustomerContext = createContext<CustomerContextProps>({
   setName: (value: string) => {},
   lastName: "",
   setLastName: (value: string) => {},
+  totalPrice: 0,
+  setTotalPrice: (value:number | string) => {},
   installmentMonth: "",
   setInstallmentMonth: (value: string) => {},
   numberInstallment: "",
@@ -84,6 +88,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   const [idCard, setIdCard] = useState<string>(stockContext.idCard);
   const [name, setName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
+  const [totalPrice, setTotalPrice] = useState<number | string>(0);
   const [installmentMonth, setInstallmentMonth] = useState<string>("0");
   const [numberInstallment, setNumberInstallment] = useState<string>("0");
   const [payment, setPayment] = useState<string>("0");
@@ -123,6 +128,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
     setCustomerStatus("");
     setName("");
     setLastName("");
+    setTotalPrice("");
     setInstallmentMonth("");
     setNumberInstallment("");
     setPayment("");
@@ -137,6 +143,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         idCard,
         name,
         lastName,
+        totalPrice,
         installmentMonth,
         numberInstallment,
         payment,
@@ -174,6 +181,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       idCard,
       name,
       lastName,
+      totalPrice,
       installmentMonth,
       numberInstallment,
       payment,
@@ -215,6 +223,8 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setName,
       lastName,
       setLastName,
+      totalPrice,
+      setTotalPrice,
       installmentMonth,
       setInstallmentMonth,
       numberInstallment,
@@ -243,6 +253,8 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setName,
       lastName,
       setLastName,
+      totalPrice,
+      setTotalPrice,
       installmentMonth,
       setInstallmentMonth,
       numberInstallment,

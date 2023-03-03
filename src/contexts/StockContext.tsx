@@ -264,7 +264,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
         stockType,
         major: majorInsert,
       };
-
+console.log(majorInsert);
       if (baseInsert.date === "") {
         AlertWarning("กรุณากรอกวันที่");
       } else if (baseInsert.idCard.length !== 13) {

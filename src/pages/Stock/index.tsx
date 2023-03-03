@@ -91,7 +91,7 @@ export default function StockPage() {
     installmentMenuInsert,
     handlerSubmit,
     isShowModal,
-    majorInsert: majorAdminChange,
+    majorInsert,
     setMajorInsert,
   } = useContext(StockContext);
   const { setPathUrl, isEdit, majorUser, typeUser } = useContext(AppContext);
@@ -407,7 +407,7 @@ export default function StockPage() {
                             setValue={setMajorInsert}
                             icon="far fa-calendar-alt"
                             label={"สาขา:"}
-                            value={majorAdminChange}
+                            value={majorInsert}
                             options={fetchMajor.map((item) => item.NAME)}
                           />
                         )}

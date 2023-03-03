@@ -3,6 +3,7 @@ export interface GetCustomerResponse {
   ID_CARD: string;
   NAME: string;
   LAST_NAME: string;
+  TOTAL_PRICE: number | string;
   INSTALLMENT_MONTH: string;
   NUMBER_INSTALLMENT: string;
   PAYMENT: string;
