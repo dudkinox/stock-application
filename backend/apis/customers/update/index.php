@@ -18,6 +18,7 @@ $query = "UPDATE customer
             PAYMENT='" . $requestBody["payment"] . "',
             DATE_PAYMENT='" . $requestBody["date_payment"] . "',
             CUSTOMER_STATUS='" . $requestBody["customer_status"] . "',
+            TOTAL_PRICE='" . $requestBody["total_price"] . "',
             PROCESS='" . $requestBody["process"] . "' 
         WHERE ID='" . $id . "'";
 

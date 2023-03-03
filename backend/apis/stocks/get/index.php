@@ -2,7 +2,12 @@
 header('Content-Type: application/json; charset=utf-8');
 require('../../../client/index.php');
 
-$query = "SELECT * FROM stock WHERE MAJOR = '" . $_GET["major"] . "'";
+$major = isset($_GET['major']) ? $_GET['major'] : '';
+$where = "";
+if ($major != "admin") {
+  $where = "WHERE MAJOR = '" . $major . "'";
+}
+$query = "SELECT * FROM stock " . $where;
 $result = $conn->query($query);
 
 $i = 1;
