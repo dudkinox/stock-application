@@ -7,13 +7,16 @@ $date = isset($_GET["date"]) ? $_GET["date"] : '';
 $idCard = isset($_GET["id_card"]) ? $_GET["id_card"] : '';
 $customerStatus = isset($_GET["customer_status"]) ? $_GET["customer_status"] : '';
 $type = isset($_GET["stock_type"]) ? $_GET["stock_type"] : '';
+$id = $conn->query("SELECT ID FROM stock ORDER BY ID DESC LIMIT 1")->fetch_assoc()["ID"] + 1;
 
-$query = "INSERT INTO stock (`DATE`, 
+$query = "INSERT INTO stock (ID,
+                                `DATE`, 
                                 ID_CARD, 
                                 CUSTOMER_STATUS, 
                                 STOCK_TYPE,
                                 MAJOR) 
-        VALUES ('" . $date . "', 
+        VALUES ('" . $id . "',
+                '" . $date . "', 
                 '" . $idCard . "', 
                 '" . $customerStatus . "', 
                 '" . $type . "',
@@ -31,7 +34,9 @@ switch ($type) {
                 $repair = isset($_GET["repair"]) ? $_GET["repair"] : 0;
                 $sum = isset($_GET["sum"]) ? $_GET["sum"] : 0;
 
-                $insert = "INSERT INTO equipment(ID_CARD, 
+                $insert = "INSERT INTO equipment(
+                                                ID,
+                                                ID_CARD, 
                                                 CASES, 
                                                 FIRM, 
                                                 `LEN`, 
@@ -40,7 +45,8 @@ switch ($type) {
                                                 REPAIR, 
                                                 `SUM`,
                                                 MAJOR) 
-                VALUES ('" . $idCard . "',
+                VALUES ('" . $id . "',
+                        '" . $idCard . "',
                         '" . $cases . "',
                         '" . $firm . "',
                         '" . $len . "',
@@ -57,14 +63,16 @@ switch ($type) {
                 $source = isset($_GET["source"]) ? $_GET["source"] : '';
                 $battery = isset($_GET["battery"]) ? $_GET["battery"] : '';
 
-                $insert = "INSERT INTO bye (ID_CARD, 
+                $insert = "INSERT INTO bye (ID,
+                                        ID_CARD, 
                                         `VERSION`, 
                                         PRICE, 
                                         IMEI, 
                                         SOURCE, 
                                         BATTERY,
                                         MAJOR) 
-                VALUES ('" . $idCard . "', 
+                VALUES ('" . $id . "',
+                        '" . $idCard . "', 
                         '" . $version . "', 
                         '" . $price . "', 
                         '" . $imei . "', 
@@ -82,7 +90,7 @@ switch ($type) {
                 $installment = isset($_GET["installment"]) ? $_GET["installment"] : 0;
                 $datePayment = isset($_GET["date_payment"]) ? $_GET["date_payment"] : '';
 
-                $insert = "INSERT INTO kay ( 
+                $insert = "INSERT INTO kay (ID,
                                         ID_CARD, 
                                         CUSTOMER, 
                                         TEL, 
@@ -93,7 +101,8 @@ switch ($type) {
                                         INSTALLMENT, 
                                         DATE_PAYMENT,
                                         MAJOR) 
-                        VALUES ('" . $idCard . "', 
+                        VALUES ('" . $id . "',
+                                '" . $idCard . "', 
                                 '" . $customer . "', 
                                 '" . $tel . "', 
                                 '" . $version . "', 
@@ -109,11 +118,13 @@ switch ($type) {
                 $priceTotal = isset($_GET["price_total"]) ? $_GET["price_total"] : 0;
 
                 $insert = "INSERT INTO installment_payment (
+                                        ID,
                                         ID_CARD,
                                         INSTALLMENT_NO,
                                         PRICE_TOTAL,
                                         MAJOR) 
-                                VALUES ('" . $idCard . "', 
+                                VALUES ('" . $id . "',
+                                        '" . $idCard . "', 
                                         '" . $installmentNo . "', 
                                         '" . $priceTotal . "',
                                         '" . $_GET["major"] . "');";

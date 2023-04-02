@@ -2,7 +2,7 @@
 header('Content-Type: application/json; charset=utf-8');
 require('../../../client/index.php');
 
-$idCard = isset($_GET['id_card']) ? $_GET['id_card'] : '';
+$id = isset($_GET['id']) ? $_GET['id'] : '';
 
 $major = isset($_GET['major']) ? $_GET['major'] : '';
 $where = "";
@@ -10,7 +10,7 @@ if ($major != "admin") {
     $where = "AND MAJOR = '" . $major . "'";
 }
 $queryStockType = "SELECT STOCK_TYPE FROM stock 
-                WHERE ID_CARD = '" . $idCard . "' " . $where;
+                WHERE ID = '" . $id . "' " . $where;
 $resultStockType = $conn->query($queryStockType);
 $rowStockType = $resultStockType->fetch_assoc();
 
@@ -31,7 +31,7 @@ switch ($rowStockType["STOCK_TYPE"]) {
 }
 
 $query = "SELECT * FROM " . $table . " 
-    WHERE ID_CARD = '" . $idCard . "' " . $where;
+    WHERE ID = '" . $id . "' " . $where;
 $result = $conn->query($query);
 $row = $result->fetch_assoc();
 

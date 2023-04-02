@@ -249,19 +249,6 @@ export default function StockPage() {
       });
   };
 
-  const openDetailModal =
-    (idCard: string, stockType: string, major: string) => () => {
-      setTypeStock(stockType);
-      StockService.GetDetailStockService(idCard, major)
-        .then((res) => {
-          console.log(res.data);
-          setItemList(res.data);
-        })
-        .catch((err) => {
-          AlertError(err.response.data.message);
-        });
-    };
-
   useEffect(() => {
     StockService.GetStock(majorUser)
       .then((res) => {
@@ -517,7 +504,7 @@ export default function StockPage() {
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.STOCK_TYPE}</td>
                   <td>
-                    <button
+                    {/* <button
                       className="btn primary-btn text-white"
                       data-toggle="modal"
                       data-target="#detail-modal"
@@ -528,7 +515,7 @@ export default function StockPage() {
                       )}
                     >
                       รายละเอียด
-                    </button>
+                    </button> */}
                   </td>
                   {isEdit() && (
                     <td>
