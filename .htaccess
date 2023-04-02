@@ -3,4 +3,6 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.html [QSA,L]
 
-Header set Access-Control-Allow-Origin "https://sabaiphone-admin.com"
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule> 

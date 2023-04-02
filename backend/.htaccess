@@ -2,3 +2,7 @@ Options -MultiViews
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.html [QSA,L]
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule> 
