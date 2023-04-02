@@ -503,20 +503,7 @@ export default function StockPage() {
                   <td>{item.ID_CARD}</td>
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.STOCK_TYPE}</td>
-                  <td>
-                    {/* <button
-                      className="btn primary-btn text-white"
-                      data-toggle="modal"
-                      data-target="#detail-modal"
-                      onClick={openDetailModal(
-                        item.ID_CARD,
-                        item.STOCK_TYPE,
-                        item.MAJOR
-                      )}
-                    >
-                      รายละเอียด
-                    </button> */}
-                  </td>
+                  <td>{item.STOCK_TYPE === "ซื้อ" && <></>}</td>
                   {isEdit() && (
                     <td>
                       <div className="row justify-content-center">
