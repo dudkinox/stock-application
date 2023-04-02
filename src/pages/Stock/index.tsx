@@ -31,6 +31,7 @@ import { AppContext } from "../../contexts";
 import { PermissionEnum } from "../../enum/permission.enum";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import MajorServices from "../../services/MajorService";
+import DetailStock from "../../layouts/detail";
 
 export default function StockPage() {
   const {
@@ -503,7 +504,7 @@ export default function StockPage() {
                   <td>{item.ID_CARD}</td>
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.STOCK_TYPE}</td>
-                  <td>{item.STOCK_TYPE === "ซื้อ" && <></>}</td>
+                  <td>{DetailStock({ item })}</td>
                   {isEdit() && (
                     <td>
                       <div className="row justify-content-center">
