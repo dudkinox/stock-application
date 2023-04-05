@@ -114,7 +114,6 @@ export default function StockPage() {
     "เลขบัตรประชาชน",
     "ประวัติลูกค้า",
     "ประเภท",
-    "รายละเอียด",
   ];
 
   const editableStockTableHeaders = [
@@ -504,7 +503,6 @@ export default function StockPage() {
                   <td>{item.ID_CARD}</td>
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.STOCK_TYPE}</td>
-                  <td>{DetailStock({ item: item })}</td>
                   {isEdit() && (
                     <td>
                       <div className="row justify-content-center">
