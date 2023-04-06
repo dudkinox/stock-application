@@ -42,6 +42,9 @@ export default function ChartMainContent() {
                 </div>
               </div>
             </div>
+            <div className="card">
+              <div className="card-body"></div>
+            </div>
           </section>
         </div>
       </div>

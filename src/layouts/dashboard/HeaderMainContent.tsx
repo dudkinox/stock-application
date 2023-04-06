@@ -9,7 +9,7 @@ export default function HeaderMainContent() {
                 <i className="fas fa-cog"></i>
               </span>
               <div className="info-box-content mx-2">
-                <span className="info-box-text">สรุปยอดขายวันนี้: บาท</span>
+                <span className="info-box-text">สรุปยอดขายทั้งหมด: บาท</span>
                 <span className="info-box-text">กำไร: บาท</span>
               </div>
             </div>
