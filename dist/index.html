@@ -10,22 +10,36 @@
       content="Web site created using create-react-app"
     />
     <title>สบายโฟน</title>
+    
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
     />
+    
+    
+    
+    
     <link
       rel="stylesheet"
       href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
     />
-    <script type="module" crossorigin src="/assets/index-1207b0f5.js"></script>
-    <link rel="stylesheet" href="/assets/index-c0c1b0b8.css" />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script type="module" crossorigin src="/assets/index-c7c0e38c.js"></script>
+    <link rel="stylesheet" href="/assets/index-c0c1b0b8.css">
   </head>
   <body
     class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed"
   >
     <div id="root"></div>
-
+    
     <script src="/plugins/jquery/jquery.min.js"></script>
     <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -53,5 +67,63 @@
     <script src="/plugins/moment/moment.min.js"></script>
     <script src="/plugins/inputmask/jquery.inputmask.min.js"></script>
     <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script>
+      $(function () {
+        var areaChartData = {
+          labels: [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+          ],
+          datasets: [
+            {
+              label: "Digital Goods",
+              backgroundColor: "rgba(60,141,188,0.9)",
+              borderColor: "rgba(60,141,188,0.8)",
+              pointRadius: false,
+              pointColor: "#3b8bba",
+              pointStrokeColor: "rgba(60,141,188,1)",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(60,141,188,1)",
+              data: [28, 48, 40, 19, 86, 27, 90],
+            },
+            {
+              label: "Electronics",
+              backgroundColor: "rgba(210, 214, 222, 1)",
+              borderColor: "rgba(210, 214, 222, 1)",
+              pointRadius: false,
+              pointColor: "rgba(210, 214, 222, 1)",
+              pointStrokeColor: "#c1c7d1",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(220,220,220,1)",
+              data: [65, 59, 80, 81, 56, 55, 40],
+            },
+          ],
+        };
+
+        var barChartCanvas = $("#barChart").get(0).getContext("2d");
+        var barChartData = $.extend(true, {}, areaChartData);
+        var temp0 = areaChartData.datasets[0];
+        var temp1 = areaChartData.datasets[1];
+        barChartData.datasets[0] = temp1;
+        barChartData.datasets[1] = temp0;
+
+        var barChartOptions = {
+          responsive: true,
+          maintainAspectRatio: false,
+          datasetFill: false,
+        };
+
+        new Chart(barChartCanvas, {
+          type: "bar",
+          data: barChartData,
+          options: barChartOptions,
+        });
+      });
+    </script>
   </body>
 </html>
