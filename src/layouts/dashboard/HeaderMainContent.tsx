@@ -17,7 +17,7 @@ export default function HeaderMainContent() {
           <div className="col-12 col-sm-6 col-md-6 mt-3">
             <div className="info-box">
               <span className="info-box-icon main-bg elevation-1">
-                <i className="fas fa-cog"></i>
+                <img src="https://img.icons8.com/office/80/null/money-bag.png" />
               </span>
               <div className="info-box-content mx-2">
                 <span className="info-box-text">
