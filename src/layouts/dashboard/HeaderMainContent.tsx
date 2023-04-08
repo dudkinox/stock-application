@@ -17,7 +17,7 @@ export default function HeaderMainContent() {
           <div className="col-12 col-sm-6 col-md-6 mt-3">
             <div className="info-box">
               <span className="info-box-icon main-bg elevation-1">
-                <img src="https://img.icons8.com/office/80/null/money-bag.png" />
+                <i className="fas fa-shopping-cart"></i>
               </span>
               <div className="info-box-content mx-2">
                 <span className="info-box-text">
@@ -29,7 +29,7 @@ export default function HeaderMainContent() {
           <div className="col-12 col-sm-6 col-md-6 mt-3">
             <div className="info-box">
               <span className="info-box-icon main-bg elevation-1">
-                <img src="https://img.icons8.com/office/80/null/money-bag.png" />
+                <i className="fas fa-credit-card"></i>
               </span>
               <div className="info-box-content mx-2">
                 <span className="info-box-text">
@@ -41,7 +41,7 @@ export default function HeaderMainContent() {
           <div className="col-12 col-sm-6 col-md-6 mt-3">
             <div className="info-box">
               <span className="info-box-icon main-bg elevation-1">
-                <img src="https://img.icons8.com/office/80/null/money-bag.png" />
+                <i className="fas fa-mobile"></i>
               </span>
               <div className="info-box-content mx-2">
                 <span className="info-box-text">
@@ -53,7 +53,7 @@ export default function HeaderMainContent() {
           <div className="col-12 col-sm-6 col-md-6 mt-3">
             <div className="info-box">
               <span className="info-box-icon main-bg elevation-1">
-                <img src="https://img.icons8.com/office/80/null/money-bag.png" />
+                <i className="fas fa-cogs"></i>
               </span>
               <div className="info-box-content mx-2">
                 <span className="info-box-text">
