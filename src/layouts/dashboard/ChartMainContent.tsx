@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 export default function ChartMainContent() {
   return (
     <section className="content">

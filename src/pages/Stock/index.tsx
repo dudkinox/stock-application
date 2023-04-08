@@ -31,7 +31,6 @@ import { AppContext } from "../../contexts";
 import { PermissionEnum } from "../../enum/permission.enum";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import MajorServices from "../../services/MajorService";
-import DetailStock from "../../layouts/detail";
 
 export default function StockPage() {
   const {
