@@ -21,9 +21,44 @@ export default function HeaderMainContent() {
               </span>
               <div className="info-box-content mx-2">
                 <span className="info-box-text">
+                  สรุปยอดซื้อทั้งหมด: {paymentTotal} บาท
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-sm-6 col-md-6 mt-3">
+            <div className="info-box">
+              <span className="info-box-icon main-bg elevation-1">
+                <img src="https://img.icons8.com/office/80/null/money-bag.png" />
+              </span>
+              <div className="info-box-content mx-2">
+                <span className="info-box-text">
                   สรุปยอดขายทั้งหมด: {paymentTotal} บาท
                 </span>
-                <span className="info-box-text">กำไร: บาท</span>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-sm-6 col-md-6 mt-3">
+            <div className="info-box">
+              <span className="info-box-icon main-bg elevation-1">
+                <img src="https://img.icons8.com/office/80/null/money-bag.png" />
+              </span>
+              <div className="info-box-content mx-2">
+                <span className="info-box-text">
+                  สรุปยอดผ่อนทั้งหมด: {paymentTotal} บาท
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-sm-6 col-md-6 mt-3">
+            <div className="info-box">
+              <span className="info-box-icon main-bg elevation-1">
+                <img src="https://img.icons8.com/office/80/null/money-bag.png" />
+              </span>
+              <div className="info-box-content mx-2">
+                <span className="info-box-text">
+                  สรุปยอดอุปกรณ์ทั้งหมด: {paymentTotal} บาท
+                </span>
               </div>
             </div>
           </div>
