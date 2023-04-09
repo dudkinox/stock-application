@@ -7,44 +7,6 @@ export default function ChartMainContent() {
         <div className="container-fluid">
           <div className="row">
             <section className="col-lg-12 connectedSortable">
-              <div className="card">
-                <div className="card-header pb-0">
-                  <div className="row col-12">
-                    <div className="col-3 text-center">
-                      <p className="">ยอดผ่อนทั้งหมด</p>
-                      <p>10 เครื่อง</p>
-                    </div>
-                    <div className="col-3 text-center">
-                      <p className="">ยอดผ่อนต่อเดือน </p>
-                      <p>10 เครื่อง</p>
-                    </div>
-                    <div className="col-3 text-center">
-                      <p className="">ยอดผ่อนต่อสัปดาห์</p>
-                      <p>5 เครื่อง</p>
-                    </div>
-                    <div className="col-3 text-center">
-                      <p className="">ยอดผ่อนต่อวัน</p>
-                      <p>2 เครื่อง</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="card-body">
-                  <div className="row">
-                    <div className="mx-4">
-                      <input className="mx-2" type="checkbox" disabled />
-                      <label className="form-check-label">ชำระเเล้ว</label>
-                    </div>
-                    <div>
-                      <input className="mx-2" type="checkbox" />
-                      <label className="form-check-label">ค้างชำระ</label>
-                    </div>
-                    <div className="mx-4">
-                      <input className="mx-2" type="checkbox" />
-                      <label className="form-check-label">ชำระหมดเเล้ว</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div className="card card-primary">
                 <div className="card-header">
                   <h3 className="card-title">กราฟสถิติ</h3>
@@ -76,6 +38,24 @@ export default function ChartMainContent() {
                         maxWidth: "100%",
                       }}
                     />
+                  </div>
+                </div>
+              </div>
+              <div className="card">
+                <div className="card-header pb-0">
+                  <div className="row col-12">
+                    <div className="col-4 text-center">
+                      <p className="">ยอดผ่อนทั้งหมด</p>
+                      <p className="h3">10 เครื่อง</p>
+                    </div>
+                    <div className="col-4 text-center">
+                      <p className="">กำไรทั้งหมด </p>
+                      <p className="h3">1,000,000 บาท</p>
+                    </div>
+                    <div className="col-4 text-center">
+                      <p className="">กำไรที่อยากได้</p>
+                      <p className="h3">5,000,000 บาท</p>
+                    </div>
                   </div>
                 </div>
               </div>

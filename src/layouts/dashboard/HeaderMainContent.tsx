@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PaymentService from "../../services/PaymentService";
+import SelectChoice from "../../common/Select";
 
 export default function HeaderMainContent() {
   const [paymentTotal, setPaymentTotal] = useState<string>("");
@@ -14,53 +15,41 @@ export default function HeaderMainContent() {
     <>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-12 col-sm-6 col-md-6 mt-3">
-            <div className="info-box">
-              <span className="info-box-icon main-bg elevation-1">
-                <i className="fas fa-shopping-cart"></i>
-              </span>
-              <div className="info-box-content mx-2">
-                <span className="info-box-text">
-                  สรุปยอดซื้อทั้งหมด: {paymentTotal} บาท
-                </span>
-              </div>
-            </div>
+          <div className="col-4 col-sm-6 col-md-4 mt-3">
+            <SelectChoice
+              label={"สาขา"}
+              setValue={function (value: string): void {
+                throw new Error("Function not implemented.");
+              }}
+              icon={"fa fa-building"}
+              topic={"ทั้งหมด"}
+              options={["ทั้งหมด", "สาขา 1", "สาขา 2", "สาขา 3"]}
+              value={""}
+            />
           </div>
-          <div className="col-12 col-sm-6 col-md-6 mt-3">
-            <div className="info-box">
-              <span className="info-box-icon main-bg elevation-1">
-                <i className="fas fa-credit-card"></i>
-              </span>
-              <div className="info-box-content mx-2">
-                <span className="info-box-text">
-                  สรุปยอดขายทั้งหมด: {paymentTotal} บาท
-                </span>
-              </div>
-            </div>
+          <div className="col-4 col-sm-6 col-md-4 mt-3">
+            <SelectChoice
+              label={"ประเภท"}
+              setValue={function (value: string): void {
+                throw new Error("Function not implemented.");
+              }}
+              icon={"fa fa-building"}
+              topic={"ทั้งหมด"}
+              options={["ทั้งหมด", "ซื้อ", "ผ่อน", "ขาย", "อุปกรณ์"]}
+              value={""}
+            />
           </div>
-          <div className="col-12 col-sm-6 col-md-6 mt-3">
-            <div className="info-box">
-              <span className="info-box-icon main-bg elevation-1">
-                <i className="fas fa-mobile"></i>
-              </span>
-              <div className="info-box-content mx-2">
-                <span className="info-box-text">
-                  สรุปยอดผ่อนทั้งหมด: {paymentTotal} บาท
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-sm-6 col-md-6 mt-3">
-            <div className="info-box">
-              <span className="info-box-icon main-bg elevation-1">
-                <i className="fas fa-cogs"></i>
-              </span>
-              <div className="info-box-content mx-2">
-                <span className="info-box-text">
-                  สรุปยอดอุปกรณ์ทั้งหมด: {paymentTotal} บาท
-                </span>
-              </div>
-            </div>
+          <div className="col-4 col-sm-6 col-md-4 mt-3">
+            <SelectChoice
+              label={"ช่วง"}
+              setValue={function (value: string): void {
+                throw new Error("Function not implemented.");
+              }}
+              icon={"fa fa-building"}
+              topic={"เดือน"}
+              options={["ทั้งหมด", "เดือน", "สัปดาห์", "วัน"]}
+              value={""}
+            />
           </div>
         </div>
       </div>
