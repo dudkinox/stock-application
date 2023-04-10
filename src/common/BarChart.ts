@@ -1,6 +1,6 @@
 import Chart from "chart.js/auto";
 
-export default function initChart(id?: string) {
+export default function initChart(id?: string, dataPaidCount?:any, dataOutstandingCount?:any, dataCompletedCount?:any) {
     $(function () {
         const areaChartData = {
             labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -14,7 +14,7 @@ export default function initChart(id?: string) {
                     pointStrokeColor: "rgba(54, 162, 235, 1)",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(54, 162, 235, 1)",
-                    data: [28, 48, 40, 19, 86, 27, 90],
+                    data: dataPaidCount,
                 },
                 {
                     label: "ค้างชำระ",
@@ -25,7 +25,7 @@ export default function initChart(id?: string) {
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    data: dataOutstandingCount,
                 },
                 {
                     label: "ชำระหมดแล้ว",
@@ -36,7 +36,7 @@ export default function initChart(id?: string) {
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    data: dataCompletedCount,
                 },
             ],
         };

@@ -9,6 +9,7 @@ SUM(CASE WHEN CUSTOMER_STATUS = 'ชำระแล้ว' THEN 1 ELSE 0 END) AS
 SUM(CASE WHEN CUSTOMER_STATUS = 'ค้างชำระ' THEN 1 ELSE 0 END) AS outstanding_count,
 SUM(CASE WHEN CUSTOMER_STATUS = 'ชำระหมดแล้ว' THEN 1 ELSE 0 END) AS completed_count
 FROM customer
+WHERE PROCESS IN ('ชำระแล้ว', 'ค้างชำระ', 'ชำระหมดแล้ว')
 GROUP BY payment_month";
 
 $result = $conn->query($query);
