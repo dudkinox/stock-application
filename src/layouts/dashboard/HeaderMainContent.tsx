@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PaymentService from "../../services/PaymentService";
 import SelectChoice from "../../common/Select";
+import initChart from "../../common/BarChart";
 
 export default function HeaderMainContent() {
   const [paymentTotal, setPaymentTotal] = useState<string>("");
@@ -9,8 +10,10 @@ export default function HeaderMainContent() {
     const major = sessionStorage.getItem("major") ?? "";
     PaymentService.PaymentSummary(major).then((res) => {
       setPaymentTotal(res.data);
+      setTimeout(() => initChart(), 100);
     });
   }, [setPaymentTotal]);
+
   return (
     <>
       <div className="container-fluid">
