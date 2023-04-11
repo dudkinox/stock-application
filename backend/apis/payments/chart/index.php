@@ -3,7 +3,7 @@ header('Content-Type: application/json; charset=utf-8');
 require('../../../client/index.php');
 
 $query = "SELECT
-MONTH(DATE_PAYMENT) AS payment_month,
+MONTH(UPDATED_AT) AS payment_month,
 COUNT(*) AS payment_count,
 SUM(CASE WHEN PROCESS = 'ชำระแล้ว' THEN 1 ELSE 0 END) AS paid_count,
 SUM(CASE WHEN PROCESS = 'ค้างชำระ' THEN 1 ELSE 0 END) AS outstanding_count,
