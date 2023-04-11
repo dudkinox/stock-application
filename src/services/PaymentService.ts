@@ -9,9 +9,24 @@ const ChartSummaryService = () => {
   return Https.get<GetAllChartResponse[]>(`/apis/payments/chart/`);
 };
 
+const ChartDaySummaryService = () => {
+  return Https.get<GetAllChartResponse[]>(`/apis/payments/chart/day`);
+};
+
+const ChartWeekSummaryService = () => {
+  return Https.get<GetAllChartResponse[]>(`/apis/payments/chart/week`);
+};
+
+const ChartMonthSummaryService = () => {
+  return Https.get<GetAllChartResponse[]>(`/apis/payments/chart/month`);
+};
+
 const PaymentService = {
   PaymentSummary: PaymentSummaryService,
   ChartSummary: ChartSummaryService,
+  ChartDaySummary: ChartDaySummaryService,
+  ChartWeekSummary: ChartWeekSummaryService,
+  ChartMonthSummary: ChartMonthSummaryService,
 };
 
 export default PaymentService;
