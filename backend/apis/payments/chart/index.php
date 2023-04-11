@@ -5,9 +5,9 @@ require('../../../client/index.php');
 $query = "SELECT
 MONTH(UPDATED_AT) AS payment_month,
 COUNT(*) AS payment_count,
-SUM(CASE WHEN PROCESS = 'ชำระแล้ว' THEN 1 ELSE 0 END) AS paid_count,
-SUM(CASE WHEN PROCESS = 'ค้างชำระ' THEN 1 ELSE 0 END) AS outstanding_count,
-SUM(CASE WHEN PROCESS = 'ชำระหมดแล้ว' THEN 1 ELSE 0 END) AS completed_count
+SUM(CASE WHEN PROCESS = 'ชำระแล้ว' THEN 1 ELSE 0 END) AS PAID_COUNT,
+SUM(CASE WHEN PROCESS = 'ค้างชำระ' THEN 1 ELSE 0 END) AS OUTSTANDING_COUNT,
+SUM(CASE WHEN PROCESS = 'ชำระหมดแล้ว' THEN 1 ELSE 0 END) AS COMPLETED_COUNT
 FROM customer
 WHERE PROCESS IN ('ชำระแล้ว', 'ค้างชำระ', 'ชำระหมดแล้ว')
 GROUP BY payment_month";
