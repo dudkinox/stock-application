@@ -1,16 +1,17 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-require('../../../client/index.php');
+require('../../../../client/index.php');
 
-$query = "SELECT
-MONTH(DATE_PAYMENT) AS payment_month,
-COUNT(*) AS payment_count,
+$query = "SELECT 
+DATE(UPDATED_AT) as Date,
 SUM(CASE WHEN PROCESS = 'ชำระแล้ว' THEN 1 ELSE 0 END) AS paid_count,
 SUM(CASE WHEN PROCESS = 'ค้างชำระ' THEN 1 ELSE 0 END) AS outstanding_count,
 SUM(CASE WHEN PROCESS = 'ชำระหมดแล้ว' THEN 1 ELSE 0 END) AS completed_count
 FROM customer
 WHERE PROCESS IN ('ชำระแล้ว', 'ค้างชำระ', 'ชำระหมดแล้ว')
-GROUP BY payment_month";
+GROUP BY Date
+ORDER BY UPDATED_AT
+";
 
 $result = $conn->query($query);
 if ($result->num_rows > 0) {
