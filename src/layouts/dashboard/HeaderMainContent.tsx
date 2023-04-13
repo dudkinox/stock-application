@@ -1,45 +1,16 @@
 import { useEffect, useState } from "react";
 import PaymentService from "../../services/PaymentService";
 import SelectChoice from "../../common/Select";
-import initChart from "../../common/BarChart";
-import GetAllChartResponse from "../../Models/Response/GetAllChartResponse";
 
 export default function HeaderMainContent() {
   const [paymentTotal, setPaymentTotal] = useState<string>("");
-  const [ChartTotal, setChartTotal] = useState<GetAllChartResponse[]>([]);
 
   useEffect(() => {
     const major = sessionStorage.getItem("major") ?? "";
     PaymentService.PaymentSummary(major).then((res) => {
       setPaymentTotal(res.data);
     });
-
-    PaymentService.ChartSummary()
-      .then((res) => {
-        const chartResult = setChartTotal(res.data);
-        const dataPaidCount = chartResult.map((item: any) => item.PAID_COUNT);
-        const dataOutstandingCount = chartResult.map(
-          (item: any) => item.OUTSTANDING_COUNT
-        );
-        const dataCompletedCount = chartResult.map(
-          (item: any) => item.COMPLETED_COUNT
-        );
-
-        setTimeout(
-          () =>
-            initChart(
-              "#barChart",
-              dataPaidCount,
-              dataOutstandingCount,
-              dataCompletedCount
-            ),
-          100
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [setPaymentTotal, setChartTotal]);
+  }, [setPaymentTotal]);
 
   return (
     <>
