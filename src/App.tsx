@@ -12,7 +12,6 @@ import LoginPage from "./pages/LoginPage";
 import { useContext, useEffect } from "react";
 import { AppContext } from "./contexts";
 import { PermissionEnum } from "./enum/permission.enum";
-import DataStudio from "./pages/DataStudio";
 
 export default function App() {
   const { isLogin, typeUser } = useContext(AppContext);
@@ -30,7 +29,6 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/data-studio" element={<DataStudio />} />
           <Route
             path="/stock"
             element={
