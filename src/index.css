@@ -43,3 +43,7 @@ a.nav-link.active {
 .dark-mode textarea:-webkit-autofill:hover {
   -webkit-text-fill-color: #f00;
 }
+
+.vh-90 {
+  height: 90vh !important;
+}
