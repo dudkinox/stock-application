@@ -153,43 +153,45 @@ export default function StockPage() {
       });
   };
 
-  const openModalUpdate = (id: string, stockType: string) => () => {
-    ($("#insert-modal") as any).modal("show");
-    setIsUpdate(true);
-    menuInsert(stockType);
-    StockService.GetFindStockById(id, majorUser, stockType)
-      .then((res) => {
-        setUpdateId(id);
-        setUpdateStockType(res.data.STOCK_TYPE);
-        setDate(res.data.DATE);
-        setIdCard(res.data.ID_CARD);
-        setCustomerStatus(res.data.CUSTOMER_STATUS);
-        setStockType(res.data.STOCK_TYPE);
-        setCases(res.data.CASES);
-        setFirm(res.data.FIRM);
-        setLen(res.data.LEN);
-        setBigCharge(res.data.BIG_CHARGE);
-        setCharge(res.data.CHARGE);
-        setRepair(res.data.REPAIR);
-        setSum(res.data.SUM);
-        setVersion(res.data.VERSION);
-        setPrice(res.data.PRICE);
-        setImei(res.data.IMEI);
-        setSource(res.data.SOURCE);
-        setBattery(res.data.BATTERY);
-        setCustomer(res.data.CUSTOMER);
-        setTel(res.data.TEL);
-        setStarMoney(res.data.STAR_MONEY);
-        setMonth(res.data.MONTH);
-        setInstallment(res.data.INSTALLMENT);
-        setDatePayment(res.data.DATE_PAYMENT);
-        setInstallmentNo(res.data.INSTALLMENT_NO);
-        setPriceTotal(res.data.PRICE_TOTAL);
-      })
-      .catch((err) => {
-        AlertError(err.response.data.message);
-      });
-  };
+  const openModalUpdate =
+    (id: string, stockType: string, majorStock: string) => () => {
+      ($("#insert-modal") as any).modal("show");
+      setIsUpdate(true);
+      menuInsert(stockType);
+
+      StockService.GetFindStockById(id, majorStock, stockType)
+        .then((res) => {
+          setUpdateId(id);
+          setUpdateStockType(res.data.STOCK_TYPE);
+          setDate(res.data.DATE);
+          setIdCard(res.data.ID_CARD);
+          setCustomerStatus(res.data.CUSTOMER_STATUS);
+          setStockType(res.data.STOCK_TYPE);
+          setCases(res.data.CASES);
+          setFirm(res.data.FIRM);
+          setLen(res.data.LEN);
+          setBigCharge(res.data.BIG_CHARGE);
+          setCharge(res.data.CHARGE);
+          setRepair(res.data.REPAIR);
+          setSum(res.data.SUM);
+          setVersion(res.data.VERSION);
+          setPrice(res.data.PRICE);
+          setImei(res.data.IMEI);
+          setSource(res.data.SOURCE);
+          setBattery(res.data.BATTERY);
+          setCustomer(res.data.CUSTOMER);
+          setTel(res.data.TEL);
+          setStarMoney(res.data.STAR_MONEY);
+          setMonth(res.data.MONTH);
+          setInstallment(res.data.INSTALLMENT);
+          setDatePayment(res.data.DATE_PAYMENT);
+          setInstallmentNo(res.data.INSTALLMENT_NO);
+          setPriceTotal(res.data.PRICE_TOTAL);
+        })
+        .catch((err) => {
+          AlertError(err.response.data.message);
+        });
+    };
 
   const updateStockHandler = (stockType: string) => () => {
     var payload = {};
@@ -501,13 +503,17 @@ export default function StockPage() {
                   <td>{item.ID}</td>
                   <td>{item.ID_CARD}</td>
                   <td>{item.CUSTOMER_STATUS}</td>
-                  <td>{item.STOCK_TYPE}</td>
+                  <td>{item.STOCK_TYPE}{item.MAJOR}</td>
                   {isEdit() && (
                     <td>
                       <div className="row justify-content-center">
                         <button
                           className="btn btn-warning mx-2"
-                          onClick={openModalUpdate(item.ID, item.STOCK_TYPE)}
+                          onClick={openModalUpdate(
+                            item.ID,
+                            item.STOCK_TYPE,
+                            item.MAJOR
+                          )}
                         >
                           <i className="nav-icon fas fa-pen" />
                         </button>
