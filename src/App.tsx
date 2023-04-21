@@ -12,7 +12,6 @@ import LoginPage from "./pages/LoginPage";
 import { useContext, useEffect } from "react";
 import { AppContext } from "./contexts";
 import { PermissionEnum } from "./enum/permission.enum";
-import { DashBoardContextProvider } from "./contexts/DashBoardContext";
 import DataStudio from "./pages/DataStudio";
 
 export default function App() {
@@ -30,22 +29,7 @@ export default function App() {
       <SidebarCommon />
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <DashBoardContextProvider>
-                <Dashboard />
-              </DashBoardContextProvider>
-            }
-          />
-          <Route
-            path="/data-studio"
-            element={
-              <DashBoardContextProvider>
-                <DataStudio />
-              </DashBoardContextProvider>
-            }
-          />
+          <Route path="/" element={<DataStudio />} />
           <Route
             path="/stock"
             element={
