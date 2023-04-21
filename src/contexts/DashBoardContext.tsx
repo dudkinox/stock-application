@@ -31,21 +31,21 @@ import initChart from "../common/BarChart";
         PaymentService.ChartSummary()
         .then((res:any) => {
           const chartResult = setChartTotal(res.data);
-          const dataPaidCount = chartResult.map((item: any) => item.PAID_COUNT);
-          const dataOutstandingCount = chartResult.map(
-            (item: any) => item.OUTSTANDING_COUNT
-          );
-          const dataCompletedCount = chartResult.map(
-            (item: any) => item.COMPLETED_COUNT
-          );
+          // const dataPaidCount = chartResult.map((item: any) => item.PAID_COUNT);
+          // const dataOutstandingCount = chartResult.map(
+          //   (item: any) => item.OUTSTANDING_COUNT
+          // );
+          // const dataCompletedCount = chartResult.map(
+          //   (item: any) => item.COMPLETED_COUNT
+          // );
   
           setTimeout(
             () =>
               initChart(
                 "#barChart",
-                dataPaidCount,
-                dataOutstandingCount,
-                dataCompletedCount
+                // dataPaidCount,
+                // dataOutstandingCount,
+                // dataCompletedCount
               ),
             100
           );

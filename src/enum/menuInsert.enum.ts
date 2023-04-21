@@ -9,6 +9,10 @@ export enum MenuEquipmentEnum {
 }
 
 export const MenuEquipmentArray = [
+  "เลขบัตรประชาชน",
+  "ประวัติลูกค้า",
+  "ประเภท",
+  "สาขา",
   "เคส",
   "ฟิล์ม",
   "กันเลนส์",
@@ -27,6 +31,10 @@ export enum MenuByeEnum {
 }
 
 export const MenuByeArray = [
+  "เลขบัตรประชาชน",
+  "ประวัติลูกค้า",
+  "ประเภท",
+  "สาขา",
   "รุ่น",
   "ราคา",
   "Imei เครื่อง",
@@ -46,6 +54,10 @@ export enum MenuKayEnum {
 }
 
 export const MenuKayArray = [
+  "เลขบัตรประชาชน",
+  "ประวัติลูกค้า",
+  "ประเภท",
+  "สาขา",
   "ชื่อลุกค้า",
   "เบอร์โทร",
   "รุ่น",
@@ -61,4 +73,12 @@ export enum MenuInstallmentPaymentEnum {
   PRICE_TOTAL = "จำนวนเงิน",
 }
 
-export const MenuInstallmentPaymentArray = ["สาขา", "งวดที่", "จำนวนเงิน"];
+export const MenuInstallmentPaymentArray = [
+  "เลขบัตรประชาชน",
+  "ประวัติลูกค้า",
+  "ประเภท",
+  "สาขา",
+  "งวดที่",
+  "จำนวนเงิน"
+];
+
