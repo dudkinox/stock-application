@@ -254,7 +254,7 @@ export default function StockPage() {
     StockService.GetStock(majorUser)
       .then((res) => {
         setStock(res.data);
-        setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+        setTimeout(() => initTable(res.data.length.toString() ?? "0"), 1000);
       })
       .catch((err) => {
         AlertError(err.response.data.message);

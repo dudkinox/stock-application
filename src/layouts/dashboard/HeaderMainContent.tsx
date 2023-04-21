@@ -11,6 +11,7 @@ export default function HeaderMainContent() {
       setPaymentTotal(res.data);
     });
   }, [setPaymentTotal]);
+
   return (
     <>
       <div className="container-fluid">

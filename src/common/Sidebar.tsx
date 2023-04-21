@@ -45,6 +45,17 @@ export default function SidebarCommon() {
               </li>
               <li className="nav-item">
                 <a
+                  href="/data-studio"
+                  className={`nav-link ${
+                    pathUrl === PathEnum.DASHBOARD ? "active" : ""
+                  }`}
+                >
+                  <i className="nav-icon fas fa-home" />
+                  <p>Data studio</p>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
                   href="/stock"
                   className={`nav-link ${
                     pathUrl === PathEnum.STOCK ? "active" : ""
