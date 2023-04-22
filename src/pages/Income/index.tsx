@@ -17,6 +17,8 @@ export default function IncomePage() {
     setRevenue,
     expense,
     setExpense,
+    note,
+    setNote
   } = useContext(IncomeContext);
 
   const incomeTableHeaders = [
@@ -60,6 +62,34 @@ export default function IncomePage() {
                       setValue={setDate}
                       type={"date"}
                       value={date}
+                    />
+                    <TextInput
+                      label={"ชื่อรายการ:"}
+                      icon={"far fa-calendar-alt"}
+                      setValue={setListName}
+                      type={"text"}
+                      value={listName}
+                    />
+                    <TextInput
+                      label={"รายจ่าย:"}
+                      icon={"far fa-calendar-alt"}
+                      setValue={setRevenue}
+                      type={"number"}
+                      value={revenue}
+                    />
+                    <TextInput
+                      label={"รายรับ:"}
+                      icon={"far fa-calendar-alt"}
+                      setValue={setExpense}
+                      type={"number"}
+                      value={expense}
+                    />
+                    <TextInput
+                      label={"หมายเหตุ:"}
+                      icon={"far fa-calendar-alt"}
+                      setValue={setNote}
+                      type={"text"}
+                      value={note}
                     />
                   </div>
                 </div>

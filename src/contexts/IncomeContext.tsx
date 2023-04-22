@@ -1,11 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useEffect,
-  useMemo,
-  useState,
-  useContext,
-} from "react";
+import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import GetIncomeResponse from "../Models/Response/GetIncomeResponse";
 
 interface IncomeContextProps {
@@ -15,10 +8,12 @@ interface IncomeContextProps {
   setDate: (value: string) => void;
   listName: string;
   setListName: (value: string) => void;
-  revenue: number;
-  setRevenue: (value: number) => void;
-  expense: number;
-  setExpense: (value: number) => void;
+  revenue: number | string;
+  setRevenue: (value: number | string) => void;
+  expense: number | string;
+  setExpense: (value: number | string) => void;
+  note: string;
+  setNote: (value: string) => void;
 }
 
 export const IncomeContext = createContext<IncomeContextProps>({
@@ -29,9 +24,11 @@ export const IncomeContext = createContext<IncomeContextProps>({
   listName: "",
   setListName: (value: string) => {},
   revenue: 0,
-  setRevenue: (value: number) => {},
+  setRevenue: (value: number | string) => {},
   expense: 0,
-  setExpense: (value: number) => {},
+  setExpense: (value: number | string) => {},
+  note: "",
+  setNote: (value: string) => {},
 });
 
 interface ChildrenProps {
@@ -42,8 +39,9 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
   const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
   const [date, setDate] = useState<string>("");
   const [listName, setListName] = useState<string>("");
-  const [revenue, setRevenue] = useState<number>(0);
-  const [expense, setExpense] = useState<number>(0);
+  const [revenue, setRevenue] = useState<number | string>(0);
+  const [expense, setExpense] = useState<number | string>(0);
+  const [note, setNote] = useState<string>("");
 
   const values = useMemo(
     () => ({
@@ -57,6 +55,8 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
       setRevenue,
       expense,
       setExpense,
+      note,
+      setNote,
     }),
     [
       incomeList,
@@ -69,6 +69,8 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
       setRevenue,
       expense,
       setExpense,
+      note,
+      setNote,
     ]
   );
 
