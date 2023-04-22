@@ -91,6 +91,17 @@ export default function SidebarCommon() {
               )}
               <li className="nav-item">
                 <a
+                  href="/income-list"
+                  className={`nav-link ${
+                    pathUrl === PathEnum.INCOME_LIST ? "active" : ""
+                  }`}
+                >
+                  <i className="nav-icon fas fa-book" />
+                  <p>รายรับ-รายจ่าย</p>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
                   href="/login"
                   className={`nav-link ${
                     pathUrl === PathEnum.LOGOUT ? "active" : ""
