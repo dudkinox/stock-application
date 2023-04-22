@@ -4,12 +4,14 @@ interface contentLayOutProps {
   title: string;
   topic: string;
   page: JSX.Element;
+  btnHeader?: JSX.Element;
 }
 
 export default function ContentLayOut({
   title,
   topic,
   page,
+  btnHeader
 }: contentLayOutProps) {
   return (
     <div className="content-wrapper">
@@ -21,6 +23,7 @@ export default function ContentLayOut({
             <div className="card col-12">
               <div className="card-header">
                 <h2 className="card-title">{topic}</h2>
+                {btnHeader}
               </div>
               {page}
             </div>

@@ -15,6 +15,7 @@ import { PermissionEnum } from "./enum/permission.enum";
 import { DashBoardContextProvider } from "./contexts/DashBoardContext";
 import DataStudio from "./pages/DataStudio";
 import IncomePage from "./pages/Income";
+import { IncomeContextProvider } from "./contexts/IncomeContext";
 
 export default function App() {
   const { isLogin, typeUser } = useContext(AppContext);
@@ -75,7 +76,14 @@ export default function App() {
               }
             />
           )}
-          <Route path="/income-list" element={<IncomePage />} />
+          <Route
+            path="/income-list"
+            element={
+              <IncomeContextProvider>
+                <IncomePage />
+              </IncomeContextProvider>
+            }
+          />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
