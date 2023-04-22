@@ -3,11 +3,11 @@ import GetIncomeResponse from "../Models/Response/GetIncomeResponse"
 
 
 const getIncomeListService = () => {
-    Https.get<GetIncomeResponse>("/apis/income/get");
+   return Https.get<GetIncomeResponse[]>("/apis/income/get");
 }
 
 const insertIncomeListService = (data: any) => {
-    Https.post("/apis/income/get", data);
+   return Https.post("/apis/income/get", data);
 }
 
 const incomeServices = {

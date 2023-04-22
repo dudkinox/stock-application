@@ -1,5 +1,8 @@
 import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
+import initTable, { destroyTable } from "../common/DataTable";
 import GetIncomeResponse from "../Models/Response/GetIncomeResponse";
+import incomeServices from "../services/IncomeServices";
+import { AlertError } from "../common/ToastrCommon";
 
 interface IncomeContextProps {
   incomeList: GetIncomeResponse[];
@@ -42,6 +45,17 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
   const [revenue, setRevenue] = useState<number | string>(0);
   const [expense, setExpense] = useState<number | string>(0);
   const [note, setNote] = useState<string>("");
+
+  useEffect(() => {
+    incomeServices.getAll()
+    .then((res:any) => {
+      destroyTable("income-table");
+      setIncomeList(res.data);
+      setTimeout(() => initTable(res.data.length.toString() ?? "0", "income-table"), 100);
+    }).catch((err:any) => {
+      AlertError(err.response.data.message);
+    });
+  }, [])
 
   const values = useMemo(
     () => ({

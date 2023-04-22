@@ -195,5 +195,6 @@
   ],
   "files.watcherExclude": {
     "**/target": true
-  }
+  },
+  "vue.features.codeActions.enable": false
 }
