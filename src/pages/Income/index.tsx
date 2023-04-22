@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import ContentLayOut from "../../layouts/ContentLayOut";
 import TableCommon from "../../common/Table";
 import ModalCommon from "../../common/Modal";
@@ -65,28 +65,28 @@ export default function IncomePage() {
                     />
                     <TextInput
                       label={"ชื่อรายการ:"}
-                      icon={"far fa-calendar-alt"}
+                      icon={"far fa-list-alt"}
                       setValue={setListName}
                       type={"text"}
                       value={listName}
                     />
                     <TextInput
                       label={"รายจ่าย:"}
-                      icon={"far fa-calendar-alt"}
+                      icon={"fas fa-money-bill-wave"}
                       setValue={setRevenue}
                       type={"number"}
                       value={revenue}
                     />
                     <TextInput
                       label={"รายรับ:"}
-                      icon={"far fa-calendar-alt"}
+                      icon={"fas fa-money-bill-wave"}
                       setValue={setExpense}
                       type={"number"}
                       value={expense}
                     />
                     <TextInput
                       label={"หมายเหตุ:"}
-                      icon={"far fa-calendar-alt"}
+                      icon={"far fa-comments"}
                       setValue={setNote}
                       type={"text"}
                       value={note}
