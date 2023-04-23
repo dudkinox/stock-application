@@ -6,6 +6,7 @@ import { IncomeContext } from "../../contexts/IncomeContext";
 import IncomeServices from "../../services/IncomeServices";
 import GetIncomeResponse from "../../Models/Response/GetIncomeResponse";
 import initTable, { destroyTable } from "../../common/DataTable";
+import ConvertDateToThai from "../../common/DateFormat";
 
 export default function IncomePage() {
   const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
@@ -142,7 +143,7 @@ export default function IncomePage() {
                   outcomeTotal += Number(item.REVENUE);
                   return (
                     <tr key={i} className="text-center">
-                      <td>{item.DATE}</td>
+                      <td>{ConvertDateToThai(new Date(item.DATE))}</td>
                       <td>{item.LIST_NAME}</td>
                       <td>{item.REVENUE}</td>
                       <td>{item.EXPENSE}</td>
