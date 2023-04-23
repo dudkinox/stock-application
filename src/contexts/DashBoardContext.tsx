@@ -8,7 +8,6 @@ import {
   } from "react";
 import GetAllChartResponse from "../Models/Response/GetAllChartResponse";
 import PaymentService from "../services/PaymentService";
-import initChart from "../common/BarChart";
   
   interface DashBoardContextProps {
     chartTotal: GetAllChartResponse[];
