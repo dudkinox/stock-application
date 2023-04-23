@@ -38,12 +38,7 @@ export default function IncomePage() {
 
   useEffect(() => {
     IncomeServices.getAll().then((res) => {
-      destroyTable("#stock-table");
-        setIncomeList(res.data);
-        setTimeout(
-          () => initTable(res.data.length.toString() ?? "0", "#stock-table"),
-          100
-        );
+      setIncomeList(res.data);
     });
   }, [setIncomeList]);
 
