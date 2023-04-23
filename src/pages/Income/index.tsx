@@ -77,6 +77,33 @@ export default function IncomePage() {
       });
   };
 
+  const deleteHandler = (id: string) => () => {
+    incomeServices
+      .DeleteIncomeList(id)
+      .then((res: any) => {
+        AlertSuccess(res.data.message);
+        incomeServices
+          .getAll()
+          .then((res: any) => {
+            setIncomeList(res.data);
+          })
+          .catch((err: any) => {
+            AlertError(err);
+          });
+      })
+      .catch((err: any) => {
+        AlertError(err.message);
+        incomeServices
+          .getAll()
+          .then((res: any) => {
+            setIncomeList(res.data);
+          })
+          .catch((err: any) => {
+            AlertError(err);
+          });
+      });
+  };
+
   return (
     <ContentLayOut
       title={"รายรับ-รายจ่าย"}
@@ -186,7 +213,10 @@ export default function IncomePage() {
                           <button className="btn btn-warning mx-2">
                             <i className="nav-icon fas fa-pen" />
                           </button>
-                          <button className="btn btn-danger">
+                          <button
+                            className="btn btn-danger"
+                            onClick={deleteHandler(item.ID)}
+                          >
                             <i className="nav-icon fas fa-trash" />
                           </button>
                         </div>
