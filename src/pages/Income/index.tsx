@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import ContentLayOut from "../../layouts/ContentLayOut";
-import TableIncome from "../../common/Table";
 import ModalCommon from "../../common/Modal";
 import TextInput from "../../common/TextInput";
 import { IncomeContext } from "../../contexts/IncomeContext";
 import IncomeServices from "../../services/IncomeServices";
 import GetIncomeResponse from "../../Models/Response/GetIncomeResponse";
+import initTable, { destroyTable } from "../../common/DataTable";
 
 export default function IncomePage() {
   const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
@@ -38,7 +38,12 @@ export default function IncomePage() {
 
   useEffect(() => {
     IncomeServices.getAll().then((res) => {
-      setIncomeList(res.data);
+      destroyTable("#stock-table");
+        setIncomeList(res.data);
+        setTimeout(
+          () => initTable(res.data.length.toString() ?? "0", "#stock-table"),
+          100
+        );
     });
   }, [setIncomeList]);
 
@@ -124,7 +129,7 @@ export default function IncomePage() {
           />
           <div className="card-body">
             <table
-              id={"income-table" ?? "stock-table"}
+              id={"stock-table"}
               className="table table-bordered table-hover dtr-inline collapsed w-100"
             >
               <thead>
