@@ -9,6 +9,8 @@ import initTable, { destroyTable } from "../../common/DataTable";
 
 export default function IncomePage() {
   const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
+  let incomeTotal = 0;
+  let outcomeTotal = 0;
   const {
     date,
     setDate,
@@ -135,16 +137,18 @@ export default function IncomePage() {
                 </tr>
               </thead>
               <tbody>
-                {incomeList.map((item, i) => (
-                  <tr key={i} className="text-center">
-                    <td>{item.DATE}</td>
-                    <td>{item.LIST_NAME}</td>
-                    <td>{item.REVENUE}</td>
-                    <td>{item.EXPENSE}</td>
-                    <td>{item.NOTE}</td>
-                    <td></td>
-                  </tr>
-                ))}
+                {incomeList.map((item, i) => {
+                  return (
+                    <tr key={i} className="text-center">
+                      <td>{item.DATE}</td>
+                      <td>{item.LIST_NAME}</td>
+                      <td>{item.REVENUE}</td>
+                      <td>{item.EXPENSE}</td>
+                      <td>{item.NOTE}</td>
+                      <td></td>
+                    </tr>
+                  );
+                })}
                 {
                   <tr className="text-center">
                     <td colSpan={2}>รวม</td>
