@@ -138,8 +138,8 @@ export default function IncomePage() {
               </thead>
               <tbody>
                 {incomeList.map((item, i) => {
-                  incomeTotal += Number(item.REVENUE);
-                  outcomeTotal += Number(item.EXPENSE);
+                  incomeTotal += Number(item.EXPENSE);
+                  outcomeTotal += Number(item.REVENUE);
                   return (
                     <tr key={i} className="text-center">
                       <td>{item.DATE}</td>
