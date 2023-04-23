@@ -4,6 +4,8 @@ import TableCommon from "../../common/Table";
 import ModalCommon from "../../common/Modal";
 import TextInput from "../../common/TextInput";
 import { IncomeContext } from "../../contexts/IncomeContext";
+import GetIncomeRequest from "../../Models/Request/GetIncomeRequest";
+import incomeServices from "../../services/IncomeServices";
 
 export default function IncomePage() {
   const {
@@ -18,7 +20,8 @@ export default function IncomePage() {
     expense,
     setExpense,
     note,
-    setNote
+    setNote,
+    insertHandler,
   } = useContext(IncomeContext);
 
   const incomeTableHeaders = [
@@ -27,11 +30,13 @@ export default function IncomePage() {
     "รายจ่าย(บาท)",
     "รายรับ(บาท)",
     "หมายเหตุ",
+    "แก้ไข/ลบ",
   ];
 
   const openModalIncomeInsert = () => {
     ($("#insert-modal") as any).modal("show");
-  }
+  };
+
 
   return (
     <ContentLayOut
@@ -98,9 +103,9 @@ export default function IncomePage() {
                     type="button"
                     className="btn primary-btn col-lg-2 col-sm-auto"
                     data-dismiss="modal"
-                    // onClick={}
+                    onClick={insertHandler}
                   >
-                   บันทึก
+                    บันทึก
                   </button>
                   <button
                     type="button"
@@ -125,6 +130,7 @@ export default function IncomePage() {
                   <td></td>
                   <td></td>
                   <td></td>
+                  <td></td>
                 </tr>
               ))}
               summaryRow={
@@ -132,7 +138,7 @@ export default function IncomePage() {
                   <td colSpan={2}>รวม</td>
                   <td>รวม</td>
                   <td>รวม</td>
-                  <td>รวม</td>
+                  <td colSpan={2}>รวม</td>
                 </tr>
               }
             />

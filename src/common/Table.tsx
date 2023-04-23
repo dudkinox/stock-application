@@ -34,7 +34,7 @@ export default function TableCommon({
             </td>
             <td>รายจ่าย(บาท)</td>
             <td>รายรับ(บาท)</td>
-            <td>คงเหลือ(บาท)</td>
+            <td colSpan={2}>คงเหลือ(บาท)</td>
           </tr>
         ) : null}
         {summaryRow}
