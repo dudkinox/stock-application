@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@types/chart.js": "^2.9.37",
     "axios": "^1.2.3",
     "chart.js": "^4.2.1",
     "dotenv": "^16.0.3",
