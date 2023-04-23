@@ -147,7 +147,16 @@ export default function IncomePage() {
                       <td>{item.REVENUE}</td>
                       <td>{item.EXPENSE}</td>
                       <td>{item.NOTE}</td>
-                      <td></td>
+                      <td>
+                        <div className="row justify-content-center">
+                          <button className="btn btn-warning mx-2">
+                            <i className="nav-icon fas fa-pen" />
+                          </button>
+                          <button className="btn btn-danger">
+                            <i className="nav-icon fas fa-trash" />
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   );
                 })}
