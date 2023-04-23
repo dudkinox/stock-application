@@ -10,7 +10,6 @@ const GetStockService = (major: string) => {
   return Https.get<GetStockResponse[]>(`/apis/stocks/get/?major=${major}`);
 };
 
-// todo
 const GetDetailStockService = (id: string, major: string) => {
   return Https.get<any>(`/apis/stocks/detail/?id=${id}&major=${major}`);
 };
