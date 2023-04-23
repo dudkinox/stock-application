@@ -1,16 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ContentLayOut from "../../layouts/ContentLayOut";
-import TableCommon from "../../common/Table";
+import TableIncome from "../../common/Table";
 import ModalCommon from "../../common/Modal";
 import TextInput from "../../common/TextInput";
 import { IncomeContext } from "../../contexts/IncomeContext";
-import GetIncomeRequest from "../../Models/Request/GetIncomeRequest";
-import incomeServices from "../../services/IncomeServices";
+import IncomeServices from "../../services/IncomeServices";
+import GetIncomeResponse from "../../Models/Response/GetIncomeResponse";
 
 export default function IncomePage() {
+  const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
   const {
-    incomeList,
-    setIncomeList,
     date,
     setDate,
     listName,
@@ -37,6 +36,11 @@ export default function IncomePage() {
     ($("#insert-modal") as any).modal("show");
   };
 
+  useEffect(() => {
+    IncomeServices.getAll().then((res) => {
+      setIncomeList(res.data);
+    });
+  }, [setIncomeList]);
 
   return (
     <ContentLayOut
@@ -119,29 +123,38 @@ export default function IncomePage() {
             }
           />
           <div className="card-body">
-            <TableCommon
-              id="income-table"
-              columns={incomeTableHeaders}
-              showSummary={true}
-              row={incomeList.map((item, i) => (
-                <tr key={i} className="text-center">
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              ))}
-              summaryRow={
+            <table
+              id={"income-table" ?? "stock-table"}
+              className="table table-bordered table-hover dtr-inline collapsed w-100"
+            >
+              <thead>
                 <tr className="text-center">
-                  <td colSpan={2}>รวม</td>
-                  <td>รวม</td>
-                  <td>รวม</td>
-                  <td colSpan={2}>รวม</td>
+                  {incomeTableHeaders.map((item, i) => (
+                    <th key={i}>{item}</th>
+                  ))}
                 </tr>
-              }
-            />
+              </thead>
+              <tbody>
+                {incomeList.map((item, i) => (
+                  <tr key={i} className="text-center">
+                    <td>{item.DATE}</td>
+                    <td>{item.LIST_NAME}</td>
+                    <td>{item.REVENUE}</td>
+                    <td>{item.EXPENSE}</td>
+                    <td>{item.NOTE}</td>
+                    <td></td>
+                  </tr>
+                ))}
+                {
+                  <tr className="text-center">
+                    <td colSpan={2}>รวม</td>
+                    <td>1,000 บาท</td>
+                    <td>2,000 บาท</td>
+                    <td colSpan={2}></td>
+                  </tr>
+                }
+              </tbody>
+            </table>
           </div>
         </>
       }

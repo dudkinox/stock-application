@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import ContentLayOut from "../../layouts/ContentLayOut";
-import TableCommon from "../../common/Table";
+import TableIncome from "../../common/Table";
 import ModalCommon from "../../common/Modal";
 import TextInput from "../../common/TextInput";
 import DataList from "../../common/DataList";
@@ -322,7 +322,7 @@ export default function CustomerPage() {
             }
           />
           <div className="card-body">
-            <TableCommon
+            <TableIncome
               columns={
                 isEdit() ? editableCustomerTableHeaders : customerTableHeaders
               }

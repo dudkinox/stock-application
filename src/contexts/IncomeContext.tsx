@@ -67,22 +67,6 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
     [date, listName, revenue, expense, note]
   );
 
-  useEffect(() => {
-    incomeServices
-      .getAll()
-      .then((res: any) => {
-        destroyTable("income-table");
-        setIncomeList(res.data);
-        setTimeout(
-          () => initTable(res.data.length.toString() ?? "0", "income-table"),
-          100
-        );
-      })
-      .catch((err: any) => {
-        AlertError(err.response.data.message);
-      });
-  }, []);
-
   const values = useMemo(
     () => ({
       incomeList,

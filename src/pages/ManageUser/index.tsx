@@ -1,4 +1,4 @@
-import TableCommon from "../../common/Table";
+import TableIncome from "../../common/Table";
 import ContentLayOut from "../../layouts/ContentLayOut";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/ManageUserContext";
@@ -204,7 +204,7 @@ export default function ManageUser() {
             }
           />
           <div className="card-body">
-            <TableCommon
+            <TableIncome
               columns={[
                 <>
                   <div>เพิ่ม/ลบ/เเก้ไข</div>

@@ -2,7 +2,6 @@ interface TableCommonProps {
   columns: any[];
   row: any;
   id?: string;
-  showSummary?: boolean;
   summaryRow?: any;
 }
 
@@ -10,7 +9,6 @@ export default function TableCommon({
   columns,
   row,
   id,
-  showSummary = false,
   summaryRow,
 }: TableCommonProps) {
   return (
@@ -27,16 +25,12 @@ export default function TableCommon({
       </thead>
       <tbody>
         {row}
-        {showSummary ? (
-          <tr className="text-center">
-            <td colSpan={2}>
-              สรุป
-            </td>
-            <td>รายจ่าย(บาท)</td>
-            <td>รายรับ(บาท)</td>
-            <td colSpan={2}>คงเหลือ(บาท)</td>
-          </tr>
-        ) : null}
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
         {summaryRow}
       </tbody>
     </table>

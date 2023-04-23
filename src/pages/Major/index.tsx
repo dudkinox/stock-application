@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TableCommon from "../../common/Table";
+import TableIncome from "../../common/Table";
 import TextInput from "../../common/TextInput";
 import MajorServices from "../../services/MajorService";
 import { MajorRequest } from "../../Models/Request/MajorRequest";
@@ -121,7 +121,7 @@ export default function MajorManage({
     <>
       <div className="modal-body">
         <div className="container-fluid text-center">
-          <TableCommon
+          <TableIncome
             id="major-table"
             columns={[
               <>
