@@ -24,6 +24,8 @@ export default function IncomePage() {
     note,
     setNote,
     insertHandler,
+    isShowModal,
+    setIsShowModal,
   } = useContext(IncomeContext);
 
   const incomeTableHeaders = [
@@ -55,6 +57,7 @@ export default function IncomePage() {
           onClick={openModalIncomeInsert}
           data-toggle="modal"
           data-target="#insert-income-modal"
+          data-dismiss={isShowModal && `modal`}
         >
           เพิ่มรายการ
         </button>
@@ -127,7 +130,7 @@ export default function IncomePage() {
           />
           <div className="card-body">
             <table
-              id={"stock-table"}
+              id="stock-table"
               className="table table-bordered table-hover dtr-inline collapsed w-100"
             >
               <thead>
