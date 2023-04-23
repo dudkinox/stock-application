@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import initTable, { destroyTable } from "../common/DataTable";
 import GetIncomeResponse from "../Models/Response/GetIncomeResponse";
 import incomeServices from "../services/IncomeServices";
-import { AlertError } from "../common/ToastrCommon";
+import { AlertError, AlertSuccess } from "../common/ToastrCommon";
 import GetIncomeRequest from "../Models/Request/GetIncomeRequest";
 
 interface IncomeContextProps {
@@ -19,6 +19,8 @@ interface IncomeContextProps {
   note: string;
   setNote: (value: string) => void;
   insertHandler: () => void;
+  isShowModal: boolean;
+  setIsShowModal: (value: boolean) => void;
 }
 
 export const IncomeContext = createContext<IncomeContextProps>({
@@ -35,6 +37,8 @@ export const IncomeContext = createContext<IncomeContextProps>({
   note: "",
   setNote: (value: string) => {},
   insertHandler: () => {},
+  isShowModal: false,
+  setIsShowModal: (value: boolean) => {},
 });
 
 interface ChildrenProps {
@@ -48,6 +52,16 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
   const [revenue, setRevenue] = useState<number | string>(0);
   const [expense, setExpense] = useState<number | string>(0);
   const [note, setNote] = useState<string>("");
+  const [isShowModal, setIsShowModal] = useState(false);
+
+  const clearInputValue = () => {
+    setDate("");
+    setListName("");
+    setRevenue(0);
+    setExpense(0);
+    setNote("");
+    setIsShowModal(false);
+  };
 
   const insertHandler = useMemo(
     () => () => {
@@ -61,8 +75,26 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
 
       incomeServices
         .InsertIncomeList(payload)
-        .then((res: any) => {})
-        .catch((err: any) => {});
+        .then((res: any) => {
+          AlertSuccess(res.data.message);
+
+          incomeServices
+            .getAll()
+            .then((res: any) => {
+              
+              setIncomeList(res.data);
+             
+              clearInputValue();
+            })
+            .catch((err: any) => {
+              AlertError(err);
+            });
+        })
+        .catch((err: any) => {
+          console.log(err);
+          
+          AlertError(err);
+        });
     },
     [date, listName, revenue, expense, note]
   );
@@ -82,6 +114,8 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
       note,
       setNote,
       insertHandler,
+      isShowModal,
+      setIsShowModal,
     }),
     [
       incomeList,
@@ -97,6 +131,8 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
       note,
       setNote,
       insertHandler,
+      isShowModal,
+      setIsShowModal,
     ]
   );
 
