@@ -43,7 +43,7 @@ export default function SidebarCommon() {
                   <p>หน้าเเรก</p>
                 </a>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a
                   href="/data-studio"
                   className={`nav-link ${
@@ -53,7 +53,7 @@ export default function SidebarCommon() {
                   <i className="nav-icon fas fa-home" />
                   <p>Data studio</p>
                 </a>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <a
                   href="/stock"
@@ -89,6 +89,17 @@ export default function SidebarCommon() {
                   </a>
                 </li>
               )}
+              <li className="nav-item">
+                <a
+                  href="/income-list"
+                  className={`nav-link ${
+                    pathUrl === PathEnum.INCOME_LIST ? "active" : ""
+                  }`}
+                >
+                  <i className="nav-icon fas fa-book" />
+                  <p>รายรับ-รายจ่าย</p>
+                </a>
+              </li>
               <li className="nav-item">
                 <a
                   href="/login"

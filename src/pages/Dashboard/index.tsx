@@ -7,9 +7,7 @@ import HeaderMainContent from "../../layouts/dashboard/HeaderMainContent";
 export default function Dashboard() {
   return (
     <div className="content-wrapper">
-      <HeaderPageCommon title="สรุปผล" />
-      <HeaderMainContent />
-      <ChartMainContent />
+      <MainContentLayout/>
     </div>
   );
 }

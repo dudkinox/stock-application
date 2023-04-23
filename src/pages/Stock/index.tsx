@@ -113,6 +113,7 @@ export default function StockPage() {
     "เลขบัตรประชาชน",
     "ประวัติลูกค้า",
     "ประเภท",
+    "รายละเอียด",
   ];
 
   const editableStockTableHeaders = [
@@ -249,6 +250,20 @@ export default function StockPage() {
         AlertError(err.response.data.message);
       });
   };
+
+  const openModalDetail =
+    (idCard: string, stockType: string, major: string) => () => {
+      ($("#detail-modal") as any).modal("show");
+      setTypeStock(stockType);
+
+      StockService.GetFindStockById(idCard, major, stockType)
+        .then((res) => {
+          setItemList(res.data);
+        })
+        .catch((err) => {
+          AlertError(err.response.data.message);
+        });
+    };
 
   useEffect(() => {
     StockService.GetStock(majorUser)
@@ -503,7 +518,21 @@ export default function StockPage() {
                   <td>{item.ID}</td>
                   <td>{item.ID_CARD}</td>
                   <td>{item.CUSTOMER_STATUS}</td>
-                  <td>{item.STOCK_TYPE}{item.MAJOR}</td>
+                  <td>{item.STOCK_TYPE}</td>
+                  <td>
+                    <div>
+                      <button
+                        className="btn btn-primary"
+                        onClick={openModalDetail(
+                          item.ID,
+                          item.STOCK_TYPE,
+                          item.MAJOR
+                        )}
+                      >
+                        <i className="nav-icon fas fa-eye" />
+                      </button>
+                    </div>
+                  </td>
                   {isEdit() && (
                     <td>
                       <div className="row justify-content-center">

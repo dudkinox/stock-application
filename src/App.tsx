@@ -13,6 +13,8 @@ import { useContext, useEffect } from "react";
 import { AppContext } from "./contexts";
 import { PermissionEnum } from "./enum/permission.enum";
 import DataStudio from "./pages/DataStudio";
+import IncomePage from "./pages/Income";
+import { IncomeContextProvider } from "./contexts/IncomeContext";
 
 export default function App() {
   const { isLogin, typeUser } = useContext(AppContext);
@@ -58,6 +60,14 @@ export default function App() {
               }
             />
           )}
+          <Route
+            path="/income-list"
+            element={
+              <IncomeContextProvider>
+                <IncomePage />
+              </IncomeContextProvider>
+            }
+          />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
