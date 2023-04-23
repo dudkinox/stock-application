@@ -11,7 +11,7 @@ import ByeMenuInsert from "../../layouts/stock/ByeMenuInsert";
 import InstallmentMenuInsert from "../../layouts/stock/InstallmentMenuInsert";
 import IsMenuInsert from "../../layouts/stock/IsMenuInsert";
 import KayMenuInsert from "../../layouts/stock/KayMenuInsert";
-import TableIncome from "../../common/Table";
+import TableCommon from "../../common/Table";
 import {
   MenuByeArray,
   MenuEquipmentArray,
@@ -511,7 +511,7 @@ export default function StockPage() {
             }
           />
           <div className="card-body">
-            <TableIncome
+            <TableCommon
               columns={isEdit() ? editableStockTableHeaders : stockTableHeaders}
               row={stock.map((item, i) => (
                 <tr key={i} className="text-center">

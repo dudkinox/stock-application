@@ -2,15 +2,9 @@ interface TableCommonProps {
   columns: any[];
   row: any;
   id?: string;
-  summaryRow?: any;
 }
 
-export default function TableCommon({
-  columns,
-  row,
-  id,
-  summaryRow,
-}: TableCommonProps) {
+export default function TableCommon({ columns, row, id }: TableCommonProps) {
   return (
     <table
       id={id ?? "stock-table"}
@@ -31,7 +25,6 @@ export default function TableCommon({
         <td></td>
         <td></td>
         <td></td>
-        {summaryRow}
       </tbody>
     </table>
   );

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import TableIncome from "../../common/Table";
 import TextInput from "../../common/TextInput";
 import MajorServices from "../../services/MajorService";
 import { MajorRequest } from "../../Models/Request/MajorRequest";
@@ -10,6 +9,7 @@ import {
 } from "../../common/ToastrCommon";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import initTable, { destroyTable } from "../../common/DataTable";
+import TableCommon from "../../common/Table";
 
 interface MajorManageProps {
   fetchMajor: MajorResponse[];
@@ -121,7 +121,7 @@ export default function MajorManage({
     <>
       <div className="modal-body">
         <div className="container-fluid text-center">
-          <TableIncome
+          <TableCommon
             id="major-table"
             columns={[
               <>
