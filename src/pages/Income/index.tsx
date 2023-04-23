@@ -138,6 +138,8 @@ export default function IncomePage() {
               </thead>
               <tbody>
                 {incomeList.map((item, i) => {
+                  incomeTotal += Number(item.REVENUE);
+                  outcomeTotal += Number(item.EXPENSE);
                   return (
                     <tr key={i} className="text-center">
                       <td>{item.DATE}</td>
@@ -152,8 +154,8 @@ export default function IncomePage() {
                 {
                   <tr className="text-center">
                     <td colSpan={2}>รวม</td>
-                    <td>1,000 บาท</td>
-                    <td>2,000 บาท</td>
+                    <td>{outcomeTotal.toLocaleString()} บาท</td>
+                    <td>{incomeTotal.toLocaleString()} บาท</td>
                     <td colSpan={2}></td>
                   </tr>
                 }
