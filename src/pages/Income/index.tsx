@@ -145,8 +145,8 @@ export default function IncomePage() {
                     <tr key={i} className="text-center">
                       <td>{ConvertDateToThai(new Date(item.DATE))}</td>
                       <td>{item.LIST_NAME}</td>
-                      <td>{item.REVENUE}</td>
-                      <td>{item.EXPENSE}</td>
+                      <td>{Number(item.REVENUE).toLocaleString()}</td>
+                      <td>{Number(item.EXPENSE).toLocaleString()}</td>
                       <td>{item.NOTE}</td>
                       <td>
                         <div className="row justify-content-center">
