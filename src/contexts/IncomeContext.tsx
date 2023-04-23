@@ -18,9 +18,9 @@ interface IncomeContextProps {
   setExpense: (value: number | string) => void;
   note: string;
   setNote: (value: string) => void;
-  insertHandler: () => void;
   isShowModal: boolean;
   setIsShowModal: (value: boolean) => void;
+  clearInputValue: () => void;
 }
 
 export const IncomeContext = createContext<IncomeContextProps>({
@@ -36,9 +36,9 @@ export const IncomeContext = createContext<IncomeContextProps>({
   setExpense: (value: number | string) => {},
   note: "",
   setNote: (value: string) => {},
-  insertHandler: () => {},
   isShowModal: false,
   setIsShowModal: (value: boolean) => {},
+  clearInputValue: () => {},
 });
 
 interface ChildrenProps {
@@ -63,42 +63,6 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
     setIsShowModal(false);
   };
 
-  const insertHandler = useMemo(
-    () => () => {
-      const payload: GetIncomeRequest = {
-        DATE: date,
-        LIST_NAME: listName,
-        REVENUE: revenue,
-        EXPENSE: expense,
-        NOTE: note,
-      };
-
-      incomeServices
-        .InsertIncomeList(payload)
-        .then((res: any) => {
-          AlertSuccess(res.data.message);
-
-          incomeServices
-            .getAll()
-            .then((res: any) => {
-              
-              setIncomeList(res.data);
-             
-              clearInputValue();
-            })
-            .catch((err: any) => {
-              AlertError(err);
-            });
-        })
-        .catch((err: any) => {
-          console.log(err);
-          
-          AlertError(err);
-        });
-    },
-    [date, listName, revenue, expense, note]
-  );
-
   const values = useMemo(
     () => ({
       incomeList,
@@ -113,7 +77,7 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
       setExpense,
       note,
       setNote,
-      insertHandler,
+      clearInputValue,
       isShowModal,
       setIsShowModal,
     }),
@@ -130,7 +94,7 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
       setExpense,
       note,
       setNote,
-      insertHandler,
+      clearInputValue,
       isShowModal,
       setIsShowModal,
     ]

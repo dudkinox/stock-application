@@ -5,8 +5,10 @@ import TextInput from "../../common/TextInput";
 import { IncomeContext } from "../../contexts/IncomeContext";
 import IncomeServices from "../../services/IncomeServices";
 import GetIncomeResponse from "../../Models/Response/GetIncomeResponse";
-import initTable, { destroyTable } from "../../common/DataTable";
 import ConvertDateToThai from "../../common/DateFormat";
+import GetIncomeRequest from "../../Models/Request/GetIncomeRequest";
+import incomeServices from "../../services/IncomeServices";
+import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 
 export default function IncomePage() {
   const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
@@ -23,9 +25,8 @@ export default function IncomePage() {
     setExpense,
     note,
     setNote,
-    insertHandler,
     isShowModal,
-    setIsShowModal,
+    clearInputValue,
   } = useContext(IncomeContext);
 
   const incomeTableHeaders = [
@@ -46,6 +47,35 @@ export default function IncomePage() {
       setIncomeList(res.data);
     });
   }, [setIncomeList]);
+
+  const insertHandler = () => {
+    const payload: GetIncomeRequest = {
+      DATE: date,
+      LIST_NAME: listName,
+      REVENUE: revenue,
+      EXPENSE: expense,
+      NOTE: note,
+    };
+
+    incomeServices
+      .InsertIncomeList(payload)
+      .then((res: any) => {
+        AlertSuccess(res.data.message);
+
+        incomeServices
+          .getAll()
+          .then((res: any) => {
+            setIncomeList(res.data);
+            clearInputValue();
+          })
+          .catch((err: any) => {
+            AlertError(err);
+          });
+      })
+      .catch((err: any) => {
+        AlertError(err);
+      });
+  };
 
   return (
     <ContentLayOut
