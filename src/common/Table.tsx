@@ -17,15 +17,7 @@ export default function TableCommon({ columns, row, id }: TableCommonProps) {
           ))}
         </tr>
       </thead>
-      <tbody>
-        {row}
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tbody>
+      <tbody>{row}</tbody>
     </table>
   );
 }
