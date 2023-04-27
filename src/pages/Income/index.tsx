@@ -12,7 +12,9 @@ import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 
 export default function IncomePage() {
   const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
+  // const [incomeFind, setIncomeFind] = useState<GetIncomeResponse[]>([]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [updateId, setUpdateId] = useState<string>("");
 
   let incomeTotal = 0;
   let outcomeTotal = 0;
@@ -40,14 +42,28 @@ export default function IncomePage() {
     "แก้ไข/ลบ",
   ];
 
-  const openModalIncomeInsert = (update: boolean) => () => {
+  const openModalIncomeUpdate = (id: string) => () => {
     ($("#insert-modal") as any).modal("show");
 
-    setIsUpdate(update);
+    setIsUpdate(true);
 
-    if (update) {
-      IncomeServices.
-    }
+    incomeServices
+      .findIncome(id)
+      .then((res: any) => {
+        const data = res.data;
+
+        setUpdateId(data.ID);
+        setDate(data.DATE);
+        setListName(data.LIST_NAME);
+        setRevenue(data.REVENUE);
+        setExpense(data.EXPENSE);
+        setNote(data.NOTE);
+      })
+      .catch((err: any) => {
+        console.log(err);
+
+        AlertError(err);
+      });
   };
 
   useEffect(() => {
@@ -85,6 +101,41 @@ export default function IncomePage() {
       });
   };
 
+  const updateHandler = (id: string) => () => {
+    const payload: GetIncomeRequest = {
+      DATE: date,
+      LIST_NAME: listName,
+      REVENUE: revenue,
+      EXPENSE: expense,
+      NOTE: note,
+    };
+
+    incomeServices
+      .updateIncomeList(id, payload)
+      .then((res: any) => {
+        AlertSuccess(res.data.message);
+        incomeServices
+          .getAll()
+          .then((res: any) => {
+            setIncomeList(res.data);
+          })
+          .catch((err: any) => {
+            AlertError(err);
+          });
+      })
+      .catch((err: any) => {
+        AlertError(err.message);
+        incomeServices
+          .getAll()
+          .then((res: any) => {
+            setIncomeList(res.data);
+          })
+          .catch((err: any) => {
+            AlertError(err);
+          });
+      });
+  };
+
   const deleteHandler = (id: string) => () => {
     incomeServices
       .DeleteIncomeList(id)
@@ -119,9 +170,8 @@ export default function IncomePage() {
       btnHeader={
         <button
           className="btn primary-btn text-white float-right"
-          onClick={openModalIncomeInsert(false)}
           data-toggle="modal"
-          data-target="#insert-income-modal"
+          data-target="#insert-modal"
           data-dismiss={isShowModal && `modal`}
         >
           เพิ่มรายการ
@@ -174,14 +224,25 @@ export default function IncomePage() {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn primary-btn col-lg-2 col-sm-auto"
-                    data-dismiss="modal"
-                    onClick={insertHandler}
-                  >
-                    บันทึก
-                  </button>
+                  {isUpdate ? (
+                    <button
+                      type="button"
+                      className="btn primary-btn col-lg-2 col-sm-auto"
+                      data-dismiss="modal"
+                      onClick={updateHandler(updateId)}
+                    >
+                      อัพเดต
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="btn primary-btn col-lg-2 col-sm-auto"
+                      data-dismiss="modal"
+                      onClick={insertHandler}
+                    >
+                      บันทึก
+                    </button>
+                  )}
                   <button
                     type="button"
                     className="btn btn-danger col-lg-2 col-sm-auto"
@@ -218,7 +279,10 @@ export default function IncomePage() {
                       <td>{item.NOTE}</td>
                       <td>
                         <div className="row justify-content-center">
-                          <button className="btn btn-warning mx-2">
+                          <button
+                            className="btn btn-warning mx-2"
+                            onClick={openModalIncomeUpdate(item.ID)}
+                          >
                             <i className="nav-icon fas fa-pen" />
                           </button>
                           <button

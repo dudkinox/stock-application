@@ -162,6 +162,7 @@ export default function StockPage() {
 
       StockService.GetFindStockById(id, majorStock, stockType)
         .then((res) => {
+
           setUpdateId(id);
           setUpdateStockType(res.data.STOCK_TYPE);
           setDate(res.data.DATE);
