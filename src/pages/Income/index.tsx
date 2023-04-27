@@ -12,6 +12,8 @@ import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 
 export default function IncomePage() {
   const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+
   let incomeTotal = 0;
   let outcomeTotal = 0;
   const {
@@ -38,8 +40,14 @@ export default function IncomePage() {
     "แก้ไข/ลบ",
   ];
 
-  const openModalIncomeInsert = () => {
+  const openModalIncomeInsert = (update: boolean) => () => {
     ($("#insert-modal") as any).modal("show");
+
+    setIsUpdate(update);
+
+    if (update) {
+      IncomeServices.
+    }
   };
 
   useEffect(() => {
@@ -111,7 +119,7 @@ export default function IncomePage() {
       btnHeader={
         <button
           className="btn primary-btn text-white float-right"
-          onClick={openModalIncomeInsert}
+          onClick={openModalIncomeInsert(false)}
           data-toggle="modal"
           data-target="#insert-income-modal"
           data-dismiss={isShowModal && `modal`}
