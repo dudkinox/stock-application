@@ -25,8 +25,10 @@ export default function ManageUser() {
     setPassword,
     major,
     setMajor,
-    permission,
-    setPermission,
+    canEdit,
+      setCanEdit,
+      canDelete,
+      setCanDelete,
     handlerSubmit,
     reGetUser,
     isShowModal,
@@ -43,7 +45,8 @@ export default function ManageUser() {
         setUpdateId(id);
         setUsername(res.data.USERNAME);
         setMajor(res.data.MAJOR);
-        setPermission(res.data.PERMISSION);
+       setCanEdit(res.data.CAN_EDIT)
+       setCanDelete(res.data.CAN_DELETE)
       })
       .catch((err) => {
         AlertError(err.response.data.message);
@@ -55,7 +58,8 @@ export default function ManageUser() {
       username,
       password,
       major,
-      permission,
+      canEdit,
+      canDelete,
     };
 
     UserServices.updateUser(id, camelToSnakeObject(payload))
@@ -152,14 +156,29 @@ export default function ManageUser() {
                         value={password}
                       />
                     ) : null}
-                    <SelectChoice
-                      topic="สิทธิการเข้าถึง"
-                      setValue={setPermission}
-                      icon="fa fa-eye"
-                      label={"สิทธิการเข้าถึง:"}
-                      value={permission}
-                      options={["admin", "manager", "viewer"]}
-                    />
+                    <div className="custom-control custom-checkbox">
+                      <input
+                        className="custom-control-input"
+                        type="checkbox"
+                        id="canEdit"
+                        value="false"
+                      />
+                      <label htmlFor="canEdit" className="custom-control-label">
+                        สามาถแก้ไขข้อมูลได้
+                      </label>
+                    </div>
+                    <div className="custom-control custom-checkbox">
+                      <input
+                        className="custom-control-input"
+                        type="checkbox"
+                        id="canDelete"
+                        value="false"
+                      />
+                      <label htmlFor="canDelete" className="custom-control-label">
+                        สามาถลบข้อมูลได้
+                      </label>
+                    </div>
+
                   </div>
                 </div>
                 <div className="modal-footer">

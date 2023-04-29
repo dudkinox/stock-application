@@ -15,8 +15,10 @@ interface UserContextProps {
   setPassword: (value: string) => void;
   major: string;
   setMajor: (value: string) => void;
-  permission: string;
-  setPermission: (value: string) => void;
+  canEdit: boolean;
+  setCanEdit: (value: boolean) => void;
+  canDelete: boolean;
+  setCanDelete: (value: boolean) => void;
   handlerSubmit: () => void;
   reGetUser: () => void;
   isShowModal: boolean;
@@ -32,8 +34,10 @@ export const UserContext = createContext<UserContextProps>({
   setPassword: (value: string) => {},
   major: "",
   setMajor: (value: string) => {},
-  permission: "",
-  setPermission: (value: string) => {},
+  canEdit: false,
+  setCanEdit: (value: boolean) => {},
+  canDelete: false,
+  setCanDelete: (value: boolean) => {},
   handlerSubmit: () => {},
   reGetUser: () => {},
   isShowModal: false,
@@ -49,7 +53,8 @@ export function UserContextProvider({ children }: ChildrenProps) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [major, setMajor] = useState<string>("");
-  const [permission, setPermission] = useState<string>("");
+  const [canEdit, setCanEdit] = useState<boolean>(false);
+  const [canDelete, setCanDelete] = useState<boolean>(false);
   const [isShowModal, setIsShowModal] = useState(false);
 
   const reGetUser = useMemo(
@@ -81,7 +86,8 @@ export function UserContextProvider({ children }: ChildrenProps) {
     setUsername("");
     setPassword("");
     setMajor("");
-    setPermission("");
+    setCanEdit(false);
+    setCanDelete(false);
     setIsShowModal(false);
   };
 
@@ -91,14 +97,14 @@ export function UserContextProvider({ children }: ChildrenProps) {
         username,
         password,
         major,
-        permission,
+        canEdit,
+        canDelete,
       };
 
       if (
         baseInsert.username === "" ||
         baseInsert.password === "" ||
-        baseInsert.major === "" ||
-        baseInsert.permission === ""
+        baseInsert.major === ""
       ) {
         AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
       } else {
@@ -107,7 +113,7 @@ export function UserContextProvider({ children }: ChildrenProps) {
         clearInputValue();
       }
     },
-    [username, password, major, permission, insertUser]
+    [username, password, major, insertUser]
   );
 
   useEffect(() => {
@@ -132,8 +138,10 @@ export function UserContextProvider({ children }: ChildrenProps) {
       setPassword,
       major,
       setMajor,
-      permission,
-      setPermission,
+      canEdit,
+      setCanEdit,
+      canDelete,
+      setCanDelete,
       handlerSubmit,
       reGetUser,
       isShowModal,
@@ -148,8 +156,10 @@ export function UserContextProvider({ children }: ChildrenProps) {
       setPassword,
       major,
       setMajor,
-      permission,
-      setPermission,
+      canEdit,
+      setCanEdit,
+      canDelete,
+      setCanDelete,
       handlerSubmit,
       reGetUser,
       isShowModal,
