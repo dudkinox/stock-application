@@ -161,7 +161,8 @@ export default function ManageUser() {
                         className="custom-control-input"
                         type="checkbox"
                         id="canEdit"
-                        value="false"
+                        onChange={(e: any) => setCanEdit(e.target.value)}
+                        checked={canEdit}
                       />
                       <label htmlFor="canEdit" className="custom-control-label">
                         สามาถแก้ไขข้อมูลได้
@@ -172,7 +173,8 @@ export default function ManageUser() {
                         className="custom-control-input"
                         type="checkbox"
                         id="canDelete"
-                        value="false"
+                        onChange={(e: any) => setCanDelete(e.target.value)}
+                        checked={canDelete}
                       />
                       <label htmlFor="canDelete" className="custom-control-label">
                         สามาถลบข้อมูลได้
