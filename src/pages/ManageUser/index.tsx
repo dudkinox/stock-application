@@ -26,9 +26,9 @@ export default function ManageUser() {
     major,
     setMajor,
     canEdit,
-      setCanEdit,
-      canDelete,
-      setCanDelete,
+    setCanEdit,
+    canDelete,
+    setCanDelete,
     handlerSubmit,
     reGetUser,
     isShowModal,
@@ -45,8 +45,8 @@ export default function ManageUser() {
         setUpdateId(id);
         setUsername(res.data.USERNAME);
         setMajor(res.data.MAJOR);
-       setCanEdit(res.data.CAN_EDIT)
-       setCanDelete(res.data.CAN_DELETE)
+        setCanEdit(res.data.CAN_EDIT)
+        setCanDelete(res.data.CAN_DELETE)
       })
       .catch((err) => {
         AlertError(err.response.data.message);

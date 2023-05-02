@@ -4,7 +4,7 @@ import { PathEnum } from "../enum/path.enum";
 import { PermissionEnum } from "../enum/permission.enum";
 
 export default function SidebarCommon() {
-  const { pathUrl, isLogin, typeUser } = useContext(AppContext);
+  const { pathUrl, isLogin } = useContext(AppContext);
 
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -35,9 +35,8 @@ export default function SidebarCommon() {
               <li className="nav-item">
                 <a
                   href="/"
-                  className={`nav-link ${
-                    pathUrl === PathEnum.DASHBOARD ? "active" : ""
-                  }`}
+                  className={`nav-link ${pathUrl === PathEnum.DASHBOARD ? "active" : ""
+                    }`}
                 >
                   <i className="nav-icon fas fa-home" />
                   <p>หน้าเเรก</p>
@@ -46,9 +45,8 @@ export default function SidebarCommon() {
               <li className="nav-item">
                 <a
                   href="/stock"
-                  className={`nav-link ${
-                    pathUrl === PathEnum.STOCK ? "active" : ""
-                  }`}
+                  className={`nav-link ${pathUrl === PathEnum.STOCK ? "active" : ""
+                    }`}
                 >
                   <i className="nav-icon fas fa-shopping-cart" />
                   <p>คลังสินค้า</p>
@@ -57,33 +55,28 @@ export default function SidebarCommon() {
               <li className="nav-item">
                 <a
                   href="/customer"
-                  className={`nav-link ${
-                    pathUrl === PathEnum.CUSTOMER ? "active" : ""
-                  }`}
+                  className={`nav-link ${pathUrl === PathEnum.CUSTOMER ? "active" : ""
+                    }`}
                 >
                   <i className="nav-icon fas fa-users" />
                   <p>ข้อมูลลูกค้า</p>
                 </a>
               </li>
-              {typeUser === PermissionEnum.ADMIN && (
-                <li className="nav-item">
-                  <a
-                    href="/manage-user"
-                    className={`nav-link ${
-                      pathUrl === PathEnum.MANAGE_USER ? "active" : ""
+              <li className="nav-item">
+                <a
+                  href="/manage-user"
+                  className={`nav-link ${pathUrl === PathEnum.MANAGE_USER ? "active" : ""
                     }`}
-                  >
-                    <i className="nav-icon fas fa-user-plus" />
-                    <p>จัดการผู้ใช้</p>
-                  </a>
-                </li>
-              )}
+                >
+                  <i className="nav-icon fas fa-user-plus" />
+                  <p>จัดการผู้ใช้</p>
+                </a>
+              </li>
               <li className="nav-item">
                 <a
                   href="/income-list"
-                  className={`nav-link ${
-                    pathUrl === PathEnum.INCOME_LIST ? "active" : ""
-                  }`}
+                  className={`nav-link ${pathUrl === PathEnum.INCOME_LIST ? "active" : ""
+                    }`}
                 >
                   <i className="nav-icon fas fa-book" />
                   <p>รายรับ-รายจ่าย</p>
@@ -92,9 +85,8 @@ export default function SidebarCommon() {
               <li className="nav-item">
                 <a
                   href="/login"
-                  className={`nav-link ${
-                    pathUrl === PathEnum.LOGOUT ? "active" : ""
-                  }`}
+                  className={`nav-link ${pathUrl === PathEnum.LOGOUT ? "active" : ""
+                    }`}
                   onClick={() => {
                     sessionStorage.clear();
                   }}

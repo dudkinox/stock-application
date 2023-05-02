@@ -94,7 +94,7 @@ export default function StockPage() {
     majorInsert,
     setMajorInsert,
   } = useContext(StockContext);
-  const { setPathUrl, isEdit, majorUser, typeUser } = useContext(AppContext);
+  const { setPathUrl, majorUser, isEdit} = useContext(AppContext);
   const [itemList, setItemList] = useState<any>({});
   const [typeStock, setTypeStock] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
@@ -406,7 +406,7 @@ export default function StockPage() {
                           placeholder={"ประเภทลูกค้า"}
                           value={stockType}
                         />
-                        {typeUser === PermissionEnum.ADMIN && (
+                        {isEdit() && (
                           <SelectChoice
                             topic="เลือกสาขา"
                             setValue={setMajorInsert}

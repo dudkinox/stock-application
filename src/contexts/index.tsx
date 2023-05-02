@@ -1,24 +1,27 @@
 import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { AlertError } from "../common/ToastrCommon";
-import { PermissionEnum } from "../enum/permission.enum";
 import AccountServices from "../services/AccountService";
 
 interface AppContextProps {
   pathUrl: string;
   setPathUrl: (pathUrl: string) => void;
   isLogin: string;
-  typeUser: string;
-  isEdit: () => boolean;
   majorUser: string;
+  isEdit: () => boolean;
+  isDelete: () => boolean;
+  canEdit: string;
+  canDelete: string;
 }
 
 export const AppContext = createContext<AppContextProps>({
   pathUrl: "",
-  setPathUrl: () => {},
+  setPathUrl: () => { },
   isLogin: "",
-  typeUser: "",
-  isEdit: () => false,
   majorUser: "",
+  isEdit: () => false,
+  isDelete: () => false,
+  canEdit: "",
+  canDelete: "",
 });
 
 interface ChildrenProps {
@@ -28,36 +31,37 @@ interface ChildrenProps {
 export function AppContextProvider({ children }: ChildrenProps) {
   const [pathUrl, setPathUrl] = useState<string>(window.location.pathname);
   const isLogin = sessionStorage.getItem("account") ?? "";
-  const [typeUser, setTypeUser] = useState<string>("");
   const majorUser = sessionStorage.getItem("major") ?? "";
+  const canEdit = sessionStorage.getItem("can_edit") ?? "";
+  const canDelete = sessionStorage.getItem("can_delete") ?? "";
 
-  const isEdit = () => {
-    return (
-      typeUser === PermissionEnum.ADMIN || typeUser === PermissionEnum.MANAGER
-    );
-  };
+  const isEdit = () => canEdit === "TRUE" ? true : false;
+  const isDelete = () => canEdit === "TRUE" ? true : false;
 
   useEffect(() => {
     AccountServices.getFindUser(isLogin)
       .then((res) => {
-        setTypeUser(res.data.PERMISSION);
         sessionStorage.setItem("major", res.data.MAJOR);
+        sessionStorage.setItem("can_edit", res.data.CAN_EDIT ? "TRUE" : "FALSE");
+        sessionStorage.setItem("can_delete", res.data.CAN_DELETE ? "TRUE" : "FALSE");
       })
       .catch((err) => {
         AlertError(err.response.data.message);
       });
-  }, [setTypeUser]);
+  }, []);
 
   const values = useMemo(
     () => ({
       pathUrl,
       setPathUrl,
       isLogin,
-      typeUser,
-      isEdit,
       majorUser,
+      isEdit,
+      isDelete,
+      canEdit,
+      canDelete,
     }),
-    [pathUrl, setPathUrl, isLogin, typeUser, isEdit, majorUser]
+    [pathUrl, setPathUrl, isLogin, majorUser, isEdit, isDelete, canEdit, canDelete,]
   );
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;

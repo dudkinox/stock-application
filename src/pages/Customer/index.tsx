@@ -13,7 +13,6 @@ import { CustomerRequest } from "../../Models/Request/CustomerRequest";
 import { camelToSnakeObject } from "../../common/CamelToSnake";
 import { useLocation } from "react-router-dom";
 import { AppContext } from "../../contexts/index";
-import { PermissionEnum } from "../../enum/permission.enum";
 import MajorServices from "../../services/MajorService";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 
@@ -47,7 +46,7 @@ export default function CustomerPage() {
     majorInsert: majorAdminChange,
     setMajorInsert,
   } = useContext(CustomerContext);
-  const { isEdit, majorUser, typeUser } = useContext(AppContext);
+  const { majorUser, isEdit, isDelete, canEdit, canDelete } = useContext(AppContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
@@ -198,7 +197,7 @@ export default function CustomerPage() {
                       value={idCard}
                       isReadOnly={isUpdate}
                     />
-                    {typeUser === PermissionEnum.ADMIN && (
+                    {isEdit() && (
                       <SelectChoice
                         topic="เลือกสาขา"
                         setValue={setMajorInsert}
@@ -349,6 +348,12 @@ export default function CustomerPage() {
                         >
                           <i className="nav-icon fas fa-pen" />
                         </button>
+                      </div>
+                    </td>
+                  )}
+                  {isDelete() && (
+                    <td>
+                      <div className="row justify-content-center">
                         <button
                           className="btn btn-danger"
                           onClick={deleteCustomer(item.ID)}
