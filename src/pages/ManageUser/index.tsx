@@ -66,8 +66,21 @@ export default function ManageUser() {
 
     UserServices.updateUser(id, camelToSnakeObject(payload))
       .then((res) => {
+        AccountServices.getFindUser(isLogin)
+          .then((res: any) => {
+            setTimeout(() => {
+              sessionStorage.setItem("major", res.data.MAJOR);
+              sessionStorage.setItem("can_edit", res.data.CAN_EDIT ? "TRUE" : "FALSE");
+              sessionStorage.setItem("can_delete", res.data.CAN_DELETE ? "TRUE" : "FALSE");
+            }, 100)
+            setTimeout(() => {
+              reGetUser();
+            }, 2000)
+          })
+          .catch((err: any) => {
+            console.log(err.response.data.message);
+          });
         AlertSuccess(res.data.message);
-        reGetUser();
       })
       .catch((err) => {
         AlertError(err.response.data.message);
