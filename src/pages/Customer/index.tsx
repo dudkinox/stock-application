@@ -46,7 +46,7 @@ export default function CustomerPage() {
     majorInsert: majorAdminChange,
     setMajorInsert,
   } = useContext(CustomerContext);
-  const { majorUser, isEdit, isDelete, editPermission, deletePermission } = useContext(AppContext);
+  const { majorUser, isEdit, isDelete } = useContext(AppContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
@@ -67,17 +67,8 @@ export default function CustomerPage() {
 
   const editableCustomerTableHeaders = [
     ...customerTableHeaders,
-    <>
-      <div>เพิ่ม/ลบ/แก้ไข</div>
-      <button
-        className="btn primary-btn text-white w-100 mt-2"
-        data-toggle="modal"
-        data-target="#insert-modal"
-        id="insert-customer"
-      >
-        <i className="nav-icon fas fa-plus" />
-      </button>
-    </>,
+    "แก้ไข",
+    "ลบ",
   ];
 
   const openModalUpdate = (id: string) => () => {
@@ -178,6 +169,21 @@ export default function CustomerPage() {
     <ContentLayOut
       title={"Customer"}
       topic={"ข้อมูลลูกค้า"}
+      btnHeader={
+        <>
+          {isEdit() ? (
+            <button
+              className="btn primary-btn text-white float-right"
+              data-toggle="modal"
+              data-target="#insert-modal"
+              id="insert-customer"
+            >
+              เพิ่มข้อมูลลูกค้า
+            </button>
+          ) : null
+          }
+        </>
+      }
       page={
         <>
           <ModalCommon
@@ -339,8 +345,8 @@ export default function CustomerPage() {
                   <td>{item.DATE_PAYMENT}</td>
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.PROCESS}</td>
-                  {isEdit() && (
-                    <td>
+                  <td>
+                    {isEdit() ?
                       <div className="row justify-content-center">
                         <button
                           className="btn btn-warning mx-2"
@@ -349,10 +355,11 @@ export default function CustomerPage() {
                           <i className="nav-icon fas fa-pen" />
                         </button>
                       </div>
-                    </td>
-                  )}
-                  {isDelete() && (
-                    <td>
+                      : "ไม่มีสิทธิ"
+                    }
+                  </td>
+                  <td>
+                    {isDelete() ?
                       <div className="row justify-content-center">
                         <button
                           className="btn btn-danger"
@@ -361,8 +368,9 @@ export default function CustomerPage() {
                           <i className="nav-icon fas fa-trash" />
                         </button>
                       </div>
-                    </td>
-                  )}
+                      : "ไม่มีสิทธิ"
+                    }
+                  </td>
                 </tr>
               ))}
             />

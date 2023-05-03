@@ -28,7 +28,6 @@ import CustomerServices from "../../services/CustomerServices";
 import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../contexts";
-import { PermissionEnum } from "../../enum/permission.enum";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import MajorServices from "../../services/MajorService";
 
@@ -94,7 +93,7 @@ export default function StockPage() {
     majorInsert,
     setMajorInsert,
   } = useContext(StockContext);
-  const { setPathUrl, majorUser, isEdit} = useContext(AppContext);
+  const { setPathUrl, majorUser, isEdit, isDelete } = useContext(AppContext);
   const [itemList, setItemList] = useState<any>({});
   const [typeStock, setTypeStock] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
@@ -118,16 +117,8 @@ export default function StockPage() {
 
   const editableStockTableHeaders = [
     ...stockTableHeaders,
-    <>
-      <div>เพิ่ม/ลบ/เเก้ไข</div>
-      <button
-        className="btn primary-btn text-white w-100 mt-2"
-        data-toggle="modal"
-        data-target="#insert-modal"
-      >
-        <i className="nav-icon fas fa-plus" />
-      </button>
-    </>,
+    "แก้ไข",
+    "ลบ",
   ];
 
   const SelectStockType = (value: string) => {
@@ -325,6 +316,21 @@ export default function StockPage() {
     <ContentLayOut
       title={"stock"}
       topic={"สต๊อกสินค้า"}
+      btnHeader={
+        <>
+          {isEdit() ? (
+            <button
+              className="btn primary-btn text-white float-right"
+              data-toggle="modal"
+              data-target="#insert-modal"
+              id="insert-customer"
+            >
+              เพิ่มข้อมูลลูกค้า
+            </button>
+          ) : null
+          }
+        </>
+      }
       page={
         <>
           <ModalCommon
@@ -379,7 +385,7 @@ export default function StockPage() {
                           <TextInput
                             label={"ชื่อลูกค้า:"}
                             icon={"far fa-id-card"}
-                            setValue={() => {}}
+                            setValue={() => { }}
                             type={"text"}
                             readonly={true}
                             bgColor={"bg-secondary"}
@@ -475,10 +481,10 @@ export default function StockPage() {
                                   {typeStock === "อุปกรณ์"
                                     ? MenuEquipmentArray[index - 2]
                                     : typeStock === "ซื้อ"
-                                    ? MenuByeArray[index - 2]
-                                    : typeStock === "ขาย"
-                                    ? MenuKayArray[index - 2]
-                                    : MenuInstallmentPaymentArray[index - 2]}
+                                      ? MenuByeArray[index - 2]
+                                      : typeStock === "ขาย"
+                                        ? MenuKayArray[index - 2]
+                                        : MenuInstallmentPaymentArray[index - 2]}
                                 </label>
                               </div>
                               <div className="col-4 my-3">
@@ -534,28 +540,32 @@ export default function StockPage() {
                       </button>
                     </div>
                   </td>
-                  {isEdit() && (
-                    <td>
-                      <div className="row justify-content-center">
-                        <button
-                          className="btn btn-warning mx-2"
-                          onClick={openModalUpdate(
-                            item.ID,
-                            item.STOCK_TYPE,
-                            item.MAJOR
-                          )}
-                        >
-                          <i className="nav-icon fas fa-pen" />
-                        </button>
-                        <button
-                          className="btn btn-danger"
-                          onClick={deleteStock(item.ID_CARD, item.MAJOR)}
-                        >
-                          <i className="nav-icon fas fa-trash" />
-                        </button>
-                      </div>
-                    </td>
-                  )}
+                  <td>
+                    {isEdit() ?
+                      <button
+                        className="btn btn-warning mx-2"
+                        onClick={openModalUpdate(
+                          item.ID,
+                          item.STOCK_TYPE,
+                          item.MAJOR
+                        )}
+                      >
+                        <i className="nav-icon fas fa-pen" />
+                      </button>
+                      : "ไม่มีสิทธิ"
+                    }
+                  </td>
+                  <td>
+                    {isDelete() ?
+                      <button
+                        className="btn btn-danger"
+                        onClick={deleteStock(item.ID_CARD, item.MAJOR)}
+                      >
+                        <i className="nav-icon fas fa-trash" />
+                      </button>
+                      : "ไม่มีสิทธิ"
+                    }
+                  </td>
                 </tr>
               ))}
             />
