@@ -34,7 +34,7 @@ export default function ManageUser() {
     reGetUser,
     isShowModal,
   } = useContext(UserContext);
-  const { isEdit, isDelete } = useContext(AppContext)
+  const { isLogin, isEdit, isDelete } = useContext(AppContext)
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
@@ -269,15 +269,16 @@ export default function ManageUser() {
                     : "ไม่มีสิทธิ"
                   }
                   </td>
-                  <td>{isDelete() ?
-                    <button
-                      className="btn btn-danger"
-                      onClick={deleteUser(item.ID)}
-                    >
-                      <i className="nav-icon fas fa-trash" />
-                    </button>
-                    : "ไม่มีสิทธิ"
-                  }
+                  <td>
+                    {isDelete() && isLogin !== item.USERNAME ?
+                      <button
+                        className="btn btn-danger"
+                        onClick={deleteUser(item.ID)}
+                      >
+                        <i className="nav-icon fas fa-trash" />
+                      </button>
+                      : "ไม่มีสิทธิ"
+                    }
                   </td>
                 </tr>
               ))}
