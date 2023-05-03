@@ -100,18 +100,30 @@ export function UserContextProvider({ children }: ChildrenProps) {
         canEdit,
         canDelete,
       };
+      UserServices.getUser().then((res: any) => {
+        const users = res.data;
+        const isUsernameExists = users.find((user: any) => user.USERNAME === baseInsert.username) !== undefined;
 
-      if (
-        baseInsert.username === "" ||
-        baseInsert.password === "" ||
-        baseInsert.major === ""
-      ) {
-        AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
-      } else {
-        setIsShowModal(true);
-        insertUser(camelToSnakeObject(baseInsert));
-        clearInputValue();
-      }
+        if (isUsernameExists) {
+          AlertError("ชื่อ username ซ้ำกรุณากรอกใหม่");
+        } else {
+          if (
+            baseInsert.username === "" ||
+            baseInsert.password === "" ||
+            baseInsert.major === ""
+          ) {
+            AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
+          } else {
+            setIsShowModal(true);
+            insertUser(camelToSnakeObject(baseInsert));
+            clearInputValue();
+          }
+
+        }
+      }).catch((err: any) => {
+        console.log(err);
+      })
+
     },
     [username, password, major, insertUser, canEdit, canDelete]
   );
