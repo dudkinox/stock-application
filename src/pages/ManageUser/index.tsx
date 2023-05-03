@@ -55,7 +55,7 @@ export default function ManageUser() {
       });
   };
 
-  const updateAccountHandler = (id: string) => () => {
+  const updateAccountHandler = (id: string) => async () => {
     let payload: UserRequest = {
       username,
       password,
@@ -64,27 +64,17 @@ export default function ManageUser() {
       canDelete,
     };
 
-    UserServices.updateUser(id, camelToSnakeObject(payload))
-      .then((res) => {
-        AccountServices.getFindUser(isLogin)
-          .then((res: any) => {
-            setTimeout(() => {
-              sessionStorage.setItem("major", res.data.MAJOR);
-              sessionStorage.setItem("can_edit", res.data.CAN_EDIT ? "TRUE" : "FALSE");
-              sessionStorage.setItem("can_delete", res.data.CAN_DELETE ? "TRUE" : "FALSE");
-            }, 100)
-            setTimeout(() => {
-              reGetUser();
-            }, 2000)
-          })
-          .catch((err: any) => {
-            console.log(err.response.data.message);
-          });
-        AlertSuccess(res.data.message);
-      })
-      .catch((err) => {
-        AlertError(err.response.data.message);
-      });
+    try {
+      const updateUserRes = await UserServices.updateUser(id, camelToSnakeObject(payload));
+      const findUserRes = await AccountServices.getFindUser(isLogin);
+      sessionStorage.setItem("major", findUserRes.data.MAJOR);
+      sessionStorage.setItem("can_edit", findUserRes.data.CAN_EDIT ? "TRUE" : "FALSE");
+      sessionStorage.setItem("can_delete", findUserRes.data.CAN_DELETE ? "TRUE" : "FALSE");
+      reGetUser();
+      AlertSuccess(updateUserRes.data.message);
+    } catch (error: any) {
+      AlertError(error.response.data.message);
+    }
   };
 
   const deleteUser = (id: string) => () => {

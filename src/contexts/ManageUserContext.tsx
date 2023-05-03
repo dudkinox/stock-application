@@ -58,12 +58,15 @@ export function UserContextProvider({ children }: ChildrenProps) {
   const [isShowModal, setIsShowModal] = useState(false);
 
   const reGetUser = useMemo(
-    () => () => {
-      UserServices.getUser().then((res) => {
+    () => async () => {
+      try {
+        const res = await UserServices.getUser();
         destroyTable();
         setUser(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-      });
+      } catch (error) {
+        console.error(error);
+      }
     },
     [setUser]
   );
