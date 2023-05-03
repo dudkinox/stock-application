@@ -124,18 +124,13 @@ export default function ManageUser() {
       title={"Manage user"}
       topic={"จัดการผู้ใช้"}
       btnHeader={
-        <>
-          {isEdit() ? (
-            <button
-              className="btn primary-btn text-white float-right"
-              data-toggle="modal"
-              data-target="#insert-modal"
-            >
-              เพิ่มผู้ใช้
-            </button>
-          ) : null
-          }
-        </>
+        <button
+          className="btn primary-btn text-white float-right"
+          data-toggle="modal"
+          data-target="#insert-modal"
+        >
+          เพิ่มผู้ใช้
+        </button>
       }
       page={
         <>
@@ -243,19 +238,14 @@ export default function ManageUser() {
             <TableCommon
               columns={[
                 <>
-                  {isEdit() ?
-                    <>
-                      <div>สาขา</div>
-                      <button
-                        className="btn primary-btn text-white w-100 mt-2"
-                        data-toggle="modal"
-                        data-target="#insert-major-modal"
-                      >
-                        <i className="nav-icon fas fa-plus" />
-                      </button>
-                    </>
-                    : "สาขา"
-                  }
+                  <div>สาขา</div>
+                  <button
+                    className="btn primary-btn text-white w-100 mt-2"
+                    data-toggle="modal"
+                    data-target="#insert-major-modal"
+                  >
+                    <i className="nav-icon fas fa-plus" />
+                  </button>
                 </>,
                 "ชื่อผู้ใช้ / username",
                 "สิทธิการแก้ไขข้อมูล",

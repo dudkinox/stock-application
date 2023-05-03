@@ -36,7 +36,7 @@ export function AppContextProvider({ children }: ChildrenProps) {
   const deletePermission = sessionStorage.getItem("can_delete") ?? "";
 
   const isEdit = () => editPermission === "TRUE" ? true : false;
-  const isDelete = () => editPermission === "TRUE" ? true : false;
+  const isDelete = () => deletePermission === "TRUE" ? true : false;
 
   useEffect(() => {
     AccountServices.getFindUser(isLogin)

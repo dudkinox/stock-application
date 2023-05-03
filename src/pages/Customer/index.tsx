@@ -170,19 +170,14 @@ export default function CustomerPage() {
       title={"Customer"}
       topic={"ข้อมูลลูกค้า"}
       btnHeader={
-        <>
-          {isEdit() ? (
-            <button
-              className="btn primary-btn text-white float-right"
-              data-toggle="modal"
-              data-target="#insert-modal"
-              id="insert-customer"
-            >
-              เพิ่มข้อมูลลูกค้า
-            </button>
-          ) : null
-          }
-        </>
+        <button
+          className="btn primary-btn text-white float-right"
+          data-toggle="modal"
+          data-target="#insert-modal"
+          id="insert-customer"
+        >
+          เพิ่มข้อมูลลูกค้า
+        </button>
       }
       page={
         <>

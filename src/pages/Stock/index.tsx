@@ -317,19 +317,14 @@ export default function StockPage() {
       title={"stock"}
       topic={"สต๊อกสินค้า"}
       btnHeader={
-        <>
-          {isEdit() ? (
-            <button
-              className="btn primary-btn text-white float-right"
-              data-toggle="modal"
-              data-target="#insert-modal"
-              id="insert-customer"
-            >
-              เพิ่มข้อมูลลูกค้า
-            </button>
-          ) : null
-          }
-        </>
+        <button
+          className="btn primary-btn text-white float-right"
+          data-toggle="modal"
+          data-target="#insert-modal"
+          id="insert-customer"
+        >
+          เพิ่มข้อมูลลูกค้า
+        </button>
       }
       page={
         <>
