@@ -14,6 +14,7 @@ import MajorResponse from "../../Models/Response/GetMajorResponse";
 import MajorServices from "../../services/MajorService";
 import SelectChoice from "../../common/Select";
 import AccountServices from "../../services/AccountService";
+import { AppContext } from "../../contexts";
 
 export default function ManageUser() {
   const {
@@ -33,6 +34,7 @@ export default function ManageUser() {
     reGetUser,
     isShowModal,
   } = useContext(UserContext);
+  const { isEdit, isDelete } = useContext(AppContext)
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
@@ -121,6 +123,20 @@ export default function ManageUser() {
     <ContentLayOut
       title={"Manage user"}
       topic={"จัดการผู้ใช้"}
+      btnHeader={
+        <>
+          {isEdit() ? (
+            <button
+              className="btn primary-btn text-white float-right"
+              data-toggle="modal"
+              data-target="#insert-modal"
+            >
+              เพิ่มผู้ใช้
+            </button>
+          ) : null
+          }
+        </>
+      }
       page={
         <>
           <ModalCommon
@@ -161,7 +177,7 @@ export default function ManageUser() {
                         className="custom-control-input"
                         type="checkbox"
                         id="canEdit"
-                        onChange={(e: any) => setCanEdit(e.target.value)}
+                        onChange={(e: any) => setCanEdit(e.target.checked)}
                         checked={canEdit}
                       />
                       <label htmlFor="canEdit" className="custom-control-label">
@@ -173,7 +189,7 @@ export default function ManageUser() {
                         className="custom-control-input"
                         type="checkbox"
                         id="canDelete"
-                        onChange={(e: any) => setCanDelete(e.target.value)}
+                        onChange={(e: any) => setCanDelete(e.target.checked)}
                         checked={canDelete}
                       />
                       <label htmlFor="canDelete" className="custom-control-label">
@@ -228,15 +244,7 @@ export default function ManageUser() {
             <TableCommon
               columns={[
                 <>
-                  <div>เพิ่ม/ลบ/เเก้ไข</div>
-                  <button
-                    className="btn primary-btn text-white w-100 mt-2"
-                    data-toggle="modal"
-                    data-target="#insert-modal"
-                  >
-                    <i className="nav-icon fas fa-plus" />
-                  </button>
-                </>,
+                {isEdit() ?
                 <>
                   <div>สาขา</div>
                   <button
@@ -246,31 +254,42 @@ export default function ManageUser() {
                   >
                     <i className="nav-icon fas fa-plus" />
                   </button>
+                  </>
+                  : "สาขา"
+                }
                 </>,
                 "ชื่อผู้ใช้ / username",
-                "สิทธิการเข้าถึง",
+                "สิทธิการแก้ไขข้อมูล",
+                "สิทธิการลบข้อมูล",
+                "แก้ไข",
+                "ลบ",
               ]}
               row={user.map((item, i) => (
                 <tr key={i} className="text-center">
-                  <td>
-                    <div className="row justify-content-center">
-                      <button
-                        className="btn btn-warning mx-2"
-                        onClick={openModalUpdate(item.ID, item.USERNAME)}
-                      >
-                        <i className="nav-icon fas fa-pen" />
-                      </button>
-                      <button
-                        className="btn btn-danger"
-                        onClick={deleteUser(item.ID)}
-                      >
-                        <i className="nav-icon fas fa-trash" />
-                      </button>
-                    </div>
-                  </td>
                   <td>{item.USERNAME}</td>
                   <td>{item.MAJOR}</td>
-                  <td>{item.PERMISSION}</td>
+                  <td>{item.CAN_EDIT ? "มี" : "ไม่มี"}</td>
+                  <td>{item.CAN_DELETE ? "มี" : "ไม่มี"}</td>
+                  <td>{isEdit() ?
+                    <button
+                      className="btn btn-warning mx-2"
+                      onClick={openModalUpdate(item.ID, item.USERNAME)}
+                    >
+                      <i className="nav-icon fas fa-pen" />
+                    </button>
+                    : "ไม่มีสิทธิ"
+                  }
+                  </td>
+                  <td>{isDelete() ?
+                    <button
+                      className="btn btn-danger"
+                      onClick={deleteUser(item.ID)}
+                    >
+                      <i className="nav-icon fas fa-trash" />
+                    </button>
+                    : "ไม่มีสิทธิ"
+                  }
+                  </td>
                 </tr>
               ))}
             />

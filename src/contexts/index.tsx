@@ -9,8 +9,8 @@ interface AppContextProps {
   majorUser: string;
   isEdit: () => boolean;
   isDelete: () => boolean;
-  canEdit: string;
-  canDelete: string;
+  editPermission: string;
+  deletePermission: string;
 }
 
 export const AppContext = createContext<AppContextProps>({
@@ -20,8 +20,8 @@ export const AppContext = createContext<AppContextProps>({
   majorUser: "",
   isEdit: () => false,
   isDelete: () => false,
-  canEdit: "",
-  canDelete: "",
+  editPermission: "",
+  deletePermission: "",
 });
 
 interface ChildrenProps {
@@ -32,11 +32,11 @@ export function AppContextProvider({ children }: ChildrenProps) {
   const [pathUrl, setPathUrl] = useState<string>(window.location.pathname);
   const isLogin = sessionStorage.getItem("account") ?? "";
   const majorUser = sessionStorage.getItem("major") ?? "";
-  const canEdit = sessionStorage.getItem("can_edit") ?? "";
-  const canDelete = sessionStorage.getItem("can_delete") ?? "";
+  const editPermission = sessionStorage.getItem("can_edit") ?? "";
+  const deletePermission = sessionStorage.getItem("can_delete") ?? "";
 
-  const isEdit = () => canEdit === "TRUE" ? true : false;
-  const isDelete = () => canEdit === "TRUE" ? true : false;
+  const isEdit = () => editPermission === "TRUE" ? true : false;
+  const isDelete = () => editPermission === "TRUE" ? true : false;
 
   useEffect(() => {
     AccountServices.getFindUser(isLogin)
@@ -58,10 +58,10 @@ export function AppContextProvider({ children }: ChildrenProps) {
       majorUser,
       isEdit,
       isDelete,
-      canEdit,
-      canDelete,
+      editPermission,
+      deletePermission,
     }),
-    [pathUrl, setPathUrl, isLogin, majorUser, isEdit, isDelete, canEdit, canDelete,]
+    [pathUrl, setPathUrl, isLogin, majorUser, isEdit, isDelete, editPermission, deletePermission,]
   );
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;

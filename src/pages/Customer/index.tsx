@@ -46,7 +46,7 @@ export default function CustomerPage() {
     majorInsert: majorAdminChange,
     setMajorInsert,
   } = useContext(CustomerContext);
-  const { majorUser, isEdit, isDelete, canEdit, canDelete } = useContext(AppContext);
+  const { majorUser, isEdit, isDelete, editPermission, deletePermission } = useContext(AppContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
