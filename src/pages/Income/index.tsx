@@ -9,8 +9,10 @@ import ConvertDateToThai from "../../common/DateFormat";
 import GetIncomeRequest from "../../Models/Request/GetIncomeRequest";
 import incomeServices from "../../services/IncomeServices";
 import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
+import { AppContext } from "../../contexts";
 
 export default function IncomePage() {
+  const { isEdit, isDelete } = useContext(AppContext)
   const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
   // const [incomeFind, setIncomeFind] = useState<GetIncomeResponse[]>([]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
@@ -39,7 +41,8 @@ export default function IncomePage() {
     "รายจ่าย(บาท)",
     "รายรับ(บาท)",
     "หมายเหตุ",
-    "แก้ไข/ลบ",
+    "แก้ไข",
+    "ลบ",
   ];
 
   const openModalIncomeUpdate = (id: string) => () => {
@@ -278,20 +281,26 @@ export default function IncomePage() {
                       <td>{Number(item.EXPENSE).toLocaleString()}</td>
                       <td>{item.NOTE}</td>
                       <td>
-                        <div className="row justify-content-center">
+                        {isEdit() ?
                           <button
                             className="btn btn-warning mx-2"
                             onClick={openModalIncomeUpdate(item.ID)}
                           >
                             <i className="nav-icon fas fa-pen" />
                           </button>
+                          : "ไม่มีสิทธิ"
+                        }
+                      </td>
+                      <td>
+                        {isDelete() ?
                           <button
                             className="btn btn-danger"
                             onClick={deleteHandler(item.ID)}
                           >
                             <i className="nav-icon fas fa-trash" />
                           </button>
-                        </div>
+                          : "ไม่มีสิทธิ"
+                        }
                       </td>
                     </tr>
                   );
@@ -301,7 +310,7 @@ export default function IncomePage() {
                     <td colSpan={2}>รวม</td>
                     <td>{outcomeTotal.toLocaleString()} บาท</td>
                     <td>{incomeTotal.toLocaleString()} บาท</td>
-                    <td colSpan={2}></td>
+                    <td colSpan={3}></td>
                   </tr>
                 }
               </tbody>

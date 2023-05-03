@@ -196,7 +196,6 @@ export default function ManageUser() {
                         สามาถลบข้อมูลได้
                       </label>
                     </div>
-
                   </div>
                 </div>
                 <div className="modal-footer">
@@ -244,19 +243,19 @@ export default function ManageUser() {
             <TableCommon
               columns={[
                 <>
-                {isEdit() ?
-                <>
-                  <div>สาขา</div>
-                  <button
-                    className="btn primary-btn text-white w-100 mt-2"
-                    data-toggle="modal"
-                    data-target="#insert-major-modal"
-                  >
-                    <i className="nav-icon fas fa-plus" />
-                  </button>
-                  </>
-                  : "สาขา"
-                }
+                  {isEdit() ?
+                    <>
+                      <div>สาขา</div>
+                      <button
+                        className="btn primary-btn text-white w-100 mt-2"
+                        data-toggle="modal"
+                        data-target="#insert-major-modal"
+                      >
+                        <i className="nav-icon fas fa-plus" />
+                      </button>
+                    </>
+                    : "สาขา"
+                  }
                 </>,
                 "ชื่อผู้ใช้ / username",
                 "สิทธิการแก้ไขข้อมูล",

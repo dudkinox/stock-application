@@ -27,21 +27,21 @@ interface UserContextProps {
 
 export const UserContext = createContext<UserContextProps>({
   user: [],
-  setUser: (value: GetUserResponse[]) => {},
+  setUser: (value: GetUserResponse[]) => { },
   username: "",
-  setUsername: (value: string) => {},
+  setUsername: (value: string) => { },
   password: "",
-  setPassword: (value: string) => {},
+  setPassword: (value: string) => { },
   major: "",
-  setMajor: (value: string) => {},
+  setMajor: (value: string) => { },
   canEdit: false,
-  setCanEdit: (value: boolean) => {},
+  setCanEdit: (value: boolean) => { },
   canDelete: false,
-  setCanDelete: (value: boolean) => {},
-  handlerSubmit: () => {},
-  reGetUser: () => {},
+  setCanDelete: (value: boolean) => { },
+  handlerSubmit: () => { },
+  reGetUser: () => { },
   isShowModal: false,
-  setIsShowModal: (value: boolean) => {},
+  setIsShowModal: (value: boolean) => { },
 });
 
 interface ChildrenProps {
@@ -53,8 +53,8 @@ export function UserContextProvider({ children }: ChildrenProps) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [major, setMajor] = useState<string>("");
-  const [canEdit, setCanEdit] = useState<boolean>(false);
-  const [canDelete, setCanDelete] = useState<boolean>(false);
+  const [canEdit, setCanEdit] = useState(false);
+  const [canDelete, setCanDelete] = useState(false);
   const [isShowModal, setIsShowModal] = useState(false);
 
   const reGetUser = useMemo(
@@ -113,7 +113,7 @@ export function UserContextProvider({ children }: ChildrenProps) {
         clearInputValue();
       }
     },
-    [username, password, major, insertUser]
+    [username, password, major, insertUser, canEdit, canDelete]
   );
 
   useEffect(() => {
