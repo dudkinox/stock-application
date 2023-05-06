@@ -14,7 +14,13 @@ export default function LoginPage() {
         if (res.data.code === "000") {
           AlertSuccess(res.data.message);
           sessionStorage.setItem("account", username);
-          window.location.href = "/";
+
+          AccountServices.getFindUser(username).then((res) => {
+            sessionStorage.setItem("major", res.data.MAJOR);
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 100);
+          });
         } else {
           AlertError(res.data.message);
         }
