@@ -1,6 +1,13 @@
+import { useEffect } from "react";
 import HeaderPageCommon from "../../common/HeaderPageCommon";
+import InitGraph from "../../common/Graph";
 
 export default function ChartMainContent() {
+
+  useEffect(() => {
+    InitGraph();
+  });
+
   return (
     <>
       <section className="content">
