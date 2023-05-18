@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import PaymentService from "../../services/PaymentService";
 import SelectChoice from "../../common/Select";
 import { DashboardContext } from "../../contexts/DashboardContext";
+import InitGraph from "../../common/Graph";
 
 export default function HeaderMainContent() {
   const [paymentTotal, setPaymentTotal] = useState<string>("");
@@ -51,10 +52,26 @@ export default function HeaderMainContent() {
           <div className="col-4 col-sm-6 col-md-4 mt-3">
             <SelectChoice
               label={"ช่วง"}
-              setValue={setDuration}
+              setValue={(e) => {
+                setDuration(e);
+                const elementToRemove = document.getElementById("barChart");
+
+                elementToRemove!.remove();
+                const element = document.createElement("canvas");
+                element.id = "barChart";
+                element.style.minHeight = "250px";
+                element.style.height = "250px";
+                element.style.maxHeight = "250px";
+                element.style.maxWidth = "100%";
+                document.getElementsByClassName("chart")[0];
+                document.getElementsByClassName("chart")[0].appendChild(element);
+
+                
+                InitGraph(branch, type, duration);
+              }}
               icon={"fa fa-building"}
-              topic={"ทั้งหมด"}
-              options={["ทั้งหมด", "เดือน", "สัปดาห์", "วัน"]}
+              topic={"เลือกช่วง"}
+              options={["เดือน", "สัปดาห์", "วัน"]}
               value={duration}
             />
           </div>

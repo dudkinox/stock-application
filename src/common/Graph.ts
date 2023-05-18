@@ -1,8 +1,15 @@
 import { Chart } from "chart.js/auto";
-export default function InitGraph() {
+import { MapDuration } from "../enum/duration.enum";
+export default function InitGraph(
+  idMajor: string,
+  idTypeStock: string,
+  idDuration: string
+) {
   $(function () {
+    const duration = MapDuration(idDuration);
+    
     const areaChartData = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: duration,
       datasets: [
         {
           label: "กำไร",
@@ -49,3 +56,30 @@ export default function InitGraph() {
     });
   });
 }
+
+// remove init graph
+// $(function () {
+//   const areaChartData = {
+//     labels: ["January", "February", "March", "April", "May", "June", "July"],
+//     datasets: [
+//       {
+//         label: "Electronics",
+//         backgroundColor: "rgba(60,141,188,0.9)",
+//         borderColor: "rgba(60,141,188,0.8)",
+//         pointRadius: false,
+//         pointColor: "#3b8bba",
+
+//         pointStrokeColor: "rgba(60,141,188,1)",
+//         pointHighlightFill: "#fff",
+//         pointHighlightStroke: "rgba(60,141,188,1)",
+//         data: [28, 48, 40, 19, 86, 27, 90],
+//       },
+//       {
+//         label: "Digital Goods",
+//         backgroundColor: "rgba(210, 214, 222, 1)",
+//         borderColor: "rgba(210, 214, 222, 1)",
+//         pointRadius: false,
+//         pointColor: "rgba(210, 214, 222, 1)",
+//         pointStrokeColor: "#c1c7d1",
+//         pointHighlightFill: "#fff",
+    

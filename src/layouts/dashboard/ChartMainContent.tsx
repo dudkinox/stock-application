@@ -1,12 +1,21 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import HeaderPageCommon from "../../common/HeaderPageCommon";
 import InitGraph from "../../common/Graph";
+import { DashboardContext } from "../../contexts/DashboardContext";
 
 export default function ChartMainContent() {
 
+  const {
+    branch,
+    type,
+    duration,
+  } = useContext(DashboardContext);
+
   useEffect(() => {
-    InitGraph();
-  });
+    
+    InitGraph(branch,type,duration);
+    
+  },[]);
 
   return (
     <>
