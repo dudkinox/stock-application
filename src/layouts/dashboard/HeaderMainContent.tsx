@@ -54,9 +54,7 @@ export default function HeaderMainContent() {
               label={"ช่วง"}
               setValue={(e) => {
                 setDuration(e);
-                const elementToRemove = document.getElementById("barChart");
-
-                elementToRemove!.remove();
+                document.getElementById("barChart")?.remove();
                 const element = document.createElement("canvas");
                 element.id = "barChart";
                 element.style.minHeight = "250px";
@@ -64,10 +62,11 @@ export default function HeaderMainContent() {
                 element.style.maxHeight = "250px";
                 element.style.maxWidth = "100%";
                 document.getElementsByClassName("chart")[0];
-                document.getElementsByClassName("chart")[0].appendChild(element);
+                document
+                  .getElementsByClassName("chart")[0]
+                  .appendChild(element);
 
-                
-                InitGraph(branch, type, duration);
+                InitGraph(branch, type, e);
               }}
               icon={"fa fa-building"}
               topic={"เลือกช่วง"}
