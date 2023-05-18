@@ -10,6 +10,7 @@ const getMajorsService = () => {
   return Https.get(`/apis/majors/get/`);
 };
 
+
 const deleteMajorService = (id: number) => {
   return Https.get<StatusResponse>(`/apis/majors/delete/?id=${id}`);
 };

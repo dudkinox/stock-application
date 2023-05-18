@@ -14,6 +14,7 @@ import { AppContext } from "./contexts";
 import DataStudio from "./pages/DataStudio";
 import IncomePage from "./pages/Income";
 import { IncomeContextProvider } from "./contexts/IncomeContext";
+import { DashboardProvider } from "./contexts/DashboardContext";
 
 export default function App() {
   const { isLogin } = useContext(AppContext);
@@ -30,7 +31,14 @@ export default function App() {
       <SidebarCommon />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route
+            path="/"
+            element={
+              <DashboardProvider>
+                <Dashboard />
+              </DashboardProvider>
+            }
+          />
           <Route
             path="/stock"
             element={
