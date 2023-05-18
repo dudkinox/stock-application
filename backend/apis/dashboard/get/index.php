@@ -8,10 +8,7 @@ $result = $conn->query($query);
 $i = 1;
 echo '[';
 while ($row = $result->fetch_assoc()) {
-    echo '
-        {
-        "STOCK_TYPE": "' . $row["STOCK_TYPE"] . '"
-        }';
+    echo '"' . $row["STOCK_TYPE"] . '"';
     if ($i != $result->num_rows) {
         echo ',';
     }
