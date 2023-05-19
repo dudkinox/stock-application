@@ -31,17 +31,19 @@ export default function SidebarCommon() {
               role="menu"
               data-accordion="false"
             >
-              <li className="nav-item">
-                <a
-                  href="/"
-                  className={`nav-link ${
-                    pathUrl === PathEnum.DASHBOARD ? "active" : ""
-                  }`}
-                >
-                  <i className="nav-icon fas fa-home" />
-                  <p>หน้าเเรก</p>
-                </a>
-              </li>
+              {majorUser === "admin" ? (
+                <li className="nav-item">
+                  <a
+                    href="/"
+                    className={`nav-link ${
+                      pathUrl === PathEnum.DASHBOARD ? "active" : ""
+                    }`}
+                  >
+                    <i className="nav-icon fas fa-home" />
+                    <p>หน้าเเรก</p>
+                  </a>
+                </li>
+              ) : null}
               <li className="nav-item">
                 <a
                   href="/stock"
