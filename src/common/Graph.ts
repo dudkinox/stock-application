@@ -13,7 +13,7 @@ export default function InitGraph(
       datasets: [
         {
           label: "กำไร",
-          backgroundColor: "rgba(60,141,188,0.9)",
+          backgroundColor: "#e91d63",
           borderColor: "rgba(60,141,188,0.8)",
           pointRadius: false,
           pointColor: "#3b8bba",

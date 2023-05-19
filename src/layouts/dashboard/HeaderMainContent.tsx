@@ -44,7 +44,7 @@ export default function HeaderMainContent() {
               label={"ประเภท"}
               setValue={setType}
               icon={"fa fa-building"}
-              topic={"ทั้งหมด"}
+              topic={"เลือกประเภท"}
               options={typeStock}
               value={type}
             />
@@ -69,8 +69,8 @@ export default function HeaderMainContent() {
                 InitGraph(branch, type, e);
               }}
               icon={"fa fa-building"}
-              topic={"เลือกช่วง"}
-              options={["เดือน", "สัปดาห์", "วัน"]}
+              topic={"วัน"}
+              options={["วัน", "สัปดาห์", "เดือน"]}
               value={duration}
             />
           </div>
