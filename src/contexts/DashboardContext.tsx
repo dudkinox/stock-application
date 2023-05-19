@@ -15,6 +15,12 @@ interface DashboardContextProps {
   setDuration: (value: string) => void;
   typeStock: string[];
   setTypeStock: (value: []) => void;
+  totalSum: string;
+  setTotalSum: (value: string) => void;
+  totalProfit: string;
+  setTotalProfit: (value: string) => void;
+  desiredProfit: string;
+  setDesiredProfit: (value: string) => void;
 }
 
 export const DashboardContext = createContext<DashboardContextProps>({
@@ -28,6 +34,12 @@ export const DashboardContext = createContext<DashboardContextProps>({
   setDuration: () => {},
   typeStock: [],
   setTypeStock: () => {},
+  totalSum: "",
+  setTotalSum: () => {},
+  totalProfit: "",
+  setTotalProfit: () => {},
+  desiredProfit: "",
+  setDesiredProfit: () => {},
 });
 
 interface ChildrenProps {
@@ -40,6 +52,9 @@ export function DashboardProvider({ children }: ChildrenProps) {
   const [branch, setBranch] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [duration, setDuration] = useState<string>("");
+  const [totalSum, setTotalSum] = useState<string>("");
+  const [totalProfit, setTotalProfit] = useState<string>("");
+  const [desiredProfit, setDesiredProfit] = useState<string>("");
 
   useEffect(() => {
     MajorServices.getMajors()
@@ -72,6 +87,12 @@ export function DashboardProvider({ children }: ChildrenProps) {
         setDuration,
         typeStock: typeStock,
         setTypeStock: setTypeStock,
+        totalSum,
+        setTotalSum,
+        totalProfit,
+        setTotalProfit,
+        desiredProfit,
+        setDesiredProfit,
       }}
     >
       {children}

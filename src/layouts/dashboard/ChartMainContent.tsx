@@ -9,6 +9,9 @@ export default function ChartMainContent() {
     branch,
     type,
     duration,
+    totalSum,
+    totalProfit,
+    desiredProfit,
   } = useContext(DashboardContext);
 
   useEffect(() => {
@@ -55,15 +58,15 @@ export default function ChartMainContent() {
                   <div className="row col-12">
                     <div className="col-4 text-center">
                       <p className="">{type === "" ? "-" : `ยอด${type}ทั้งหมด`} </p>
-                      <p className="h3">{type === "" ? "0" : `10 เครื่อง`}  </p>
+                      <p className="h3">{type === "" ? "0" : `${totalSum} เครื่อง`}  </p>
                     </div>
                     <div className="col-4 text-center">
                       <p className="">กำไรทั้งหมด </p>
-                      <p className="h3">1,000,000 บาท</p>
+                      <p className="h3">{totalProfit === "" ? "-" : `${totalProfit} บาท`}</p>
                     </div>
                     <div className="col-4 text-center">
                       <p className="">กำไรที่อยากได้</p>
-                      <p className="h3">5,000,000 บาท</p>
+                      <p className="h3">{desiredProfit === "" ? "-":`${desiredProfit} บาท`}</p>
                     </div>
                   </div>
                 </div>

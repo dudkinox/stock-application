@@ -3,6 +3,7 @@ import PaymentService from "../../services/PaymentService";
 import SelectChoice from "../../common/Select";
 import { DashboardContext } from "../../contexts/DashboardContext";
 import InitGraph from "../../common/Graph";
+import DashboardServices from "../../services/DashboardService";
 
 export default function HeaderMainContent() {
   const [paymentTotal, setPaymentTotal] = useState<string>("");
@@ -16,6 +17,9 @@ export default function HeaderMainContent() {
     type,
     duration,
     typeStock,
+    setTotalSum, 
+    setTotalProfit,
+    setDesiredProfit,
   } = useContext(DashboardContext);
 
   useEffect(() => {
@@ -32,7 +36,13 @@ export default function HeaderMainContent() {
           <div className="col-4 col-sm-6 col-md-4 mt-3">
             <SelectChoice
               label={"สาขา"}
-              setValue={setBranch}
+              setValue={(e) => {
+                setBranch(e);
+                DashboardServices.getTypeSelected(e,type).then((res) => {
+                  setTotalSum(res.data.toString());
+                  
+                });
+              }}
               icon={"fa fa-building"}
               topic={"ทั้งหมด"}
               options={major.map((item) => item.NAME)}
@@ -42,8 +52,12 @@ export default function HeaderMainContent() {
           <div className="col-4 col-sm-6 col-md-4 mt-3">
             <SelectChoice
               label={"ประเภท"}
-              setValue={(e)=> {
+              setValue={(e) => {
                 setType(e);
+                DashboardServices.getTypeSelected(branch,e).then((res) => {
+                  setTotalSum(res.data.toString());
+                  
+                });
               }}
               icon={"fa fa-building"}
               topic={"เลือกประเภท"}
