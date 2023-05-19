@@ -9,9 +9,20 @@ const getTypeSelectedService = (major: string, type: string) => {
   
 };
 
+const getProfitService = () => {
+  return Https.get<string>(`/apis/dashboard/get-profit/`);
+};
+
+const postWantMoneyService = (data: any) => {
+  return Https.post(`/apis/dashboard/profit/`, data);
+};
+
+
 const DashboardServices = {
   getDashboards: getDashboardService,
   getTypeSelected: getTypeSelectedService,
+  getProfit: getProfitService,
+  postWantMoney: postWantMoneyService,
 };
 
 export default DashboardServices;

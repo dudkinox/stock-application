@@ -1,27 +1,51 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import HeaderPageCommon from "../../common/HeaderPageCommon";
 import InitGraph from "../../common/Graph";
 import { DashboardContext } from "../../contexts/DashboardContext";
+import ModalCommon from "../../common/Modal";
+import TextInput from "../../common/TextInput";
+import DashboardServices from "../../services/DashboardService";
 
 export default function ChartMainContent() {
-
-  const {
-    branch,
-    type,
-    duration,
-    totalSum,
-    totalProfit,
-    desiredProfit,
-  } = useContext(DashboardContext);
+  const { branch, type, duration, totalSum, totalProfit, desiredProfit } =
+    useContext(DashboardContext);
+  const [profit, setProfit] = useState<string>("");
 
   useEffect(() => {
-    
-    InitGraph(branch,type,duration);
-    
-  },[]);
+    InitGraph(branch, type, duration);
+    DashboardServices.getProfit().then((res) => {
+      setProfit(res.data);
+    });
+  }, [setProfit]);
 
   return (
     <>
+      <ModalCommon
+        title={"กำไรที่อยากได้"}
+        content={
+          <>
+            <div className="container my-3 text-center">
+              <TextInput
+                label={"กำไร"}
+                setValue={setProfit}
+                type={"number"}
+                icon={"fa fa-money-bill"}
+              />
+              <button
+                type="button"
+                className="btn primary-btn col-2"
+                data-dismiss={`modal`}
+                onClick={() => {
+                  DashboardServices.postWantMoney({ money: profit });
+                }}
+              >
+                บันทึก
+              </button>
+            </div>
+          </>
+        }
+        id={"want-money"}
+      />
       <section className="content">
         <div className="container-fluid">
           <div className="row">
@@ -57,16 +81,32 @@ export default function ChartMainContent() {
                 <div className="card-header pb-0">
                   <div className="row col-12">
                     <div className="col-4 text-center">
-                      <p className="">{type === "" ? "-" : `ยอด${type}ทั้งหมด`} </p>
-                      <p className="h3">{type === "" ? "0" : `${totalSum} เครื่อง`}  </p>
+                      <p className="">
+                        {type === "" ? "-" : `ยอด${type}ทั้งหมด`}{" "}
+                      </p>
+                      <p className="h3">
+                        {type === "" ? "0" : `${totalSum} เครื่อง`}{" "}
+                      </p>
                     </div>
                     <div className="col-4 text-center">
                       <p className="">กำไรทั้งหมด </p>
-                      <p className="h3">{totalProfit === "" ? "-" : `${totalProfit} บาท`}</p>
+                      <p className="h3">
+                        {totalProfit === "" ? "-" : `${totalProfit} บาท`}
+                      </p>
                     </div>
                     <div className="col-4 text-center">
-                      <p className="">กำไรที่อยากได้</p>
-                      <p className="h3">{desiredProfit === "" ? "-":`${desiredProfit} บาท`}</p>
+                      <p className="">
+                        กำไรที่อยากได้{" "}
+                        <button
+                          className="btn btn-warning mx-2 "
+                          data-toggle="modal"
+                          data-target="#want-money"
+                          style={{ fontSize: "1px" }}
+                        >
+                          <i className="nav-icon fas fa-pen" />
+                        </button>
+                      </p>
+                      <p className="h3">{profit} บาท</p>
                     </div>
                   </div>
                 </div>
