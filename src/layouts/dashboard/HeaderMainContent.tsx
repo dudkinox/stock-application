@@ -42,7 +42,9 @@ export default function HeaderMainContent() {
           <div className="col-4 col-sm-6 col-md-4 mt-3">
             <SelectChoice
               label={"ประเภท"}
-              setValue={setType}
+              setValue={(e)=> {
+                setType(e);
+              }}
               icon={"fa fa-building"}
               topic={"เลือกประเภท"}
               options={typeStock}

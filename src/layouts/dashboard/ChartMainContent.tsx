@@ -54,8 +54,8 @@ export default function ChartMainContent() {
                 <div className="card-header pb-0">
                   <div className="row col-12">
                     <div className="col-4 text-center">
-                      <p className="">ยอดผ่อนทั้งหมด</p>
-                      <p className="h3">10 เครื่อง</p>
+                      <p className="">{type === "" ? "-" : `ยอด${type}ทั้งหมด`} </p>
+                      <p className="h3">{type === "" ? "0" : `10 เครื่อง`}  </p>
                     </div>
                     <div className="col-4 text-center">
                       <p className="">กำไรทั้งหมด </p>
