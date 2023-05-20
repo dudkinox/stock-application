@@ -2,30 +2,42 @@ import HeaderPageCommon from "../../common/HeaderPageCommon";
 
 interface contentLayOutProps {
   title: string;
-  topic: string;
-  page: JSX.Element;
-  btnHeader?: JSX.Element;
+  topicIncome: string;
+  topicFunds: string;
+  pageIncome: JSX.Element;
+  pageFunds: JSX.Element;
+  btnHeaderIncome?: JSX.Element;
+  btnHeaderFunds?: JSX.Element;
 }
 
 export default function ContentLayOut({
   title,
-  topic,
-  page,
-  btnHeader
+  topicIncome,
+  topicFunds,
+  pageIncome,
+  pageFunds,
+  btnHeaderIncome,
+  btnHeaderFunds
 }: contentLayOutProps) {
   return (
     <div className="content-wrapper">
       <HeaderPageCommon title={title} />
-
       <section className="content">
         <div className="container-fluid">
           <div className="row">
             <div className="card col-12">
               <div className="card-header">
-                <h2 className="card-title">{topic}</h2>
-                {btnHeader}
+                <h2 className="card-title">{topicIncome}</h2>
+                {btnHeaderIncome}
               </div>
-              {page}
+              {pageIncome}
+            </div>
+            <div className="card col-12">
+              <div className="card-header">
+                <h2 className="card-title">{topicFunds}</h2>
+                {btnHeaderFunds}
+              </div>
+              {pageFunds}
             </div>
           </div>
         </div>
