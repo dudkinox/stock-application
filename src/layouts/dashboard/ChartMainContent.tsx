@@ -106,7 +106,7 @@ export default function ChartMainContent() {
                           <i className="nav-icon fas fa-pen" />
                         </button>
                       </p>
-                      <p className="h3">{profit} บาท</p>
+                      <p className="h3">{Number(profit).toLocaleString()} บาท</p>
                     </div>
                   </div>
                 </div>
