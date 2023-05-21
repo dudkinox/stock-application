@@ -19,6 +19,8 @@ export default function ContentLayOut({
   btnHeader,
   btnHeaderFunds,
 }: contentLayOutProps) {
+  console.log(topicFunds);
+  
   return (
     <div className="content-wrapper">
       <HeaderPageCommon title={title} />
@@ -32,13 +34,17 @@ export default function ContentLayOut({
               </div>
               {page}
             </div>
-            <div className="card col-12">
-              <div className="card-header">
-                <h2 className="card-title">{topicFunds}</h2>
-                {btnHeaderFunds}
+            {topicFunds === "" || topicFunds === undefined? (
+              <></>
+            ) : (
+              <div className="card col-12">
+                <div className="card-header">
+                  <h2 className="card-title">{topicFunds}</h2>
+                  {btnHeaderFunds}
+                </div>
+                {pageFunds}
               </div>
-              {pageFunds}
-            </div>
+            )}
           </div>
         </div>
       </section>
