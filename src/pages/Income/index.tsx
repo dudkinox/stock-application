@@ -171,7 +171,7 @@ export default function IncomePage() {
 
   return (
     <>
-    <ModalCommon
+      <ModalCommon
         title={"เพิ่มทุน"}
         content={
           <>
@@ -199,8 +199,8 @@ export default function IncomePage() {
       />
       <ContentLayOut
         title={"รายรับ-รายจ่าย"}
-        topicIncome={"รายรับ-รายจ่าย"}
-        btnHeaderIncome={
+        topic={"รายรับ-รายจ่าย"}
+        btnHeader={
           <button
             className="btn primary-btn text-white float-right"
             data-toggle="modal"
@@ -210,7 +210,7 @@ export default function IncomePage() {
             เพิ่มรายการ
           </button>
         }
-        pageIncome={
+        page={
           <>
             <ModalCommon
               title={"เพิ่มข้อมูล"}
