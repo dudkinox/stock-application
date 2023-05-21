@@ -65,11 +65,7 @@ export default function CustomerPage() {
     "สถานะ",
   ];
 
-  const editableCustomerTableHeaders = [
-    ...customerTableHeaders,
-    "แก้ไข",
-    "ลบ",
-  ];
+  const editableCustomerTableHeaders = [...customerTableHeaders, "แก้ไข", "ลบ"];
 
   const openModalUpdate = (id: string) => () => {
     ($("#insert-modal") as any).modal("show");
@@ -341,7 +337,7 @@ export default function CustomerPage() {
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.PROCESS}</td>
                   <td>
-                    {isEdit() ?
+                    {isEdit() ? (
                       <div className="row justify-content-center">
                         <button
                           className="btn btn-warning mx-2"
@@ -350,11 +346,12 @@ export default function CustomerPage() {
                           <i className="nav-icon fas fa-pen" />
                         </button>
                       </div>
-                      : "ไม่มีสิทธิ"
-                    }
+                    ) : (
+                      "ไม่มีสิทธิ"
+                    )}
                   </td>
                   <td>
-                    {isDelete() ?
+                    {isDelete() ? (
                       <div className="row justify-content-center">
                         <button
                           className="btn btn-danger"
@@ -363,8 +360,9 @@ export default function CustomerPage() {
                           <i className="nav-icon fas fa-trash" />
                         </button>
                       </div>
-                      : "ไม่มีสิทธิ"
-                    }
+                    ) : (
+                      "ไม่มีสิทธิ"
+                    )}
                   </td>
                 </tr>
               ))}
