@@ -10,14 +10,21 @@ import GetIncomeRequest from "../../Models/Request/GetIncomeRequest";
 import incomeServices from "../../services/IncomeServices";
 import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 import { AppContext } from "../../contexts";
+import GetFundResponse from "../../Models/Response/GetFundResponse";
+import fundServices from "../../services/FundServices";
+import GetFundRequest from "../../Models/Request/GetFundRequest";
 
 export default function IncomePage() {
   const { isEdit, isDelete } = useContext(AppContext);
   const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
+  const [fundList, setFundList] = useState<GetFundResponse[]>([]);
   // const [incomeFind, setIncomeFind] = useState<GetIncomeResponse[]>([]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
   const [funds, setFunds] = useState<string>("");
+  const [updateIdFund, setUpdateIdFund] = useState<string>("");
+
+  let fundTotal = 0;
 
   let incomeTotal = 0;
   let outcomeTotal = 0;
@@ -72,11 +79,116 @@ export default function IncomePage() {
       });
   };
 
+  const openModalFundUpdate = (id: string) => () => {
+    ($("#want-money") as any).modal("show");
+
+    setIsUpdate(true);
+
+    fundServices
+      .findFund(id)
+      .then((res: any) => {
+        const data = res.data;
+        setFunds(data.MONEY);
+        setUpdateIdFund(data.ID);
+      })
+      .catch((err: any) => {
+        console.log(err);
+
+        AlertError(err);
+      });
+  };
+
   useEffect(() => {
     IncomeServices.getAll().then((res) => {
       setIncomeList(res.data);
     });
-  }, [setIncomeList]);
+    fundServices.getAll().then((res) => {
+      setFundList(res.data);
+    });
+  }, [setIncomeList, setFundList]);
+
+  const insertFund = () => {
+    const payload: GetFundRequest = {
+      money: funds,
+    };
+
+    fundServices
+      .InsertFundList(payload)
+      .then((res: any) => {
+        AlertSuccess(res.data.message);
+
+        fundServices
+          .getAll()
+          .then((res: any) => {
+            setFundList(res.data);
+            clearInputValue();
+          })
+          .catch((err: any) => {
+            AlertError(err);
+          });
+      })
+      .catch((err: any) => {
+        AlertError(err);
+      });
+  };
+
+  const updateFund = (id: string) => () => {
+    const payload: GetFundRequest = {
+      money: funds,
+    };
+    fundServices
+      .updateFundList(id, payload)
+      .then((res: any) => {
+        AlertSuccess(res.data.message);
+        setIsUpdate(false);
+        clearInputValue();
+        fundServices
+          .getAll()
+          .then((res: any) => {
+            setFundList(res.data);
+          })
+          .catch((err: any) => {
+            AlertError(err);
+          });
+      })
+      .catch((err: any) => {
+        AlertError(err.message);
+        fundServices
+          .getAll()
+          .then((res: any) => {
+            setFundList(res.data);
+          })
+          .catch((err: any) => {
+            AlertError(err);
+          });
+      });
+  };
+
+  const deleteFund = (id: string) => () => {
+    fundServices
+      .DeleteFundList(id)
+      .then((res: any) => {
+        fundServices
+          .getAll()
+          .then((res: any) => {
+            setFundList(res.data);
+          })
+          .catch((err: any) => {
+            AlertError(err);
+          });
+      })
+      .catch((err: any) => {
+        AlertSuccess("ลบสำเร็จ");
+        fundServices
+          .getAll()
+          .then((res: any) => {
+            setFundList(res.data);
+          })
+          .catch((err: any) => {
+            AlertError(err);
+          });
+      });
+  };
 
   const insertHandler = () => {
     const payload: GetIncomeRequest = {
@@ -171,32 +283,6 @@ export default function IncomePage() {
 
   return (
     <>
-      <ModalCommon
-        title={"เพิ่มทุน"}
-        content={
-          <>
-            <div className="container my-3 text-center">
-              <TextInput
-                label={"ทุน"}
-                setValue={setFunds}
-                type={"number"}
-                icon={"fa fa-money-bill"}
-              />
-              <button
-                type="button"
-                className="btn primary-btn col-2"
-                data-dismiss={`modal`}
-                onClick={() => {
-                  // DashboardServices.postWantMoney({ money: profit });
-                }}
-              >
-                บันทึก
-              </button>
-            </div>
-          </>
-        }
-        id={"want-money"}
-      />
       <ContentLayOut
         title={"รายรับ-รายจ่าย"}
         topic={"รายรับ-รายจ่าย"}
@@ -363,25 +449,18 @@ export default function IncomePage() {
         pageFunds={
           <>
             <ModalCommon
-              title={"เพิ่มข้อมูล"}
-              id={"insert-modal"}
+              title={"เพิ่มทุน"}
+              id={"want-money"}
               content={
                 <>
                   <div className="modal-body">
                     <div className="container-fluid">
                       <TextInput
-                        label={"วันที่:"}
-                        icon={"far fa-calendar-alt"}
-                        setValue={setDate}
-                        type={"date"}
-                        value={date}
-                      />
-                      <TextInput
-                        label={"รายจ่าย:"}
-                        icon={"fas fa-money-bill-wave"}
-                        setValue={setRevenue}
+                        label={"ทุน"}
+                        setValue={setFunds}
                         type={"number"}
-                        value={revenue}
+                        icon={"fa fa-money-bill"}
+                        value={funds}
                       />
                     </div>
                   </div>
@@ -391,7 +470,7 @@ export default function IncomePage() {
                         type="button"
                         className="btn primary-btn col-lg-2 col-sm-auto"
                         data-dismiss="modal"
-                        onClick={updateHandler(updateId)}
+                        onClick={updateFund(updateIdFund)}
                       >
                         อัพเดต
                       </button>
@@ -400,7 +479,7 @@ export default function IncomePage() {
                         type="button"
                         className="btn primary-btn col-lg-2 col-sm-auto"
                         data-dismiss="modal"
-                        onClick={insertHandler}
+                        onClick={insertFund}
                       >
                         บันทึก
                       </button>
@@ -429,21 +508,17 @@ export default function IncomePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {incomeList.map((item, i) => {
-                    incomeTotal += Number(item.EXPENSE);
-                    outcomeTotal += Number(item.REVENUE);
+                  {fundList.map((item, i) => {
+                    fundTotal += Number(item.ID);
                     return (
                       <tr key={i} className="text-center">
                         <td>{ConvertDateToThai(new Date(item.DATE))}</td>
-                        <td>{item.LIST_NAME}</td>
-                        <td>{Number(item.REVENUE).toLocaleString()}</td>
-                        <td>{Number(item.EXPENSE).toLocaleString()}</td>
-                        <td>{item.NOTE}</td>
+                        <td>{item.MONEY}</td>
                         <td>
                           {isEdit() ? (
                             <button
                               className="btn btn-warning mx-2"
-                              onClick={openModalIncomeUpdate(item.ID)}
+                              onClick={openModalFundUpdate(item.ID)}
                             >
                               <i className="nav-icon fas fa-pen" />
                             </button>
@@ -455,7 +530,7 @@ export default function IncomePage() {
                           {isDelete() ? (
                             <button
                               className="btn btn-danger"
-                              onClick={deleteHandler(item.ID)}
+                              onClick={deleteFund(item.ID)}
                             >
                               <i className="nav-icon fas fa-trash" />
                             </button>
