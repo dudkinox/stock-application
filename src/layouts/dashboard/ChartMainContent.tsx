@@ -80,7 +80,7 @@ export default function ChartMainContent() {
               <div className="card">
                 <div className="card-header pb-0">
                   <div className="row col-12">
-                    <div className="col-4 text-center">
+                    <div className="col-3 text-center">
                       <p className="">
                         {type === "" ? "-" : `ยอด${type}ทั้งหมด`}{" "}
                       </p>
@@ -88,39 +88,31 @@ export default function ChartMainContent() {
                         {type === "" ? "0" : `${totalSum} เครื่อง`}{" "}
                       </p>
                     </div>
-                    <div className="col-4 text-center">
+                    <div className="col-3 text-center">
                       <p className="">กำไรทั้งหมด </p>
                       <p className="h3">
                         {totalProfit === "" ? "-" : `${totalProfit} บาท`}
                       </p>
                     </div>
-                    <div className="col-4 text-center">
+                    <div className="col-3 text-center">
                       <p className="">
                         กำไรที่อยากได้{" "}
                         <button
                           className="btn btn-warning mx-2 "
                           data-toggle="modal"
                           data-target="#want-money"
-                          style={{ fontSize: "1px" }}
+                          style={{ fontSize: "13px" }}
                         >
                           <i className="nav-icon fas fa-pen" />
                         </button>
                       </p>
                       <p className="h3">{Number(profit).toLocaleString()} บาท</p>
                     </div>
-                    <div className="col-4 text-center">
+                    <div className="col-3 text-center">
                       <p className="">
-                        รายรับจาก{" "}วันนี้{" "}
-                        <button
-                          className="btn btn-warning mx-2 "
-                          data-toggle="modal"
-                          data-target="#want-money"
-                          style={{ fontSize: "1px" }}
-                        >
-                          <i className="nav-icon fas fa-pen" />
-                        </button>
+                        {type === "" ? `-`:`รายรับจาก${type}${duration}นี้`}
                       </p>
-                      <p className="h3">{Number(profit).toLocaleString()} บาท</p>
+                      <p className="h3">{0 } บาท</p>
                     </div>
                   </div>
                 </div>
