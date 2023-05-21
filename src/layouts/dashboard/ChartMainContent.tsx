@@ -125,7 +125,7 @@ export default function ChartMainContent() {
                         {"ค่าซื้อเครื่องเข้า"}
                       </p>
                       <p className="h3">
-                        {"0 บาท"}
+                        {"0"}
                       </p>
                     </div>
                     <div className="col-2 text-center">
@@ -133,7 +133,7 @@ export default function ChartMainContent() {
                         {"เงินดาวน์"}
                       </p>
                       <p className="h3">
-                        {"0 บาท"}
+                        {"0"}
                       </p>
                     </div>
                     <div className="col-2 text-center">
@@ -141,7 +141,7 @@ export default function ChartMainContent() {
                         {"รายการผ่อน"}
                       </p>
                       <p className="h3">
-                        {"0 บาท"}
+                        {"0"}
                       </p>
                     </div>
                     <div className="col-2 text-center">
@@ -149,7 +149,7 @@ export default function ChartMainContent() {
                         {"อุปกรณ์"}
                       </p>
                       <p className="h3">
-                        {"0 บาท"}
+                        {"0"}
                       </p>
                     </div>
                     <div className="col-2 text-center">
@@ -157,7 +157,7 @@ export default function ChartMainContent() {
                         {"รายจ่าย"}
                       </p>
                       <p className="h3">
-                        {"0 บาท"}
+                        {"0"}
                       </p>
                     </div>
                     <div className="col-2 text-center">
@@ -165,7 +165,7 @@ export default function ChartMainContent() {
                         {"สุทธิ"}
                       </p>
                       <p className="h3">
-                        {"0 บาท"}
+                        {"0"}
                       </p>
                     </div>
                   </div>
