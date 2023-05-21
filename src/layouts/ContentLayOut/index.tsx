@@ -19,8 +19,6 @@ export default function ContentLayOut({
   btnHeader,
   btnHeaderFunds,
 }: contentLayOutProps) {
-  console.log(topicFunds);
-  
   return (
     <div className="content-wrapper">
       <HeaderPageCommon title={title} />
