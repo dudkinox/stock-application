@@ -117,6 +117,60 @@ export default function ChartMainContent() {
                   </div>
                 </div>
               </div>
+              <div className="card">
+                <div className="card-header pb-0">
+                  <div className="row col-12">
+                    <div className="col-2 text-center">
+                      <p className="">
+                        {"ค่าซื้อเครื่องเข้า"}
+                      </p>
+                      <p className="h3">
+                        {"0 บาท"}
+                      </p>
+                    </div>
+                    <div className="col-2 text-center">
+                      <p className="">
+                        {"เงินดาวน์"}
+                      </p>
+                      <p className="h3">
+                        {"0 บาท"}
+                      </p>
+                    </div>
+                    <div className="col-2 text-center">
+                      <p className="">
+                        {"รายการผ่อน"}
+                      </p>
+                      <p className="h3">
+                        {"0 บาท"}
+                      </p>
+                    </div>
+                    <div className="col-2 text-center">
+                      <p className="">
+                        {"อุปกรณ์"}
+                      </p>
+                      <p className="h3">
+                        {"0 บาท"}
+                      </p>
+                    </div>
+                    <div className="col-2 text-center">
+                      <p className="">
+                        {"รายจ่าย"}
+                      </p>
+                      <p className="h3">
+                        {"0 บาท"}
+                      </p>
+                    </div>
+                    <div className="col-2 text-center">
+                      <p className="">
+                        {"สุทธิ"}
+                      </p>
+                      <p className="h3">
+                        {"0 บาท"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </section>
           </div>
         </div>
