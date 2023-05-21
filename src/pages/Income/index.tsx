@@ -25,7 +25,6 @@ export default function IncomePage() {
   const [updateIdFund, setUpdateIdFund] = useState<string>("");
 
   let fundTotal = 0;
-
   let incomeTotal = 0;
   let outcomeTotal = 0;
   const {
@@ -80,7 +79,7 @@ export default function IncomePage() {
   };
 
   const openModalFundUpdate = (id: string) => () => {
-    ($("#want-money") as any).modal("show");
+    ($("#want-money-update") as any).modal("show");
 
     setIsUpdate(true);
 
@@ -465,16 +464,6 @@ export default function IncomePage() {
                     </div>
                   </div>
                   <div className="modal-footer">
-                    {isUpdate ? (
-                      <button
-                        type="button"
-                        className="btn primary-btn col-lg-2 col-sm-auto"
-                        data-dismiss="modal"
-                        onClick={updateFund(updateIdFund)}
-                      >
-                        อัพเดต
-                      </button>
-                    ) : (
                       <button
                         type="button"
                         className="btn primary-btn col-lg-2 col-sm-auto"
@@ -483,7 +472,42 @@ export default function IncomePage() {
                       >
                         บันทึก
                       </button>
-                    )}
+                    <button
+                      type="button"
+                      className="btn btn-danger col-lg-2 col-sm-auto"
+                      data-dismiss="modal"
+                    >
+                      ยกเลิก
+                    </button>
+                  </div>
+                </>
+              }
+            />
+            <ModalCommon
+              title={"แก้ไขทุน"}
+              id={"want-money-update"}
+              content={
+                <>
+                  <div className="modal-body">
+                    <div className="container-fluid">
+                      <TextInput
+                        label={"ทุน"}
+                        setValue={setFunds}
+                        type={"number"}
+                        icon={"fa fa-money-bill"}
+                        value={funds}
+                      />
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="btn primary-btn col-lg-2 col-sm-auto"
+                        data-dismiss="modal"
+                        onClick={updateFund(updateIdFund)}
+                      >
+                        อัพเดต
+                      </button>
                     <button
                       type="button"
                       className="btn btn-danger col-lg-2 col-sm-auto"
