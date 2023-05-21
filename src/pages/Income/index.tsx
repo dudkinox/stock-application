@@ -464,14 +464,14 @@ export default function IncomePage() {
                     </div>
                   </div>
                   <div className="modal-footer">
-                      <button
-                        type="button"
-                        className="btn primary-btn col-lg-2 col-sm-auto"
-                        data-dismiss="modal"
-                        onClick={insertFund}
-                      >
-                        บันทึก
-                      </button>
+                    <button
+                      type="button"
+                      className="btn primary-btn col-lg-2 col-sm-auto"
+                      data-dismiss="modal"
+                      onClick={insertFund}
+                    >
+                      บันทึก
+                    </button>
                     <button
                       type="button"
                       className="btn btn-danger col-lg-2 col-sm-auto"
@@ -500,14 +500,14 @@ export default function IncomePage() {
                     </div>
                   </div>
                   <div className="modal-footer">
-                      <button
-                        type="button"
-                        className="btn primary-btn col-lg-2 col-sm-auto"
-                        data-dismiss="modal"
-                        onClick={updateFund(updateIdFund)}
-                      >
-                        อัพเดต
-                      </button>
+                    <button
+                      type="button"
+                      className="btn primary-btn col-lg-2 col-sm-auto"
+                      data-dismiss="modal"
+                      onClick={updateFund(updateIdFund)}
+                    >
+                      อัพเดต
+                    </button>
                     <button
                       type="button"
                       className="btn btn-danger col-lg-2 col-sm-auto"

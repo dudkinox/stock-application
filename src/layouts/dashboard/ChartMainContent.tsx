@@ -108,6 +108,20 @@ export default function ChartMainContent() {
                       </p>
                       <p className="h3">{Number(profit).toLocaleString()} บาท</p>
                     </div>
+                    <div className="col-4 text-center">
+                      <p className="">
+                        รายรับจาก{" "}วันนี้{" "}
+                        <button
+                          className="btn btn-warning mx-2 "
+                          data-toggle="modal"
+                          data-target="#want-money"
+                          style={{ fontSize: "1px" }}
+                        >
+                          <i className="nav-icon fas fa-pen" />
+                        </button>
+                      </p>
+                      <p className="h3">{Number(profit).toLocaleString()} บาท</p>
+                    </div>
                   </div>
                 </div>
               </div>
