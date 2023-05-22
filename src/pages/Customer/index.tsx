@@ -342,10 +342,10 @@ export default function CustomerPage() {
                   <td>
                     {item.NAME} {item.LAST_NAME}
                   </td>
-                  <td>{item.TOTAL_PRICE}</td>
-                  <td>{item.INSTALLMENT_MONTH}</td>
-                  <td>{item.NUMBER_INSTALLMENT}</td>
-                  <td>{item.PAYMENT}</td>
+                  <td>{Number(item.TOTAL_PRICE).toLocaleString()}</td>
+                  <td>{Number(item.INSTALLMENT_MONTH).toLocaleString()}</td>
+                  <td>{Number(item.NUMBER_INSTALLMENT).toLocaleString()}</td>
+                  <td>{Number(item.PAYMENT).toLocaleString()}</td>
                   <td>{item.DATE_PAYMENT}</td>
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.PROCESS}</td>

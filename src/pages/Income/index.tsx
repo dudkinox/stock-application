@@ -537,7 +537,7 @@ export default function IncomePage() {
                     return (
                       <tr key={i} className="text-center">
                         <td>{ConvertDateToThai(new Date(item.DATE))}</td>
-                        <td>{item.MONEY}</td>
+                        <td>{Number(item.MONEY).toLocaleString()}</td>
                         <td>
                           {isEdit() ? (
                             <button
