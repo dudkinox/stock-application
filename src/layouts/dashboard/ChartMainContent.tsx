@@ -5,18 +5,23 @@ import { DashboardContext } from "../../contexts/DashboardContext";
 import ModalCommon from "../../common/Modal";
 import TextInput from "../../common/TextInput";
 import DashboardServices from "../../services/DashboardService";
+import { GetDashboardSumResponse } from "../../Models/Response/GetDashBoardSumResponse";
 
 export default function ChartMainContent() {
   const { branch, type, duration, totalSum, totalProfit, desiredProfit } =
     useContext(DashboardContext);
   const [profit, setProfit] = useState<string>("");
+  const [summary, setSummary] = useState<GetDashboardSumResponse>();
 
   useEffect(() => {
     InitGraph(branch, type, duration);
     DashboardServices.getProfit().then((res) => {
       setProfit(res.data);
     });
-  }, [setProfit]);
+    DashboardServices.getSummary().then((res) => {
+      setSummary(res.data);
+    });
+  }, [setProfit,setSummary]);
 
   return (
     <>
@@ -125,7 +130,7 @@ export default function ChartMainContent() {
                         {"ค่าซื้อเครื่องเข้า"}
                       </p>
                       <p className="h3">
-                        {"0"}
+                        {summary?.TUN}
                       </p>
                     </div>
                     <div className="col-2 text-center">
@@ -133,7 +138,7 @@ export default function ChartMainContent() {
                         {"เงินดาวน์"}
                       </p>
                       <p className="h3">
-                        {"0"}
+                        {summary?.DOWN}
                       </p>
                     </div>
                     <div className="col-2 text-center">
@@ -141,7 +146,7 @@ export default function ChartMainContent() {
                         {"รายการผ่อน"}
                       </p>
                       <p className="h3">
-                        {"0"}
+                        {summary?.INSTALLMENT}
                       </p>
                     </div>
                     <div className="col-2 text-center">
@@ -149,7 +154,7 @@ export default function ChartMainContent() {
                         {"อุปกรณ์"}
                       </p>
                       <p className="h3">
-                        {"0"}
+                        {summary?.EQUIPMENT_COUNT}
                       </p>
                     </div>
                     <div className="col-2 text-center">
@@ -157,7 +162,7 @@ export default function ChartMainContent() {
                         {"รายจ่าย"}
                       </p>
                       <p className="h3">
-                        {"0"}
+                        {summary?.OUTCOME}
                       </p>
                     </div>
                     <div className="col-2 text-center">
@@ -165,7 +170,7 @@ export default function ChartMainContent() {
                         {"สุทธิ"}
                       </p>
                       <p className="h3">
-                        {"0"}
+                        {summary?.TOTAL}
                       </p>
                     </div>
                   </div>

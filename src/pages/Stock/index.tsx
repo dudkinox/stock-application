@@ -468,6 +468,8 @@ export default function StockPage() {
                   <div className="container-fluid">
                     <div className="row justify-content-center col-12 mb-3">
                       {Object.keys(itemList).map((key, index) => {
+                        console.log(itemList[key]);
+                        
                         if (index > 1) {
                           return (
                             <>

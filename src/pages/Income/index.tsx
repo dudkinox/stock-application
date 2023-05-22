@@ -533,7 +533,7 @@ export default function IncomePage() {
                 </thead>
                 <tbody>
                   {fundList.map((item, i) => {
-                    fundTotal += Number(item.ID);
+                    fundTotal += Number(item.MONEY);
                     return (
                       <tr key={i} className="text-center">
                         <td>{ConvertDateToThai(new Date(item.DATE))}</td>
@@ -568,7 +568,7 @@ export default function IncomePage() {
                   {
                     <tr className="text-center">
                       <td colSpan={1}>รวม</td>
-                      <td>{outcomeTotal.toLocaleString()} บาท</td>
+                      <td>{fundTotal.toLocaleString()} บาท</td>
                       <td colSpan={3}></td>
                     </tr>
                   }
