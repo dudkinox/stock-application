@@ -34,6 +34,8 @@ export default function CustomerPage() {
     setNumberInstallment,
     payment,
     setPayment,
+    downpayment,
+    setDownPayment,
     datePayment,
     setDatePayment,
     customerStatus,
@@ -79,6 +81,7 @@ export default function CustomerPage() {
         setInstallmentMonth(res.data.INSTALLMENT_MONTH);
         setNumberInstallment(res.data.NUMBER_INSTALLMENT);
         setPayment(res.data.PAYMENT);
+        // setDownPayment();
         setDatePayment(res.data.DATE_PAYMENT);
         setCustomerStatus(res.data.CUSTOMER_STATUS);
         setProcess(res.data.PROCESS);
@@ -97,6 +100,7 @@ export default function CustomerPage() {
       installmentMonth,
       numberInstallment,
       payment,
+      downpayment,
       datePayment,
       customerStatus,
       process,
@@ -227,6 +231,15 @@ export default function CustomerPage() {
                       type={"number"}
                       placeholder={"ราคาเต็ม"}
                       value={totalPrice}
+                      min={0}
+                    />
+                    <TextInput
+                      label={"เงินดาว:"}
+                      icon={"fas fa-money-bill"}
+                      setValue={setDownPayment}
+                      type={"number"}
+                      placeholder={"เงินดาว"}
+                      value={downpayment}
                       min={0}
                     />
                     <TextInput

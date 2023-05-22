@@ -6,6 +6,7 @@ export interface CustomerRequest {
   installmentMonth: string;
   numberInstallment: string;
   payment: string;
+  downpayment: string;
   datePayment: string;
   customerStatus: string;
   process: string;

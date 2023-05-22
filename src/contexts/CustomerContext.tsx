@@ -32,6 +32,8 @@ interface CustomerContextProps {
   setNumberInstallment: (value: string) => void;
   payment: string;
   setPayment: (value: string) => void;
+  downpayment: string;
+  setDownPayment: (value: string) => void;
   datePayment: string;
   setDatePayment: (value: string) => void;
   customerStatus: string;
@@ -63,6 +65,8 @@ export const CustomerContext = createContext<CustomerContextProps>({
   setNumberInstallment: (value: string) => {},
   payment: "",
   setPayment: (value: string) => {},
+  downpayment: "",
+  setDownPayment: (value: string) => {},
   datePayment: "",
   setDatePayment: (value: string) => {},
   customerStatus: "",
@@ -92,6 +96,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   const [installmentMonth, setInstallmentMonth] = useState<string>("0");
   const [numberInstallment, setNumberInstallment] = useState<string>("0");
   const [payment, setPayment] = useState<string>("0");
+  const [downpayment, setDownPayment] = useState<string>("0");
   const [datePayment, setDatePayment] = useState<string>("0");
   const [customerStatus, setCustomerStatus] = useState<string>("");
   const [process, setProcess] = useState<string>("");
@@ -132,6 +137,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
     setInstallmentMonth("");
     setNumberInstallment("");
     setPayment("");
+    setDownPayment("");
     setDatePayment("");
     setProcess("");
     setIsShowModal(false);
@@ -147,6 +153,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         installmentMonth,
         numberInstallment,
         payment,
+        downpayment,
         datePayment,
         customerStatus,
         process,
@@ -231,6 +238,8 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setNumberInstallment,
       payment,
       setPayment,
+      downpayment,
+      setDownPayment,
       datePayment,
       setDatePayment,
       customerStatus,
@@ -261,6 +270,8 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setNumberInstallment,
       payment,
       setPayment,
+      downpayment,
+      setDownPayment,
       datePayment,
       setDatePayment,
       customerStatus,
