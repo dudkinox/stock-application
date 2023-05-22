@@ -1,13 +1,14 @@
 import Https from "../Https/Index";
-import { GetDashboardSumResponse } from "../Models/Response/GetDashBoardSumResponse";
+import { GetDashboardSumResponse } from "../Models/Response/GetDashboardSumResponse";
 
 const getDashboardService = () => {
   return Https.get<[]>(`/apis/dashboard/get/`);
 };
 
 const getTypeSelectedService = (major: string, type: string) => {
-  return Https.get<[]>(`/apis/dashboard/count-type/?major=${major}&type=${type}`);
-  
+  return Https.get<[]>(
+    `/apis/dashboard/count-type/?major=${major}&type=${type}`
+  );
 };
 
 const getProfitService = () => {
@@ -27,7 +28,7 @@ const DashboardServices = {
   getTypeSelected: getTypeSelectedService,
   getProfit: getProfitService,
   postWantMoney: postWantMoneyService,
-  getSummary:getSummaryService,
+  getSummary: getSummaryService,
 };
 
 export default DashboardServices;

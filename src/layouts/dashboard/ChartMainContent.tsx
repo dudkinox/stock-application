@@ -5,7 +5,7 @@ import { DashboardContext } from "../../contexts/DashboardContext";
 import ModalCommon from "../../common/Modal";
 import TextInput from "../../common/TextInput";
 import DashboardServices from "../../services/DashboardService";
-import { GetDashboardSumResponse } from "../../Models/Response/GetDashBoardSumResponse";
+import { GetDashboardSumResponse } from "../../Models/Response/GetDashboardSumResponse";
 
 export default function ChartMainContent() {
   const { branch, type, duration, totalSum, totalProfit, desiredProfit } =
@@ -21,7 +21,7 @@ export default function ChartMainContent() {
     DashboardServices.getSummary().then((res) => {
       setSummary(res.data);
     });
-  }, [setProfit,setSummary]);
+  }, [setProfit, setSummary]);
 
   return (
     <>
@@ -111,13 +111,15 @@ export default function ChartMainContent() {
                           <i className="nav-icon fas fa-pen" />
                         </button>
                       </p>
-                      <p className="h3">{Number(profit).toLocaleString()} บาท</p>
+                      <p className="h3">
+                        {Number(profit).toLocaleString()} บาท
+                      </p>
                     </div>
                     <div className="col-3 text-center">
                       <p className="">
-                        {type === "" ? `-`:`รายรับจาก${type}${duration}นี้`}
+                        {type === "" ? `-` : `รายรับจาก${type}${duration}นี้`}
                       </p>
-                      <p className="h3">{0 } บาท</p>
+                      <p className="h3">{0} บาท</p>
                     </div>
                   </div>
                 </div>
@@ -126,52 +128,28 @@ export default function ChartMainContent() {
                 <div className="card-header pb-0">
                   <div className="row col-12">
                     <div className="col-2 text-center">
-                      <p className="">
-                        {"ค่าซื้อเครื่องเข้า"}
-                      </p>
-                      <p className="h3">
-                        {summary?.TUN}
-                      </p>
+                      <p className="">{"ค่าซื้อเครื่องเข้า"}</p>
+                      <p className="h3">{summary?.TUN}</p>
                     </div>
                     <div className="col-2 text-center">
-                      <p className="">
-                        {"เงินดาวน์"}
-                      </p>
-                      <p className="h3">
-                        {summary?.DOWN}
-                      </p>
+                      <p className="">{"เงินดาวน์"}</p>
+                      <p className="h3">{summary?.DOWN}</p>
                     </div>
                     <div className="col-2 text-center">
-                      <p className="">
-                        {"รายการผ่อน"}
-                      </p>
-                      <p className="h3">
-                        {summary?.INSTALLMENT}
-                      </p>
+                      <p className="">{"รายการผ่อน"}</p>
+                      <p className="h3">{summary?.INSTALLMENT}</p>
                     </div>
                     <div className="col-2 text-center">
-                      <p className="">
-                        {"อุปกรณ์"}
-                      </p>
-                      <p className="h3">
-                        {summary?.EQUIPMENT_COUNT}
-                      </p>
+                      <p className="">{"อุปกรณ์"}</p>
+                      <p className="h3">{summary?.EQUIPMENT_COUNT}</p>
                     </div>
                     <div className="col-2 text-center">
-                      <p className="">
-                        {"รายจ่าย"}
-                      </p>
-                      <p className="h3">
-                        {summary?.OUTCOME}
-                      </p>
+                      <p className="">{"รายจ่าย"}</p>
+                      <p className="h3">{summary?.OUTCOME}</p>
                     </div>
                     <div className="col-2 text-center">
-                      <p className="">
-                        {"สุทธิ"}
-                      </p>
-                      <p className="h3">
-                        {summary?.TOTAL}
-                      </p>
+                      <p className="">{"สุทธิ"}</p>
+                      <p className="h3">{summary?.TOTAL}</p>
                     </div>
                   </div>
                 </div>
