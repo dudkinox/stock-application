@@ -1,10 +1,11 @@
-import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
 import { camelToSnakeObject } from "../common/CamelToSnake";
 import initTable, { destroyTable } from "../common/DataTable";
 import { AlertError, AlertSuccess, AlertWarning } from "../common/ToastrCommon";
 import { GetUserResponse } from "../Models/Response/GetUserResponse";
 import { UserRequest } from "../Models/Request/UserRequest";
 import UserServices from "../services/UserServices";
+import { AppContext } from ".";
 
 interface UserContextProps {
   user: GetUserResponse[];
@@ -49,6 +50,7 @@ interface ChildrenProps {
 }
 
 export function UserContextProvider({ children }: ChildrenProps) {
+  const { setIsLoading} = useContext(AppContext);
   const [user, setUser] = useState<GetUserResponse[]>([]);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -73,13 +75,16 @@ export function UserContextProvider({ children }: ChildrenProps) {
 
   const insertUser = useMemo(
     () => (data: any) => {
+      setIsLoading(true);
       UserServices.insertUser(data)
         .then((res) => {
           AlertSuccess(res.data.message);
           reGetUser();
+          setIsLoading(false);
         })
         .catch((err) => {
           AlertError(err.response.data.message);
+          setIsLoading(false);
         });
     },
     [reGetUser]
@@ -103,6 +108,7 @@ export function UserContextProvider({ children }: ChildrenProps) {
         canEdit,
         canDelete,
       };
+      setIsLoading(true);
       UserServices.getUser().then((res: any) => {
         const users = res.data;
         const isUsernameExists = users.find((user: any) => user.USERNAME === baseInsert.username) !== undefined;
@@ -123,8 +129,10 @@ export function UserContextProvider({ children }: ChildrenProps) {
           }
 
         }
+        setIsLoading(false);
       }).catch((err: any) => {
         console.log(err);
+        setIsLoading(false);
       })
 
     },
@@ -132,14 +140,17 @@ export function UserContextProvider({ children }: ChildrenProps) {
   );
 
   useEffect(() => {
+    setIsLoading(true);
     UserServices.getUser()
       .then((res) => {
         destroyTable();
         setUser(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   }, [setUser]);
 

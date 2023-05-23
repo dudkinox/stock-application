@@ -1,6 +1,5 @@
 import HeaderPageCommon from "../../common/HeaderPageCommon";
-import MainContent from "../../common/MainContent";
-import MainContentLayout from "../../layouts/dashboard";
+import LoadingCommon from "../../common/Loading";
 import ChartMainContent from "../../layouts/dashboard/ChartMainContent";
 import HeaderMainContent from "../../layouts/dashboard/HeaderMainContent";
 

@@ -47,3 +47,58 @@ a.nav-link.active {
 .vh-90 {
   height: 90vh !important;
 }
+
+.gif {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  z-index: 1000;
+}
+
+.loading {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  position: absolute;
+  overflow: overlay;
+  z-index: 101;
+  background: #303030;
+  opacity: 0.85;
+
+    
+  
+}
+
+@media screen and (max-width: 1440px) {
+  .gif {
+    left: 43.5%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .gif {
+    left: 41%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .gif {
+    left: 38%;
+  }
+}
+@media screen and (max-width: 425px) {
+  .gif {
+    left: 30%;
+  }
+}
+@media screen and (max-width: 375px) {
+  .gif {
+    left: 25%;
+  }
+}
+@media screen and (max-width: 320px) {
+  .gif {
+    left: 20%;
+  }
+}

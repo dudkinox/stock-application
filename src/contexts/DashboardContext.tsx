@@ -1,8 +1,9 @@
-import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
 import MajorResponse from "../Models/Response/GetMajorResponse";
 import MajorServices from "../services/MajorService";
 import { AlertError } from "../common/ToastrCommon";
 import DashboardServices from "../services/DashboardService";
+import { AppContext } from ".";
 
 interface DashboardContextProps {
   major: MajorResponse[];
@@ -48,6 +49,7 @@ interface ChildrenProps {
 
 export function DashboardProvider({ children }: ChildrenProps) {
   const [major, setMajor] = useState<MajorResponse[]>([]);
+  const { setIsLoading } = useContext(AppContext);
   const [typeStock, setTypeStock] = useState<[]>([]);
   const [branch, setBranch] = useState<string>("");
   const [type, setType] = useState<string>("");
@@ -57,6 +59,7 @@ export function DashboardProvider({ children }: ChildrenProps) {
   const [desiredProfit, setDesiredProfit] = useState<string>("");
 
   useEffect(() => {
+    setIsLoading(true);
     MajorServices.getMajors()
       .then((res) => {
         res.data.unshift({ ID: "0", NAME: "ทั้งหมด" });
@@ -64,13 +67,16 @@ export function DashboardProvider({ children }: ChildrenProps) {
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
     DashboardServices.getDashboards()
       .then((res) => {
         setTypeStock(res.data);
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   }, []);
 

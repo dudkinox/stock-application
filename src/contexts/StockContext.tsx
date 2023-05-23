@@ -181,7 +181,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [stock, setStock] = useState<GetStockResponse[]>([]);
   const [isShowModal, setIsShowModal] = useState(false);
   const [majorInsert, setMajorInsert] = useState<string>("");
-  const { majorUser } = useContext(AppContext);
+  const { majorUser , setIsLoading } = useContext(AppContext);
 
   const menuInsert = useMemo(
     () => (stockType: string) => {
@@ -217,12 +217,15 @@ export function StockContextProvider({ children }: ChildrenProps) {
 
   const insertStock = useMemo(
     () => (params: string) => {
+      setIsLoading(true);
       StockService.InsertStock(params)
         .then((res) => {
           AlertSuccess(res.data.message);
+          setIsLoading(false);
         })
         .catch((err) => {
           AlertError(err.response.data.message);
+          setIsLoading(false);
         });
     },
     []
@@ -395,15 +398,18 @@ console.log(majorInsert);
             insertStock(params);
             break;
         }
+        setIsLoading(true);
         StockService.GetStock(majorUser)
           .then((res) => {
             destroyTable();
             setStock(res.data);
             setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
             clearInputValue();
+            setIsLoading(false);
           })
           .catch((err) => {
             AlertError(err.response.data.message);
+            setIsLoading(false);
           });
       }
     },
@@ -437,14 +443,17 @@ console.log(majorInsert);
   );
 
   useEffect(() => {
+    setIsLoading(true);
     StockService.GetStock(majorUser)
       .then((res) => {
         destroyTable();
         setStock(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   }, []);
 

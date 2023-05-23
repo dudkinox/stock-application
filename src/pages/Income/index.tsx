@@ -15,7 +15,7 @@ import fundServices from "../../services/FundServices";
 import GetFundRequest from "../../Models/Request/GetFundRequest";
 
 export default function IncomePage() {
-  const { isEdit, isDelete } = useContext(AppContext);
+  const { isEdit, isDelete ,setIsLoading} = useContext(AppContext);
   const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
   const [fundList, setFundList] = useState<GetFundResponse[]>([]);
   // const [incomeFind, setIncomeFind] = useState<GetIncomeResponse[]>([]);
@@ -58,6 +58,7 @@ export default function IncomePage() {
     ($("#insert-modal") as any).modal("show");
 
     setIsUpdate(true);
+    setIsLoading(true);
 
     incomeServices
       .findIncome(id)
@@ -70,11 +71,13 @@ export default function IncomePage() {
         setRevenue(data.REVENUE);
         setExpense(data.EXPENSE);
         setNote(data.NOTE);
+        setIsLoading(false);
       })
       .catch((err: any) => {
         console.log(err);
 
         AlertError(err);
+        setIsLoading(false);
       });
   };
 
@@ -83,26 +86,31 @@ export default function IncomePage() {
 
     setIsUpdate(true);
 
+    setIsLoading(true);
     fundServices
       .findFund(id)
       .then((res: any) => {
         const data = res.data;
         setFunds(data.MONEY);
         setUpdateIdFund(data.ID);
+        setIsLoading(false);
       })
       .catch((err: any) => {
         console.log(err);
 
         AlertError(err);
+        setIsLoading(false);
       });
   };
 
   useEffect(() => {
+    setIsLoading(true);
     IncomeServices.getAll().then((res) => {
       setIncomeList(res.data);
     });
     fundServices.getAll().then((res) => {
       setFundList(res.data);
+      setIsLoading(false);
     });
   }, [setIncomeList, setFundList]);
 
@@ -110,6 +118,7 @@ export default function IncomePage() {
     const payload: GetFundRequest = {
       money: funds,
     };
+    setIsLoading(true);
 
     fundServices
       .InsertFundList(payload)
@@ -121,13 +130,16 @@ export default function IncomePage() {
           .then((res: any) => {
             setFundList(res.data);
             clearInputValue();
+            setIsLoading(false);
           })
           .catch((err: any) => {
             AlertError(err);
+            setIsLoading(false);
           });
       })
       .catch((err: any) => {
         AlertError(err);
+        setIsLoading(false);
       });
   };
 
@@ -135,6 +147,7 @@ export default function IncomePage() {
     const payload: GetFundRequest = {
       money: funds,
     };
+    setIsLoading(true);
     fundServices
       .updateFundList(id, payload)
       .then((res: any) => {
@@ -145,9 +158,11 @@ export default function IncomePage() {
           .getAll()
           .then((res: any) => {
             setFundList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
             AlertError(err);
+            setIsLoading(false);
           });
       })
       .catch((err: any) => {
@@ -156,14 +171,17 @@ export default function IncomePage() {
           .getAll()
           .then((res: any) => {
             setFundList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
             AlertError(err);
+            setIsLoading(false);
           });
       });
   };
 
   const deleteFund = (id: string) => () => {
+    setIsLoading(true);
     fundServices
       .DeleteFundList(id)
       .then((res: any) => {
@@ -171,9 +189,11 @@ export default function IncomePage() {
           .getAll()
           .then((res: any) => {
             setFundList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
             AlertError(err);
+            setIsLoading(false);
           });
       })
       .catch((err: any) => {
@@ -182,9 +202,11 @@ export default function IncomePage() {
           .getAll()
           .then((res: any) => {
             setFundList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
             AlertError(err);
+            setIsLoading(false);
           });
       });
   };
@@ -197,6 +219,7 @@ export default function IncomePage() {
       EXPENSE: expense,
       NOTE: note,
     };
+    setIsLoading(true);
 
     incomeServices
       .InsertIncomeList(payload)
@@ -208,9 +231,11 @@ export default function IncomePage() {
           .then((res: any) => {
             setIncomeList(res.data);
             clearInputValue();
+            setIsLoading(false);
           })
           .catch((err: any) => {
             AlertError(err);
+            setIsLoading(false);
           });
       })
       .catch((err: any) => {
@@ -226,6 +251,7 @@ export default function IncomePage() {
       EXPENSE: expense,
       NOTE: note,
     };
+    setIsLoading(true);
 
     incomeServices
       .updateIncomeList(id, payload)
@@ -235,9 +261,11 @@ export default function IncomePage() {
           .getAll()
           .then((res: any) => {
             setIncomeList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
             AlertError(err);
+            setIsLoading(false);
           });
       })
       .catch((err: any) => {
@@ -246,14 +274,17 @@ export default function IncomePage() {
           .getAll()
           .then((res: any) => {
             setIncomeList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
             AlertError(err);
+            setIsLoading(false);
           });
       });
   };
 
   const deleteHandler = (id: string) => () => {
+    setIsLoading(true);
     incomeServices
       .DeleteIncomeList(id)
       .then((res: any) => {
@@ -262,9 +293,11 @@ export default function IncomePage() {
           .getAll()
           .then((res: any) => {
             setIncomeList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
             AlertError(err);
+            setIsLoading(false);
           });
       })
       .catch((err: any) => {
@@ -273,9 +306,11 @@ export default function IncomePage() {
           .getAll()
           .then((res: any) => {
             setIncomeList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
             AlertError(err);
+            setIsLoading(false);
           });
       });
   };

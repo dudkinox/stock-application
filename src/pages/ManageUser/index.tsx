@@ -34,7 +34,7 @@ export default function ManageUser() {
     reGetUser,
     isShowModal,
   } = useContext(UserContext);
-  const { isLogin, isEdit, isDelete } = useContext(AppContext)
+  const { isLogin, isEdit, isDelete ,setIsLoading} = useContext(AppContext)
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
@@ -42,6 +42,7 @@ export default function ManageUser() {
   const openModalUpdate = (id: string, username: string) => () => {
     ($("#insert-modal") as any).modal("show");
     setIsUpdate(true);
+    setIsLoading(true);
     AccountServices.getFindUser(username)
       .then((res) => {
         setUpdateId(id);
@@ -49,9 +50,11 @@ export default function ManageUser() {
         setMajor(res.data.MAJOR);
         setCanEdit(res.data.CAN_EDIT)
         setCanDelete(res.data.CAN_DELETE)
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   };
 
@@ -78,6 +81,7 @@ export default function ManageUser() {
   };
 
   const deleteUser = (id: string) => () => {
+    setIsLoading(true);
     UserServices.deleteUser(id)
       .then((res) => {
         AlertSuccess(res.data.message);
@@ -86,28 +90,35 @@ export default function ManageUser() {
             setTimeout(() => destroyTable());
             setUser(res.data);
             setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+            setIsLoading(false);
           })
           .catch((err) => {
             AlertError(err.response.data.message);
+            setIsLoading(false);
           });
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   };
 
   useEffect(() => {
+    setIsLoading(true);
     UserServices.getUser()
       .then((res) => {
         setUser(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   }, [setUser]);
 
   useEffect(() => {
+    setIsLoading(true);
     MajorServices.getMajors()
       .then((res) => {
         const data = res.data;
@@ -116,9 +127,11 @@ export default function ManageUser() {
           NAME: "admin",
         });
         setFetchMajor(data);
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   }, [setFetchMajor]);
 

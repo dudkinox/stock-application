@@ -48,7 +48,7 @@ export default function CustomerPage() {
     majorInsert: majorAdminChange,
     setMajorInsert,
   } = useContext(CustomerContext);
-  const { majorUser, isEdit, isDelete } = useContext(AppContext);
+  const { majorUser, isEdit, isDelete ,setIsLoading} = useContext(AppContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
@@ -72,6 +72,7 @@ export default function CustomerPage() {
   const openModalUpdate = (id: string) => () => {
     ($("#insert-modal") as any).modal("show");
     setIsUpdate(true);
+    setIsLoading(true);
     CustomerServices.getCustomerById(id, majorUser)
       .then((res) => {
         setUpdateId(id);
@@ -85,9 +86,11 @@ export default function CustomerPage() {
         setDatePayment(res.data.DATE_PAYMENT);
         setCustomerStatus(res.data.CUSTOMER_STATUS);
         setProcess(res.data.PROCESS);
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   };
 
@@ -106,7 +109,7 @@ export default function CustomerPage() {
       process,
       major: majorAdminChange,
     };
-
+    setIsLoading(true);
     CustomerServices.updateCustomer(
       id,
       majorAdminChange,
@@ -115,13 +118,16 @@ export default function CustomerPage() {
       .then((res) => {
         AlertSuccess(res.data.message);
         reGetCustomer();
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   };
 
   const deleteCustomer = (id: string) => () => {
+    setIsLoading(true);
     CustomerServices.deleteCustomer(id)
       .then((res) => {
         AlertSuccess(res.data.message);
@@ -130,24 +136,30 @@ export default function CustomerPage() {
             setTimeout(() => destroyTable());
             setCustomer(res.data);
             setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+            setIsLoading(false);
           })
           .catch((err) => {
             AlertError(err.response.data.message);
+            setIsLoading(false);
           });
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   };
 
   useEffect(() => {
+    setIsLoading(true);
     CustomerServices.getCustomer(majorUser)
       .then((res) => {
         setCustomer(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   }, [setCustomer]);
 
@@ -156,12 +168,15 @@ export default function CustomerPage() {
   }, [stateLocation.state]);
 
   useEffect(() => {
+    setIsLoading(true);
     MajorServices.getMajors()
       .then((res) => {
         setFetchMajor(res.data);
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   }, [setFetchMajor]);
 

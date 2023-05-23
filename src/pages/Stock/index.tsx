@@ -93,7 +93,7 @@ export default function StockPage() {
     majorInsert,
     setMajorInsert,
   } = useContext(StockContext);
-  const { setPathUrl, majorUser, isEdit, isDelete } = useContext(AppContext);
+  const { setPathUrl, majorUser, isEdit, isDelete ,setIsLoading} = useContext(AppContext);
   const [itemList, setItemList] = useState<any>({});
   const [typeStock, setTypeStock] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
@@ -127,6 +127,7 @@ export default function StockPage() {
   };
 
   const deleteStock = (idCard: string, major: string) => () => {
+    setIsLoading(true);
     StockService.DeleteStockById(idCard, major)
       .then((res) => {
         AlertSuccess(res.data.message);
@@ -135,13 +136,16 @@ export default function StockPage() {
             setTimeout(() => destroyTable());
             setStock(res.data);
             setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+            setIsLoading(false);
           })
           .catch((err) => {
             AlertError(err.response.data.message);
+            setIsLoading(false);
           });
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   };
 
@@ -150,7 +154,7 @@ export default function StockPage() {
       ($("#insert-modal") as any).modal("show");
       setIsUpdate(true);
       menuInsert(stockType);
-
+      setIsLoading(true);
       StockService.GetFindStockById(id, majorStock, stockType)
         .then((res) => {
 
@@ -180,9 +184,11 @@ export default function StockPage() {
           setDatePayment(res.data.DATE_PAYMENT);
           setInstallmentNo(res.data.INSTALLMENT_NO);
           setPriceTotal(res.data.PRICE_TOTAL);
+          setIsLoading(false);
         })
         .catch((err) => {
           AlertError(err.response.data.message);
+          setIsLoading(false);
         });
     };
 
@@ -233,13 +239,15 @@ export default function StockPage() {
         };
         break;
     }
-
+    setIsLoading(true);
     StockService.UpdateStock(updateId, stockType, camelToSnakeObject(payload))
       .then((res) => {
         AlertSuccess(res.data.message);
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   };
 
@@ -247,30 +255,37 @@ export default function StockPage() {
     (idCard: string, stockType: string, major: string) => () => {
       ($("#detail-modal") as any).modal("show");
       setTypeStock(stockType);
-
+      setIsLoading(true);
       StockService.GetFindStockById(idCard, major, stockType)
         .then((res) => {
           setItemList(res.data);
+          setIsLoading(false);
         })
         .catch((err) => {
           AlertError(err.response.data.message);
+          setIsLoading(false);
         });
     };
 
   useEffect(() => {
+    setIsLoading(true);
     StockService.GetStock(majorUser)
       .then((res) => {
         setStock(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 1000);
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   }, [setStock]);
 
   useEffect(() => {
+    setIsLoading(true);
     CustomerServices.getCustomer(majorUser).then((res) => {
       setSelectCustomer(res.data);
+      setIsLoading(false);
     });
   }, []);
 
@@ -303,12 +318,15 @@ export default function StockPage() {
   ]);
 
   useEffect(() => {
+    setIsLoading(true);
     MajorServices.getMajors()
       .then((res) => {
         setFetchMajor(res.data);
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   }, [setFetchMajor]);
 

@@ -15,9 +15,10 @@ import DataStudio from "./pages/DataStudio";
 import IncomePage from "./pages/Income";
 import { IncomeContextProvider } from "./contexts/IncomeContext";
 import { DashboardProvider } from "./contexts/DashboardContext";
+import LoadingCommon from "./common/Loading";
 
 export default function App() {
-  const { isLogin } = useContext(AppContext);
+  const { isLogin, isLoading } = useContext(AppContext);
 
   useEffect(() => {
     if (isLogin === "" && window.location.pathname !== "/login") {
@@ -27,8 +28,12 @@ export default function App() {
 
   return (
     <>
-      <NavBarCommon />
-      <SidebarCommon />
+      {isLoading && <LoadingCommon />}
+      {!isLoading && (
+        <>
+          <NavBarCommon /> <SidebarCommon />
+        </>
+      )}
       <BrowserRouter>
         <Routes>
           <Route

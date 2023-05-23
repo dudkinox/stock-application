@@ -4,9 +4,11 @@ import SelectChoice from "../../common/Select";
 import { DashboardContext } from "../../contexts/DashboardContext";
 import InitGraph from "../../common/Graph";
 import DashboardServices from "../../services/DashboardService";
+import { AppContext } from "../../contexts";
 
 export default function HeaderMainContent() {
   const [paymentTotal, setPaymentTotal] = useState<string>("");
+  const {setIsLoading} = useContext(AppContext);
 
   const {
     setBranch,
@@ -24,8 +26,10 @@ export default function HeaderMainContent() {
 
   useEffect(() => {
     const major = sessionStorage.getItem("major") ?? "";
+    setIsLoading(true);
     PaymentService.PaymentSummary(major).then((res) => {
       setPaymentTotal(res.data);
+      setIsLoading(false);
     });
   }, [setPaymentTotal]);
 
@@ -38,8 +42,10 @@ export default function HeaderMainContent() {
               label={"สาขา"}
               setValue={(e) => {
                 setBranch(e);
+                setIsLoading(true);
                 DashboardServices.getTypeSelected(e,type).then((res) => {
                   setTotalSum(res.data.toString());
+                  setIsLoading(false);
                   
                 });
               }}
@@ -54,8 +60,10 @@ export default function HeaderMainContent() {
               label={"ประเภท"}
               setValue={(e) => {
                 setType(e);
+                setIsLoading(true);
                 DashboardServices.getTypeSelected(branch,e).then((res) => {
                   setTotalSum(res.data.toString());
+                  setIsLoading(false);
                   
                 });
               }}

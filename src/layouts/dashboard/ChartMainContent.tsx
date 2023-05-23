@@ -6,6 +6,7 @@ import ModalCommon from "../../common/Modal";
 import TextInput from "../../common/TextInput";
 import DashboardServices from "../../services/DashboardService";
 import { GetDashboardSumResponse } from "../../Models/Response/GetDashboardSumResponse";
+import { AppContext } from "../../contexts";
 
 export default function ChartMainContent() {
   const { branch, type, duration, totalSum, totalProfit, desiredProfit } =
@@ -13,9 +14,11 @@ export default function ChartMainContent() {
   const [profit, setProfit] = useState<string>("");
   const [summary, setSummary] = useState<GetDashboardSumResponse>();
   const [percentage, setPercentage] = useState<number>(0);
+  const {setIsLoading} = useContext(AppContext);
 
   useEffect(() => {
     InitGraph(branch, type, duration);
+    setIsLoading(true);
     DashboardServices.getProfit().then((res) => {
       setProfit(res.data);
     });
@@ -24,6 +27,7 @@ export default function ChartMainContent() {
     });
     DashboardServices.getPercentageService().then((res) => {
       setPercentage(res.data);
+      setIsLoading(false);
     });
   }, [setProfit, setSummary, setPercentage]);
 

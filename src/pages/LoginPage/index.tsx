@@ -1,14 +1,17 @@
 import ContentLayOut from "../../layouts/ContentLayOut";
 import Logo from "../../assets/logo.png";
 import AccountServices from "../../services/AccountService";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
+import { AppContext } from "../../contexts";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const {setIsLoading} = useContext(AppContext);
 
   const login = () => {
+    setIsLoading(true);
     AccountServices.getLogin({ username: username, password: password })
       .then((res) => {
         if (res.data.code === "000") {
@@ -21,12 +24,15 @@ export default function LoginPage() {
               window.location.href = "/";
             }, 100);
           });
+          setIsLoading(false);
         } else {
           AlertError(res.data.message);
+          setIsLoading(false);
         }
       })
       .catch((err) => {
         AlertError(err);
+        setIsLoading(false);
       });
   };
 

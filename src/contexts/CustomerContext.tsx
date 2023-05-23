@@ -58,7 +58,7 @@ export const CustomerContext = createContext<CustomerContextProps>({
   lastName: "",
   setLastName: (value: string) => {},
   totalPrice: 0,
-  setTotalPrice: (value:number | string) => {},
+  setTotalPrice: (value: number | string) => {},
   installmentMonth: "",
   setInstallmentMonth: (value: string) => {},
   numberInstallment: "",
@@ -86,7 +86,7 @@ interface ChildrenProps {
 }
 
 export function CustomerContextProvider({ children }: ChildrenProps) {
-  const { majorUser } = useContext(AppContext);
+  const { majorUser, setIsLoading } = useContext(AppContext);
   const stockContext = useContext(StockContext);
   const [customer, setCustomer] = useState<GetCustomerResponse[]>([]);
   const [idCard, setIdCard] = useState<string>(stockContext.idCard);
@@ -105,10 +105,12 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
 
   const reGetCustomer = useMemo(
     () => () => {
+      setIsLoading(true);
       CustomerServices.getCustomer(majorUser).then((res) => {
         destroyTable();
         setCustomer(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+        setIsLoading(false);
       });
     },
     []
@@ -116,13 +118,16 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
 
   const insertCustomer = useMemo(
     () => (data: any) => {
+      setIsLoading(true);
       CustomerServices.insertCustomer(data)
         .then((res) => {
           AlertSuccess(res.data.message);
           reGetCustomer();
+          setIsLoading(false);
         })
         .catch((err) => {
           AlertError(err.response.data.message);
+          setIsLoading(false);
         });
     },
     [reGetCustomer]
@@ -201,22 +206,25 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   );
 
   useEffect(() => {
+    setIsLoading(true);
     CustomerServices.getCustomer(majorUser)
       .then((res) => {
         destroyTable();
         setCustomer(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-
         CustomerServices.notificationLine()
           .then((res) => {
             console.log("true");
+            setIsLoading(false);
           })
           .catch((err) => {
             console.log(err);
+            setIsLoading(false);
           });
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   }, []);
 

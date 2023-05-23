@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TextInput from "../../common/TextInput";
 import MajorServices from "../../services/MajorService";
 import { MajorRequest } from "../../Models/Request/MajorRequest";
@@ -10,6 +10,7 @@ import {
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import initTable, { destroyTable } from "../../common/DataTable";
 import TableCommon from "../../common/Table";
+import { AppContext } from "../../contexts";
 
 interface MajorManageProps {
   fetchMajor: MajorResponse[];
@@ -24,6 +25,7 @@ export default function MajorManage({
   const [addMajor, setAddMajor] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [idUpdate, setIdUpdate] = useState<number>(0);
+  const { setIsLoading} = useContext(AppContext);
 
   const addMajorHandler = () => {
     setRowTableMajor(true);
@@ -35,14 +37,17 @@ export default function MajorManage({
     };
 
     if (payload.name !== "") {
+      setIsLoading(true);
       MajorServices.addMajor(payload)
         .then((res) => {
           AlertSuccess(res.data.message);
           setAddMajor("");
           fetchMajorHandler();
+          setIsLoading(false);
         })
         .catch((err) => {
           AlertError(err.response.data.message);
+          setIsLoading(false);
         });
     } else {
       AlertWarning("กรุณากรอกชื่อสาขา");
@@ -50,13 +55,16 @@ export default function MajorManage({
   };
 
   const deleteMajorHandler = (id: number) => {
+    setIsLoading(true);
     MajorServices.deleteMajor(id)
       .then((res) => {
         AlertSuccess(res.data.message);
         fetchMajorHandler();
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   };
 
@@ -79,20 +87,23 @@ export default function MajorManage({
       AlertWarning("กรุณากรอกชื่อสาขา");
       return;
     }
-
+    setIsLoading(true);
     MajorServices.updateMajor(payload, idUpdate)
       .then((res) => {
         AlertSuccess(res.data.message);
         setAddMajor("");
         setIsUpdate(false);
         fetchMajorHandler();
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   };
 
   const fetchMajorHandler = () => {
+    setIsLoading(true);
     MajorServices.getMajors()
       .then((res) => {
         destroyTable("#major-table");
@@ -101,9 +112,11 @@ export default function MajorManage({
           () => initTable(res.data.length.toString() ?? "0", "#major-table"),
           100
         );
+        setIsLoading(false);
       })
       .catch((err) => {
         AlertError(err.response.data.message);
+        setIsLoading(false);
       });
   };
 
