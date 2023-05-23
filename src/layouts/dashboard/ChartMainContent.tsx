@@ -12,6 +12,7 @@ export default function ChartMainContent() {
     useContext(DashboardContext);
   const [profit, setProfit] = useState<string>("");
   const [summary, setSummary] = useState<GetDashboardSumResponse>();
+  const [percentage, setPercentage] = useState<number>(0);
 
   useEffect(() => {
     InitGraph(branch, type, duration);
@@ -21,7 +22,10 @@ export default function ChartMainContent() {
     DashboardServices.getSummary().then((res) => {
       setSummary(res.data);
     });
-  }, [setProfit, setSummary]);
+    DashboardServices.getPercentageService().then((res) => {
+      setPercentage(res.data);
+    });
+  }, [setProfit, setSummary, setPercentage]);
 
   return (
     <>
@@ -95,9 +99,7 @@ export default function ChartMainContent() {
                     </div>
                     <div className="col-3 text-center">
                       <p className="">กำไรทั้งหมด </p>
-                      <p className="h3">
-                        {totalProfit === "" ? "-" : `${totalProfit} บาท`}
-                      </p>
+                      <p className="h3">{percentage.toLocaleString()} บาท </p>
                     </div>
                     <div className="col-3 text-center">
                       <p className="">

@@ -23,12 +23,17 @@ const getSummaryService = () => {
   return Https.get<GetDashboardSumResponse>(`/apis/dashboard/summary/`);
 };
 
+const getPercentageService = () => {
+  return Https.get<number>(`/apis/dashboard/percentage/`);
+};
+
 const DashboardServices = {
   getDashboards: getDashboardService,
   getTypeSelected: getTypeSelectedService,
   getProfit: getProfitService,
   postWantMoney: postWantMoneyService,
   getSummary: getSummaryService,
+  getPercentageService: getPercentageService
 };
 
 export default DashboardServices;
