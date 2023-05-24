@@ -46,6 +46,7 @@ interface CustomerContextProps {
   setIsShowModal: (value: boolean) => void;
   majorInsert: string;
   setMajorInsert: (value: string) => void;
+  clearInputValue: () => void;
 }
 
 export const CustomerContext = createContext<CustomerContextProps>({
@@ -79,6 +80,7 @@ export const CustomerContext = createContext<CustomerContextProps>({
   setIsShowModal: (value: boolean) => {},
   majorInsert: "",
   setMajorInsert: (value: string) => {},
+  clearInputValue: () => {},
 });
 
 interface ChildrenProps {
@@ -260,6 +262,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setIsShowModal,
       majorInsert,
       setMajorInsert,
+      clearInputValue,
     }),
     [
       customer,
@@ -292,6 +295,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setIsShowModal,
       majorInsert,
       setMajorInsert,
+      clearInputValue,
     ]
   );
 

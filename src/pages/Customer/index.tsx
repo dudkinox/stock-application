@@ -47,8 +47,9 @@ export default function CustomerPage() {
     isShowModal,
     majorInsert: majorAdminChange,
     setMajorInsert,
+    clearInputValue,
   } = useContext(CustomerContext);
-  const { majorUser, isEdit, isDelete ,setIsLoading} = useContext(AppContext);
+  const { majorUser, isEdit, isDelete, setIsLoading } = useContext(AppContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
@@ -186,6 +187,10 @@ export default function CustomerPage() {
       topic={"ข้อมูลลูกค้า"}
       btnHeader={
         <button
+          onClick={() => {
+            setIsUpdate(false);
+            clearInputValue();
+          }}
           className="btn primary-btn text-white float-right"
           data-toggle="modal"
           data-target="#insert-modal"
@@ -197,7 +202,7 @@ export default function CustomerPage() {
       page={
         <>
           <ModalCommon
-            title={"เพิ่มข้อมูล"}
+            title={isUpdate ? "แก้ไขข้อมูล":"เพิ่มข้อมูล"}
             id={"insert-modal"}
             content={
               <>
