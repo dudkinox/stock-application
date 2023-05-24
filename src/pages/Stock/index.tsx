@@ -85,15 +85,20 @@ export default function StockPage() {
     setPriceTotal,
     menuInsert,
     isMenuInsert,
+    setIsMenuInsert,
     byeMenuInsert,
+    setByeMenuInsert,
     kayMenuInsert,
+    setKayMenuInsert,
     installmentMenuInsert,
     handlerSubmit,
     isShowModal,
     majorInsert,
     setMajorInsert,
+    clearInputValue,
   } = useContext(StockContext);
-  const { setPathUrl, majorUser, isEdit, isDelete ,setIsLoading} = useContext(AppContext);
+  const { setPathUrl, majorUser, isEdit, isDelete, setIsLoading } =
+    useContext(AppContext);
   const [itemList, setItemList] = useState<any>({});
   const [typeStock, setTypeStock] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
@@ -115,11 +120,7 @@ export default function StockPage() {
     "รายละเอียด",
   ];
 
-  const editableStockTableHeaders = [
-    ...stockTableHeaders,
-    "แก้ไข",
-    "ลบ",
-  ];
+  const editableStockTableHeaders = [...stockTableHeaders, "แก้ไข", "ลบ"];
 
   const SelectStockType = (value: string) => {
     setStockType(value);
@@ -151,13 +152,12 @@ export default function StockPage() {
 
   const openModalUpdate =
     (id: string, stockType: string, majorStock: string) => () => {
-      ($("#insert-modal") as any).modal("show");
+      ($("#insert-modal-update") as any).modal("show");
       setIsUpdate(true);
       menuInsert(stockType);
       setIsLoading(true);
       StockService.GetFindStockById(id, majorStock, stockType)
         .then((res) => {
-
           setUpdateId(id);
           setUpdateStockType(res.data.STOCK_TYPE);
           setDate(res.data.DATE);
@@ -336,6 +336,16 @@ export default function StockPage() {
       topic={"สต๊อกสินค้า"}
       btnHeader={
         <button
+          onClick={() => {
+            setDate("");
+            setIdCard("");
+            setIsUpdate(false);
+            setStockType("");
+            setIsMenuInsert(false);
+            setByeMenuInsert(false);
+            setKayMenuInsert(false);
+            clearInputValue();
+          }}
           className="btn primary-btn text-white float-right"
           data-toggle="modal"
           data-target="#insert-modal"
@@ -398,7 +408,7 @@ export default function StockPage() {
                           <TextInput
                             label={"ชื่อลูกค้า:"}
                             icon={"far fa-id-card"}
-                            setValue={() => { }}
+                            setValue={() => {}}
                             type={"text"}
                             readonly={true}
                             bgColor={"bg-secondary"}
@@ -446,25 +456,14 @@ export default function StockPage() {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  {isUpdate ? (
-                    <button
-                      type="button"
-                      className="btn primary-btn col-lg-2 col-sm-auto"
-                      data-dismiss="modal"
-                      onClick={updateStockHandler(updateStockType)}
-                    >
-                      อัพเดต
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      className="btn primary-btn col-lg-2 col-sm-auto"
-                      data-dismiss={isShowModal && `modal`}
-                      onClick={handlerSubmit}
-                    >
-                      บันทึก
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    className="btn primary-btn col-lg-2 col-sm-auto"
+                    data-dismiss={isShowModal && `modal`}
+                    onClick={handlerSubmit}
+                  >
+                    บันทึก
+                  </button>
 
                   <button
                     type="button"
@@ -487,7 +486,7 @@ export default function StockPage() {
                     <div className="row justify-content-center col-12 mb-3">
                       {Object.keys(itemList).map((key, index) => {
                         console.log(itemList[key]);
-                        
+
                         if (index > 1) {
                           return (
                             <>
@@ -496,10 +495,10 @@ export default function StockPage() {
                                   {typeStock === "อุปกรณ์"
                                     ? MenuEquipmentArray[index - 2]
                                     : typeStock === "ซื้อ"
-                                      ? MenuByeArray[index - 2]
-                                      : typeStock === "ขาย"
-                                        ? MenuKayArray[index - 2]
-                                        : MenuInstallmentPaymentArray[index - 2]}
+                                    ? MenuByeArray[index - 2]
+                                    : typeStock === "ขาย"
+                                    ? MenuKayArray[index - 2]
+                                    : MenuInstallmentPaymentArray[index - 2]}
                                 </label>
                               </div>
                               <div className="col-4 my-3">
@@ -532,6 +531,126 @@ export default function StockPage() {
               </>
             }
           />
+          <ModalCommon
+            title={"แก้ไขข้อมูล"}
+            id={"insert-modal-update"}
+            content={
+              <>
+                <div className="modal-body">
+                  <div className="container-fluid">
+                    <TextInput
+                      label={"วันที่:"}
+                      icon={"far fa-calendar-alt"}
+                      setValue={setDate}
+                      type={"date"}
+                      value={date}
+                    />
+                    <DataList
+                      label={"ค้นหา / เลือก เลขบัตรประชาชน:"}
+                      setValue={setIdCard}
+                      icon={"far fa-id-card"}
+                      data={selectCustomer.map((item) => item.ID_CARD)}
+                      placeholder={"เลขบัตรประชาชน"}
+                      minLength={13}
+                      maxLength={13}
+                      value={idCard}
+                      isReadOnly={isUpdate}
+                    />
+                    {isUpdate ? (
+                      <>
+                        <TextInput
+                          label={"ประวัติลูกค้า:"}
+                          icon={"fas fa-history"}
+                          setValue={setCustomerStatus}
+                          type={"text"}
+                          placeholder={"ประวัติลูกค้า"}
+                          value={customerStatus}
+                          readonly={true}
+                        />
+                        <TextInput
+                          label={"ประเภท:"}
+                          icon={"far fa-file"}
+                          setValue={setStockType}
+                          type={"text"}
+                          placeholder={"ประเภท"}
+                          value={stockType}
+                          readonly={true}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        {customerFind && (
+                          <TextInput
+                            label={"ชื่อลูกค้า:"}
+                            icon={"far fa-id-card"}
+                            setValue={() => {}}
+                            type={"text"}
+                            readonly={true}
+                            bgColor={"bg-secondary"}
+                            value={`${customerFind.NAME} ${customerFind.LAST_NAME}`}
+                          />
+                        )}
+                        <SelectChoice
+                          label={"ประวัติลูกค้า"}
+                          setValue={setCustomerStatus}
+                          icon={"fas fa-history"}
+                          topic={"ประวัติลูกค้า"}
+                          options={["ลูกค้าดี", "ลูกค้าโกง", "ลูกค้าจ่ายช้า"]}
+                          placeholder={"ประวัติลูกค้า"}
+                          value={
+                            customerFind?.CUSTOMER_STATUS ?? customerStatus
+                          }
+                        />
+                        <SelectChoice
+                          label={"ประเภท"}
+                          setValue={SelectStockType}
+                          icon={"far fa-file"}
+                          topic={"ประเภท"}
+                          options={["ซื้อ", "ขาย", "ผ่อน", "อุปกรณ์"]}
+                          placeholder={"ประเภทลูกค้า"}
+                          value={stockType}
+                        />
+                        {isEdit() && (
+                          <SelectChoice
+                            topic="เลือกสาขา"
+                            setValue={setMajorInsert}
+                            icon="far fa-calendar-alt"
+                            label={"สาขา:"}
+                            value={majorInsert}
+                            options={fetchMajor.map((item) => item.NAME)}
+                          />
+                        )}
+                      </>
+                    )}
+                    {isMenuInsert && <IsMenuInsert />}
+                    {byeMenuInsert && <ByeMenuInsert />}
+                    {kayMenuInsert && <KayMenuInsert />}
+                    {installmentMenuInsert && (
+                      <InstallmentMenuInsert selectCustomer={selectCustomer} />
+                    )}
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn primary-btn col-lg-2 col-sm-auto"
+                    data-dismiss="modal"
+                    onClick={updateStockHandler(updateStockType)}
+                  >
+                    อัพเดต
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn btn-danger col-lg-2 col-sm-auto"
+                    data-dismiss="modal"
+                  >
+                    ยกเลิก
+                  </button>
+                </div>
+              </>
+            }
+          />
           <div className="card-body">
             <TableCommon
               columns={isEdit() ? editableStockTableHeaders : stockTableHeaders}
@@ -556,7 +675,7 @@ export default function StockPage() {
                     </div>
                   </td>
                   <td>
-                    {isEdit() ?
+                    {isEdit() ? (
                       <button
                         className="btn btn-warning mx-2"
                         onClick={openModalUpdate(
@@ -567,19 +686,21 @@ export default function StockPage() {
                       >
                         <i className="nav-icon fas fa-pen" />
                       </button>
-                      : "ไม่มีสิทธิ"
-                    }
+                    ) : (
+                      "ไม่มีสิทธิ"
+                    )}
                   </td>
                   <td>
-                    {isDelete() ?
+                    {isDelete() ? (
                       <button
                         className="btn btn-danger"
                         onClick={deleteStock(item.ID_CARD, item.MAJOR)}
                       >
                         <i className="nav-icon fas fa-trash" />
                       </button>
-                      : "ไม่มีสิทธิ"
-                    }
+                    ) : (
+                      "ไม่มีสิทธิ"
+                    )}
                   </td>
                 </tr>
               ))}

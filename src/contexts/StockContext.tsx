@@ -23,8 +23,11 @@ interface StockContextProps {
   date: string;
   setDate: (value: string) => void;
   isMenuInsert: boolean;
+  setIsMenuInsert: (value: boolean) => void;
   byeMenuInsert: boolean;
+  setByeMenuInsert: (value: boolean) => void;
   kayMenuInsert: boolean;
+  setKayMenuInsert: (value: boolean) => void;
   installmentMenuInsert: boolean;
   handlerSubmit: () => void;
   idCard: string;
@@ -80,14 +83,18 @@ interface StockContextProps {
   setIsShowModal: (value: boolean) => void;
   majorInsert: string;
   setMajorInsert: (value: string) => void;
+  clearInputValue: () => void;
 }
 
 export const StockContext = createContext<StockContextProps>({
   date: "",
   setDate: (value: string) => {},
   isMenuInsert: false,
+  setIsMenuInsert: (value: boolean) => {},
   byeMenuInsert: false,
+  setByeMenuInsert: (value: boolean) => {},
   kayMenuInsert: false,
+  setKayMenuInsert: (value: boolean) => {},
   installmentMenuInsert: false,
   handlerSubmit: () => {},
   idCard: "",
@@ -143,6 +150,7 @@ export const StockContext = createContext<StockContextProps>({
   setIsShowModal: (value: boolean) => {},
   majorInsert: "",
   setMajorInsert: (value: string) => {},
+  clearInputValue: () => {},
 });
 
 interface ChildrenProps {
@@ -462,8 +470,11 @@ console.log(majorInsert);
       date,
       setDate,
       isMenuInsert,
+      setIsMenuInsert,
       byeMenuInsert,
+      setByeMenuInsert,
       kayMenuInsert,
+      setKayMenuInsert,
       installmentMenuInsert,
       handlerSubmit,
       idCard,
@@ -519,12 +530,16 @@ console.log(majorInsert);
       setIsShowModal,
       majorInsert,
       setMajorInsert,
+      clearInputValue,
     }),
     [
       date,
       isMenuInsert,
+      setIsMenuInsert,
       byeMenuInsert,
+      setByeMenuInsert,
       kayMenuInsert,
+      setKayMenuInsert,
       installmentMenuInsert,
       handlerSubmit,
       idCard,
@@ -556,6 +571,8 @@ console.log(majorInsert);
       setIsShowModal,
       majorInsert,
       setMajorInsert,
+      clearInputValue,
+
     ]
   );
 
