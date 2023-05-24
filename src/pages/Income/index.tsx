@@ -15,7 +15,7 @@ import fundServices from "../../services/FundServices";
 import GetFundRequest from "../../Models/Request/GetFundRequest";
 
 export default function IncomePage() {
-  const { isEdit, isDelete ,setIsLoading} = useContext(AppContext);
+  const { isEdit, isDelete, setIsLoading } = useContext(AppContext);
   const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
   const [fundList, setFundList] = useState<GetFundResponse[]>([]);
   // const [incomeFind, setIncomeFind] = useState<GetIncomeResponse[]>([]);
@@ -322,6 +322,10 @@ export default function IncomePage() {
         topic={"รายรับ-รายจ่าย"}
         btnHeader={
           <button
+            onClick={() => {
+              setIsUpdate(false);
+              clearInputValue();
+            }}
             className="btn primary-btn text-white float-right"
             data-toggle="modal"
             data-target="#insert-modal"
@@ -333,7 +337,7 @@ export default function IncomePage() {
         page={
           <>
             <ModalCommon
-              title={"เพิ่มข้อมูล"}
+              title={isUpdate ? "แก้ไขข้อมูล":"เพิ่มข้อมูล"}
               id={"insert-modal"}
               content={
                 <>
