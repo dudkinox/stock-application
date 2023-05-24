@@ -20,3 +20,5 @@ yarn-error.log*
 
 /.metals
 dist
+tanApplication.dmg
+test.dmg
