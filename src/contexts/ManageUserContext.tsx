@@ -24,6 +24,7 @@ interface UserContextProps {
   reGetUser: () => void;
   isShowModal: boolean;
   setIsShowModal: (value: boolean) => void;
+  clearInputValue: () => void;
 }
 
 export const UserContext = createContext<UserContextProps>({
@@ -43,6 +44,7 @@ export const UserContext = createContext<UserContextProps>({
   reGetUser: () => { },
   isShowModal: false,
   setIsShowModal: (value: boolean) => { },
+  clearInputValue: () => { },
 });
 
 interface ChildrenProps {
@@ -172,6 +174,7 @@ export function UserContextProvider({ children }: ChildrenProps) {
       reGetUser,
       isShowModal,
       setIsShowModal,
+      clearInputValue,
     }),
     [
       user,
@@ -190,6 +193,7 @@ export function UserContextProvider({ children }: ChildrenProps) {
       reGetUser,
       isShowModal,
       setIsShowModal,
+      clearInputValue,
     ]
   );
 

@@ -33,8 +33,9 @@ export default function ManageUser() {
     handlerSubmit,
     reGetUser,
     isShowModal,
+    clearInputValue,
   } = useContext(UserContext);
-  const { isLogin, isEdit, isDelete ,setIsLoading} = useContext(AppContext)
+  const { isLogin, isEdit, isDelete, setIsLoading } = useContext(AppContext);
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
@@ -48,8 +49,8 @@ export default function ManageUser() {
         setUpdateId(id);
         setUsername(res.data.USERNAME);
         setMajor(res.data.MAJOR);
-        setCanEdit(res.data.CAN_EDIT)
-        setCanDelete(res.data.CAN_DELETE)
+        setCanEdit(res.data.CAN_EDIT);
+        setCanDelete(res.data.CAN_DELETE);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -68,11 +69,20 @@ export default function ManageUser() {
     };
 
     try {
-      const updateUserRes = await UserServices.updateUser(id, camelToSnakeObject(payload));
+      const updateUserRes = await UserServices.updateUser(
+        id,
+        camelToSnakeObject(payload)
+      );
       const findUserRes = await AccountServices.getFindUser(isLogin);
       sessionStorage.setItem("major", findUserRes.data.MAJOR);
-      sessionStorage.setItem("can_edit", findUserRes.data.CAN_EDIT ? "TRUE" : "FALSE");
-      sessionStorage.setItem("can_delete", findUserRes.data.CAN_DELETE ? "TRUE" : "FALSE");
+      sessionStorage.setItem(
+        "can_edit",
+        findUserRes.data.CAN_EDIT ? "TRUE" : "FALSE"
+      );
+      sessionStorage.setItem(
+        "can_delete",
+        findUserRes.data.CAN_DELETE ? "TRUE" : "FALSE"
+      );
       reGetUser();
       AlertSuccess(updateUserRes.data.message);
     } catch (error: any) {
@@ -141,6 +151,10 @@ export default function ManageUser() {
       topic={"จัดการผู้ใช้"}
       btnHeader={
         <button
+          onClick={() => {
+            setIsUpdate(false);
+            clearInputValue();
+          }}
           className="btn primary-btn text-white float-right"
           data-toggle="modal"
           data-target="#insert-modal"
@@ -151,7 +165,7 @@ export default function ManageUser() {
       page={
         <>
           <ModalCommon
-            title={"เพิ่มข้อมูล"}
+            title={isUpdate ? "แก้ไขข้อมูล":"เพิ่มข้อมูล"}
             id={"insert-modal"}
             content={
               <>
@@ -203,7 +217,10 @@ export default function ManageUser() {
                         onChange={(e: any) => setCanDelete(e.target.checked)}
                         checked={canDelete}
                       />
-                      <label htmlFor="canDelete" className="custom-control-label">
+                      <label
+                        htmlFor="canDelete"
+                        className="custom-control-label"
+                      >
                         สามาถลบข้อมูลได้
                       </label>
                     </div>
@@ -275,26 +292,29 @@ export default function ManageUser() {
                   <td>{item.MAJOR}</td>
                   <td>{item.CAN_EDIT ? "มี" : "ไม่มี"}</td>
                   <td>{item.CAN_DELETE ? "มี" : "ไม่มี"}</td>
-                  <td>{isEdit() ?
-                    <button
-                      className="btn btn-warning mx-2"
-                      onClick={openModalUpdate(item.ID, item.USERNAME)}
-                    >
-                      <i className="nav-icon fas fa-pen" />
-                    </button>
-                    : "ไม่มีสิทธิ"
-                  }
+                  <td>
+                    {isEdit() ? (
+                      <button
+                        className="btn btn-warning mx-2"
+                        onClick={openModalUpdate(item.ID, item.USERNAME)}
+                      >
+                        <i className="nav-icon fas fa-pen" />
+                      </button>
+                    ) : (
+                      "ไม่มีสิทธิ"
+                    )}
                   </td>
                   <td>
-                    {isDelete() && isLogin !== item.USERNAME ?
+                    {isDelete() && isLogin !== item.USERNAME ? (
                       <button
                         className="btn btn-danger"
                         onClick={deleteUser(item.ID)}
                       >
                         <i className="nav-icon fas fa-trash" />
                       </button>
-                      : "ไม่มีสิทธิ"
-                    }
+                    ) : (
+                      "ไม่มีสิทธิ"
+                    )}
                   </td>
                 </tr>
               ))}
