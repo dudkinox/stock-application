@@ -220,7 +220,7 @@ export default function CustomerPage() {
                     />
                     {isEdit() && (
                       <SelectChoice
-                        topic="เลือกสาขา"
+                        topic={isUpdate ? majorUser : "เลือกสาขา"}
                         setValue={setMajorInsert}
                         icon="far fa-calendar-alt"
                         label={"สาขา:"}
