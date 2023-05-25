@@ -9,8 +9,8 @@ const insertCustomerService = (data: any) => {
   return Https.post(`apis/customers/insert/`, data);
 };
 
-const getCustomerByIdService = (id: string, major: string) => {
-  return Https.get(`apis/customers/find/?id=${id}?major=${major}`);
+const getCustomerByIdService = (id: string) => {
+  return Https.get(`apis/customers/find/?id=${id}`);
 };
 
 const updateCustomerService = (id: string, major: string, payload: any) => {

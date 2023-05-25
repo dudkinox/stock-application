@@ -189,7 +189,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [stock, setStock] = useState<GetStockResponse[]>([]);
   const [isShowModal, setIsShowModal] = useState(false);
   const [majorInsert, setMajorInsert] = useState<string>("");
-  const { majorUser , setIsLoading } = useContext(AppContext);
+  const { majorUser, setIsLoading } = useContext(AppContext);
 
   const menuInsert = useMemo(
     () => (stockType: string) => {
@@ -311,23 +311,35 @@ export function StockContextProvider({ children }: ChildrenProps) {
               sum: Number(sum),
             };
 
-            params =
-              baseParams +
-              "&cases=" +
-              equipment.cases +
-              "&firm=" +
-              equipment.firm +
-              "&len=" +
-              equipment.len +
-              "&big_charge=" +
-              equipment.bigCharge +
-              "&charge=" +
-              equipment.charge +
-              "&repair=" +
-              equipment.repair +
-              "&sum=" +
-              equipment.sum;
-            insertStock(params);
+            if (
+              equipment.cases === "" ||
+              equipment.firm === "" ||
+              equipment.len === "" ||
+              equipment.bigCharge === "" ||
+              equipment.charge === "" ||
+              equipment.repair === "" ||
+              equipment.sum === ""
+            ) {
+              AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
+            } else {
+              params =
+                baseParams +
+                "&cases=" +
+                equipment.cases +
+                "&firm=" +
+                equipment.firm +
+                "&len=" +
+                equipment.len +
+                "&big_charge=" +
+                equipment.bigCharge +
+                "&charge=" +
+                equipment.charge +
+                "&repair=" +
+                equipment.repair +
+                "&sum=" +
+                equipment.sum;
+              insertStock(params);
+            }
             break;
           case "ซื้อ":
             const bye: StockByeRequest = {
@@ -339,20 +351,30 @@ export function StockContextProvider({ children }: ChildrenProps) {
               battery: battery,
             };
 
-            params =
-              baseParams +
-              "&version=" +
-              bye.version +
-              "&price=" +
-              bye.price +
-              "&imei=" +
-              bye.imei +
-              "&source=" +
-              bye.source +
-              "&battery=" +
-              bye.battery;
+            if (
+              bye.version === "" ||
+              bye.price === "" ||
+              bye.imei === "" ||
+              bye.source === "" ||
+              bye.battery === ""
+            ) {
+              AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
+            } else {
+              params =
+                baseParams +
+                "&version=" +
+                bye.version +
+                "&price=" +
+                bye.price +
+                "&imei=" +
+                bye.imei +
+                "&source=" +
+                bye.source +
+                "&battery=" +
+                bye.battery;
 
-            insertStock(params);
+              insertStock(params);
+            }
             break;
           case "ขาย":
             const kay: StockKayRequest = {
@@ -367,26 +389,39 @@ export function StockContextProvider({ children }: ChildrenProps) {
               datePayment: datePayment,
             };
 
-            params =
-              baseParams +
-              "&customer=" +
-              kay.customer +
-              "&tel=" +
-              kay.tel +
-              "&version=" +
-              kay.version +
-              "&imei=" +
-              kay.imei +
-              "&star_money=" +
-              kay.starMoney +
-              "&month=" +
-              kay.month +
-              "&installment=" +
-              kay.installment +
-              "&date_payment=" +
-              kay.datePayment;
+            if (
+              kay.customer === "" ||
+              kay.tel === "" ||
+              kay.version === "" ||
+              kay.imei === "" ||
+              kay.starMoney === "" ||
+              kay.month === "" ||
+              kay.installment === "" ||
+              kay.datePayment === ""
+            ) {
+              AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
+            } else {
+              params =
+                baseParams +
+                "&customer=" +
+                kay.customer +
+                "&tel=" +
+                kay.tel +
+                "&version=" +
+                kay.version +
+                "&imei=" +
+                kay.imei +
+                "&star_money=" +
+                kay.starMoney +
+                "&month=" +
+                kay.month +
+                "&installment=" +
+                kay.installment +
+                "&date_payment=" +
+                kay.datePayment;
 
-            insertStock(params);
+              insertStock(params);
+            }
             break;
           default:
             const installmentPayment: StockInstallmentPaymentRequest = {
@@ -395,14 +430,21 @@ export function StockContextProvider({ children }: ChildrenProps) {
               priceTotal: Number(priceTotal),
             };
 
-            params =
-              baseParams +
-              "&installment_no=" +
-              installmentPayment.installmentNo +
-              "&price_total=" +
-              installmentPayment.priceTotal;
+            if (
+              installmentPayment.installmentNo === "" ||
+              installmentPayment.priceTotal === ""
+            ) {
+              AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
+            } else {
+              params =
+                baseParams +
+                "&installment_no=" +
+                installmentPayment.installmentNo +
+                "&price_total=" +
+                installmentPayment.priceTotal;
 
-            insertStock(params);
+              insertStock(params);
+            }
             break;
         }
         setIsLoading(true);
@@ -571,7 +613,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
       majorInsert,
       setMajorInsert,
       clearInputValue,
-
     ]
   );
 

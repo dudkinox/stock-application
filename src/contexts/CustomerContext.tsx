@@ -185,6 +185,14 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         baseInsert.process === ""
       ) {
         AlertWarning("กรุณาเลือกเลือกสถานะ");
+      } else if (
+        baseInsert.totalPrice === "" ||
+        baseInsert.payment === "" ||
+        baseInsert.numberInstallment === "" ||
+        baseInsert.installmentMonth === "" ||
+        baseInsert.downpayment === ""
+      ) {
+        AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
       } else {
         setIsShowModal(true);
         insertCustomer(camelToSnakeObject(baseInsert));
@@ -199,6 +207,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       installmentMonth,
       numberInstallment,
       payment,
+      downpayment,
       datePayment,
       customerStatus,
       process,

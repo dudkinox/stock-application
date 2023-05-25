@@ -52,6 +52,7 @@ export default function CustomerPage() {
   const { majorUser, isEdit, isDelete, setIsLoading } = useContext(AppContext);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
+  const [majorGet, setMajorGet] = useState<string>("");
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const stateLocation = useLocation();
 
@@ -74,9 +75,10 @@ export default function CustomerPage() {
     ($("#insert-modal") as any).modal("show");
     setIsUpdate(true);
     setIsLoading(true);
-    CustomerServices.getCustomerById(id, majorUser)
-      .then((res) => {
+    CustomerServices.getCustomerById(id)
+      .then((res: any) => {
         setUpdateId(id);
+        setMajorGet(res.data.MAJOR);
         setIdCard(res.data.ID_CARD);
         setName(res.data.NAME);
         setLastName(res.data.LAST_NAME);
@@ -89,7 +91,7 @@ export default function CustomerPage() {
         setProcess(res.data.PROCESS);
         setIsLoading(false);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         AlertError(err.response.data.message);
         setIsLoading(false);
       });
@@ -202,7 +204,7 @@ export default function CustomerPage() {
       page={
         <>
           <ModalCommon
-            title={isUpdate ? "แก้ไขข้อมูล":"เพิ่มข้อมูล"}
+            title={isUpdate ? "แก้ไขข้อมูล" : "เพิ่มข้อมูล"}
             id={"insert-modal"}
             content={
               <>
@@ -220,7 +222,7 @@ export default function CustomerPage() {
                     />
                     {isEdit() && (
                       <SelectChoice
-                        topic={isUpdate ? majorUser : "เลือกสาขา"}
+                        topic={isUpdate ? majorGet : "เลือกสาขา"}
                         setValue={setMajorInsert}
                         icon="far fa-calendar-alt"
                         label={"สาขา:"}
@@ -254,7 +256,7 @@ export default function CustomerPage() {
                       min={0}
                     />
                     <TextInput
-                      label={"เงินดาว:"}
+                      label={"เงินดาวน์:"}
                       icon={"fas fa-money-bill"}
                       setValue={setDownPayment}
                       type={"number"}
