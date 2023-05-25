@@ -1,6 +1,6 @@
 export default function initTable(max: string, id?: string) {
   ($(id ?? "#stock-table") as any).DataTable({
-    responsive: true,
+    responsive: false,
     autoWidth: true,
     paging: true,
     lengthChange: true,

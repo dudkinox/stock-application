@@ -8,7 +8,7 @@ export default function TableCommon({ columns, row, id }: TableCommonProps) {
   return (
     <table
       id={id ?? "stock-table"}
-      className="table table-bordered table-hover dtr-inline collapsed w-100"
+      className="table table-responsive table-bordered table-hover dtr-inline collapsed w-100"
     >
       <thead>
         <tr className="text-center">
