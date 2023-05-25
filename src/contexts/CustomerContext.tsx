@@ -216,7 +216,6 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
         CustomerServices.notificationLine()
           .then((res) => {
-            console.log("true");
             setIsLoading(false);
           })
           .catch((err) => {
