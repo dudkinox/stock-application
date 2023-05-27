@@ -9,7 +9,7 @@ export default function TableCommon({ columns, row, id }: TableCommonProps) {
     <div className="tablecommon-responsive" style={{ overflowX: "auto" }}>
       <table
         id={id ?? "stock-table"}
-        className="table-test table-bordered table-hover dtr-inline collapsed w-100"
+        className="table table-bordered table-hover dtr-inline collapsed w-100"
       >
         <thead>
           <tr className="text-center">
