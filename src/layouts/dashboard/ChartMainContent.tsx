@@ -135,27 +135,27 @@ export default function ChartMainContent() {
                   <div className="row col-12">
                     <div className="col-2 text-center">
                       <p className="">{"ค่าซื้อเครื่องเข้า"}</p>
-                      <p className="h3">{summary?.TUN}</p>
+                      <p className="h3">{summary?.TUN.toLocaleString()}</p>
                     </div>
                     <div className="col-2 text-center">
                       <p className="">{"เงินดาวน์"}</p>
-                      <p className="h3">{summary?.DOWN}</p>
+                      <p className="h3">{summary?.DOWN.toLocaleString()}</p>
                     </div>
                     <div className="col-2 text-center">
                       <p className="">{"รายการผ่อน"}</p>
-                      <p className="h3">{summary?.INSTALLMENT}</p>
+                      <p className="h3">{summary?.INSTALLMENT.toLocaleString()}</p>
                     </div>
                     <div className="col-2 text-center">
                       <p className="">{"อุปกรณ์"}</p>
-                      <p className="h3">{summary?.EQUIPMENT_COUNT}</p>
+                      <p className="h3">{summary?.EQUIPMENT_COUNT.toLocaleString()}</p>
                     </div>
                     <div className="col-2 text-center">
                       <p className="">{"รายจ่าย"}</p>
-                      <p className="h3">{summary?.OUTCOME}</p>
+                      <p className="h3">{summary?.OUTCOME.toLocaleString()}</p>
                     </div>
                     <div className="col-2 text-center">
                       <p className="">{"สุทธิ"}</p>
-                      <p className="h3">{summary?.TOTAL}</p>
+                      <p className="h3">{summary?.TOTAL.toLocaleString()}</p>
                     </div>
                   </div>
                 </div>
