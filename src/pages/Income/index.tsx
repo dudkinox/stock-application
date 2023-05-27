@@ -414,7 +414,7 @@ export default function IncomePage() {
             <div className="card-body">
               <table
                 id="stock-table"
-                className="table table-responsive table-bordered table-hover dtr-inline collapsed w-100"
+                className="table table-bordered table-hover dtr-inline collapsed w-100"
               >
                 <thead>
                   <tr className="text-center">
@@ -561,7 +561,7 @@ export default function IncomePage() {
             <div className="card-body">
               <table
                 id="stock-table"
-                className="table table-responsive table-bordered table-hover dtr-inline collapsed w-100"
+                className="table table-bordered table-hover dtr-inline collapsed w-100"
               >
                 <thead>
                   <tr className="text-center">
