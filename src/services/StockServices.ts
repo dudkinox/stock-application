@@ -24,9 +24,14 @@ const GetFindByIdStockService = (
   );
 };
 
-const UpdateStockService = (id: string, stockType: string, payload: any) => {
+const UpdateStockService = (
+  id: string,
+  stockType: string,
+  payload: any,
+  major: string
+) => {
   return Https.post<any>(
-    `/apis/stocks/update/?id=${id}&stock_type=${stockType}`,
+    `/apis/stocks/update/?id=${id}&stock_type=${stockType}&major=${major}`,
     payload
   );
 };

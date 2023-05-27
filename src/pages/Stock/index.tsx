@@ -103,6 +103,7 @@ export default function StockPage() {
   const [typeStock, setTypeStock] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
+  const [majorForUpdate, setMajorForUpdate] = useState<string>("");
   const [customerFind, setCustomerFind] = useState<GetCustomerResponse>();
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
@@ -185,6 +186,7 @@ export default function StockPage() {
           setInstallmentNo(res.data.INSTALLMENT_NO);
           setPriceTotal(res.data.PRICE_TOTAL);
           setIsLoading(false);
+          setMajorForUpdate(majorStock);
         })
         .catch((err) => {
           AlertError(err.response.data.message);
@@ -192,7 +194,7 @@ export default function StockPage() {
         });
     };
 
-  const updateStockHandler = (stockType: string) => () => {
+  const updateStockHandler = (stockType: string, major: string) => () => {
     var payload = {};
 
     switch (stockType) {
@@ -240,7 +242,12 @@ export default function StockPage() {
         break;
     }
     setIsLoading(true);
-    StockService.UpdateStock(updateId, stockType, camelToSnakeObject(payload))
+    StockService.UpdateStock(
+      updateId,
+      stockType,
+      camelToSnakeObject(payload),
+      major
+    )
       .then((res) => {
         AlertSuccess(res.data.message);
         setIsLoading(false);
@@ -485,7 +492,6 @@ export default function StockPage() {
                   <div className="container-fluid">
                     <div className="row justify-content-center col-12 mb-3">
                       {Object.keys(itemList).map((key, index) => {
-
                         if (index > 1) {
                           return (
                             <>
@@ -634,7 +640,10 @@ export default function StockPage() {
                     type="button"
                     className="btn primary-btn col-lg-2 col-sm-auto"
                     data-dismiss="modal"
-                    onClick={updateStockHandler(updateStockType)}
+                    onClick={updateStockHandler(
+                      updateStockType,
+                      majorForUpdate
+                    )}
                   >
                     อัพเดต
                   </button>

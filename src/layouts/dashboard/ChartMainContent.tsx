@@ -14,7 +14,7 @@ export default function ChartMainContent() {
   const [profit, setProfit] = useState<string>("");
   const [summary, setSummary] = useState<GetDashboardSumResponse>();
   const [percentage, setPercentage] = useState<number>(0);
-  const {setIsLoading} = useContext(AppContext);
+  const { setIsLoading } = useContext(AppContext);
 
   useEffect(() => {
     InitGraph(branch, type, duration);
@@ -22,14 +22,14 @@ export default function ChartMainContent() {
     DashboardServices.getProfit().then((res) => {
       setProfit(res.data);
     });
-    DashboardServices.getSummary().then((res) => {
+    DashboardServices.getSummary(branch).then((res) => {
       setSummary(res.data);
     });
     DashboardServices.getPercentageService().then((res) => {
       setPercentage(res.data);
       setIsLoading(false);
     });
-  }, [setProfit, setSummary, setPercentage]);
+  }, [setProfit, setSummary, setPercentage, branch]);
 
   return (
     <>
@@ -143,11 +143,15 @@ export default function ChartMainContent() {
                     </div>
                     <div className="col-2 text-center">
                       <p className="">{"รายการผ่อน"}</p>
-                      <p className="h3">{summary?.INSTALLMENT.toLocaleString()}</p>
+                      <p className="h3">
+                        {summary?.INSTALLMENT.toLocaleString()}
+                      </p>
                     </div>
                     <div className="col-2 text-center">
                       <p className="">{"อุปกรณ์"}</p>
-                      <p className="h3">{summary?.EQUIPMENT_COUNT.toLocaleString()}</p>
+                      <p className="h3">
+                        {summary?.EQUIPMENT_COUNT.toLocaleString()}
+                      </p>
                     </div>
                     <div className="col-2 text-center">
                       <p className="">{"รายจ่าย"}</p>

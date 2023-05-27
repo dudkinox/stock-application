@@ -19,8 +19,10 @@ const postWantMoneyService = (data: any) => {
   return Https.post(`/apis/dashboard/profit/`, data);
 };
 
-const getSummaryService = () => {
-  return Https.get<GetDashboardSumResponse>(`/apis/dashboard/summary/`);
+const getSummaryService = (major: string) => {
+  return Https.get<GetDashboardSumResponse>(
+    `/apis/dashboard/summary/?major=${major}`
+  );
 };
 
 const getPercentageService = () => {
@@ -33,7 +35,7 @@ const DashboardServices = {
   getProfit: getProfitService,
   postWantMoney: postWantMoneyService,
   getSummary: getSummaryService,
-  getPercentageService: getPercentageService
+  getPercentageService: getPercentageService,
 };
 
 export default DashboardServices;
