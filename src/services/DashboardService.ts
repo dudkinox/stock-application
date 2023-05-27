@@ -21,7 +21,7 @@ const postWantMoneyService = (data: any) => {
 
 const getSummaryService = (major: string) => {
   return Https.get<GetDashboardSumResponse>(
-    `/apis/dashboard/summary/?major=${major}`
+    `/apis/dashboard/summary/?major=${major === "ทั้งหมด" ? "" : major}`
   );
 };
 
