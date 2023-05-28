@@ -30,6 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../contexts";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import MajorServices from "../../services/MajorService";
+import convertDateToThai from "../../common/DateFormat";
 
 export default function StockPage() {
   const {
@@ -114,7 +115,7 @@ export default function StockPage() {
   const navigate = useNavigate();
 
   const stockTableHeaders = [
-    "รหัสเอกสาร",
+    "วันที่",
     "เลขบัตรประชาชน",
     "ประวัติลูกค้า",
     "ประเภท",
@@ -664,7 +665,7 @@ export default function StockPage() {
               columns={isEdit() ? editableStockTableHeaders : stockTableHeaders}
               row={stock.map((item, i) => (
                 <tr key={i} className="text-center">
-                  <td>{item.ID}</td>
+                  <td>{convertDateToThai(new Date(item.DATE))}</td>
                   <td>{item.ID_CARD}</td>
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.STOCK_TYPE}</td>
