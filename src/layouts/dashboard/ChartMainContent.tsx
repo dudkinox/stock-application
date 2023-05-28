@@ -126,7 +126,11 @@ export default function ChartMainContent() {
                         {type === ""
                           ? `-`
                           : `ราย${
-                              type !== "อุปกรณ์" || "ซื้อ" ? "จ่าย" : "รับ"
+                              type === "อุปกรณ์"
+                                ? "จ่าย"
+                                : type === "ซื้อ"
+                                ? "จ่าย"
+                                : "รับ"
                             }จาก${type}${duration}นี้`}
                       </p>
                       <p className="h3">
