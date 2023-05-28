@@ -48,7 +48,7 @@ export default function HeaderMainContent() {
                   DashboardServices.getSumDate(e, type, duration).then(
                     (res) => {
                       setTotalProfit(res.data.toString());
-                      setDesiredProfit(res.data.toString());
+                      setDesiredProfit(res.data);
                       setIsLoading(false);
                     }
                   );
@@ -71,7 +71,7 @@ export default function HeaderMainContent() {
                   DashboardServices.getSumDate(branch, e, duration).then(
                     (res) => {
                       setTotalProfit(res.data.toString());
-                      setDesiredProfit(res.data.toString());
+                      setDesiredProfit(res.data);
                       setIsLoading(false);
                     }
                   );
