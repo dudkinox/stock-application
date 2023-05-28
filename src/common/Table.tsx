@@ -6,7 +6,13 @@ interface TableCommonProps {
 
 export default function TableCommon({ columns, row, id }: TableCommonProps) {
   return (
-    <div className="tablecommon-responsive" style={{ overflowX: "auto" }}>
+    <div
+      className="tablecommon-responsive"
+      style={{
+        overflowX: "auto",
+        scrollbarGutter: "stable",
+      }}
+    >
       <table
         id={id ?? "stock-table"}
         className="table table-bordered table-hover dtr-inline collapsed w-100"
