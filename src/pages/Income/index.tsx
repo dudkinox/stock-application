@@ -337,7 +337,7 @@ export default function IncomePage() {
         page={
           <>
             <ModalCommon
-              title={isUpdate ? "แก้ไขข้อมูล":"เพิ่มข้อมูล"}
+              title={isUpdate ? "แก้ไขข้อมูล" : "เพิ่มข้อมูล"}
               id={"insert-modal"}
               content={
                 <>
@@ -412,65 +412,73 @@ export default function IncomePage() {
               }
             />
             <div className="card-body">
-              <table
-                id="stock-table"
-                className="table table-bordered table-hover dtr-inline collapsed w-100"
+              <div
+                className="tablecommon-responsive"
+                style={{
+                  overflowX: "auto",
+                  scrollbarGutter: "stable",
+                }}
               >
-                <thead>
-                  <tr className="text-center">
-                    {incomeTableHeaders.map((item, i) => (
-                      <th key={i}>{item}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {incomeList.map((item, i) => {
-                    incomeTotal += Number(item.EXPENSE);
-                    outcomeTotal += Number(item.REVENUE);
-                    return (
-                      <tr key={i} className="text-center">
-                        <td>{ConvertDateToThai(new Date(item.DATE))}</td>
-                        <td>{item.LIST_NAME}</td>
-                        <td>{Number(item.REVENUE).toLocaleString()}</td>
-                        <td>{Number(item.EXPENSE).toLocaleString()}</td>
-                        <td>{item.NOTE}</td>
-                        <td>
-                          {isEdit() ? (
-                            <button
-                              className="btn btn-warning mx-2"
-                              onClick={openModalIncomeUpdate(item.ID)}
-                            >
-                              <i className="nav-icon fas fa-pen" />
-                            </button>
-                          ) : (
-                            "ไม่มีสิทธิ"
-                          )}
-                        </td>
-                        <td>
-                          {isDelete() ? (
-                            <button
-                              className="btn btn-danger"
-                              onClick={deleteHandler(item.ID)}
-                            >
-                              <i className="nav-icon fas fa-trash" />
-                            </button>
-                          ) : (
-                            "ไม่มีสิทธิ"
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                  {
+                <table
+                  id="stock-table"
+                  className="table table-bordered table-hover dtr-inline collapsed w-100"
+                >
+                  <thead>
                     <tr className="text-center">
-                      <td colSpan={2}>รวม</td>
-                      <td>{outcomeTotal.toLocaleString()} บาท</td>
-                      <td>{incomeTotal.toLocaleString()} บาท</td>
-                      <td colSpan={3}></td>
+                      {incomeTableHeaders.map((item, i) => (
+                        <th key={i}>{item}</th>
+                      ))}
                     </tr>
-                  }
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {incomeList.map((item, i) => {
+                      incomeTotal += Number(item.EXPENSE);
+                      outcomeTotal += Number(item.REVENUE);
+                      return (
+                        <tr key={i} className="text-center">
+                          <td>{ConvertDateToThai(new Date(item.DATE))}</td>
+                          <td>{item.LIST_NAME}</td>
+                          <td>{Number(item.REVENUE).toLocaleString()}</td>
+                          <td>{Number(item.EXPENSE).toLocaleString()}</td>
+                          <td>{item.NOTE}</td>
+                          <td>
+                            {isEdit() ? (
+                              <button
+                                className="btn btn-warning mx-2"
+                                onClick={openModalIncomeUpdate(item.ID)}
+                              >
+                                <i className="nav-icon fas fa-pen" />
+                              </button>
+                            ) : (
+                              "ไม่มีสิทธิ"
+                            )}
+                          </td>
+                          <td>
+                            {isDelete() ? (
+                              <button
+                                className="btn btn-danger"
+                                onClick={deleteHandler(item.ID)}
+                              >
+                                <i className="nav-icon fas fa-trash" />
+                              </button>
+                            ) : (
+                              "ไม่มีสิทธิ"
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                    {
+                      <tr className="text-center">
+                        <td colSpan={2}>รวม</td>
+                        <td>{outcomeTotal.toLocaleString()} บาท</td>
+                        <td>{incomeTotal.toLocaleString()} บาท</td>
+                        <td colSpan={3}></td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
             </div>
           </>
         }
