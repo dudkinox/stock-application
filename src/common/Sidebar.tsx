@@ -66,17 +66,19 @@ export default function SidebarCommon() {
                   <p>ข้อมูลลูกค้า</p>
                 </a>
               </li>
-              <li className="nav-item">
-                <a
-                  href="/manage-user"
-                  className={`nav-link ${
-                    pathUrl === PathEnum.MANAGE_USER ? "active" : ""
-                  }`}
-                >
-                  <i className="nav-icon fas fa-user-plus" />
-                  <p>จัดการผู้ใช้</p>
-                </a>
-              </li>
+              {majorUser === "admin" ? (
+                <li className="nav-item">
+                  <a
+                    href="/manage-user"
+                    className={`nav-link ${
+                      pathUrl === PathEnum.MANAGE_USER ? "active" : ""
+                    }`}
+                  >
+                    <i className="nav-icon fas fa-user-plus" />
+                    <p>จัดการผู้ใช้</p>
+                  </a>
+                </li>
+              ) : null}
               {majorUser === "admin" ? (
                 <li className="nav-item">
                   <a
