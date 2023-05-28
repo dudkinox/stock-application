@@ -27,8 +27,8 @@ interface DashboardContextProps {
   setTotalSum: (value: string) => void;
   totalProfit: string;
   setTotalProfit: (value: string) => void;
-  desiredProfit: string;
-  setDesiredProfit: (value: string) => void;
+  desiredProfit: number;
+  setDesiredProfit: (value: number) => void;
 }
 
 export const DashboardContext = createContext<DashboardContextProps>({
@@ -46,7 +46,7 @@ export const DashboardContext = createContext<DashboardContextProps>({
   setTotalSum: () => {},
   totalProfit: "",
   setTotalProfit: () => {},
-  desiredProfit: "",
+  desiredProfit: 0,
   setDesiredProfit: () => {},
 });
 
