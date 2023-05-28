@@ -8,9 +8,10 @@ import { AppContext } from "../../contexts";
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const {setIsLoading} = useContext(AppContext);
+  const { setIsLoading } = useContext(AppContext);
 
-  const login = () => {
+  const login = (e: any) => {
+    e.preventDefault();
     setIsLoading(true);
     AccountServices.getLogin({ username: username, password: password })
       .then((res) => {
@@ -57,41 +58,42 @@ export default function LoginPage() {
                   </a>
                 </div>
                 <div className="card-body">
-                  <div className="input-group mb-3">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Username"
-                      onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <div className="input-group-append">
-                      <div className="input-group-text">
-                        <span className="fas fa-address-book" />
+                  <form onSubmit={login}>
+                    <div className="input-group mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Username"
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
+                      <div className="input-group-append">
+                        <div className="input-group-text">
+                          <span className="fas fa-address-book" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="input-group mb-3">
-                    <input
-                      type="password"
-                      className="form-control"
-                      placeholder="Password"
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <div className="input-group-append">
-                      <div className="input-group-text">
-                        <span className="fas fa-lock" />
+                    <div className="input-group mb-3">
+                      <input
+                        type="password"
+                        className="form-control"
+                        placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <div className="input-group-append">
+                        <div className="input-group-text">
+                          <span className="fas fa-lock" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="social-auth-links text-center mt-5">
-                    <a
-                      href="#"
-                      onClick={login}
-                      className="btn btn-block btn-primary"
-                    >
-                      เข้าสู่ระบบ
-                    </a>
-                  </div>
+                    <div className="social-auth-links text-center mt-5">
+                      <button
+                        className="btn btn-block btn-primary"
+                        type="submit"
+                      >
+                        เข้าสู่ระบบ
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
