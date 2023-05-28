@@ -123,7 +123,11 @@ export default function ChartMainContent() {
                     </div>
                     <div className="col-3 text-center">
                       <p className="">
-                        {type === "" ? `-` : `รายรับจาก${type}${duration}นี้`}
+                        {type === ""
+                          ? `-`
+                          : `ราย${
+                              type !== "อุปกรณ์" || "ซื้อ" ? "จ่าย" : "รับ"
+                            }จาก${type}${duration}นี้`}
                       </p>
                       <p className="h3">
                         {type !== ""
