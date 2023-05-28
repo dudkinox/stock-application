@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import MajorResponse from "../Models/Response/GetMajorResponse";
 import MajorServices from "../services/MajorService";
 import { AlertError } from "../common/ToastrCommon";
@@ -56,7 +63,7 @@ export function DashboardProvider({ children }: ChildrenProps) {
   const [duration, setDuration] = useState<string>("วัน");
   const [totalSum, setTotalSum] = useState<string>("");
   const [totalProfit, setTotalProfit] = useState<string>("");
-  const [desiredProfit, setDesiredProfit] = useState<string>("");
+  const [desiredProfit, setDesiredProfit] = useState<number>(0);
 
   useEffect(() => {
     setIsLoading(true);
@@ -72,6 +79,14 @@ export function DashboardProvider({ children }: ChildrenProps) {
     DashboardServices.getDashboards()
       .then((res) => {
         setTypeStock(res.data);
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+    DashboardServices.getSumDate(branch, type, duration)
+      .then((res) => {
+        setDesiredProfit(res.data);
         setIsLoading(false);
       })
       .catch((err) => {

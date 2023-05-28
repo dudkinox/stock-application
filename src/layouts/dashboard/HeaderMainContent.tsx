@@ -8,7 +8,7 @@ import { AppContext } from "../../contexts";
 
 export default function HeaderMainContent() {
   const [paymentTotal, setPaymentTotal] = useState<string>("");
-  const {setIsLoading} = useContext(AppContext);
+  const { setIsLoading } = useContext(AppContext);
 
   const {
     setBranch,
@@ -19,7 +19,7 @@ export default function HeaderMainContent() {
     type,
     duration,
     typeStock,
-    setTotalSum, 
+    setTotalSum,
     setTotalProfit,
     setDesiredProfit,
   } = useContext(DashboardContext);
@@ -43,10 +43,15 @@ export default function HeaderMainContent() {
               setValue={(e) => {
                 setBranch(e);
                 setIsLoading(true);
-                DashboardServices.getTypeSelected(e,type).then((res) => {
+                DashboardServices.getTypeSelected(e, type).then((res) => {
                   setTotalSum(res.data.toString());
-                  setIsLoading(false);
-                  
+                  DashboardServices.getSumDate(e, type, duration).then(
+                    (res) => {
+                      setTotalProfit(res.data.toString());
+                      setDesiredProfit(res.data.toString());
+                      setIsLoading(false);
+                    }
+                  );
                 });
               }}
               icon={"fa fa-building"}
@@ -61,10 +66,15 @@ export default function HeaderMainContent() {
               setValue={(e) => {
                 setType(e);
                 setIsLoading(true);
-                DashboardServices.getTypeSelected(branch,e).then((res) => {
+                DashboardServices.getTypeSelected(branch, e).then((res) => {
                   setTotalSum(res.data.toString());
-                  setIsLoading(false);
-                  
+                  DashboardServices.getSumDate(branch, e, duration).then(
+                    (res) => {
+                      setTotalProfit(res.data.toString());
+                      setDesiredProfit(res.data.toString());
+                      setIsLoading(false);
+                    }
+                  );
                 });
               }}
               icon={"fa fa-building"}

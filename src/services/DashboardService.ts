@@ -29,13 +29,20 @@ const getPercentageService = () => {
   return Https.get<number>(`/apis/dashboard/percentage/`);
 };
 
+const getSumDateService = (major: string, type: string, date: string) => {
+  return Https.get<number>(
+    `/apis/dashboard/sum-date/?type=${type}&duration=${date}&major=${major}`
+  );
+};
+
 const DashboardServices = {
   getDashboards: getDashboardService,
   getTypeSelected: getTypeSelectedService,
   getProfit: getProfitService,
   postWantMoney: postWantMoneyService,
   getSummary: getSummaryService,
-  getPercentageService: getPercentageService,
+  getPercentage: getPercentageService,
+  getSumDate: getSumDateService,
 };
 
 export default DashboardServices;

@@ -9,7 +9,7 @@ import { GetDashboardSumResponse } from "../../Models/Response/GetDashboardSumRe
 import { AppContext } from "../../contexts";
 
 export default function ChartMainContent() {
-  const { branch, type, duration, totalSum, totalProfit, desiredProfit } =
+  const { branch, type, duration, totalSum, desiredProfit } =
     useContext(DashboardContext);
   const [profit, setProfit] = useState<string>("");
   const [summary, setSummary] = useState<GetDashboardSumResponse>();
@@ -25,7 +25,7 @@ export default function ChartMainContent() {
     DashboardServices.getSummary(branch).then((res) => {
       setSummary(res.data);
     });
-    DashboardServices.getPercentageService().then((res) => {
+    DashboardServices.getPercentage().then((res) => {
       setPercentage(res.data);
       setIsLoading(false);
     });
@@ -125,7 +125,11 @@ export default function ChartMainContent() {
                       <p className="">
                         {type === "" ? `-` : `รายรับจาก${type}${duration}นี้`}
                       </p>
-                      <p className="h3">{0} บาท</p>
+                      <p className="h3">
+                        {type !== ""
+                          ? Number(desiredProfit).toLocaleString() + " บาท"
+                          : "-"}
+                      </p>
                     </div>
                   </div>
                 </div>
