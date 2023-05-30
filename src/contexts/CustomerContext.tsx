@@ -95,11 +95,6 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   const [name, setName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [totalPrice, setTotalPrice] = useState<number | string>(0);
-  const [installmentMonth, setInstallmentMonth] = useState<string>("0");
-  const [numberInstallment, setNumberInstallment] = useState<string>("0");
-  const [payment, setPayment] = useState<string>("0");
-  const [downpayment, setDownPayment] = useState<string>("0");
-  const [datePayment, setDatePayment] = useState<string>("0");
   const [customerStatus, setCustomerStatus] = useState<string>("");
   const [process, setProcess] = useState<string>("");
   const [isShowModal, setIsShowModal] = useState(false);
@@ -140,12 +135,6 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
     setCustomerStatus("");
     setName("");
     setLastName("");
-    setTotalPrice("");
-    setInstallmentMonth("");
-    setNumberInstallment("");
-    setPayment("");
-    setDownPayment("");
-    setDatePayment("");
     setProcess("");
     setIsShowModal(false);
   };
@@ -188,11 +177,6 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       name,
       lastName,
       totalPrice,
-      installmentMonth,
-      numberInstallment,
-      payment,
-      downpayment,
-      datePayment,
       customerStatus,
       process,
       insertCustomer,
@@ -208,11 +192,12 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         setCustomer(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
         CustomerServices.notificationLine()
-          .then((res) => {
+          .then(() => {
             setIsLoading(false);
           })
           .catch((err) => {
             console.log(err);
+            AlertError(err.response.data.message);
             setIsLoading(false);
           });
       })
@@ -234,16 +219,6 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setLastName,
       totalPrice,
       setTotalPrice,
-      installmentMonth,
-      setInstallmentMonth,
-      numberInstallment,
-      setNumberInstallment,
-      payment,
-      setPayment,
-      downpayment,
-      setDownPayment,
-      datePayment,
-      setDatePayment,
       customerStatus,
       setCustomerStatus,
       process,
@@ -267,16 +242,6 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setLastName,
       totalPrice,
       setTotalPrice,
-      installmentMonth,
-      setInstallmentMonth,
-      numberInstallment,
-      setNumberInstallment,
-      payment,
-      setPayment,
-      downpayment,
-      setDownPayment,
-      datePayment,
-      setDatePayment,
       customerStatus,
       setCustomerStatus,
       process,

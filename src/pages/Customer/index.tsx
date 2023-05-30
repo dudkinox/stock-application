@@ -28,18 +28,6 @@ export default function CustomerPage() {
     setName,
     lastName,
     setLastName,
-    totalPrice,
-    setTotalPrice,
-    installmentMonth,
-    setInstallmentMonth,
-    numberInstallment,
-    setNumberInstallment,
-    payment,
-    setPayment,
-    downpayment,
-    setDownPayment,
-    datePayment,
-    setDatePayment,
     customerStatus,
     setCustomerStatus,
     process,
@@ -84,11 +72,6 @@ export default function CustomerPage() {
         setIdCard(res.data.ID_CARD);
         setName(res.data.NAME);
         setLastName(res.data.LAST_NAME);
-        setInstallmentMonth(res.data.INSTALLMENT_MONTH);
-        setNumberInstallment(res.data.NUMBER_INSTALLMENT);
-        setPayment(res.data.PAYMENT);
-        // setDownPayment();
-        setDatePayment(res.data.DATE_PAYMENT);
         setCustomerStatus(res.data.CUSTOMER_STATUS);
         setProcess(res.data.PROCESS);
         setIsLoading(false);
