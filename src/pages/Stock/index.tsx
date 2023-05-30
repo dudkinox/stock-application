@@ -17,6 +17,7 @@ import {
   MenuEquipmentArray,
   MenuInstallmentPaymentArray,
   MenuKayArray,
+  MenuNewInstallmentArray,
 } from "../../enum/menuInsert.enum";
 import { camelToSnakeObject } from "../../common/CamelToSnake";
 import {
@@ -31,6 +32,7 @@ import { AppContext } from "../../contexts";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import MajorServices from "../../services/MajorService";
 import convertDateToThai from "../../common/DateFormat";
+import MenuNewInstallmentInsert from "../../layouts/stock/MenuNewInstallmentInsert";
 
 export default function StockPage() {
   const {
@@ -91,6 +93,8 @@ export default function StockPage() {
     setByeMenuInsert,
     kayMenuInsert,
     setKayMenuInsert,
+    NewInstallmentMenuInsert,
+    setNewInstallmentMenuInsert,
     installmentMenuInsert,
     handlerSubmit,
     isShowModal,
@@ -352,6 +356,7 @@ export default function StockPage() {
             setIsMenuInsert(false);
             setByeMenuInsert(false);
             setKayMenuInsert(false);
+            setNewInstallmentMenuInsert(false);
             clearInputValue();
           }}
           className="btn primary-btn text-white float-right"
@@ -439,7 +444,13 @@ export default function StockPage() {
                           setValue={SelectStockType}
                           icon={"far fa-file"}
                           topic={"ประเภท"}
-                          options={["ซื้อ", "ขาย", "ผ่อน", "อุปกรณ์"]}
+                          options={[
+                            "ซื้อ",
+                            "ขาย",
+                            "ผ่อน",
+                            "ผ่อนครั้งแรก",
+                            "อุปกรณ์",
+                          ]}
                           placeholder={"ประเภทลูกค้า"}
                           value={stockType}
                         />
@@ -458,6 +469,7 @@ export default function StockPage() {
                     {isMenuInsert && <IsMenuInsert />}
                     {byeMenuInsert && <ByeMenuInsert />}
                     {kayMenuInsert && <KayMenuInsert />}
+                    {NewInstallmentMenuInsert && <MenuNewInstallmentInsert/>}
                     {installmentMenuInsert && (
                       <InstallmentMenuInsert selectCustomer={selectCustomer} />
                     )}
@@ -504,6 +516,8 @@ export default function StockPage() {
                                     ? MenuByeArray[index - 2]
                                     : typeStock === "ขาย"
                                     ? MenuKayArray[index - 2]
+                                    : typeStock === "ผ่อนครั้งแรก"
+                                    ? MenuNewInstallmentArray[index - 2]
                                     : MenuInstallmentPaymentArray[index - 2]}
                                 </label>
                               </div>
@@ -631,6 +645,7 @@ export default function StockPage() {
                     {isMenuInsert && <IsMenuInsert />}
                     {byeMenuInsert && <ByeMenuInsert />}
                     {kayMenuInsert && <KayMenuInsert />}
+                    {NewInstallmentMenuInsert && <MenuNewInstallmentInsert/>}
                     {installmentMenuInsert && (
                       <InstallmentMenuInsert selectCustomer={selectCustomer} />
                     )}

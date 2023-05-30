@@ -22,6 +22,28 @@ export const MenuEquipmentArray = [
   "ราคารวม",
 ];
 
+export const MenuNewInstallmentArray = [
+  "เลขบัตรประชาชน",
+  "ประวัติลูกค้า",
+  "ประเภท",
+  "สาขา",
+  "ราคาเต็ม",
+  "เงินดาวน์",
+  "ต้องผ่อนต่อเดือน",
+  "จำนวนงวดที่ผ่อนแล้ว",
+  "ยอดชำระปัจจุบัน",
+  "วันที่ต้องชำระ",
+];
+
+export enum MenuNewInstallmentEnum {
+  TOTAL_PRICE = "ราคาเต็ม",
+  STAR_MONEY = "เงินดาวน์",
+  INSTALLMENT_MONTH = "ต้องผ่อนต่อเดือน",
+  NUMBER_INSTALLMENT = "จำนวนงวดที่ผ่อนแล้ว",
+  PAYMENT = "ยอดชำระปัจจุบัน",
+  DATE_PAYMENT = "วันที่ต้องชำระ",
+}
+
 export enum MenuByeEnum {
   VERSION = "รุ่น",
   PRICE = "ราคา",

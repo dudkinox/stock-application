@@ -28,6 +28,8 @@ interface StockContextProps {
   setByeMenuInsert: (value: boolean) => void;
   kayMenuInsert: boolean;
   setKayMenuInsert: (value: boolean) => void;
+  NewInstallmentMenuInsert: boolean;
+  setNewInstallmentMenuInsert: (value: boolean) => void;
   installmentMenuInsert: boolean;
   handlerSubmit: () => void;
   idCard: string;
@@ -95,6 +97,8 @@ export const StockContext = createContext<StockContextProps>({
   setByeMenuInsert: (value: boolean) => {},
   kayMenuInsert: false,
   setKayMenuInsert: (value: boolean) => {},
+  NewInstallmentMenuInsert: false,
+  setNewInstallmentMenuInsert: (value: boolean) => {},
   installmentMenuInsert: false,
   handlerSubmit: () => {},
   idCard: "",
@@ -161,6 +165,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [isMenuInsert, setIsMenuInsert] = useState(false);
   const [byeMenuInsert, setByeMenuInsert] = useState(false);
   const [kayMenuInsert, setKayMenuInsert] = useState(false);
+  const [NewInstallmentMenuInsert, setNewInstallmentMenuInsert] =
+    useState(false);
   const [installmentMenuInsert, setInstallmentMenuInsert] = useState(false);
   const [date, setDate] = useState<string>("");
   const [idCard, setIdCard] = useState<string>("");
@@ -199,24 +205,35 @@ export function StockContextProvider({ children }: ChildrenProps) {
           setByeMenuInsert(false);
           setKayMenuInsert(false);
           setInstallmentMenuInsert(false);
+          setNewInstallmentMenuInsert(false);
           break;
         case "ซื้อ":
           setByeMenuInsert(true);
           setIsMenuInsert(false);
           setKayMenuInsert(false);
           setInstallmentMenuInsert(false);
+          setNewInstallmentMenuInsert(false);
           break;
         case "ขาย":
           setKayMenuInsert(true);
           setInstallmentMenuInsert(false);
           setByeMenuInsert(false);
           setIsMenuInsert(false);
+          setNewInstallmentMenuInsert(false);
           break;
         case "ผ่อน":
           setInstallmentMenuInsert(true);
           setByeMenuInsert(false);
           setIsMenuInsert(false);
           setKayMenuInsert(false);
+          setNewInstallmentMenuInsert(false);
+          break;
+        case "ผ่อนครั้งแรก":
+          setInstallmentMenuInsert(false);
+          setByeMenuInsert(false);
+          setIsMenuInsert(false);
+          setKayMenuInsert(false);
+          setNewInstallmentMenuInsert(true);
           break;
       }
     },
@@ -516,6 +533,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setByeMenuInsert,
       kayMenuInsert,
       setKayMenuInsert,
+      NewInstallmentMenuInsert,
+      setNewInstallmentMenuInsert,
       installmentMenuInsert,
       handlerSubmit,
       idCard,
@@ -575,12 +594,15 @@ export function StockContextProvider({ children }: ChildrenProps) {
     }),
     [
       date,
+      setDate,
       isMenuInsert,
       setIsMenuInsert,
       byeMenuInsert,
       setByeMenuInsert,
       kayMenuInsert,
       setKayMenuInsert,
+      NewInstallmentMenuInsert,
+      setNewInstallmentMenuInsert,
       installmentMenuInsert,
       handlerSubmit,
       idCard,

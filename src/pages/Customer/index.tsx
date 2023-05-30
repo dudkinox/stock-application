@@ -15,12 +15,14 @@ import { useLocation } from "react-router-dom";
 import { AppContext } from "../../contexts/index";
 import MajorServices from "../../services/MajorService";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
+import { StockContext } from "../../contexts/StockContext";
 
 export default function CustomerPage() {
+  const { idCard: idCardStock } = useContext(StockContext);
   const {
     customer,
-    setCustomer,
     idCard,
+    setCustomer,
     setIdCard,
     name,
     setName,
@@ -102,14 +104,8 @@ export default function CustomerPage() {
       idCard,
       name,
       lastName,
-      totalPrice,
-      installmentMonth,
-      numberInstallment,
-      payment,
-      downpayment,
-      datePayment,
-      customerStatus,
       process,
+      customerStatus,
       major: majorAdminChange,
     };
     setIsLoading(true);
@@ -217,7 +213,7 @@ export default function CustomerPage() {
                       placeholder={"เลขบัตรประชาชน"}
                       minLength={13}
                       maxLength={13}
-                      value={idCard}
+                      value={idCard === "" ? idCardStock : idCard}
                       isReadOnly={isUpdate}
                     />
                     {isEdit() && majorUser === "admin" && (
@@ -246,59 +242,14 @@ export default function CustomerPage() {
                       placeholder={"นามสกุล"}
                       value={lastName}
                     />
-                    <TextInput
-                      label={"ราคาเต็ม:"}
-                      icon={"fas fa-money-bill"}
-                      setValue={setTotalPrice}
-                      type={"number"}
-                      placeholder={"ราคาเต็ม"}
-                      value={totalPrice}
-                      min={0}
-                    />
-                    <TextInput
-                      label={"เงินดาวน์:"}
-                      icon={"fas fa-money-bill"}
-                      setValue={setDownPayment}
-                      type={"number"}
-                      placeholder={"เงินดาว"}
-                      value={downpayment}
-                      min={0}
-                    />
-                    <TextInput
-                      label={"ต้องผ่อนต่อเดือน:"}
-                      icon={"far fa-calendar-alt"}
-                      setValue={setInstallmentMonth}
-                      type={"number"}
-                      placeholder={"จำนวนเงินที่ต้องผ่อนต่อเดือน"}
-                      value={installmentMonth}
-                      min={0}
-                    />
-                    <TextInput
-                      label={"จำนวนงวดที่ผ่อนแล้ว:"}
-                      icon={"far fa-calendar-alt"}
-                      setValue={setNumberInstallment}
-                      type={"number"}
-                      placeholder={"จำนวนงวดที่ผ่อนแล้ว"}
-                      value={numberInstallment}
-                      min={0}
-                    />
-                    <TextInput
-                      label={"ยอดชำระปัจจุบัน:"}
-                      icon={"far fa-calendar-alt"}
-                      setValue={setPayment}
-                      type={"number"}
-                      placeholder={"ยอดชำระปัจจุบัน"}
-                      value={payment}
-                    />
                     <SelectChoice
-                      label={"วันที่ต้องชำระ:"}
-                      icon={"far fa-calendar-alt"}
-                      setValue={setDatePayment}
-                      topic={"เลือกวันที่"}
-                      options={Array.from({ length: 30 }, (_, i) =>
-                        (i + 1).toString()
-                      )}
-                      value={datePayment}
+                      label={"สถานะ"}
+                      setValue={setProcess}
+                      placeholder="เลือกสถานะ"
+                      icon={"fas fa-history"}
+                      topic={"เลือกสถานะ"}
+                      options={["กำลังผ่อน", "ชำระครบถ้วน", "ไม่ระบุ"]}
+                      value={process}
                     />
                     <SelectChoice
                       label={"ประวัติลูกค้า"}
@@ -308,15 +259,6 @@ export default function CustomerPage() {
                       options={["ลูกค้าดี", "ลูกค้าโกง", "ลูกค้าจ่ายช้า"]}
                       placeholder={"ประวัติลูกค้า"}
                       value={customerStatus}
-                    />
-                    <SelectChoice
-                      label={"สถานะ"}
-                      setValue={setProcess}
-                      placeholder="เลือกสถานะ"
-                      icon={"fas fa-history"}
-                      topic={"เลือกสถานะ"}
-                      options={["กำลังผ่อน", "ชำระครบถ้วน", "ไม่ระบุ"]}
-                      value={process}
                     />
                   </div>
                 </div>

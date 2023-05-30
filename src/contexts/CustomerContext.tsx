@@ -156,14 +156,8 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         idCard,
         name,
         lastName,
-        totalPrice,
-        installmentMonth,
-        numberInstallment,
-        payment,
-        downpayment,
-        datePayment,
-        customerStatus,
         process,
+        customerStatus,
         major: majorUser === "admin" ? majorInsert : majorUser,
       };
 
@@ -173,26 +167,16 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         AlertWarning("กรุณากรอกชื่อ");
       } else if (baseInsert.lastName === "") {
         AlertWarning("กรุณากรอกนามสกุล");
-      } else if (baseInsert.datePayment === "0") {
-        AlertWarning("กรุณาเลือกวันที่");
-      } else if (
-        baseInsert.customerStatus === "ประวัติลูกค้า" ||
-        baseInsert.customerStatus === ""
-      ) {
-        AlertWarning("กรุณาเลือกประวัติลุกค้า");
       } else if (
         baseInsert.process === "เลือกสถานะ" ||
         baseInsert.process === ""
       ) {
         AlertWarning("กรุณาเลือกเลือกสถานะ");
       } else if (
-        baseInsert.totalPrice === "" ||
-        baseInsert.payment === "" ||
-        baseInsert.numberInstallment === "" ||
-        baseInsert.installmentMonth === "" ||
-        baseInsert.downpayment === ""
+        baseInsert.customerStatus === "ประวัติลูกค้า" ||
+        baseInsert.customerStatus === ""
       ) {
-        AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
+        AlertWarning("กรุณาเลือกประวัติลูกค้า");
       } else {
         setIsShowModal(true);
         insertCustomer(camelToSnakeObject(baseInsert));
