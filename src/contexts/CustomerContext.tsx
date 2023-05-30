@@ -24,29 +24,17 @@ interface CustomerContextProps {
   setName: (value: string) => void;
   lastName: string;
   setLastName: (value: string) => void;
-  totalPrice: number | string;
-  setTotalPrice: (value: number | string) => void;
-  installmentMonth: string;
-  setInstallmentMonth: (value: string) => void;
-  numberInstallment: string;
-  setNumberInstallment: (value: string) => void;
-  payment: string;
-  setPayment: (value: string) => void;
-  downpayment: string;
-  setDownPayment: (value: string) => void;
-  datePayment: string;
-  setDatePayment: (value: string) => void;
   customerStatus: string;
   setCustomerStatus: (value: string) => void;
   process: string;
   setProcess: (value: string) => void;
-  handlerSubmit: () => void;
   reGetCustomer: () => void;
   isShowModal: boolean;
   setIsShowModal: (value: boolean) => void;
   majorInsert: string;
   setMajorInsert: (value: string) => void;
   clearInputValue: () => void;
+  handlerSubmit: () => void;
 }
 
 export const CustomerContext = createContext<CustomerContextProps>({
@@ -58,18 +46,6 @@ export const CustomerContext = createContext<CustomerContextProps>({
   setName: (value: string) => {},
   lastName: "",
   setLastName: (value: string) => {},
-  totalPrice: 0,
-  setTotalPrice: (value: number | string) => {},
-  installmentMonth: "",
-  setInstallmentMonth: (value: string) => {},
-  numberInstallment: "",
-  setNumberInstallment: (value: string) => {},
-  payment: "",
-  setPayment: (value: string) => {},
-  downpayment: "",
-  setDownPayment: (value: string) => {},
-  datePayment: "",
-  setDatePayment: (value: string) => {},
   customerStatus: "",
   setCustomerStatus: (value: string) => {},
   process: "",
@@ -94,7 +70,6 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   const [idCard, setIdCard] = useState<string>(stockContext.idCard);
   const [name, setName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
-  const [totalPrice, setTotalPrice] = useState<number | string>(0);
   const [customerStatus, setCustomerStatus] = useState<string>("");
   const [process, setProcess] = useState<string>("");
   const [isShowModal, setIsShowModal] = useState(false);
@@ -172,7 +147,16 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         clearInputValue();
       }
     },
-    [insertCustomer, idCard, name, lastName, process, customerStatus, majorUser, majorInsert]
+    [
+      insertCustomer,
+      idCard,
+      name,
+      lastName,
+      process,
+      customerStatus,
+      majorUser,
+      majorInsert,
+    ]
   );
 
   useEffect(() => {
@@ -208,8 +192,6 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setName,
       lastName,
       setLastName,
-      totalPrice,
-      setTotalPrice,
       customerStatus,
       setCustomerStatus,
       process,
@@ -231,8 +213,6 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setName,
       lastName,
       setLastName,
-      totalPrice,
-      setTotalPrice,
       customerStatus,
       setCustomerStatus,
       process,
