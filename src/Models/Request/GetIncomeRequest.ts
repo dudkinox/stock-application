@@ -4,5 +4,6 @@ export default interface GetIncomeRequest {
     REVENUE: number | string;
     EXPENSE: number | string;
     NOTE:  string;
+    MAJOR: string;
   }
   

@@ -21,6 +21,8 @@ interface IncomeContextProps {
   isShowModal: boolean;
   setIsShowModal: (value: boolean) => void;
   clearInputValue: () => void;
+  major: string;
+  setMajor: (value: string) => void;
 }
 
 export const IncomeContext = createContext<IncomeContextProps>({
@@ -39,6 +41,8 @@ export const IncomeContext = createContext<IncomeContextProps>({
   isShowModal: false,
   setIsShowModal: (value: boolean) => {},
   clearInputValue: () => {},
+  major: "",
+  setMajor: (value: string) => {},
 });
 
 interface ChildrenProps {
@@ -53,6 +57,7 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
   const [expense, setExpense] = useState<number | string>(0);
   const [note, setNote] = useState<string>("");
   const [isShowModal, setIsShowModal] = useState(false);
+  const [major, setMajor] = useState<string>("");
 
   const clearInputValue = () => {
     setDate("");
@@ -80,6 +85,8 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
       clearInputValue,
       isShowModal,
       setIsShowModal,
+      major,
+      setMajor,
     }),
     [
       incomeList,
@@ -97,6 +104,8 @@ export function IncomeContextProvider({ children }: ChildrenProps) {
       clearInputValue,
       isShowModal,
       setIsShowModal,
+      major,
+      setMajor,
     ]
   );
 

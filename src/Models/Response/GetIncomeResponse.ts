@@ -5,5 +5,6 @@ export default interface GetIncomeResponse {
     REVENUE: number | string;
     EXPENSE: number | string;
     NOTE:  string;
+    MAJOR: string;
   }
   

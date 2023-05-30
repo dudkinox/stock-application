@@ -8,11 +8,19 @@ import GetIncomeResponse from "../../Models/Response/GetIncomeResponse";
 import ConvertDateToThai from "../../common/DateFormat";
 import GetIncomeRequest from "../../Models/Request/GetIncomeRequest";
 import incomeServices from "../../services/IncomeServices";
-import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
+import {
+  AlertError,
+  AlertSuccess,
+  AlertWarning,
+} from "../../common/ToastrCommon";
 import { AppContext } from "../../contexts";
 import GetFundResponse from "../../Models/Response/GetFundResponse";
 import fundServices from "../../services/FundServices";
 import GetFundRequest from "../../Models/Request/GetFundRequest";
+import SelectChoice from "../../common/Select";
+import MajorResponse from "../../Models/Response/GetMajorResponse";
+import { UserContext } from "../../contexts/ManageUserContext";
+import MajorServices from "../../services/MajorService";
 
 export default function IncomePage() {
   const { isEdit, isDelete, setIsLoading } = useContext(AppContext);
@@ -23,6 +31,7 @@ export default function IncomePage() {
   const [updateId, setUpdateId] = useState<string>("");
   const [funds, setFunds] = useState<string>("");
   const [updateIdFund, setUpdateIdFund] = useState<string>("");
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
 
   let fundTotal = 0;
   let incomeTotal = 0;
@@ -40,11 +49,14 @@ export default function IncomePage() {
     setNote,
     isShowModal,
     clearInputValue,
+    major,
+    setMajor,
   } = useContext(IncomeContext);
 
   const incomeTableHeaders = [
     "วันที่",
     "รายการ",
+    "สาขา",
     "รายจ่าย(บาท)",
     "รายรับ(บาท)",
     "หมายเหตุ",
@@ -118,8 +130,8 @@ export default function IncomePage() {
     const payload: GetFundRequest = {
       money: funds,
     };
-    setIsLoading(true);
 
+    setIsLoading(true);
     fundServices
       .InsertFundList(payload)
       .then((res: any) => {
@@ -218,29 +230,40 @@ export default function IncomePage() {
       REVENUE: revenue,
       EXPENSE: expense,
       NOTE: note,
+      MAJOR: major,
     };
-    setIsLoading(true);
+    if (
+      date !== "" &&
+      listName !== "" &&
+      revenue !== "" &&
+      expense !== "" &&
+      major !== ""
+    ) {
+      setIsLoading(true);
 
-    incomeServices
-      .InsertIncomeList(payload)
-      .then((res: any) => {
-        AlertSuccess(res.data.message);
+      incomeServices
+        .InsertIncomeList(payload)
+        .then((res: any) => {
+          AlertSuccess(res.data.message);
 
-        incomeServices
-          .getAll()
-          .then((res: any) => {
-            setIncomeList(res.data);
-            clearInputValue();
-            setIsLoading(false);
-          })
-          .catch((err: any) => {
-            AlertError(err);
-            setIsLoading(false);
-          });
-      })
-      .catch((err: any) => {
-        AlertError(err);
-      });
+          incomeServices
+            .getAll()
+            .then((res: any) => {
+              setIncomeList(res.data);
+              clearInputValue();
+              setIsLoading(false);
+            })
+            .catch((err: any) => {
+              AlertError(err);
+              setIsLoading(false);
+            });
+        })
+        .catch((err: any) => {
+          AlertError(err);
+        });
+    } else {
+      AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
+    }
   };
 
   const updateHandler = (id: string) => () => {
@@ -250,6 +273,7 @@ export default function IncomePage() {
       REVENUE: revenue,
       EXPENSE: expense,
       NOTE: note,
+      MAJOR: major,
     };
     setIsLoading(true);
 
@@ -315,6 +339,20 @@ export default function IncomePage() {
       });
   };
 
+  useEffect(() => {
+    setIsLoading(true);
+    MajorServices.getMajors()
+      .then((res) => {
+        const data = res.data;
+        setFetchMajor(data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  }, [setFetchMajor]);
+
   return (
     <>
       <ContentLayOut
@@ -349,6 +387,14 @@ export default function IncomePage() {
                         setValue={setDate}
                         type={"date"}
                         value={date}
+                      />
+                      <SelectChoice
+                        topic="เลือกสาขา"
+                        setValue={setMajor}
+                        icon="far fa-calendar-alt"
+                        label={"สาขา:"}
+                        value={major}
+                        options={fetchMajor.map((item) => item.NAME)}
                       />
                       <TextInput
                         label={"ชื่อรายการ:"}
@@ -438,6 +484,7 @@ export default function IncomePage() {
                         <tr key={i} className="text-center">
                           <td>{ConvertDateToThai(new Date(item.DATE))}</td>
                           <td>{item.LIST_NAME}</td>
+                          <td>{item.MAJOR}</td>
                           <td>{Number(item.REVENUE).toLocaleString()}</td>
                           <td>{Number(item.EXPENSE).toLocaleString()}</td>
                           <td>{item.NOTE}</td>
@@ -470,7 +517,7 @@ export default function IncomePage() {
                     })}
                     {
                       <tr className="text-center">
-                        <td colSpan={2}>รวม</td>
+                        <td colSpan={3}>รวม</td>
                         <td>{outcomeTotal.toLocaleString()} บาท</td>
                         <td>{incomeTotal.toLocaleString()} บาท</td>
                         <td colSpan={3}></td>
