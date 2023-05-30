@@ -164,7 +164,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         datePayment,
         customerStatus,
         process,
-        major: majorInsert,
+        major: majorUser === "admin" ? majorInsert : majorUser,
       };
 
       if (baseInsert.idCard.length !== 13) {

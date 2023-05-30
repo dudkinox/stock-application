@@ -273,7 +273,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
         idCard,
         customerStatus,
         stockType,
-        major: majorInsert,
+        major: majorUser === "admin" ? majorInsert : majorUser,
       };
       if (baseInsert.date === "") {
         AlertWarning("กรุณากรอกวันที่");
