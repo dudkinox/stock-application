@@ -443,7 +443,7 @@ export default function StockPage() {
                           placeholder={"ประเภทลูกค้า"}
                           value={stockType}
                         />
-                        {isEdit() && (
+                        {isEdit() && majorUser === "admin" && (
                           <SelectChoice
                             topic="เลือกสาขา"
                             setValue={setMajorInsert}

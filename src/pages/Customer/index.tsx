@@ -220,8 +220,7 @@ export default function CustomerPage() {
                       value={idCard}
                       isReadOnly={isUpdate}
                     />
-                    {(isEdit() && majorUser === "admin") &&
-                    (
+                    {isEdit() && majorUser === "admin" && (
                       <SelectChoice
                         topic={isUpdate ? majorGet : "เลือกสาขา"}
                         setValue={setMajorInsert}
@@ -229,8 +228,8 @@ export default function CustomerPage() {
                         label={"สาขา:"}
                         value={majorAdminChange}
                         options={fetchMajor.map((item) => item.NAME)}
-                          />)
-            }
+                      />
+                    )}
                     <TextInput
                       label={"ชื่อ:"}
                       icon={"fas fa-user"}
