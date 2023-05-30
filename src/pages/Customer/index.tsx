@@ -50,11 +50,6 @@ export default function CustomerPage() {
     "รหัสลูกค้า",
     "เลขบัตรประชาชน",
     "ชื่อ-สกุล",
-    "ราคาเต็ม",
-    "ต้องผ่อนต่อเดือน",
-    "จำนวนงวดที่ผ่อนแล้ว",
-    "ยอดชำระปัจจุบัน",
-    "วันที่ต้องชำระ",
     "ประวัติลูกค้า",
     "สถานะ",
   ];
@@ -289,11 +284,6 @@ export default function CustomerPage() {
                   <td>
                     {item.NAME} {item.LAST_NAME}
                   </td>
-                  <td>{Number(item.TOTAL_PRICE).toLocaleString()}</td>
-                  <td>{Number(item.INSTALLMENT_MONTH).toLocaleString()}</td>
-                  <td>{Number(item.NUMBER_INSTALLMENT).toLocaleString()}</td>
-                  <td>{Number(item.PAYMENT).toLocaleString()}</td>
-                  <td>{item.DATE_PAYMENT}</td>
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.PROCESS}</td>
                   <td>

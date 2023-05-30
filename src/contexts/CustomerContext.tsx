@@ -172,16 +172,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         clearInputValue();
       }
     },
-    [
-      idCard,
-      name,
-      lastName,
-      totalPrice,
-      customerStatus,
-      process,
-      insertCustomer,
-      majorUser,
-    ]
+    [insertCustomer, idCard, name, lastName, process, customerStatus, majorUser, majorInsert]
   );
 
   useEffect(() => {
