@@ -288,8 +288,8 @@ export default function ManageUser() {
               ]}
               row={user.map((item, i) => (
                 <tr key={i} className="text-center">
-                  <td>{item.USERNAME}</td>
                   <td>{item.MAJOR}</td>
+                  <td>{item.USERNAME}</td>
                   <td>{item.CAN_EDIT ? "มี" : "ไม่มี"}</td>
                   <td>{item.CAN_DELETE ? "มี" : "ไม่มี"}</td>
                   <td>
