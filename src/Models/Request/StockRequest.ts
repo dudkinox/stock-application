@@ -39,3 +39,12 @@ export interface StockInstallmentPaymentRequest extends StockRequest {
   installmentNo: number | string;
   priceTotal: number | string;
 }
+
+export interface StockFirstInstallmentRequest extends StockRequest {
+  installmentMonth: number | string;
+  numberInstallment: number | string;
+  payment: number | string;
+  datePayment: number | string;
+  priceTotal: number | string;
+  starMoney: number | string;
+}

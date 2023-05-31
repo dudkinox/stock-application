@@ -101,6 +101,18 @@ export default function StockPage() {
     majorInsert,
     setMajorInsert,
     clearInputValue,
+    installmentMonth,
+    setInstallmentMonth,
+    numberInstallment,
+    setNumberInstallment,
+    payment,
+    setPayment,
+    newDatePayment,
+    setNewDatePayment,
+    newPriceTotal,
+    setNewPriceTotal,
+    newStarMoney,
+    setNewStarMoney,
   } = useContext(StockContext);
   const { setPathUrl, majorUser, isEdit, isDelete, setIsLoading } =
     useContext(AppContext);
@@ -192,6 +204,12 @@ export default function StockPage() {
           setPriceTotal(res.data.PRICE_TOTAL);
           setIsLoading(false);
           setMajorForUpdate(majorStock);
+          setInstallmentMonth(res.data.INSTALLMENT_MONTH);
+          setNumberInstallment(res.data.NUMBER_INSTALLMENT);
+          setPayment(res.data.PAYMENT);
+          setNewDatePayment(res.data.DATE_PAYMENT);
+          setNewPriceTotal(res.data.TOTAL_PRICE);
+          setNewStarMoney(res.data.STAR_MONEY);
         })
         .catch((err) => {
           AlertError(err.response.data.message);
@@ -243,6 +261,17 @@ export default function StockPage() {
           date,
           installmentNo,
           priceTotal,
+        };
+        break;
+      case "ผ่อนครั้งแรก":
+        payload = {
+          date,
+          installmentMonth,
+          numberInstallment,
+          payment,
+          newDatePayment,
+          newPriceTotal,
+          newStarMoney,
         };
         break;
     }
@@ -469,7 +498,7 @@ export default function StockPage() {
                     {isMenuInsert && <IsMenuInsert />}
                     {byeMenuInsert && <ByeMenuInsert />}
                     {kayMenuInsert && <KayMenuInsert />}
-                    {NewInstallmentMenuInsert && <MenuNewInstallmentInsert/>}
+                    {NewInstallmentMenuInsert && <MenuNewInstallmentInsert />}
                     {installmentMenuInsert && (
                       <InstallmentMenuInsert selectCustomer={selectCustomer} />
                     )}
@@ -645,7 +674,7 @@ export default function StockPage() {
                     {isMenuInsert && <IsMenuInsert />}
                     {byeMenuInsert && <ByeMenuInsert />}
                     {kayMenuInsert && <KayMenuInsert />}
-                    {NewInstallmentMenuInsert && <MenuNewInstallmentInsert/>}
+                    {NewInstallmentMenuInsert && <MenuNewInstallmentInsert />}
                     {installmentMenuInsert && (
                       <InstallmentMenuInsert selectCustomer={selectCustomer} />
                     )}

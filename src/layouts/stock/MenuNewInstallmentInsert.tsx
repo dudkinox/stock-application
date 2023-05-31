@@ -1,38 +1,49 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import TextInput from "../../common/TextInput";
 import { MenuNewInstallmentEnum } from "../../enum/menuInsert.enum";
+import { StockContext } from "../../contexts/StockContext";
+import SelectChoice from "../../common/Select";
+import React from "react";
 
 export default function MenuNewInstallmentInsert() {
-  const [totalPrice, setTotalPrice] = useState<string>("");
-  const [starMoney, setStarMoney] = useState<string>("");
-  const [installmentMonth, setInstallmentMonth] = useState<string>("");
-  const [numberInstallment, setNumberInstallment] = useState<string>("");
-  const [payment, setPayment] = useState<string>("");
-  const [datePayment, setDatePayment] = useState<string>("");
+  const {
+    installmentMonth,
+    setInstallmentMonth,
+    numberInstallment,
+    setNumberInstallment,
+    payment,
+    setPayment,
+    newDatePayment,
+    setNewDatePayment,
+    newPriceTotal,
+    setNewPriceTotal,
+    newStarMoney,
+    setNewStarMoney,
+  } = useContext(StockContext);
 
   return (
     <>
       <TextInput
         label={MenuNewInstallmentEnum.TOTAL_PRICE}
         icon={"fas fa-mobile"}
-        setValue={setTotalPrice}
-        type={"text"}
+        setValue={setNewPriceTotal}
+        type={"number"}
         placeholder={"ราคาเต็ม"}
-        value={totalPrice}
+        value={newPriceTotal}
       />
       <TextInput
         label={MenuNewInstallmentEnum.STAR_MONEY}
         icon={"fas fa-mobile"}
-        setValue={setStarMoney}
-        type={"text"}
+        setValue={setNewStarMoney}
+        type={"number"}
         placeholder={"เงินดาวน์"}
-        value={starMoney}
+        value={newStarMoney}
       />
       <TextInput
         label={MenuNewInstallmentEnum.INSTALLMENT_MONTH}
         icon={"fas fa-mobile"}
         setValue={setInstallmentMonth}
-        type={"text"}
+        type={"number"}
         placeholder={"ต้องผ่อนต่อเดือน"}
         value={installmentMonth}
       />
@@ -40,7 +51,7 @@ export default function MenuNewInstallmentInsert() {
         label={MenuNewInstallmentEnum.NUMBER_INSTALLMENT}
         icon={"fas fa-mobile"}
         setValue={setNumberInstallment}
-        type={"text"}
+        type={"number"}
         placeholder={"จำนวนงวดที่ผ่อนแล้ว"}
         value={numberInstallment}
       />
@@ -48,17 +59,17 @@ export default function MenuNewInstallmentInsert() {
         label={MenuNewInstallmentEnum.PAYMENT}
         icon={"fas fa-mobile"}
         setValue={setPayment}
-        type={"text"}
+        type={"number"}
         placeholder={"ยอดชำระปัจจุบัน"}
         value={payment}
       />
-      <TextInput
-        label={MenuNewInstallmentEnum.DATE_PAYMENT}
-        icon={"fas fa-mobile"}
-        setValue={setDatePayment}
-        type={"text"}
-        placeholder={"วันที่ต้องชำระ"}
-        value={datePayment}
+      <SelectChoice
+        topic="วันที่ต้องชำระ"
+        setValue={setNewDatePayment}
+        icon="far fa-calendar-alt"
+        label={"วันที่ต้องชำระ:"}
+        value={newDatePayment}
+        options={Array.from({ length: 30 }, (_, i) => (i + 1).toString())}
       />
     </>
   );

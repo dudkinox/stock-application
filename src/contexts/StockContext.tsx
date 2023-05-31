@@ -13,9 +13,9 @@ import StockRequest, {
   StockByeRequest,
   StockKayRequest,
   StockInstallmentPaymentRequest,
+  StockFirstInstallmentRequest,
 } from "../Models/Request/StockRequest";
 import { GetStockResponse } from "../Models/Response/GetStockResponse";
-import MajorServices from "../services/MajorService";
 import StockService from "../services/StockServices";
 import { AppContext } from "./index";
 
@@ -86,6 +86,18 @@ interface StockContextProps {
   majorInsert: string;
   setMajorInsert: (value: string) => void;
   clearInputValue: () => void;
+  installmentMonth: string;
+  setInstallmentMonth: (value: string) => void;
+  numberInstallment: string;
+  setNumberInstallment: (value: string) => void;
+  payment: string;
+  setPayment: (value: string) => void;
+  newDatePayment: string;
+  setNewDatePayment: (value: string) => void;
+  newPriceTotal: string;
+  setNewPriceTotal: (value: string) => void;
+  newStarMoney: string;
+  setNewStarMoney: (value: string) => void;
 }
 
 export const StockContext = createContext<StockContextProps>({
@@ -155,6 +167,18 @@ export const StockContext = createContext<StockContextProps>({
   majorInsert: "",
   setMajorInsert: (value: string) => {},
   clearInputValue: () => {},
+  installmentMonth: "0",
+  setInstallmentMonth: (value: string) => {},
+  numberInstallment: "0",
+  setNumberInstallment: (value: string) => {},
+  payment: "0",
+  setPayment: (value: string) => {},
+  newDatePayment: "0",
+  setNewDatePayment: (value: string) => {},
+  newPriceTotal: "0",
+  setNewPriceTotal: (value: string) => {},
+  newStarMoney: "0",
+  setNewStarMoney: (value: string) => {},
 });
 
 interface ChildrenProps {
@@ -196,6 +220,12 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [isShowModal, setIsShowModal] = useState(false);
   const [majorInsert, setMajorInsert] = useState<string>("");
   const { majorUser, setIsLoading } = useContext(AppContext);
+  const [installmentMonth, setInstallmentMonth] = useState("0");
+  const [numberInstallment, setNumberInstallment] = useState("0");
+  const [payment, setPayment] = useState("0");
+  const [newDatePayment, setNewDatePayment] = useState("1");
+  const [newPriceTotal, setNewPriceTotal] = useState("0");
+  const [newStarMoney, setNewStarMoney] = useState("0");
 
   const menuInsert = useMemo(
     () => (stockType: string) => {
@@ -257,6 +287,12 @@ export function StockContextProvider({ children }: ChildrenProps) {
   );
 
   const clearInputValue = () => {
+    setNewStarMoney("0");
+    setNewPriceTotal("0");
+    setNewDatePayment("1");
+    setPayment("0");
+    setNumberInstallment("0");
+    setInstallmentMonth("0");
     setDate("");
     setIdCard("");
     setCustomerStatus("");
@@ -440,6 +476,44 @@ export function StockContextProvider({ children }: ChildrenProps) {
               insertStock(params);
             }
             break;
+          case "ผ่อนครั้งแรก":
+            const firstInstallment: StockFirstInstallmentRequest = {
+              ...baseInsert,
+              installmentMonth,
+              numberInstallment,
+              payment,
+              datePayment: newDatePayment,
+              priceTotal: newPriceTotal,
+              starMoney: newStarMoney,
+            };
+            if (
+              firstInstallment.installmentMonth === undefined ||
+              firstInstallment.numberInstallment === undefined ||
+              firstInstallment.payment === undefined ||
+              firstInstallment.datePayment === undefined ||
+              firstInstallment.priceTotal === undefined ||
+              firstInstallment.starMoney === undefined
+            ) {
+              AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
+            } else {
+              params =
+                baseParams +
+                "&installment_month=" +
+                firstInstallment.installmentMonth +
+                "&number_installment=" +
+                firstInstallment.numberInstallment +
+                "&payment=" +
+                firstInstallment.payment +
+                "&date_payment=" +
+                firstInstallment.datePayment +
+                "&price_total=" +
+                firstInstallment.priceTotal +
+                "&star_money=" +
+                firstInstallment.starMoney;
+
+              insertStock(params);
+            }
+            break;
           default:
             const installmentPayment: StockInstallmentPaymentRequest = {
               ...baseInsert,
@@ -505,6 +579,12 @@ export function StockContextProvider({ children }: ChildrenProps) {
       sum,
       tel,
       version,
+      installmentMonth,
+      numberInstallment,
+      payment,
+      newDatePayment,
+      newPriceTotal,
+      newStarMoney,
     ]
   );
 
@@ -591,6 +671,18 @@ export function StockContextProvider({ children }: ChildrenProps) {
       majorInsert,
       setMajorInsert,
       clearInputValue,
+      installmentMonth,
+      setInstallmentMonth,
+      numberInstallment,
+      setNumberInstallment,
+      payment,
+      setPayment,
+      newDatePayment,
+      setNewDatePayment,
+      newPriceTotal,
+      setNewPriceTotal,
+      newStarMoney,
+      setNewStarMoney,
     }),
     [
       date,
@@ -635,6 +727,18 @@ export function StockContextProvider({ children }: ChildrenProps) {
       majorInsert,
       setMajorInsert,
       clearInputValue,
+      installmentMonth,
+      setInstallmentMonth,
+      numberInstallment,
+      setNumberInstallment,
+      payment,
+      setPayment,
+      newDatePayment,
+      setNewDatePayment,
+      newPriceTotal,
+      setNewPriceTotal,
+      newStarMoney,
+      setNewStarMoney,
     ]
   );
 
