@@ -7,7 +7,6 @@ import DashboardServices from "../../services/DashboardService";
 import { AppContext } from "../../contexts";
 
 export default function HeaderMainContent() {
-  const [paymentTotal, setPaymentTotal] = useState<string>("");
   const { setIsLoading } = useContext(AppContext);
 
   const {
@@ -23,15 +22,6 @@ export default function HeaderMainContent() {
     setTotalProfit,
     setDesiredProfit,
   } = useContext(DashboardContext);
-
-  useEffect(() => {
-    const major = sessionStorage.getItem("major") ?? "";
-    setIsLoading(true);
-    PaymentService.PaymentSummary(major).then((res) => {
-      setPaymentTotal(res.data);
-      setIsLoading(false);
-    });
-  }, [setPaymentTotal]);
 
   return (
     <>

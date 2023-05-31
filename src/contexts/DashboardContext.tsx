@@ -58,7 +58,7 @@ export function DashboardProvider({ children }: ChildrenProps) {
   const [major, setMajor] = useState<MajorResponse[]>([]);
   const { setIsLoading } = useContext(AppContext);
   const [typeStock, setTypeStock] = useState<[]>([]);
-  const [branch, setBranch] = useState<string>("");
+  const [branch, setBranch] = useState<string>("ทั้งหมด");
   const [type, setType] = useState<string>("");
   const [duration, setDuration] = useState<string>("วัน");
   const [totalSum, setTotalSum] = useState<string>("");
