@@ -176,9 +176,10 @@ export default function StockPage() {
       setIsLoading(true);
       StockService.GetFindStockById(id, majorStock, stockType)
         .then((res) => {
+          const ChangeDate = res.data.DATE.split(" ");
           setUpdateId(id);
           setUpdateStockType(res.data.STOCK_TYPE);
-          setDate(res.data.DATE);
+          setDate(ChangeDate[0]);
           setIdCard(res.data.ID_CARD);
           setCustomerStatus(res.data.CUSTOMER_STATUS);
           setStockType(res.data.STOCK_TYPE);
