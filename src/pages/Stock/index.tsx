@@ -285,6 +285,7 @@ export default function StockPage() {
     )
       .then((res) => {
         AlertSuccess(res.data.message);
+        fetchTableStock();
         setIsLoading(false);
       })
       .catch((err) => {
@@ -309,9 +310,8 @@ export default function StockPage() {
         });
     };
 
-  useEffect(() => {
-    setIsLoading(true);
-    StockService.GetStock(majorUser)
+    const fetchTableStock = () => {
+      StockService.GetStock(majorUser)
       .then((res) => {
         setStock(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 1000);
@@ -321,6 +321,11 @@ export default function StockPage() {
         AlertError(err.response.data.message);
         setIsLoading(false);
       });
+    }
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchTableStock();
   }, [setStock]);
 
   useEffect(() => {
