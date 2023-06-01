@@ -93,8 +93,8 @@ export default function HeaderMainContent() {
                 InitGraph(branch, type, e);
               }}
               icon={"fa fa-building"}
-              topic={"วัน"}
-              options={["วัน", "สัปดาห์", "เดือน"]}
+              topic={"ทั้งหมด"}
+              options={["ทั้งหมด","วัน", "สัปดาห์", "เดือน"]}
               value={duration}
             />
           </div>

@@ -60,7 +60,7 @@ export function DashboardProvider({ children }: ChildrenProps) {
   const [typeStock, setTypeStock] = useState<[]>([]);
   const [branch, setBranch] = useState<string>("ทั้งหมด");
   const [type, setType] = useState<string>("");
-  const [duration, setDuration] = useState<string>("วัน");
+  const [duration, setDuration] = useState<string>("ทั้งหมด");
   const [totalSum, setTotalSum] = useState<string>("");
   const [totalProfit, setTotalProfit] = useState<string>("");
   const [desiredProfit, setDesiredProfit] = useState<number>(0);
