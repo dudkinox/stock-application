@@ -8,6 +8,7 @@ import DashboardServices from "../../services/DashboardService";
 import { GetDashboardSumResponse } from "../../Models/Response/GetDashboardSumResponse";
 import { AppContext } from "../../contexts";
 import GetBuyTotalResponse from "../../Models/Response/GetBuyTotalResponse";
+import BalanceDetail from "./BalanceDetail";
 
 export default function ChartMainContent() {
   const { branch, type, duration, totalSum, desiredProfit } =
@@ -64,6 +65,7 @@ export default function ChartMainContent() {
         }
         id={"want-money"}
       />
+      <BalanceDetail />
       <section className="content">
         <div className="container-fluid">
           <div className="row">
@@ -193,7 +195,17 @@ export default function ChartMainContent() {
                       <p className="h3">{buyTotal?.BUY.toLocaleString()}</p>
                     </div>
                     <div className="col-4 text-center">
-                      <p className="">{"เหลือจำนวนเครื่อง"}</p>
+                      <p className="">
+                        {"เหลือจำนวนเครื่อง"}
+                        <button
+                          className="btn btn-primary mx-2 "
+                          data-toggle="modal"
+                          data-target="#balance-modal"
+                          style={{ fontSize: "13px" }}
+                        >
+                          ดู
+                        </button>
+                      </p>
                       <p className="h3">{buyTotal?.BALANCE.toLocaleString()}</p>
                     </div>
                   </div>
