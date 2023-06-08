@@ -7,6 +7,7 @@ import TextInput from "../../common/TextInput";
 import DashboardServices from "../../services/DashboardService";
 import { GetDashboardSumResponse } from "../../Models/Response/GetDashboardSumResponse";
 import { AppContext } from "../../contexts";
+import GetBuyTotalResponse from "../../Models/Response/GetBuyTotalResponse";
 
 export default function ChartMainContent() {
   const { branch, type, duration, totalSum, desiredProfit } =
@@ -14,6 +15,7 @@ export default function ChartMainContent() {
   const [profit, setProfit] = useState<string>("");
   const [summary, setSummary] = useState<GetDashboardSumResponse>();
   const [percentage, setPercentage] = useState<number>(0);
+  const [buyTotal, setBuyTotal] = useState<GetBuyTotalResponse>();
   const { setIsLoading } = useContext(AppContext);
 
   useEffect(() => {
@@ -28,6 +30,9 @@ export default function ChartMainContent() {
     DashboardServices.getPercentage().then((res) => {
       setPercentage(res.data);
       setIsLoading(false);
+    });
+    DashboardServices.getBuyTotal(branch).then((res) => {
+      setBuyTotal(res.data);
     });
   }, [setProfit, setSummary, setPercentage, branch]);
 
@@ -172,6 +177,24 @@ export default function ChartMainContent() {
                     <div className="col-2 text-center">
                       <p className="">{"สุทธิ"}</p>
                       <p className="h3">{summary?.TOTAL.toLocaleString()}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="card">
+                <div className="card-header pb-0">
+                  <div className="row col-12">
+                    <div className="col-4 text-center">
+                      <p className="">{"จำนวนเครื่องที่ซื้อ"}</p>
+                      <p className="h3">{buyTotal?.COUNT.toLocaleString()}</p>
+                    </div>
+                    <div className="col-4 text-center">
+                      <p className="">{"ขายไปแล้ว"}</p>
+                      <p className="h3">{buyTotal?.BUY.toLocaleString()}</p>
+                    </div>
+                    <div className="col-4 text-center">
+                      <p className="">{"เหลือจำนวนเครื่อง"}</p>
+                      <p className="h3">{buyTotal?.BALANCE.toLocaleString()}</p>
                     </div>
                   </div>
                 </div>

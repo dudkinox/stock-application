@@ -1,4 +1,5 @@
 import Https from "../Https/Index";
+import GetBuyTotalResponse from "../Models/Response/GetBuyTotalResponse";
 import { GetDashboardSumResponse } from "../Models/Response/GetDashboardSumResponse";
 
 const getDashboardService = () => {
@@ -35,6 +36,12 @@ const getSumDateService = (major: string, type: string, date: string) => {
   );
 };
 
+const getBuyTotalService = (major: string) => {
+  return Https.get<GetBuyTotalResponse>(
+    `/apis/dashboard/buy-total/?major=${major}`
+  );
+};
+
 const DashboardServices = {
   getDashboards: getDashboardService,
   getTypeSelected: getTypeSelectedService,
@@ -43,6 +50,7 @@ const DashboardServices = {
   getSummary: getSummaryService,
   getPercentage: getPercentageService,
   getSumDate: getSumDateService,
+  getBuyTotal: getBuyTotalService,
 };
 
 export default DashboardServices;
