@@ -1,16 +1,14 @@
-import { useEffect } from "react";
+import GetBalanceDetailResponse from "../../Models/Response/GetBalanceDetailResponse";
 import ModalCommon from "../../common/Modal";
 import TableCommon from "../../common/Table";
-import initTable, { destroyTable } from "../../common/DataTable";
 
-export default function BalanceDetail() {
+interface BalanceDetailProps {
+  balanceDetail: GetBalanceDetailResponse[];
+}
+
+export default function BalanceDetail({ balanceDetail }: BalanceDetailProps) {
   const columns = ["เครื่อง", "ราคา"];
-  useEffect(() => {
-    // setIsLoading(true);
-    setTimeout(() => destroyTable());
-    setTimeout(() => initTable("0"), 100);
-    // setIsLoading(false);
-  }, []);
+
   return (
     <>
       <ModalCommon
@@ -20,14 +18,12 @@ export default function BalanceDetail() {
             <div className="container my-3 text-center">
               <TableCommon
                 columns={columns}
-                row={
-                  <>
-                    <tr>
-                      <td>test</td>
-                      <td>test</td>
-                    </tr>
-                  </>
-                }
+                row={balanceDetail.map((item) => (
+                  <tr>
+                    <td>{item.VERSION}</td>
+                    <td>{Number(item.PRICE).toLocaleString()}</td>
+                  </tr>
+                ))}
                 id="stock-table"
               />
             </div>

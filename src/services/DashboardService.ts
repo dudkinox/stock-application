@@ -1,4 +1,5 @@
 import Https from "../Https/Index";
+import GetBalanceDetailResponse from "../Models/Response/GetBalanceDetailResponse";
 import GetBuyTotalResponse from "../Models/Response/GetBuyTotalResponse";
 import { GetDashboardSumResponse } from "../Models/Response/GetDashboardSumResponse";
 
@@ -42,6 +43,12 @@ const getBuyTotalService = (major: string) => {
   );
 };
 
+const getBalanceDetailService = (major: string) => {
+  return Https.get<GetBalanceDetailResponse[]>(
+    `/apis/dashboard/balance-detail/?major=${major}`
+  );
+};
+
 const DashboardServices = {
   getDashboards: getDashboardService,
   getTypeSelected: getTypeSelectedService,
@@ -51,6 +58,7 @@ const DashboardServices = {
   getPercentage: getPercentageService,
   getSumDate: getSumDateService,
   getBuyTotal: getBuyTotalService,
+  getBalanceDetail: getBalanceDetailService,
 };
 
 export default DashboardServices;

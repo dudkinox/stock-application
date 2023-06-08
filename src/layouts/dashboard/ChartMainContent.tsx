@@ -9,6 +9,8 @@ import { GetDashboardSumResponse } from "../../Models/Response/GetDashboardSumRe
 import { AppContext } from "../../contexts";
 import GetBuyTotalResponse from "../../Models/Response/GetBuyTotalResponse";
 import BalanceDetail from "./BalanceDetail";
+import initTable, { destroyTable } from "../../common/DataTable";
+import GetBalanceDetailResponse from "../../Models/Response/GetBalanceDetailResponse";
 
 export default function ChartMainContent() {
   const { branch, type, duration, totalSum, desiredProfit } =
@@ -17,6 +19,9 @@ export default function ChartMainContent() {
   const [summary, setSummary] = useState<GetDashboardSumResponse>();
   const [percentage, setPercentage] = useState<number>(0);
   const [buyTotal, setBuyTotal] = useState<GetBuyTotalResponse>();
+  const [balanceDetail, setBalanceDetail] = useState<
+    GetBalanceDetailResponse[]
+  >([]);
   const { setIsLoading } = useContext(AppContext);
 
   useEffect(() => {
@@ -30,10 +35,15 @@ export default function ChartMainContent() {
     });
     DashboardServices.getPercentage().then((res) => {
       setPercentage(res.data);
-      setIsLoading(false);
     });
     DashboardServices.getBuyTotal(branch).then((res) => {
       setBuyTotal(res.data);
+    });
+    DashboardServices.getBalanceDetail(branch).then((res) => {
+      setTimeout(() => destroyTable());
+      setBalanceDetail(res.data);
+      setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+      setIsLoading(false);
     });
   }, [setProfit, setSummary, setPercentage, branch]);
 
@@ -65,7 +75,7 @@ export default function ChartMainContent() {
         }
         id={"want-money"}
       />
-      <BalanceDetail />
+      <BalanceDetail balanceDetail={balanceDetail} />
       <section className="content">
         <div className="container-fluid">
           <div className="row">
