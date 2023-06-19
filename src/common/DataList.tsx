@@ -1,3 +1,5 @@
+import { GetCustomerResponse } from "../Models/Response/GetCustomerResponse";
+
 interface DataListProps {
   label: string;
   setValue: (value: string) => void;
@@ -5,7 +7,7 @@ interface DataListProps {
   icon: string;
   maxLength?: number;
   minLength?: number;
-  data?: string[];
+  data?: GetCustomerResponse[];
   value?: string;
   isReadOnly?: boolean;
 }
@@ -43,8 +45,13 @@ export default function DataList({
           readOnly={isReadOnly}
         />
         <datalist id="datalistOptions">
-          {data?.map((item, index) => <option key={index} value={item} />) ??
-            []}
+          {data?.map((item: any, index) => (
+            <option
+              key={index}
+              label={`${item.NAME} ${item.LAST_NAME}`}
+              value={item.ID_CARD}
+            />
+          )) ?? []}
         </datalist>
       </div>
     </div>

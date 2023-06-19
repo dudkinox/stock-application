@@ -310,8 +310,8 @@ export default function StockPage() {
         });
     };
 
-    const fetchTableStock = () => {
-      StockService.GetStock(majorUser)
+  const fetchTableStock = () => {
+    StockService.GetStock(majorUser)
       .then((res) => {
         setStock(res.data);
         setTimeout(() => initTable(res.data.length.toString() ?? "0"), 1000);
@@ -321,7 +321,7 @@ export default function StockPage() {
         AlertError(err.response.data.message);
         setIsLoading(false);
       });
-    }
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -419,11 +419,11 @@ export default function StockPage() {
                       value={date}
                     />
                     <DataList
-                      label={"ค้นหา / เลือก เลขบัตรประชาชน:"}
+                      label={"ค้นหาชื่อ / เลือก เลขบัตรประชาชน:"}
                       setValue={setIdCard}
                       icon={"far fa-id-card"}
-                      data={selectCustomer.map((item) => item.ID_CARD)}
-                      placeholder={"เลขบัตรประชาชน"}
+                      data={selectCustomer.map((item) => item)}
+                      placeholder={"ค้นหาชื่อ / เลขบัตรประชาชน"}
                       minLength={13}
                       maxLength={13}
                       value={idCard}
@@ -604,8 +604,8 @@ export default function StockPage() {
                       label={"ค้นหา / เลือก เลขบัตรประชาชน:"}
                       setValue={setIdCard}
                       icon={"far fa-id-card"}
-                      data={selectCustomer.map((item) => item.ID_CARD)}
-                      placeholder={"เลขบัตรประชาชน"}
+                      data={selectCustomer.map((item) => item)}
+                      placeholder={"ค้นหาชื่อ / เลขบัตรประชาชน"}
                       minLength={13}
                       maxLength={13}
                       value={idCard}

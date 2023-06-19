@@ -185,7 +185,7 @@ export default function CustomerPage() {
                 <div className="modal-body">
                   <div className="container-fluid">
                     <DataList
-                      label={"ค้นหา / เลือก เลขบัตรประชาชน:"}
+                      label={"เลขบัตรประชาชน:"}
                       setValue={setIdCard}
                       icon={"far fa-id-card"}
                       placeholder={"เลขบัตรประชาชน"}
