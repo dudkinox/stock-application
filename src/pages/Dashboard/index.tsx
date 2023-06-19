@@ -1,5 +1,4 @@
 import HeaderPageCommon from "../../common/HeaderPageCommon";
-import LoadingCommon from "../../common/Loading";
 import ChartMainContent from "../../layouts/dashboard/ChartMainContent";
 import HeaderMainContent from "../../layouts/dashboard/HeaderMainContent";
 

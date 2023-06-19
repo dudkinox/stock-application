@@ -22,7 +22,8 @@ export default function LoginPage() {
           AccountServices.getFindUser(username).then((res) => {
             sessionStorage.setItem("major", res.data.MAJOR);
             setTimeout(() => {
-              window.location.href = "/";
+              window.location.href =
+                res.data.MAJOR === "admin" ? "/" : "/stock";
             }, 100);
           });
           setIsLoading(false);

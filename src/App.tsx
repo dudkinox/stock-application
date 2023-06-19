@@ -11,14 +11,13 @@ import ManageUser from "./pages/ManageUser";
 import LoginPage from "./pages/LoginPage";
 import { useContext, useEffect } from "react";
 import { AppContext } from "./contexts";
-import DataStudio from "./pages/DataStudio";
 import IncomePage from "./pages/Income";
 import { IncomeContextProvider } from "./contexts/IncomeContext";
 import { DashboardProvider } from "./contexts/DashboardContext";
 import LoadingCommon from "./common/Loading";
 
 export default function App() {
-  const { isLogin, isLoading } = useContext(AppContext);
+  const { isLogin, isLoading, majorUser } = useContext(AppContext);
 
   useEffect(() => {
     if (isLogin === "" && window.location.pathname !== "/login") {
@@ -36,14 +35,34 @@ export default function App() {
       )}
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <DashboardProvider>
-                <Dashboard />
-              </DashboardProvider>
-            }
-          />
+          {majorUser === "admin" && (
+            <>
+              <Route
+                path="/"
+                element={
+                  <DashboardProvider>
+                    <Dashboard />
+                  </DashboardProvider>
+                }
+              />
+              <Route
+                path="/manage-user"
+                element={
+                  <UserContextProvider>
+                    <ManageUser />
+                  </UserContextProvider>
+                }
+              />
+              <Route
+                path="/income-list"
+                element={
+                  <IncomeContextProvider>
+                    <IncomePage />
+                  </IncomeContextProvider>
+                }
+              />
+            </>
+          )}
           <Route
             path="/stock"
             element={
@@ -60,22 +79,6 @@ export default function App() {
                   <CustomerPage />
                 </CustomerContextProvider>
               </StockContextProvider>
-            }
-          />
-          <Route
-            path="/manage-user"
-            element={
-              <UserContextProvider>
-                <ManageUser />
-              </UserContextProvider>
-            }
-          />
-          <Route
-            path="/income-list"
-            element={
-              <IncomeContextProvider>
-                <IncomePage />
-              </IncomeContextProvider>
             }
           />
           <Route path="/login" element={<LoginPage />} />
