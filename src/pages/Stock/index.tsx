@@ -145,9 +145,9 @@ export default function StockPage() {
     menuInsert(value);
   };
 
-  const deleteStock = (idCard: string, major: string) => () => {
+  const deleteStock = (id: string, major: string) => () => {
     setIsLoading(true);
-    StockService.DeleteStockById(idCard, major)
+    StockService.DeleteStockById(id, major)
       .then((res) => {
         AlertSuccess(res.data.message);
         StockService.GetStock(majorUser)
@@ -761,7 +761,7 @@ export default function StockPage() {
                     {isDelete() ? (
                       <button
                         className="btn btn-danger"
-                        onClick={deleteStock(item.ID_CARD, item.MAJOR)}
+                        onClick={deleteStock(item.ID, item.MAJOR)}
                       >
                         <i className="nav-icon fas fa-trash" />
                       </button>
