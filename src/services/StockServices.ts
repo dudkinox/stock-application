@@ -36,9 +36,9 @@ const UpdateStockService = (
   );
 };
 
-const DeleteStockByIdService = (idCard: string, major: string) => {
+const DeleteStockByIdService = (id: string, major: string) => {
   return Https.get<StatusStockResponse>(
-    `/apis/stocks/delete/?id_card=${idCard}&major=${major}`
+    `/apis/stocks/delete/?id=${id}&major=${major}`
   );
 };
 
