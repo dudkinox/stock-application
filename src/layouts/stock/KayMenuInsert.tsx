@@ -1,8 +1,12 @@
 import { MenuKayEnum } from "../../enum/menuInsert.enum";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { StockContext } from "../../contexts/StockContext";
 
-export default function KayMenuInsert() {
+interface KayMenuInsertProps {
+  fullName: string;
+}
+
+export default function KayMenuInsert({ fullName }: KayMenuInsertProps) {
   const {
     customer,
     setCustomer,
@@ -21,6 +25,11 @@ export default function KayMenuInsert() {
     datePayment,
     setDatePayment,
   } = useContext(StockContext);
+
+  useEffect(() => {
+    setCustomer(fullName);
+  }, [fullName]);
+
   return (
     <>
       <div className="form-group">

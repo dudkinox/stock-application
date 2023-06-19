@@ -503,7 +503,11 @@ export default function StockPage() {
                     )}
                     {isMenuInsert && <IsMenuInsert />}
                     {byeMenuInsert && <ByeMenuInsert />}
-                    {kayMenuInsert && <KayMenuInsert />}
+                    {kayMenuInsert && (
+                      <KayMenuInsert
+                        fullName={`${customerFind?.NAME} ${customerFind?.LAST_NAME}`}
+                      />
+                    )}
                     {NewInstallmentMenuInsert && <MenuNewInstallmentInsert />}
                     {installmentMenuInsert && (
                       <InstallmentMenuInsert selectCustomer={selectCustomer} />
@@ -679,7 +683,11 @@ export default function StockPage() {
                     )}
                     {isMenuInsert && <IsMenuInsert />}
                     {byeMenuInsert && <ByeMenuInsert />}
-                    {kayMenuInsert && <KayMenuInsert />}
+                    {kayMenuInsert && (
+                      <KayMenuInsert
+                        fullName={`${customerFind?.NAME} ${customerFind?.LAST_NAME}`}
+                      />
+                    )}
                     {NewInstallmentMenuInsert && <MenuNewInstallmentInsert />}
                     {installmentMenuInsert && (
                       <InstallmentMenuInsert selectCustomer={selectCustomer} />
