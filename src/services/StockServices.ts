@@ -46,6 +46,10 @@ const GetStockKayService = (major: string) => {
   return Https.get<any[]>(`/apis/kay/get/?major=${major}`);
 };
 
+const GetStockByeService = (major: string) => {
+  return Https.get<any[]>(`/apis/bye/get/?major=${major}`);
+};
+
 const StockService = {
   InsertStock: InsertStockService,
   GetStock: GetStockService,
@@ -54,6 +58,7 @@ const StockService = {
   UpdateStock: UpdateStockService,
   DeleteStockById: DeleteStockByIdService,
   GetStockKay: GetStockKayService,
+  GetStockBye: GetStockByeService,
 };
 
 export default StockService;
