@@ -98,6 +98,8 @@ interface StockContextProps {
   setNewPriceTotal: (value: string) => void;
   newStarMoney: string;
   setNewStarMoney: (value: string) => void;
+  serialNumber: string;
+  setSerialNumber: (value: string) => void;
 }
 
 export const StockContext = createContext<StockContextProps>({
@@ -179,6 +181,8 @@ export const StockContext = createContext<StockContextProps>({
   setNewPriceTotal: (value: string) => {},
   newStarMoney: "0",
   setNewStarMoney: (value: string) => {},
+  serialNumber: "",
+  setSerialNumber: (value: string) => {},
 });
 
 interface ChildrenProps {
@@ -226,6 +230,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [newDatePayment, setNewDatePayment] = useState("1");
   const [newPriceTotal, setNewPriceTotal] = useState("0");
   const [newStarMoney, setNewStarMoney] = useState("0");
+  const [serialNumber, setSerialNumber] = useState("");
 
   const menuInsert = useMemo(
     () => (stockType: string) => {
@@ -316,6 +321,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
     setDatePayment("");
     setInstallmentNo("");
     setPriceTotal("");
+    setSerialNumber("");
     setIsShowModal(false);
   };
 
@@ -397,6 +403,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
           case "ซื้อ":
             const bye: StockByeRequest = {
               ...baseInsert,
+              serialNumber: serialNumber,
               version: version,
               price: Number(price),
               imei: imei,
@@ -405,6 +412,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
             };
 
             if (
+              bye.serialNumber === "" ||
               bye.version === "" ||
               bye.price === "" ||
               bye.imei === "" ||
@@ -424,7 +432,9 @@ export function StockContextProvider({ children }: ChildrenProps) {
                 "&source=" +
                 bye.source +
                 "&battery=" +
-                bye.battery;
+                bye.battery +
+                "&serial_number=" +
+                bye.serialNumber;
 
               insertStock(params);
             }

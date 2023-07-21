@@ -5,6 +5,8 @@ import { MenuByeEnum } from "../../enum/menuInsert.enum";
 
 export default function ByeMenuInsert() {
   const {
+    serialNumber,
+    setSerialNumber,
     version,
     setVersion,
     price,
@@ -18,6 +20,14 @@ export default function ByeMenuInsert() {
   } = useContext(StockContext);
   return (
     <>
+      <TextInput
+        label={MenuByeEnum.SERIAL_NUMBER}
+        icon={"fas fa-mobile"}
+        setValue={setVersion}
+        type={"text"}
+        placeholder={"Serial Number"}
+        value={version}
+      />
       <TextInput
         label={MenuByeEnum.VERSION}
         icon={"fas fa-mobile"}

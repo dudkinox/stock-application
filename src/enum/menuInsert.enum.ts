@@ -45,6 +45,7 @@ export enum MenuNewInstallmentEnum {
 }
 
 export enum MenuByeEnum {
+  SERIAL_NUMBER = "Serial Number",
   VERSION = "รุ่น",
   PRICE = "ราคา",
   IMEI = "Imei เครื่อง",
@@ -101,6 +102,5 @@ export const MenuInstallmentPaymentArray = [
   "ประเภท",
   "สาขา",
   "งวดที่",
-  "จำนวนเงิน"
+  "จำนวนเงิน",
 ];
-

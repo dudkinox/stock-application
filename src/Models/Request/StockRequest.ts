@@ -17,6 +17,7 @@ export interface StockEquipmentRequest extends StockRequest {
 }
 
 export interface StockByeRequest extends StockRequest {
+  serialNumber: string;
   version: string;
   price: number | string;
   imei: string;
