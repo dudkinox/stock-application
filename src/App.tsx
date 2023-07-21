@@ -15,6 +15,11 @@ import IncomePage from "./pages/Income";
 import { IncomeContextProvider } from "./contexts/IncomeContext";
 import { DashboardProvider } from "./contexts/DashboardContext";
 import LoadingCommon from "./common/Loading";
+import { StockKayPage } from "./pages/Stock/kay";
+import { PathEnum } from "./enum/path.enum";
+import { StockByePage } from "./pages/Stock/bye";
+import { StockEquipmentPage } from "./pages/Stock/equipment";
+import { StockInstallmentPaymentPage } from "./pages/Stock/InstallmentPaymentPage";
 
 export default function App() {
   const { isLogin, isLoading, majorUser } = useContext(AppContext);
@@ -64,10 +69,42 @@ export default function App() {
             </>
           )}
           <Route
-            path="/stock"
+            path={PathEnum.STOCK_SUM}
             element={
               <StockContextProvider>
                 <StockPage />
+              </StockContextProvider>
+            }
+          />
+          <Route
+            path={PathEnum.STOCK_KAY}
+            element={
+              <StockContextProvider>
+                <StockKayPage />
+              </StockContextProvider>
+            }
+          />
+          <Route
+            path={PathEnum.STOCK_BYE}
+            element={
+              <StockContextProvider>
+                <StockByePage />
+              </StockContextProvider>
+            }
+          />
+          <Route
+            path={PathEnum.STOCK_EQUIPMENT}
+            element={
+              <StockContextProvider>
+                <StockEquipmentPage />
+              </StockContextProvider>
+            }
+          />
+          <Route
+            path={PathEnum.STOCK_INSTALLMENT_PAYMENT}
+            element={
+              <StockContextProvider>
+                <StockInstallmentPaymentPage />
               </StockContextProvider>
             }
           />
