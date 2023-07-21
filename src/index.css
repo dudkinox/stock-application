@@ -67,6 +67,13 @@ a.nav-link.active {
   opacity: 0.85;
 }
 
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active,
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active:focus,
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active:hover {
+  background-color: rgb(233 29 99);
+  color: #343a40;
+}
+
 @media screen and (max-width: 1440px) {
   .gif {
     left: 43.5%;

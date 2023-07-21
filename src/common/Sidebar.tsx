@@ -44,17 +44,75 @@ export default function SidebarCommon() {
                   </a>
                 </li>
               ) : null}
-              <li className="nav-item">
-                <a
-                  href="/stock"
-                  className={`nav-link ${
-                    pathUrl === PathEnum.STOCK ? "active" : ""
-                  }`}
-                >
-                  <i className="nav-icon fas fa-shopping-cart" />
-                  <p>คลังสินค้า</p>
+              <li className="nav-item menu-open">
+                <a href="#" className="nav-link">
+                  <i className="nav-icon fas fa-tachometer-alt" />
+                  <p>
+                    คลังสินค้า
+                    <i className="right fas fa-angle-left" />
+                  </p>
                 </a>
+                <ul className="nav nav-treeview">
+                  <li className="nav-item">
+                    <a
+                      href={PathEnum.STOCK_SUM}
+                      className={`nav-link ${
+                        pathUrl === PathEnum.STOCK_SUM ? "active" : ""
+                      }`}
+                    >
+                      <i className="far fa-circle nav-icon" />
+                      <p>ภาพรวม</p>
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a
+                      href={PathEnum.STOCK_KAY}
+                      className={`nav-link ${
+                        pathUrl === PathEnum.STOCK_KAY ? "active" : ""
+                      }`}
+                    >
+                      <i className="far fa-circle nav-icon" />
+                      <p>ขาย</p>
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a
+                      href={PathEnum.STOCK_BYE}
+                      className={`nav-link ${
+                        pathUrl === PathEnum.STOCK_BYE ? "active" : ""
+                      }`}
+                    >
+                      <i className="far fa-circle nav-icon" />
+                      <p>ซื้อ</p>
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a
+                      href={PathEnum.STOCK_EQUIPMENT}
+                      className={`nav-link ${
+                        pathUrl === PathEnum.STOCK_EQUIPMENT ? "active" : ""
+                      }`}
+                    >
+                      <i className="far fa-circle nav-icon" />
+                      <p>อุปกรณ์</p>
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a
+                      href={PathEnum.STOCK_INSTALLMENT_PAYMENT}
+                      className={`nav-link ${
+                        pathUrl === PathEnum.STOCK_INSTALLMENT_PAYMENT
+                          ? "active"
+                          : ""
+                      }`}
+                    >
+                      <i className="far fa-circle nav-icon" />
+                      <p>ผ่อน</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
+
               <li className="nav-item">
                 <a
                   href="/customer"
