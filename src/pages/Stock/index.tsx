@@ -113,6 +113,8 @@ export default function StockPage() {
     setNewPriceTotal,
     newStarMoney,
     setNewStarMoney,
+    setSerialNumber,
+    serialNumber,
   } = useContext(StockContext);
   const { setPathUrl, majorUser, isEdit, isDelete, setIsLoading } =
     useContext(AppContext);
@@ -211,6 +213,7 @@ export default function StockPage() {
           setNewDatePayment(res.data.DATE_PAYMENT);
           setNewPriceTotal(res.data.TOTAL_PRICE);
           setNewStarMoney(res.data.STAR_MONEY);
+          setSerialNumber(res.data.SERIAL_NUMBER);
         })
         .catch((err) => {
           AlertError(err.response.data.message);
@@ -250,6 +253,7 @@ export default function StockPage() {
       case "ซื้อ":
         payload = {
           date,
+          serialNumber,
           version,
           price,
           imei,
