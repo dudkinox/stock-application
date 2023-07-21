@@ -23,10 +23,10 @@ export default function ByeMenuInsert() {
       <TextInput
         label={MenuByeEnum.SERIAL_NUMBER}
         icon={"fas fa-mobile"}
-        setValue={setVersion}
+        setValue={setSerialNumber}
         type={"text"}
         placeholder={"Serial Number"}
-        value={version}
+        value={serialNumber}
       />
       <TextInput
         label={MenuByeEnum.VERSION}

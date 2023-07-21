@@ -58,6 +58,7 @@ export const MenuByeArray = [
   "ประวัติลูกค้า",
   "ประเภท",
   "สาขา",
+  "Serial Number",
   "รุ่น",
   "ราคา",
   "Imei เครื่อง",
