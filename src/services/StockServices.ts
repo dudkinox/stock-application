@@ -50,6 +50,14 @@ const GetStockByeService = (major: string) => {
   return Https.get<any[]>(`/apis/bye/get/?major=${major}`);
 };
 
+const GetStockEquipmentService = (major: string) => {
+  return Https.get<any[]>(`/apis/bye/equipment/?major=${major}`);
+};
+
+const GetStockInstallmentPaymentService = (major: string) => {
+  return Https.get<any[]>(`/apis/bye/installment_payment/?major=${major}`);
+};
+
 const StockService = {
   InsertStock: InsertStockService,
   GetStock: GetStockService,
@@ -59,6 +67,8 @@ const StockService = {
   DeleteStockById: DeleteStockByIdService,
   GetStockKay: GetStockKayService,
   GetStockBye: GetStockByeService,
+  GetStockEquipment: GetStockEquipmentService,
+  GetStockInstallmentPayment: GetStockInstallmentPaymentService,
 };
 
 export default StockService;
