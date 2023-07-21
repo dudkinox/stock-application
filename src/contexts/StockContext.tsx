@@ -693,6 +693,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setNewPriceTotal,
       newStarMoney,
       setNewStarMoney,
+      serialNumber,
+      setSerialNumber,
     }),
     [
       date,
@@ -749,6 +751,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setNewPriceTotal,
       newStarMoney,
       setNewStarMoney,
+      serialNumber,
+      setSerialNumber,
     ]
   );
 
