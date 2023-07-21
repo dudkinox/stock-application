@@ -42,6 +42,10 @@ const DeleteStockByIdService = (id: string, major: string) => {
   );
 };
 
+const GetStockKayService = (major: string) => {
+  return Https.get<any[]>(`/apis/kay/get/?major=${major}`);
+};
+
 const StockService = {
   InsertStock: InsertStockService,
   GetStock: GetStockService,
@@ -49,6 +53,7 @@ const StockService = {
   GetFindStockById: GetFindByIdStockService,
   UpdateStock: UpdateStockService,
   DeleteStockById: DeleteStockByIdService,
+  GetStockKay: GetStockKayService,
 };
 
 export default StockService;
