@@ -133,8 +133,8 @@ export default function StockPage() {
   const navigate = useNavigate();
 
   const stockTableHeaders = [
+    "รหัสเอกสาร",
     "วันที่",
-    "เลขบัตรประชาชน",
     "ประวัติลูกค้า",
     "ประเภท",
     "รายละเอียด",
@@ -747,8 +747,8 @@ export default function StockPage() {
               columns={isEdit() ? editableStockTableHeaders : stockTableHeaders}
               row={stock.map((item, i) => (
                 <tr key={i} className="text-center">
-                  <td>{convertDateToThai(new Date(item.DATE))}</td>
                   <td>{item.ID_CARD}</td>
+                  <td>{convertDateToThai(new Date(item.DATE))}</td>
                   <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.STOCK_TYPE}</td>
                   <td>
