@@ -333,7 +333,6 @@ export default function StockPage() {
     const isNextAdmin = isAdmin && majorInsert !== "";
 
     if ((isAdmin && isNextAdmin && isNext) || (!isAdmin && isNext)) {
-      $(".modal-backdrop.fade.show").remove();
       navigate("/stock/add");
     } else {
       AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
@@ -535,7 +534,7 @@ export default function StockPage() {
                   <button
                     type="button"
                     className="btn primary-btn col-lg-2 col-sm-auto"
-                    data-dismiss={isShowModal && `modal`}
+                    data-dismiss="modal"
                     onClick={nextValidate}
                   >
                     ถัดไป

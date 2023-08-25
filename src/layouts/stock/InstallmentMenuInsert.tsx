@@ -4,7 +4,7 @@ import { MenuInstallmentPaymentEnum } from "../../enum/menuInsert.enum";
 import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
 
 interface InstallmentMenuInsertProps {
-  selectCustomer: GetCustomerResponse[];
+  selectCustomer?: GetCustomerResponse[];
 }
 
 export default function InstallmentMenuInsert({
@@ -13,10 +13,10 @@ export default function InstallmentMenuInsert({
   const { installmentNo, setInstallmentNo, priceTotal, setPriceTotal } =
     useContext(StockContext);
 
-  useEffect(() => {
-    setInstallmentNo(Number(selectCustomer[0].NUMBER_INSTALLMENT) + 1);
-    setPriceTotal(selectCustomer[0].INSTALLMENT_MONTH);
-  }, [selectCustomer]);
+  // useEffect(() => {
+  //   setInstallmentNo(Number(selectCustomer[0].NUMBER_INSTALLMENT) + 1);
+  //   setPriceTotal(selectCustomer[0].INSTALLMENT_MONTH);
+  // }, [selectCustomer]);
 
   return (
     <>
