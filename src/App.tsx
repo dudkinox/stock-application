@@ -20,6 +20,7 @@ import { PathEnum } from "./enum/path.enum";
 import { StockByePage } from "./pages/Stock/bye";
 import { StockEquipmentPage } from "./pages/Stock/equipment";
 import { StockInstallmentPaymentPage } from "./pages/Stock/InstallmentPaymentPage";
+import StockAddPage from "./pages/Stock/add";
 
 export default function App() {
   const { isLogin, isLoading, majorUser } = useContext(AppContext);
@@ -73,6 +74,14 @@ export default function App() {
             element={
               <StockContextProvider>
                 <StockPage />
+              </StockContextProvider>
+            }
+          />
+          <Route
+            path="/stock/add"
+            element={
+              <StockContextProvider>
+                <StockAddPage />
               </StockContextProvider>
             }
           />
