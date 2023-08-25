@@ -327,6 +327,19 @@ export default function StockPage() {
       });
   };
 
+  const nextValidate = () => {
+    const isNext = date !== "" && stockType !== "";
+    const isAdmin = majorUser === "admin";
+    const isNextAdmin = isAdmin && majorInsert !== "";
+
+    if ((isAdmin && isNextAdmin && isNext) || (!isAdmin && isNext)) {
+      $(".modal-backdrop.fade.show").remove();
+      navigate("/stock/add");
+    } else {
+      AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
+    }
+  };
+
   useEffect(() => {
     setIsLoading(true);
     fetchTableStock();
@@ -415,6 +428,16 @@ export default function StockPage() {
               <>
                 <div className="modal-body">
                   <div className="container-fluid">
+                    {isEdit() && majorUser === "admin" && (
+                      <SelectChoice
+                        topic="เลือกสาขา"
+                        setValue={setMajorInsert}
+                        icon="far fa-calendar-alt"
+                        label={"สาขา:"}
+                        value={majorInsert}
+                        options={fetchMajor.map((item) => item.NAME)}
+                      />
+                    )}
                     <TextInput
                       label={"วันที่:"}
                       icon={"far fa-calendar-alt"}
@@ -422,7 +445,7 @@ export default function StockPage() {
                       type={"date"}
                       value={date}
                     />
-                    <DataList
+                    {/* <DataList
                       label={"ค้นหาชื่อ / เลือก เลขบัตรประชาชน:"}
                       setValue={setIdCard}
                       icon={"far fa-id-card"}
@@ -432,7 +455,7 @@ export default function StockPage() {
                       maxLength={13}
                       value={idCard}
                       isReadOnly={isUpdate}
-                    />
+                    /> */}
                     {isUpdate ? (
                       <>
                         <TextInput
@@ -456,7 +479,7 @@ export default function StockPage() {
                       </>
                     ) : (
                       <>
-                        {customerFind && (
+                        {/* {customerFind && (
                           <TextInput
                             label={"ชื่อลูกค้า:"}
                             icon={"far fa-id-card"}
@@ -477,7 +500,7 @@ export default function StockPage() {
                           value={
                             customerFind?.CUSTOMER_STATUS ?? customerStatus
                           }
-                        />
+                        /> */}
                         <SelectChoice
                           label={"ประเภท"}
                           setValue={SelectStockType}
@@ -493,19 +516,9 @@ export default function StockPage() {
                           placeholder={"ประเภทลูกค้า"}
                           value={stockType}
                         />
-                        {isEdit() && majorUser === "admin" && (
-                          <SelectChoice
-                            topic="เลือกสาขา"
-                            setValue={setMajorInsert}
-                            icon="far fa-calendar-alt"
-                            label={"สาขา:"}
-                            value={majorInsert}
-                            options={fetchMajor.map((item) => item.NAME)}
-                          />
-                        )}
                       </>
                     )}
-                    {isMenuInsert && <IsMenuInsert />}
+                    {/* {isMenuInsert && <IsMenuInsert />}
                     {byeMenuInsert && <ByeMenuInsert />}
                     {kayMenuInsert && (
                       <KayMenuInsert
@@ -515,11 +528,19 @@ export default function StockPage() {
                     {NewInstallmentMenuInsert && <MenuNewInstallmentInsert />}
                     {installmentMenuInsert && (
                       <InstallmentMenuInsert selectCustomer={selectCustomer} />
-                    )}
+                    )} */}
                   </div>
                 </div>
                 <div className="modal-footer">
                   <button
+                    type="button"
+                    className="btn primary-btn col-lg-2 col-sm-auto"
+                    data-dismiss={isShowModal && `modal`}
+                    onClick={nextValidate}
+                  >
+                    ถัดไป
+                  </button>
+                  {/* <button
                     type="button"
                     className="btn primary-btn col-lg-2 col-sm-auto"
                     data-dismiss={isShowModal && `modal`}
@@ -534,7 +555,7 @@ export default function StockPage() {
                     data-dismiss="modal"
                   >
                     ยกเลิก
-                  </button>
+                  </button> */}
                 </div>
               </>
             }
