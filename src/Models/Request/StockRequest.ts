@@ -1,6 +1,6 @@
 export default interface StockRequest {
   date: string;
-  idCard: string;
+  invoice: string;
   customerStatus: string;
   stockType: string;
   major: string;

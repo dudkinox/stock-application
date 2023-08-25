@@ -34,7 +34,7 @@ export default function StockAddPage() {
             <button
               type="button"
               className="btn primary-btn col-3 my-3 "
-              onClick={handlerSubmit}
+              onClick={() => handlerSubmit(genInvoice)}
             >
               บันทึก
             </button>

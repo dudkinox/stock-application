@@ -18,6 +18,7 @@ import StockRequest, {
 import { GetStockResponse } from "../Models/Response/GetStockResponse";
 import StockService from "../services/StockServices";
 import { AppContext } from "./index";
+import { useNavigate } from "react-router-dom";
 
 interface StockContextProps {
   date: string;
@@ -31,7 +32,7 @@ interface StockContextProps {
   NewInstallmentMenuInsert: boolean;
   setNewInstallmentMenuInsert: (value: boolean) => void;
   installmentMenuInsert: boolean;
-  handlerSubmit: () => void;
+  handlerSubmit: (invoice: string) => void;
   idCard: string;
   setIdCard: (value: string) => void;
   customerStatus: string;
@@ -114,7 +115,7 @@ export const StockContext = createContext<StockContextProps>({
   NewInstallmentMenuInsert: false,
   setNewInstallmentMenuInsert: (value: boolean) => {},
   installmentMenuInsert: false,
-  handlerSubmit: () => {},
+  handlerSubmit: (invoice: string) => {},
   idCard: "",
   setIdCard: (value: string) => {},
   customerStatus: "",
@@ -231,6 +232,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [newPriceTotal, setNewPriceTotal] = useState("0");
   const [newStarMoney, setNewStarMoney] = useState("0");
   const [serialNumber, setSerialNumber] = useState("");
+  const navigate = useNavigate();
 
   const menuInsert = useMemo(
     () => (stockType: string) => {
@@ -326,20 +328,16 @@ export function StockContextProvider({ children }: ChildrenProps) {
   };
 
   const handlerSubmit = useMemo(
-    () => () => {
+    () => (invoice: string) => {
       const baseInsert: StockRequest = {
         date,
-        idCard,
+        invoice,
         customerStatus,
         stockType,
         major: majorUser === "admin" ? majorInsert : majorUser,
       };
       if (baseInsert.date === "") {
         AlertWarning("กรุณากรอกวันที่");
-      } else if (baseInsert.idCard.length !== 13) {
-        AlertWarning("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
-      } else if (baseInsert.customerStatus === "") {
-        AlertWarning("กรุณาเลือกประวัติลุกค้า");
       } else if (baseInsert.stockType === "") {
         AlertWarning("กรุณาเลือกประเภท");
       } else {
@@ -348,7 +346,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
           "?date=" +
           baseInsert.date +
           "&id_card=" +
-          baseInsert.idCard +
+          baseInsert.invoice +
           "&customer_status=" +
           baseInsert.customerStatus +
           "&stock_type=" +
@@ -550,11 +548,9 @@ export function StockContextProvider({ children }: ChildrenProps) {
         }
         setIsLoading(true);
         StockService.GetStock(majorUser)
-          .then((res) => {
-            destroyTable();
-            setStock(res.data);
-            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+          .then(() => {
             clearInputValue();
+            navigate("/stock");
             setIsLoading(false);
           })
           .catch((err) => {
