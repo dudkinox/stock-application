@@ -80,33 +80,6 @@ export default function ChartMainContent() {
         <div className="container-fluid">
           <div className="row">
             <section className="col-lg-12 connectedSortable">
-              <div className="card card-primary">
-                <div className="card-header">
-                  <h3 className="card-title">กราฟสถิติ</h3>
-                  <div className="card-tools">
-                    <button
-                      type="button"
-                      className="btn btn-tool"
-                      data-card-widget="collapse"
-                    >
-                      <i className="fas fa-minus" />
-                    </button>
-                  </div>
-                </div>
-                <div className="card-body">
-                  <div className="chart">
-                    <canvas
-                      id="barChart"
-                      style={{
-                        minHeight: 250,
-                        height: 250,
-                        maxHeight: 250,
-                        maxWidth: "100%",
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
               <div className="card">
                 <div className="card-header pb-0">
                   <div className="row col-12">
