@@ -36,6 +36,8 @@ export function StockKayPage() {
     "ขาย",
   ];
 
+  const handlerKay = (id: string) => {};
+
   useEffect(() => {
     setIsLoading(true);
     StockService.GetStockKay(majorUser).then((res) => {
@@ -80,7 +82,11 @@ export function StockKayPage() {
                           <td>{item.BATTERY}</td>
                           <td>{item.STATUS}</td>
                           <td>
-                            <button type="button" className="btn primary-btn">
+                            <button
+                              type="button"
+                              className="btn primary-btn"
+                              onClick={() => handlerKay(item.ID)}
+                            >
                               ขาย
                             </button>
                           </td>
