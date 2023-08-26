@@ -17,12 +17,10 @@ export default function StockAddPage() {
     installmentMenuInsert,
     handlerSubmit,
   } = useContext(StockContext);
-  const [genInvoice] = useState<string>(GenerateRandomCode(6));
-
   return (
     <ContentLayOut
       title={"เพิ่มข้อมูล"}
-      topic={`รหัสเอกสาร : ${genInvoice}`}
+      topic={`รหัสเอกสารจะถูกสร้างขึ้นหลังกดบันทึก`}
       page={
         <>
           {isMenuInsert && <IsMenuInsert />}
@@ -34,7 +32,7 @@ export default function StockAddPage() {
             <button
               type="button"
               className="btn primary-btn col-3 my-3 "
-              onClick={() => handlerSubmit(genInvoice)}
+              onClick={handlerSubmit}
             >
               บันทึก
             </button>

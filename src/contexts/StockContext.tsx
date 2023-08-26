@@ -32,7 +32,7 @@ interface StockContextProps {
   NewInstallmentMenuInsert: boolean;
   setNewInstallmentMenuInsert: (value: boolean) => void;
   installmentMenuInsert: boolean;
-  handlerSubmit: (invoice: string) => void;
+  handlerSubmit: () => void;
   idCard: string;
   setIdCard: (value: string) => void;
   customerStatus: string;
@@ -115,7 +115,7 @@ export const StockContext = createContext<StockContextProps>({
   NewInstallmentMenuInsert: false,
   setNewInstallmentMenuInsert: (value: boolean) => {},
   installmentMenuInsert: false,
-  handlerSubmit: (invoice: string) => {},
+  handlerSubmit: () => {},
   idCard: "",
   setIdCard: (value: string) => {},
   customerStatus: "",
@@ -328,10 +328,10 @@ export function StockContextProvider({ children }: ChildrenProps) {
   };
 
   const handlerSubmit = useMemo(
-    () => (invoice: string) => {
+    () => () => {
       const baseInsert: StockRequest = {
         date,
-        invoice,
+        invoice: "",
         customerStatus,
         stockType,
         major: majorUser === "admin" ? majorInsert : majorUser,

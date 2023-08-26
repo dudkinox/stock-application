@@ -132,13 +132,7 @@ export default function StockPage() {
   const customerExists = selectCustomer.find((fil) => fil.ID_CARD === idCard);
   const navigate = useNavigate();
 
-  const stockTableHeaders = [
-    "รหัสเอกสาร",
-    "วันที่",
-    "ประวัติลูกค้า",
-    "ประเภท",
-    "รายละเอียด",
-  ];
+  const stockTableHeaders = ["รหัสเอกสาร", "วันที่", "ประเภท", "รายละเอียด"];
 
   const editableStockTableHeaders = [...stockTableHeaders, "แก้ไข", "ลบ"];
 
@@ -747,9 +741,8 @@ export default function StockPage() {
               columns={isEdit() ? editableStockTableHeaders : stockTableHeaders}
               row={stock.map((item, i) => (
                 <tr key={i} className="text-center">
-                  <td>{item.ID_CARD}</td>
+                  <td>{item.ID}</td>
                   <td>{convertDateToThai(new Date(item.DATE))}</td>
-                  <td>{item.CUSTOMER_STATUS}</td>
                   <td>{item.STOCK_TYPE}</td>
                   <td>
                     <div>
