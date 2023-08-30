@@ -46,11 +46,7 @@ export function StockKayPage() {
   ];
 
   const handlerKay = (id: string) => {
-    setKayMenuInsert(true);
-    setByeMenuInsert(false);
-    setIsMenuInsert(false);
-    setNewInstallmentMenuInsert(false);
-    navigate("/stock/add", { state: { id } });
+    navigate(`/stock/add?type=kay`, { state: { id } });
   };
 
   useEffect(() => {

@@ -12,27 +12,25 @@ import { useLocation } from "react-router-dom";
 export default function StockAddPage() {
   const {
     isMenuInsert,
-    byeMenuInsert,
-    kayMenuInsert,
     NewInstallmentMenuInsert,
     installmentMenuInsert,
     handlerSubmit,
   } = useContext(StockContext);
   const state = useLocation();
   const id = state.state.id;
+  const addType = new URLSearchParams(useLocation().search).get("type");
+
   return (
     <ContentLayOut
       title={"เพิ่มข้อมูล"}
       topic={
-        id === undefined
-          ? `รหัสเอกสารจะถูกสร้างขึ้นหลังกดบันทึก`
-          : `รหัสเอกสาร : ${id}`
+        id === 0 ? `รหัสเอกสารจะถูกสร้างขึ้นหลังกดบันทึก` : `รหัสเอกสาร : ${id}`
       }
       page={
         <>
           {isMenuInsert && <IsMenuInsert />}
-          {byeMenuInsert && <ByeMenuInsert />}
-          {kayMenuInsert && <KayMenuInsert fullName={``} />}
+          {addType === "bye" && <ByeMenuInsert />}
+          {addType === "kay" && <KayMenuInsert fullName={``} />}
           {NewInstallmentMenuInsert && <MenuNewInstallmentInsert />}
           {installmentMenuInsert && <InstallmentMenuInsert />}
           <div className="text-center">

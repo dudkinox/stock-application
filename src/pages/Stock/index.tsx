@@ -136,11 +136,6 @@ export default function StockPage() {
 
   const editableStockTableHeaders = [...stockTableHeaders, "แก้ไข", "ลบ"];
 
-  const SelectStockType = (value: string) => {
-    setStockType(value);
-    menuInsert(value);
-  };
-
   const deleteStock = (id: string, major: string) => () => {
     setIsLoading(true);
     StockService.DeleteStockById(id, major)
@@ -199,7 +194,9 @@ export default function StockPage() {
     const isNextAdmin = isAdmin && majorInsert !== "";
 
     if ((isAdmin && isNextAdmin && isNext) || (!isAdmin && isNext)) {
-      navigate("/stock/add");
+      navigate(`/stock/add?type=${stockType === "ซื้อ" ? "bye" : ""}`, {
+        state: { id: 0 },
+      });
     } else {
       AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
     }
@@ -368,7 +365,7 @@ export default function StockPage() {
                         /> */}
                         <SelectChoice
                           label={"ประเภท"}
-                          setValue={SelectStockType}
+                          setValue={setStockType}
                           icon={"far fa-file"}
                           topic={"ประเภท"}
                           options={[
