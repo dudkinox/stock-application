@@ -108,7 +108,12 @@ export default function KayMenuInsert({ fullName }: KayMenuInsertProps) {
             className="form-control"
             onChange={(e: any) => setCustomer(e.target.value)}
             placeholder="ชื่อลูกค้า"
-            value={customer}
+            value={
+              customerFind
+                ? `${customerFind?.NAME} ${customerFind?.LAST_NAME}`
+                : ""
+            }
+            readOnly={customerFind !== null}
           />
         </div>
       </div>
