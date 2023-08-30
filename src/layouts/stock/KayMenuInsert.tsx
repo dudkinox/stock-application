@@ -6,6 +6,7 @@ import { AlertWarning } from "../../common/ToastrCommon";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../contexts";
 import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
+import CustomerServices from "../../services/CustomerServices";
 
 interface KayMenuInsertProps {
   fullName: string;
@@ -33,13 +34,21 @@ export default function KayMenuInsert({ fullName }: KayMenuInsertProps) {
     setIdCard,
     idCard,
   } = useContext(StockContext);
-  const { setPathUrl } = useContext(AppContext);
+  const { setPathUrl, setIsLoading, majorUser } = useContext(AppContext);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
     []
   );
   const [customerFind, setCustomerFind] = useState<GetCustomerResponse>();
   const customerExists = selectCustomer.find((fil) => fil.ID_CARD === idCard);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsLoading(true);
+    CustomerServices.getCustomer(majorUser).then((res) => {
+      setSelectCustomer(res.data);
+      setIsLoading(false);
+    });
+  }, []);
 
   useEffect(() => {
     setCustomer(fullName);
