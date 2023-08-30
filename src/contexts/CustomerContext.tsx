@@ -14,6 +14,7 @@ import { GetCustomerResponse } from "../Models/Response/GetCustomerResponse";
 import CustomerServices from "../services/CustomerServices";
 import { AppContext } from "./index";
 import { StockContext } from "./StockContext";
+import { useNavigate } from "react-router-dom";
 
 interface CustomerContextProps {
   customer: GetCustomerResponse[];
@@ -74,6 +75,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   const [process, setProcess] = useState<string>("");
   const [isShowModal, setIsShowModal] = useState(false);
   const [majorInsert, setMajorInsert] = useState<string>("");
+  const navigate = useNavigate();
 
   const reGetCustomer = useMemo(
     () => () => {
@@ -145,6 +147,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         setIsShowModal(true);
         insertCustomer(camelToSnakeObject(baseInsert));
         clearInputValue();
+        navigate("/stock/add");
       }
     },
     [
