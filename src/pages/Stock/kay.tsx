@@ -45,7 +45,7 @@ export function StockKayPage() {
       setStock(res.data);
       setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
     });
-    StockService.GetStockKay(majorUser).then((res) => {
+    StockService.GetStockBye(majorUser).then((res) => {
       destroyTable();
       setBuyList(res.data);
       setTimeout(
