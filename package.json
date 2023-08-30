@@ -19,6 +19,7 @@
   },
   "homepage": "https://sabaiphone-admin.com",
   "devDependencies": {
+    "@types/node": "^20.5.7",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@types/toastr": "^2.1.40",

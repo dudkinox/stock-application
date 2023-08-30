@@ -54,8 +54,6 @@ export enum MenuByeEnum {
 }
 
 export const MenuByeArray = [
-  "เลขบัตรประชาชน",
-  "ประวัติลูกค้า",
   "ประเภท",
   "สาขา",
   "Serial Number",
