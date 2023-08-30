@@ -23,3 +23,5 @@ dist
 tanApplication.dmg
 test.dmg
 .metals
+
+yarn.lock
