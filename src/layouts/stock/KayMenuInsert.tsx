@@ -1,6 +1,11 @@
 import { MenuKayEnum } from "../../enum/menuInsert.enum";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StockContext } from "../../contexts/StockContext";
+import DataList from "../../common/DataList";
+import { AlertWarning } from "../../common/ToastrCommon";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../contexts";
+import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
 
 interface KayMenuInsertProps {
   fullName: string;
@@ -8,6 +13,7 @@ interface KayMenuInsertProps {
 
 export default function KayMenuInsert({ fullName }: KayMenuInsertProps) {
   const {
+    setCustomerStatus,
     customer,
     setCustomer,
     tel,
@@ -24,14 +30,62 @@ export default function KayMenuInsert({ fullName }: KayMenuInsertProps) {
     setInstallment,
     datePayment,
     setDatePayment,
+    setIdCard,
+    idCard,
   } = useContext(StockContext);
+  const { setPathUrl } = useContext(AppContext);
+  const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
+    []
+  );
+  const [customerFind, setCustomerFind] = useState<GetCustomerResponse>();
+  const customerExists = selectCustomer.find((fil) => fil.ID_CARD === idCard);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setCustomer(fullName);
   }, [fullName]);
 
+  useEffect(() => {
+    setCustomerFind(customerExists);
+    setCustomerStatus(customerFind?.CUSTOMER_STATUS ?? "");
+  }, [
+    customerExists,
+    customerFind?.CUSTOMER_STATUS,
+    idCard,
+    selectCustomer,
+    setCustomerStatus,
+  ]);
+
+  useEffect(() => {
+    if (idCard.length === 13 && !customerExists) {
+      $("#insert-modal").hide();
+      $(".modal-backdrop.fade.show").remove();
+      AlertWarning("กรุณากรอกข้อมูลลูกค้าก่อนทำรายการ Stock");
+      setPathUrl("/customer");
+      navigate("/customer", { state: true });
+    }
+  }, [
+    customerExists,
+    customerFind,
+    idCard,
+    navigate,
+    selectCustomer,
+    setPathUrl,
+  ]);
+
   return (
     <>
+      <span className="mt-3"></span>
+      <DataList
+        label={"ค้นหาชื่อ / เลือก เลขบัตรประชาชน:"}
+        setValue={setIdCard}
+        icon={"far fa-id-card"}
+        data={selectCustomer.map((item) => item)}
+        placeholder={"ค้นหาชื่อ / เลขบัตรประชาชน"}
+        minLength={13}
+        maxLength={13}
+        value={idCard}
+      />
       <div className="form-group">
         <label className="float-left">{MenuKayEnum.CUSTOMER}</label>
         <div className="input-group">

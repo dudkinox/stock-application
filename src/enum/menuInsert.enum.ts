@@ -65,6 +65,7 @@ export const MenuByeArray = [
 ];
 
 export enum MenuKayEnum {
+  ID_CARD = "บัตรประชาชน",
   CUSTOMER = "ชื่อลุกค้า",
   TEL = "เบอร์โทร",
   VERSION = "รุ่น",
