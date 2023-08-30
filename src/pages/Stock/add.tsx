@@ -7,6 +7,7 @@ import ByeMenuInsert from "../../layouts/stock/ByeMenuInsert";
 import MenuNewInstallmentInsert from "../../layouts/stock/MenuNewInstallmentInsert";
 import InstallmentMenuInsert from "../../layouts/stock/InstallmentMenuInsert";
 import KayMenuInsert from "../../layouts/stock/KayMenuInsert";
+import { useLocation } from "react-router-dom";
 
 export default function StockAddPage() {
   const {
@@ -17,10 +18,16 @@ export default function StockAddPage() {
     installmentMenuInsert,
     handlerSubmit,
   } = useContext(StockContext);
+  const state = useLocation();
+  const id = state.state.id;
   return (
     <ContentLayOut
       title={"เพิ่มข้อมูล"}
-      topic={`รหัสเอกสารจะถูกสร้างขึ้นหลังกดบันทึก`}
+      topic={
+        id === undefined
+          ? `รหัสเอกสารจะถูกสร้างขึ้นหลังกดบันทึก`
+          : `รหัสเอกสาร : ${id}`
+      }
       page={
         <>
           {isMenuInsert && <IsMenuInsert />}

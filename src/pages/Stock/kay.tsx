@@ -5,11 +5,20 @@ import StockService from "../../services/StockServices";
 import { AppContext } from "../../contexts";
 import HeaderPageCommon from "../../common/HeaderPageCommon";
 import initTable, { destroyTable } from "../../common/DataTable";
+import { useNavigate } from "react-router-dom";
+import { StockContext } from "../../contexts/StockContext";
 
 export function StockKayPage() {
   const { majorUser, setIsLoading } = useContext(AppContext);
+  const {
+    setKayMenuInsert,
+    setByeMenuInsert,
+    setIsMenuInsert,
+    setNewInstallmentMenuInsert,
+  } = useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
   const [buyList, setBuyList] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   const stockTableHeaders = [
     "เลขบัตรประชาชน / ชื่อลูกค้า",
@@ -36,7 +45,13 @@ export function StockKayPage() {
     "ขาย",
   ];
 
-  const handlerKay = (id: string) => {};
+  const handlerKay = (id: string) => {
+    setKayMenuInsert(true);
+    setByeMenuInsert(false);
+    setIsMenuInsert(false);
+    setNewInstallmentMenuInsert(false);
+    navigate("/stock/add", { state: { id } });
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -107,7 +122,7 @@ export function StockKayPage() {
                       columns={stockTableHeaders}
                       row={stock.map((item, i) => (
                         <tr key={i} className="text-center">
-                          <td>{item.ID_CARD}</td>
+                          <td>{item.ID}</td>
                           <td>{item.MAJOR}</td>
                           <td>{item.CUSTOMER}</td>
                           <td>{item.TEL}</td>
