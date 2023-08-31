@@ -159,7 +159,7 @@ export default function CustomerPage() {
   }, [setFetchMajor]);
 
   useEffect(() => {
-    if (idCardStock) {
+    if (idCardStock !== undefined) {
       setIdCard(idCardStock);
     }
   }, [idCardStock]);
