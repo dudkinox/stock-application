@@ -147,7 +147,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         setIsShowModal(true);
         insertCustomer(camelToSnakeObject(baseInsert));
         clearInputValue();
-        if (id !== undefined) {
+        if (id) {
           navigate(`/stock/add?type=kay`, { state: { id: id } });
         }
       }
