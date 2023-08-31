@@ -35,7 +35,7 @@ interface CustomerContextProps {
   majorInsert: string;
   setMajorInsert: (value: string) => void;
   clearInputValue: () => void;
-  handlerSubmit: () => void;
+  handlerSubmit: (id?: string) => void;
 }
 
 export const CustomerContext = createContext<CustomerContextProps>({
@@ -51,7 +51,7 @@ export const CustomerContext = createContext<CustomerContextProps>({
   setCustomerStatus: (value: string) => {},
   process: "",
   setProcess: (value: string) => {},
-  handlerSubmit: () => {},
+  handlerSubmit: (id?: string) => {},
   reGetCustomer: () => {},
   isShowModal: false,
   setIsShowModal: (value: boolean) => {},
@@ -117,7 +117,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   };
 
   const handlerSubmit = useMemo(
-    () => () => {
+    () => (id?: string) => {
       const baseInsert: CustomerRequest = {
         idCard,
         name,
@@ -147,7 +147,9 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         setIsShowModal(true);
         insertCustomer(camelToSnakeObject(baseInsert));
         clearInputValue();
-        navigate("/stock/add");
+        if (id) {
+          navigate(`/stock/add?type=kay`, { state: { id: id } });
+        }
       }
     },
     [

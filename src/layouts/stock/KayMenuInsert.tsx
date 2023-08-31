@@ -9,10 +9,10 @@ import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
 import CustomerServices from "../../services/CustomerServices";
 
 interface KayMenuInsertProps {
-  fullName: string;
+  id: string;
 }
 
-export default function KayMenuInsert({ fullName }: KayMenuInsertProps) {
+export default function KayMenuInsert({ id }: KayMenuInsertProps) {
   const {
     setCustomerStatus,
     customer,
@@ -51,10 +51,6 @@ export default function KayMenuInsert({ fullName }: KayMenuInsertProps) {
   }, []);
 
   useEffect(() => {
-    setCustomer(fullName);
-  }, [fullName]);
-
-  useEffect(() => {
     setCustomerFind(customerExists);
     setCustomerStatus(customerFind?.CUSTOMER_STATUS ?? "");
   }, [
@@ -71,7 +67,7 @@ export default function KayMenuInsert({ fullName }: KayMenuInsertProps) {
       $(".modal-backdrop.fade.show").remove();
       AlertWarning("กรุณากรอกข้อมูลลูกค้าก่อนทำรายการ Stock");
       setPathUrl("/customer");
-      navigate("/customer", { state: true });
+      navigate("/customer", { state: { enable: true, id: id } });
     }
   }, [
     customerExists,

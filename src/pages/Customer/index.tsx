@@ -157,6 +157,12 @@ export default function CustomerPage() {
       });
   }, [setFetchMajor]);
 
+  useEffect(() => {
+    if (idCardStock) {
+      setIdCard(idCardStock);
+    }
+  }, [idCardStock]);
+
   return (
     <ContentLayOut
       title={"Customer"}
@@ -191,7 +197,7 @@ export default function CustomerPage() {
                       placeholder={"เลขบัตรประชาชน"}
                       minLength={13}
                       maxLength={13}
-                      value={idCard === "" ? idCardStock : idCard}
+                      value={idCard}
                       isReadOnly={isUpdate}
                     />
                     {isEdit() && majorUser === "admin" && (
@@ -255,7 +261,7 @@ export default function CustomerPage() {
                       type="button"
                       className="btn primary-btn col-lg-2 col-sm-auto"
                       data-dismiss={isShowModal && `modal`}
-                      onClick={handlerSubmit}
+                      onClick={() => handlerSubmit(stateLocation.state.id)}
                     >
                       บันทึก
                     </button>

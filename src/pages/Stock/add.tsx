@@ -30,7 +30,7 @@ export default function StockAddPage() {
         <>
           {isMenuInsert && <IsMenuInsert />}
           {addType === "bye" && <ByeMenuInsert />}
-          {addType === "kay" && <KayMenuInsert fullName={``} />}
+          {addType === "kay" && <KayMenuInsert id={id} />}
           {NewInstallmentMenuInsert && <MenuNewInstallmentInsert />}
           {installmentMenuInsert && <InstallmentMenuInsert />}
           <div className="text-center">
