@@ -91,12 +91,15 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
   );
 
   const insertCustomer = useMemo(
-    () => (data: any) => {
+    () => (data: any, id?: string) => {
       setIsLoading(true);
       CustomerServices.insertCustomer(data)
         .then((res) => {
           AlertSuccess(res.data.message);
           reGetCustomer();
+          if (id) {
+            navigate(`/stock/add?type=kay`, { state: { id: id } });
+          }
           setIsLoading(false);
         })
         .catch((err) => {
@@ -145,11 +148,8 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         AlertWarning("กรุณาเลือกประวัติลูกค้า");
       } else {
         setIsShowModal(true);
-        insertCustomer(camelToSnakeObject(baseInsert));
+        insertCustomer(camelToSnakeObject(baseInsert), id);
         clearInputValue();
-        if (id) {
-          navigate(`/stock/add?type=kay`, { state: { id: id } });
-        }
       }
     },
     [

@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { StockContext } from "../../contexts/StockContext";
 import DataList from "../../common/DataList";
 import { AlertWarning } from "../../common/ToastrCommon";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../../contexts";
 import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
 import CustomerServices from "../../services/CustomerServices";
@@ -39,7 +39,8 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
     []
   );
   const [customerFind, setCustomerFind] = useState<GetCustomerResponse>();
-  const customerExists = selectCustomer.find((fil) => fil.ID_CARD === idCard);
+  const [customerExists, setCustomerExists] = useState<GetCustomerResponse>();
+  // const customerExists = selectCustomer.find((fil) => fil.ID_CARD === idCard);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,12 +48,16 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
     CustomerServices.getCustomer(majorUser).then((res) => {
       setSelectCustomer(res.data);
       setIsLoading(false);
+      console.log(idCard);
+      console.log(res.data);
+      console.log("1:" + customerExists);
     });
   }, []);
 
   useEffect(() => {
     setCustomerFind(customerExists);
     setCustomerStatus(customerFind?.CUSTOMER_STATUS ?? "");
+    console.log("2:" + customerExists);
   }, [
     customerExists,
     customerFind?.CUSTOMER_STATUS,
@@ -68,6 +73,7 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
       AlertWarning("กรุณากรอกข้อมูลลูกค้าก่อนทำรายการ Stock");
       setPathUrl("/customer");
       navigate("/customer", { state: { enable: true, id: id } });
+      console.log("3:" + customerExists);
     }
   }, [
     customerExists,
