@@ -141,8 +141,9 @@ export default function CustomerPage() {
   }, [setCustomer]);
 
   useEffect(() => {
-    stateLocation.state && document.getElementById("insert-customer")?.click();
-  }, [stateLocation.state]);
+    stateLocation.state.enable &&
+      document.getElementById("insert-customer")?.click();
+  }, [stateLocation.state.enable]);
 
   useEffect(() => {
     setIsLoading(true);
