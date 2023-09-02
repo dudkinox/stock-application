@@ -74,6 +74,7 @@ export enum MenuKayEnum {
   MONTH = "จำนวนเดือนที่ผ่อน",
   INSTALLMENT = "เดือนละ",
   DATE_PAYMENT = "ชำระทุกวันที่",
+  DATE = "วันที่ขาย",
 }
 
 export const MenuKayArray = [
@@ -89,6 +90,7 @@ export const MenuKayArray = [
   "จำนวนเดือนที่ผ่อน",
   "เดือนละ",
   "ชำระทุกวันที่",
+  "วันที่ขาย",
 ];
 
 export enum MenuInstallmentPaymentEnum {

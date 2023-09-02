@@ -15,6 +15,7 @@ export function StockKayPage() {
     setByeMenuInsert,
     setIsMenuInsert,
     setNewInstallmentMenuInsert,
+    setMajorInsert,
   } = useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
   const [buyList, setBuyList] = useState<any[]>([]);
@@ -45,7 +46,8 @@ export function StockKayPage() {
     "ขาย",
   ];
 
-  const handlerKay = (id: string) => {
+  const handlerKay = (id: string, majorInsert: string) => {
+    setMajorInsert(majorInsert);
     navigate(`/stock/add?type=kay`, { state: { id } });
   };
 
@@ -96,7 +98,7 @@ export function StockKayPage() {
                             <button
                               type="button"
                               className="btn primary-btn"
-                              onClick={() => handlerKay(item.ID)}
+                              onClick={() => handlerKay(item.ID, item.MAJOR)}
                             >
                               ขาย
                             </button>

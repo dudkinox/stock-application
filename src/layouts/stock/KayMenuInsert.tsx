@@ -33,23 +33,25 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
     setDatePayment,
     setIdCard,
     idCard,
+    date,
+    setDate,
+    setStockType,
   } = useContext(StockContext);
   const { setPathUrl, setIsLoading, majorUser } = useContext(AppContext);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
     []
   );
   const [customerFind, setCustomerFind] = useState<GetCustomerResponse>();
-  const [customerExists, setCustomerExists] = useState<GetCustomerResponse>();
-  // const customerExists = selectCustomer.find((fil) => fil.ID_CARD === idCard);
+  const customerExists = selectCustomer.find((fil) => fil.ID_CARD === idCard);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     setIsLoading(true);
     CustomerServices.getCustomer(majorUser).then((res) => {
       setSelectCustomer(res.data);
       setIsLoading(false);
-      console.log(idCard);
-      console.log(res.data);
+      setStockType("ขาย");
       console.log("1:" + customerExists);
     });
   }, []);
@@ -57,6 +59,7 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
   useEffect(() => {
     setCustomerFind(customerExists);
     setCustomerStatus(customerFind?.CUSTOMER_STATUS ?? "");
+    setCustomer(`${customerFind?.NAME} ${customerFind?.LAST_NAME}`);
     console.log("2:" + customerExists);
   }, [
     customerExists,
@@ -240,6 +243,23 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
             onChange={(e: any) => setDatePayment(e.target.value)}
             placeholder="ชำระทุกวันที่"
             value={datePayment}
+          />
+        </div>
+      </div>
+      <div className="form-group">
+        <label className="float-left">{MenuKayEnum.DATE}</label>
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">
+              <i className="fas fa-calendar"></i>
+            </span>
+          </div>
+          <input
+            type="date"
+            className="form-control"
+            onChange={(e: any) => setDate(e.target.value)}
+            placeholder="วันที่ขาย"
+            value={date}
           />
         </div>
       </div>
