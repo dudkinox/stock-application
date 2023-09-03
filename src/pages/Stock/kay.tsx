@@ -36,7 +36,6 @@ export function StockKayPage() {
     "imei",
     "แหล่งที่มา",
     "Battery",
-    "สถานะ",
     "ขาย",
   ];
 
@@ -85,34 +84,37 @@ export function StockKayPage() {
                   <div className="card-body">
                     <TableCommon
                       columns={stockBuyListTableHeaders}
-                      row={buyList.map((item, i) => (
-                        <tr key={i} className="text-center">
-                          <td>{item.ID}</td>
-                          <td>{item.MAJOR}</td>
-                          <td>{item.SERIAL_NUMBER}</td>
-                          <td>{item.VERSION}</td>
-                          <td>{item.IMEI}</td>
-                          <td>{item.SOURCE}</td>
-                          <td>{item.BATTERY}</td>
-                          <td>{item.STATUS}</td>
-                          <td>
-                            <button
-                              type="button"
-                              className="btn primary-btn"
-                              onClick={() =>
-                                handlerKay(
-                                  item.ID,
-                                  item.MAJOR,
-                                  item.VERSION,
-                                  item.IMEI
-                                )
-                              }
-                            >
-                              ขาย
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                      row={buyList.map((item, i) =>
+                        item.STATUS === "0" ? (
+                          <tr key={i} className="text-center">
+                            <td>{item.ID}</td>
+                            <td>{item.MAJOR}</td>
+                            <td>{item.SERIAL_NUMBER}</td>
+                            <td>{item.VERSION}</td>
+                            <td>{item.IMEI}</td>
+                            <td>{item.SOURCE}</td>
+                            <td>{item.BATTERY}</td>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn primary-btn"
+                                onClick={() =>
+                                  handlerKay(
+                                    item.ID,
+                                    item.MAJOR,
+                                    item.VERSION,
+                                    item.IMEI
+                                  )
+                                }
+                              >
+                                ขาย
+                              </button>
+                            </td>
+                          </tr>
+                        ) : (
+                          <></>
+                        )
+                      )}
                     />
                   </div>
                 </>
