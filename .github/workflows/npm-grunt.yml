@@ -30,14 +30,14 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: -D6bgR2Q4W)5df
         local-dir: dist/
-        server-dir: public_html/
+        server-dir: domains/sabaiphone-admin.com/public_html/
   connect-to-server:
     needs: web-deploy
     runs-on: ubuntu-latest
     steps:
       - name: Noti to discord
         run: |
-          curl --location '{{url}}/noti.php' \
+          curl --location '${{ secrets.URL }}/noti.php' \
           --header 'Content-Type: application/json' \
           --data-raw '{
             "commit": "\n```${{ github.event.head_commit.message }}```"
