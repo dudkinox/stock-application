@@ -10,13 +10,7 @@ import { StockContext } from "../../contexts/StockContext";
 
 export function StockKayPage() {
   const { majorUser, setIsLoading } = useContext(AppContext);
-  const {
-    setKayMenuInsert,
-    setByeMenuInsert,
-    setIsMenuInsert,
-    setNewInstallmentMenuInsert,
-    setMajorInsert,
-  } = useContext(StockContext);
+  const { setMajorInsert, setImei, setVersion } = useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
   const [buyList, setBuyList] = useState<any[]>([]);
   const navigate = useNavigate();
@@ -46,8 +40,15 @@ export function StockKayPage() {
     "ขาย",
   ];
 
-  const handlerKay = (id: string, majorInsert: string) => {
+  const handlerKay = (
+    id: string,
+    majorInsert: string,
+    version: string,
+    imei: string
+  ) => {
     setMajorInsert(majorInsert);
+    setVersion(version);
+    setImei(imei);
     navigate(`/stock/add?type=kay`, { state: { id } });
   };
 
@@ -98,7 +99,14 @@ export function StockKayPage() {
                             <button
                               type="button"
                               className="btn primary-btn"
-                              onClick={() => handlerKay(item.ID, item.MAJOR)}
+                              onClick={() =>
+                                handlerKay(
+                                  item.ID,
+                                  item.MAJOR,
+                                  item.VERSION,
+                                  item.IMEI
+                                )
+                              }
                             >
                               ขาย
                             </button>

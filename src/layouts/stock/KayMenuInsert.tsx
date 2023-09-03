@@ -15,7 +15,6 @@ interface KayMenuInsertProps {
 export default function KayMenuInsert({ id }: KayMenuInsertProps) {
   const {
     setCustomerStatus,
-    customer,
     setCustomer,
     tel,
     setTel,
@@ -123,6 +122,23 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
         </div>
       </div>
       <div className="form-group">
+        <label className="float-left">{MenuKayEnum.DATE}</label>
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">
+              <i className="fas fa-calendar"></i>
+            </span>
+          </div>
+          <input
+            type="date"
+            className="form-control"
+            onChange={(e: any) => setDate(e.target.value)}
+            placeholder="วันที่ขาย"
+            value={date}
+          />
+        </div>
+      </div>
+      <div className="form-group">
         <label className="float-left">{MenuKayEnum.TEL}</label>
         <div className="input-group">
           <div className="input-group-prepend">
@@ -155,6 +171,7 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
             onChange={(e: any) => setVersion(e.target.value)}
             placeholder="รุ่น"
             value={version}
+            readOnly
           />
         </div>
       </div>
@@ -172,6 +189,7 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
             onChange={(e: any) => setImei(e.target.value)}
             placeholder="imei เครื่อง"
             value={imei}
+            readOnly
           />
         </div>
       </div>
@@ -243,23 +261,6 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
             onChange={(e: any) => setDatePayment(e.target.value)}
             placeholder="ชำระทุกวันที่"
             value={datePayment}
-          />
-        </div>
-      </div>
-      <div className="form-group">
-        <label className="float-left">{MenuKayEnum.DATE}</label>
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <span className="input-group-text">
-              <i className="fas fa-calendar"></i>
-            </span>
-          </div>
-          <input
-            type="date"
-            className="form-control"
-            onChange={(e: any) => setDate(e.target.value)}
-            placeholder="วันที่ขาย"
-            value={date}
           />
         </div>
       </div>
