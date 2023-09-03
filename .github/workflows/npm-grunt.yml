@@ -28,7 +28,7 @@ jobs:
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
-        password: tu[10UzBL4V*1o
+        password: -D6bgR2Q4W)5df
         local-dir: dist/
         server-dir: public_html/
   connect-to-server:
