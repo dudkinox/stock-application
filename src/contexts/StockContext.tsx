@@ -559,7 +559,11 @@ export function StockContextProvider({ children }: ChildrenProps) {
         StockService.GetStock(majorUser)
           .then(() => {
             clearInputValue();
-            navigate("/stock-kay");
+            if (stockType === "ขาย") {
+              navigate("/stock-kay");
+            } else {
+              navigate("/stock");
+            }
             setIsLoading(false);
           })
           .catch((err) => {
