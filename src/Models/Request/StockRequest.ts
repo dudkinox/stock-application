@@ -34,6 +34,7 @@ export interface StockKayRequest extends StockRequest {
   month: number | string;
   installment: number | string;
   datePayment: number | string;
+  id: string;
 }
 
 export interface StockInstallmentPaymentRequest extends StockRequest {

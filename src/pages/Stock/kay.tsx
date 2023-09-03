@@ -10,13 +10,14 @@ import { StockContext } from "../../contexts/StockContext";
 
 export function StockKayPage() {
   const { majorUser, setIsLoading } = useContext(AppContext);
-  const { setMajorInsert, setImei, setVersion } = useContext(StockContext);
+  const { setMajorInsert, setImei, setVersion, setStockID } =
+    useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
   const [buyList, setBuyList] = useState<any[]>([]);
   const navigate = useNavigate();
 
   const stockTableHeaders = [
-    "เลขบัตรประชาชน / ชื่อลูกค้า",
+    "รหัสเอกสาร",
     "สาขา",
     "ชื่อลูกค้า",
     "เบอร์โทร",
@@ -48,6 +49,7 @@ export function StockKayPage() {
     setMajorInsert(majorInsert);
     setVersion(version);
     setImei(imei);
+    setStockID(id);
     navigate(`/stock/add?type=kay`, { state: { id } });
   };
 

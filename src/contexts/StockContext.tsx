@@ -101,6 +101,8 @@ interface StockContextProps {
   setNewStarMoney: (value: string) => void;
   serialNumber: string;
   setSerialNumber: (value: string) => void;
+  stockID: string;
+  setStockID: (value: string) => void;
 }
 
 export const StockContext = createContext<StockContextProps>({
@@ -184,6 +186,8 @@ export const StockContext = createContext<StockContextProps>({
   setNewStarMoney: (value: string) => {},
   serialNumber: "",
   setSerialNumber: (value: string) => {},
+  stockID: "",
+  setStockID: (value: string) => {},
 });
 
 interface ChildrenProps {
@@ -232,6 +236,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [newPriceTotal, setNewPriceTotal] = useState("0");
   const [newStarMoney, setNewStarMoney] = useState("0");
   const [serialNumber, setSerialNumber] = useState("");
+  const [stockID, setStockID] = useState("");
   const navigate = useNavigate();
 
   const menuInsert = useMemo(
@@ -324,6 +329,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
     setInstallmentNo("");
     setPriceTotal("");
     setSerialNumber("");
+    setStockID("");
     setIsShowModal(false);
   };
 
@@ -448,6 +454,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
               month: month,
               installment: installment,
               datePayment: datePayment,
+              id: stockID,
             };
 
             if (
@@ -464,6 +471,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
             } else {
               params =
                 baseParams +
+                "&id=" +
+                kay.id +
                 "&customer=" +
                 kay.customer +
                 "&tel=" +
@@ -691,6 +700,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setNewStarMoney,
       serialNumber,
       setSerialNumber,
+      stockID,
+      setStockID,
     }),
     [
       date,
@@ -749,6 +760,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setNewStarMoney,
       serialNumber,
       setSerialNumber,
+      stockID,
+      setStockID,
     ]
   );
 

@@ -25,6 +25,7 @@ export interface StockKayRequest {
   month: string;
   installment: string;
   date_payment: string;
+  id: string;
 }
 
 export interface StockInstallmentRequest {
