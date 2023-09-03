@@ -559,7 +559,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
         StockService.GetStock(majorUser)
           .then(() => {
             clearInputValue();
-            navigate("/stock");
+            navigate("/stock-kay");
             setIsLoading(false);
           })
           .catch((err) => {
