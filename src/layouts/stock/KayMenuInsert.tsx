@@ -60,6 +60,7 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
       (fil) => fil.ID_CARD === idCard
     );
     setCustomerExists(updatedCustomerExists ?? null);
+    document.body.classList.remove("modal-open");
 
     if (idCard.length === 13 && !updatedCustomerExists && !insert) {
       AlertWarning("กรุณากรอกข้อมูลลูกค้าก่อนทำรายการ Stock");
