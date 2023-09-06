@@ -98,7 +98,9 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
           AlertSuccess(res.data.message);
           reGetCustomer();
           if (id) {
-            navigate(`/stock/add?type=kay`, { state: { id: id } });
+            navigate(`/stock/add?type=kay`, {
+              state: { id: id, insert: true },
+            });
           }
           setIsLoading(false);
         })

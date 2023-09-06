@@ -40,10 +40,11 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
     []
   );
-  const [customerFind, setCustomerFind] = useState<GetCustomerResponse>();
-  const customerExists = selectCustomer.find((fil) => fil.ID_CARD === idCard);
+  const [customerExists, setCustomerExists] =
+    useState<GetCustomerResponse | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const insert = !!location.state.insert;
 
   useEffect(() => {
     setIsLoading(true);
@@ -51,40 +52,30 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
       setSelectCustomer(res.data);
       setIsLoading(false);
       setStockType("ขาย");
-      console.log("1:" + customerExists);
     });
   }, []);
 
   useEffect(() => {
-    setCustomerFind(customerExists);
-    setCustomerStatus(customerFind?.CUSTOMER_STATUS ?? "");
-    setCustomer(`${customerFind?.NAME} ${customerFind?.LAST_NAME}`);
-    console.log("2:" + customerExists);
-  }, [
-    customerExists,
-    customerFind?.CUSTOMER_STATUS,
-    idCard,
-    selectCustomer,
-    setCustomerStatus,
-  ]);
+    const updatedCustomerExists = selectCustomer.find(
+      (fil) => fil.ID_CARD === idCard
+    );
+    setCustomerExists(updatedCustomerExists ?? null);
 
-  useEffect(() => {
-    if (idCard.length === 13 && !customerExists) {
-      $("#insert-modal").hide();
-      $(".modal-backdrop.fade.show").remove();
+    if (idCard.length === 13 && !updatedCustomerExists && !insert) {
       AlertWarning("กรุณากรอกข้อมูลลูกค้าก่อนทำรายการ Stock");
       setPathUrl("/customer");
       navigate("/customer", { state: { enable: true, id: id } });
-      console.log("3:" + customerExists);
+    } else if (idCard.length === 13 && !updatedCustomerExists) {
+      $("#insert-modal").hide();
+      $(".modal-backdrop.fade.show").remove();
     }
-  }, [
-    customerExists,
-    customerFind,
-    idCard,
-    navigate,
-    selectCustomer,
-    setPathUrl,
-  ]);
+    setCustomerStatus(updatedCustomerExists?.CUSTOMER_STATUS ?? "");
+    setCustomer(
+      `${updatedCustomerExists?.NAME ?? ""} ${
+        updatedCustomerExists?.LAST_NAME ?? ""
+      }`
+    );
+  }, [idCard, selectCustomer, customerExists, navigate, setPathUrl]);
 
   return (
     <>
@@ -113,11 +104,11 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
             onChange={(e: any) => setCustomer(e.target.value)}
             placeholder="ชื่อลูกค้า"
             value={
-              customerFind
-                ? `${customerFind?.NAME} ${customerFind?.LAST_NAME}`
+              customerExists
+                ? `${customerExists?.NAME} ${customerExists?.LAST_NAME}`
                 : ""
             }
-            readOnly={customerFind !== null}
+            readOnly={customerExists !== null}
           />
         </div>
       </div>
