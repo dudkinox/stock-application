@@ -65,8 +65,13 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
     if (idCard.length === 13 && !updatedCustomerExists && !insert) {
       AlertWarning("กรุณากรอกข้อมูลลูกค้าก่อนทำรายการ Stock");
       setPathUrl("/customer");
-      navigate("/customer", { state: { enable: true, id: id } });
+      navigate("/customer", {
+        state: { enable: true, id: id },
+      });
     } else if (idCard.length === 13 && !updatedCustomerExists) {
+      $("#insert-modal").hide();
+      $(".modal-backdrop.fade.show").remove();
+    } else if (insert) {
       $("#insert-modal").hide();
       $(".modal-backdrop.fade.show").remove();
     }

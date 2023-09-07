@@ -97,7 +97,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         .then((res) => {
           AlertSuccess(res.data.message);
           reGetCustomer();
-          if (id) {
+          if (id !== null) {
             navigate(`/stock/add?type=kay`, {
               state: { id: id, insert: true },
             });

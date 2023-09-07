@@ -18,8 +18,7 @@ import MajorResponse from "../../Models/Response/GetMajorResponse";
 import { StockContext } from "../../contexts/StockContext";
 
 export default function CustomerPage() {
-  const { idCard: idCardStock, setIdCard: setStockIdCard } =
-    useContext(StockContext);
+  const { idCard: idCardStock } = useContext(StockContext);
   const {
     customer,
     idCard,
@@ -264,7 +263,7 @@ export default function CustomerPage() {
                       type="button"
                       className="btn primary-btn col-lg-2 col-sm-auto"
                       data-dismiss={isShowModal && `modal`}
-                      onClick={() => handlerSubmit(stateLocation.state.id)}
+                      onClick={() => handlerSubmit(stateLocation?.state?.id)}
                     >
                       บันทึก
                     </button>
