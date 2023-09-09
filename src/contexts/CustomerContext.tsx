@@ -97,10 +97,12 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         .then((res) => {
           AlertSuccess(res.data.message);
           reGetCustomer();
-          if (id !== null) {
+          if (id !== undefined) {
             navigate(`/stock/add?type=kay`, {
               state: { id: id, insert: true },
             });
+          } else {
+            ($("#insert-modal") as any).modal("hide");
           }
           setIsLoading(false);
         })
@@ -118,6 +120,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
     setName("");
     setLastName("");
     setProcess("");
+    setMajorInsert("");
     setIsShowModal(false);
   };
 
