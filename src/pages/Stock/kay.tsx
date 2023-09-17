@@ -7,6 +7,7 @@ import HeaderPageCommon from "../../common/HeaderPageCommon";
 import initTable, { destroyTable } from "../../common/DataTable";
 import { useNavigate } from "react-router-dom";
 import { StockContext } from "../../contexts/StockContext";
+import convertDateToThai from "../../common/DateFormat";
 
 export function StockKayPage() {
   const { majorUser, setIsLoading } = useContext(AppContext);
@@ -135,7 +136,7 @@ export function StockKayPage() {
                         <tr key={i} className="text-center">
                           <td>{item.ID}</td>
                           <td>{item.MAJOR}</td>
-                          <td>{item.DATE}</td>
+                          <td>{convertDateToThai(new Date(item.DATE))}</td>
                           <td>{item.CUSTOMER}</td>
                           <td>{item.TEL}</td>
                           <td>{item.VERSION}</td>

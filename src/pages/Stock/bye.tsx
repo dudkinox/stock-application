@@ -47,11 +47,6 @@ export function StockByePage() {
     const isNext = date !== "" && stockType !== "";
     const isAdmin = majorUser === "admin";
     const isNextAdmin = isAdmin && majorInsert !== "";
-    console.log(stockType);
-    console.log(date);
-    console.log(isNext);
-    console.log(isAdmin);
-    console.log(isNextAdmin);
 
     if ((isAdmin && isNextAdmin && isNext) || (!isAdmin && isNext)) {
       navigate(`/stock/add?type=bye`, {
