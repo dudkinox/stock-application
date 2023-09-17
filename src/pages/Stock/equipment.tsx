@@ -11,6 +11,7 @@ import ModalCommon from "../../common/Modal";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import MajorServices from "../../services/MajorService";
 import { AlertError, AlertWarning } from "../../common/ToastrCommon";
+import convertDateToThai from "../../common/DateFormat";
 
 export function StockEquipmentPage() {
   const { majorUser, isEdit, setIsLoading } = useContext(AppContext);
@@ -33,6 +34,7 @@ export function StockEquipmentPage() {
   const stockTableHeaders = [
     "รหัสเอกสาร",
     "สาขา",
+    "วันที่",
     "เคส",
     "ฟิล์ม",
     "เลน",
@@ -157,6 +159,7 @@ export function StockEquipmentPage() {
                   <tr key={i} className="text-center">
                     <td>{item.ID}</td>
                     <td>{item.MAJOR}</td>
+                    <td>{convertDateToThai(new Date(item.DATE))}</td>
                     <td>{item.CASES}</td>
                     <td>{item.FIRM}</td>
                     <td>{item.LEN}</td>

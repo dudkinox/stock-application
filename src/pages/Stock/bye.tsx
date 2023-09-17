@@ -12,6 +12,7 @@ import TextInput from "../../common/TextInput";
 import MajorServices from "../../services/MajorService";
 import { AlertError, AlertWarning } from "../../common/ToastrCommon";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
+import convertDateToThai from "../../common/DateFormat";
 
 export function StockByePage() {
   const { majorUser, setIsLoading, isEdit } = useContext(AppContext);
@@ -34,6 +35,7 @@ export function StockByePage() {
   const stockBuyListTableHeaders = [
     "รหัสเอกสาร",
     "สาขา",
+    "วันที่ซื้อ",
     "Serial Number",
     "รุ่น",
     "imei",
@@ -164,6 +166,7 @@ export function StockByePage() {
                   <tr key={i} className="text-center">
                     <td>{item.ID}</td>
                     <td>{item.MAJOR}</td>
+                    <td>{convertDateToThai(new Date(item.DATE))}</td>
                     <td>{item.SERIAL_NUMBER}</td>
                     <td>{item.VERSION}</td>
                     <td>{item.IMEI}</td>
