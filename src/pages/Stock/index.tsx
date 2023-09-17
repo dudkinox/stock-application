@@ -193,9 +193,12 @@ export default function StockPage() {
     const isNextAdmin = isAdmin && majorInsert !== "";
 
     if ((isAdmin && isNextAdmin && isNext) || (!isAdmin && isNext)) {
-      navigate(`/stock/add?type=${stockType === "ซื้อ" ? "bye" : ""}`, {
-        state: { id: 0 },
-      });
+      navigate(
+        `/stock/add?type=${stockType === "ซื้อ" ? "bye" : "equipment"}`,
+        {
+          state: { id: 0 },
+        }
+      );
     } else {
       AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
     }
@@ -367,13 +370,7 @@ export default function StockPage() {
                           setValue={setStockType}
                           icon={"far fa-file"}
                           topic={"ประเภท"}
-                          options={[
-                            "ซื้อ",
-                            "ขาย",
-                            "ผ่อน",
-                            "ผ่อนครั้งแรก",
-                            "อุปกรณ์",
-                          ]}
+                          options={["ซื้อ", "ผ่อน", "ผ่อนครั้งแรก", "อุปกรณ์"]}
                           placeholder={"ประเภทลูกค้า"}
                           value={stockType}
                         />

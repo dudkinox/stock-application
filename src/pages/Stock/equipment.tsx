@@ -8,11 +8,12 @@ export function StockEquipmentPage() {
   const { majorUser } = useContext(AppContext);
   const [stock, setStock] = useState<any[]>([]);
   const stockTableHeaders = [
-    "เลขบัตรประชาชน / ชื่อลูกค้า",
+    "รหัสเอกสาร",
     "สาขา",
     "เคส",
     "ฟิล์ม",
     "เลน",
+    "หัวชาร์จใหญ่",
     "สายชาร์จ",
     "ซ่อม",
     "ราคารวม",
@@ -36,7 +37,7 @@ export function StockEquipmentPage() {
                 columns={stockTableHeaders}
                 row={stock.map((item, i) => (
                   <tr key={i} className="text-center">
-                    <td>{item.ID_CARD}</td>
+                    <td>{item.ID}</td>
                     <td>{item.MAJOR}</td>
                     <td>{item.CASES}</td>
                     <td>{item.FIRM}</td>

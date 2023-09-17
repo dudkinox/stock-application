@@ -51,7 +51,7 @@ const GetStockByeService = (major: string) => {
 };
 
 const GetStockEquipmentService = (major: string) => {
-  return Https.get<any[]>(`/apis/bye/equipment/?major=${major}`);
+  return Https.get<any[]>(`/apis/equipment/get/?major=${major}`);
 };
 
 const GetStockInstallmentPaymentService = (major: string) => {

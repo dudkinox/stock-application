@@ -19,6 +19,7 @@ export function StockKayPage() {
   const stockTableHeaders = [
     "รหัสเอกสาร",
     "สาขา",
+    "วันที่ขาย",
     "ชื่อลูกค้า",
     "เบอร์โทร",
     "รุ่น",
@@ -134,6 +135,7 @@ export function StockKayPage() {
                         <tr key={i} className="text-center">
                           <td>{item.ID}</td>
                           <td>{item.MAJOR}</td>
+                          <td>{item.DATE}</td>
                           <td>{item.CUSTOMER}</td>
                           <td>{item.TEL}</td>
                           <td>{item.VERSION}</td>
