@@ -107,7 +107,7 @@ export function StockByePage() {
             data-target="#insert-modal"
             id="insert-customer"
           >
-            เพิ่มข้อมูลลูกค้า
+            เพิ่มข้อมูลซื้อ
           </button>
         }
         page={
