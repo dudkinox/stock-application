@@ -197,7 +197,7 @@ export function StockKayPage() {
                             <button
                               type="button"
                               className="btn btn-danger"
-                              onClick={() => {}}
+                              onClick={deleteStock(item.ID, item.MAJOR)}
                             >
                               ลบ
                             </button>

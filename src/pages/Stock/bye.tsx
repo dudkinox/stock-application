@@ -10,7 +10,11 @@ import ModalCommon from "../../common/Modal";
 import SelectChoice from "../../common/Select";
 import TextInput from "../../common/TextInput";
 import MajorServices from "../../services/MajorService";
-import { AlertError, AlertWarning } from "../../common/ToastrCommon";
+import {
+  AlertError,
+  AlertSuccess,
+  AlertWarning,
+} from "../../common/ToastrCommon";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import convertDateToThai from "../../common/DateFormat";
 
@@ -58,6 +62,26 @@ export function StockByePage() {
     } else {
       AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
     }
+  };
+
+  const deleteStock = (id: string, major: string) => () => {
+    setIsLoading(true);
+    StockService.DeleteStockById(id, major)
+      .then((res) => {
+        AlertSuccess(res.data.message);
+        StockService.GetStock(majorUser)
+          .then(() => {
+            window.location.reload();
+          })
+          .catch((err) => {
+            AlertError(err.response.data.message);
+            setIsLoading(false);
+          });
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -186,7 +210,7 @@ export function StockByePage() {
                       <button
                         type="button"
                         className="btn btn-danger"
-                        onClick={() => {}}
+                        onClick={deleteStock(item.ID, item.MAJOR)}
                       >
                         ลบ
                       </button>
