@@ -151,6 +151,16 @@ export default function SidebarCommon() {
                 </li>
               ) : null}
               <li className="nav-item">
+                <a href="/app/Stock.msi" className={`nav-link`}>
+                  <img
+                    className="nav-icon"
+                    src="https://img.icons8.com/dusk/30/download--v1.png"
+                    alt="logout"
+                  />
+                  <p>download</p>
+                </a>
+              </li>
+              <li className="nav-item">
                 <a
                   href="/login"
                   className={`nav-link ${
