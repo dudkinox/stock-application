@@ -13,18 +13,6 @@ export default function NavBarCommon() {
           </a>
         </li>
       </ul>
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <a
-            className="nav-link"
-            data-widget="fullscreen"
-            href="#test"
-            role="button"
-          >
-            <i className="fas fa-expand-arrows-alt" />
-          </a>
-        </li>
-      </ul>
     </nav>
   );
 }
