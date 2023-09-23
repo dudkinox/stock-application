@@ -42,6 +42,7 @@ export function StockByePage() {
     "แหล่งที่มา",
     "Battery",
     "ขาย",
+    "แก้ไข / ลบ",
   ];
   const navigate = useNavigate();
 
@@ -173,6 +174,23 @@ export function StockByePage() {
                     <td>{item.SOURCE}</td>
                     <td>{item.BATTERY}</td>
                     <td>{item.STATUS === "0" ? "ยังไม่ขาย" : "ขายไปแล้ว"}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-warning"
+                        onClick={() => {}}
+                      >
+                        แก้ไข
+                      </button>
+                      &emsp;
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => {}}
+                      >
+                        ลบ
+                      </button>
+                    </td>
                   </tr>
                 ))}
               />

@@ -42,6 +42,7 @@ export function StockEquipmentPage() {
     "สายชาร์จ",
     "ซ่อม",
     "ราคารวม",
+    "แก้ไข ลบ",
   ];
   const navigate = useNavigate();
 
@@ -167,6 +168,23 @@ export function StockEquipmentPage() {
                     <td>{item.CHARGE}</td>
                     <td>{item.REPAIR}</td>
                     <td>{item.SUM}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-warning"
+                        onClick={() => {}}
+                      >
+                        แก้ไข
+                      </button>
+                      &emsp;
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => {}}
+                      >
+                        ลบ
+                      </button>
+                    </td>
                   </tr>
                 ))}
               />
