@@ -129,7 +129,7 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       const baseInsert: CustomerRequest = {
         idCard,
         name,
-        lastName,
+        lastName: lastName === "" ? "-" : lastName,
         process,
         customerStatus,
         major: majorUser === "admin" ? majorInsert : majorUser,
@@ -139,8 +139,6 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
         AlertWarning("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก");
       } else if (baseInsert.name === "") {
         AlertWarning("กรุณากรอกชื่อ");
-      } else if (baseInsert.lastName === "") {
-        AlertWarning("กรุณากรอกนามสกุล");
       } else if (
         baseInsert.process === "เลือกสถานะ" ||
         baseInsert.process === ""

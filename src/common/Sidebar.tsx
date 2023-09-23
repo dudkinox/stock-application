@@ -53,17 +53,6 @@ export default function SidebarCommon() {
                   </p>
                 </a>
                 <ul className="nav nav-treeview">
-                  {/* <li className="nav-item">
-                    <a
-                      href={PathEnum.STOCK_SUM}
-                      className={`nav-link ${
-                        pathUrl === PathEnum.STOCK_SUM ? "active" : ""
-                      }`}
-                    >
-                      <i className="far fa-circle nav-icon" />
-                      <p>ภาพรวม</p>
-                    </a>
-                  </li> */}
                   <li className="nav-item">
                     <a
                       href={PathEnum.STOCK_KAY}
