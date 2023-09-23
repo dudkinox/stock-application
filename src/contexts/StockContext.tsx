@@ -560,13 +560,13 @@ export function StockContextProvider({ children }: ChildrenProps) {
           .then(() => {
             clearInputValue();
             if (stockType === "ขาย") {
-              navigate("/stock-kay");
+              window.location.href = "/stock-kay";
             } else if (stockType === "ซื้อ") {
-              navigate("/stock-bye");
+              window.location.href = "/stock-bye";
             } else if (stockType === "อุปกรณ์") {
-              navigate("/stock-equipment");
+              window.location.href = "/stock-equipment";
             } else {
-              navigate("/stock-installment-payment");
+              window.location.href = "/stock-installment-payment";
             }
             setIsLoading(false);
           })
