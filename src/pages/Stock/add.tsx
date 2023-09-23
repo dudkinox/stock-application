@@ -17,7 +17,8 @@ export default function StockAddPage() {
     handlerSubmit,
   } = useContext(StockContext);
   const state = useLocation();
-  const id = state.state.id;
+  const id =
+    new URLSearchParams(useLocation().search).get("id") ?? state.state.id;
   const addType = new URLSearchParams(useLocation().search).get("type");
 
   return (

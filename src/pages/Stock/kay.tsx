@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import TableCommon from "../../common/Table";
-import ContentLayOut from "../../layouts/ContentLayOut";
 import StockService from "../../services/StockServices";
 import { AppContext } from "../../contexts";
 import HeaderPageCommon from "../../common/HeaderPageCommon";
@@ -8,10 +7,10 @@ import initTable, { destroyTable } from "../../common/DataTable";
 import { useNavigate } from "react-router-dom";
 import { StockContext } from "../../contexts/StockContext";
 import convertDateToThai from "../../common/DateFormat";
-import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 
 export function StockKayPage() {
-  const { majorUser, setIsLoading, deleteStock } = useContext(AppContext);
+  const { majorUser, setIsLoading, deleteStock, editStock } =
+    useContext(AppContext);
   const { setMajorInsert, setImei, setVersion, setStockID } =
     useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
@@ -121,7 +120,7 @@ export function StockKayPage() {
                               <button
                                 type="button"
                                 className="btn btn-warning"
-                                onClick={() => {}}
+                                onClick={editStock(item.ID, item.MAJOR, "bye")}
                               >
                                 แก้ไข
                               </button>

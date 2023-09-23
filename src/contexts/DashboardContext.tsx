@@ -3,7 +3,6 @@ import {
   ReactNode,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import MajorResponse from "../Models/Response/GetMajorResponse";
