@@ -561,8 +561,12 @@ export function StockContextProvider({ children }: ChildrenProps) {
             clearInputValue();
             if (stockType === "ขาย") {
               navigate("/stock-kay");
+            } else if (stockType === "ซื้อ") {
+              navigate("/stock-bye");
+            } else if (stockType === "อุปกรณ์") {
+              navigate("/stock-equipment");
             } else {
-              navigate("/stock");
+              navigate("/stock-installment-payment");
             }
             setIsLoading(false);
           })

@@ -8,6 +8,7 @@ import initTable, { destroyTable } from "../../common/DataTable";
 import { useNavigate } from "react-router-dom";
 import { StockContext } from "../../contexts/StockContext";
 import convertDateToThai from "../../common/DateFormat";
+import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 
 export function StockKayPage() {
   const { majorUser, setIsLoading } = useContext(AppContext);
@@ -55,6 +56,29 @@ export function StockKayPage() {
     setImei(imei);
     setStockID(id);
     navigate(`/stock/add?type=kay`, { state: { id } });
+  };
+
+  const deleteStock = (id: string, major: string) => () => {
+    setIsLoading(true);
+    StockService.DeleteStockById(id, major)
+      .then((res) => {
+        AlertSuccess(res.data.message);
+        StockService.GetStock(majorUser)
+          .then((res) => {
+            setTimeout(() => destroyTable());
+            setStock(res.data);
+            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+            setIsLoading(false);
+          })
+          .catch((err) => {
+            AlertError(err.response.data.message);
+            setIsLoading(false);
+          });
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -128,7 +152,7 @@ export function StockKayPage() {
                               <button
                                 type="button"
                                 className="btn btn-danger"
-                                onClick={() => {}}
+                                onClick={deleteStock(item.ID, item.MAJOR)}
                               >
                                 ลบ
                               </button>
