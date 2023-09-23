@@ -133,7 +133,7 @@ export default function StockPage() {
 
   const stockTableHeaders = ["รหัสเอกสาร", "วันที่", "ประเภท", "รายละเอียด"];
 
-  const editableStockTableHeaders = [...stockTableHeaders, "แก้ไข", "ลบ"];
+  const editableStockTableHeaders = [...stockTableHeaders, "ลบ"];
 
   const deleteStock = (id: string, major: string) => () => {
     setIsLoading(true);
@@ -309,17 +309,6 @@ export default function StockPage() {
                       type={"date"}
                       value={date}
                     />
-                    {/* <DataList
-                      label={"ค้นหาชื่อ / เลือก เลขบัตรประชาชน:"}
-                      setValue={setIdCard}
-                      icon={"far fa-id-card"}
-                      data={selectCustomer.map((item) => item)}
-                      placeholder={"ค้นหาชื่อ / เลขบัตรประชาชน"}
-                      minLength={13}
-                      maxLength={13}
-                      value={idCard}
-                      isReadOnly={isUpdate}
-                    /> */}
                     {isUpdate ? (
                       <>
                         <TextInput
@@ -343,28 +332,6 @@ export default function StockPage() {
                       </>
                     ) : (
                       <>
-                        {/* {customerFind && (
-                          <TextInput
-                            label={"ชื่อลูกค้า:"}
-                            icon={"far fa-id-card"}
-                            setValue={() => {}}
-                            type={"text"}
-                            readonly={true}
-                            bgColor={"bg-secondary"}
-                            value={`${customerFind.NAME} ${customerFind.LAST_NAME}`}
-                          />
-                        )}
-                        <SelectChoice
-                          label={"ประวัติลูกค้า"}
-                          setValue={setCustomerStatus}
-                          icon={"fas fa-history"}
-                          topic={"ประวัติลูกค้า"}
-                          options={["ลูกค้าดี", "ลูกค้าโกง", "ลูกค้าจ่ายช้า"]}
-                          placeholder={"ประวัติลูกค้า"}
-                          value={
-                            customerFind?.CUSTOMER_STATUS ?? customerStatus
-                          }
-                        /> */}
                         <SelectChoice
                           label={"ประเภท"}
                           setValue={setStockType}
@@ -376,17 +343,6 @@ export default function StockPage() {
                         />
                       </>
                     )}
-                    {/* {isMenuInsert && <IsMenuInsert />}
-                    {byeMenuInsert && <ByeMenuInsert />}
-                    {kayMenuInsert && (
-                      <KayMenuInsert
-                        fullName={`${customerFind?.NAME} ${customerFind?.LAST_NAME}`}
-                      />
-                    )}
-                    {NewInstallmentMenuInsert && <MenuNewInstallmentInsert />}
-                    {installmentMenuInsert && (
-                      <InstallmentMenuInsert selectCustomer={selectCustomer} />
-                    )} */}
                   </div>
                 </div>
                 <div className="modal-footer">
@@ -398,22 +354,6 @@ export default function StockPage() {
                   >
                     ถัดไป
                   </button>
-                  {/* <button
-                    type="button"
-                    className="btn primary-btn col-lg-2 col-sm-auto"
-                    data-dismiss={isShowModal && `modal`}
-                    onClick={handlerSubmit}
-                  >
-                    บันทึก
-                  </button>
-
-                  <button
-                    type="button"
-                    className="btn btn-danger col-lg-2 col-sm-auto"
-                    data-dismiss="modal"
-                  >
-                    ยกเลิก
-                  </button> */}
                 </div>
               </>
             }
@@ -495,7 +435,6 @@ export default function StockPage() {
                       </button>
                     </div>
                   </td>
-                  <td>ปรับปรุง</td>
                   <td>
                     {isDelete() ? (
                       <button
