@@ -2,8 +2,13 @@ import { useContext, useEffect } from "react";
 import TextInput from "../../common/TextInput";
 import { StockContext } from "../../contexts/StockContext";
 import { MenuByeEnum } from "../../enum/menuInsert.enum";
+import StockService from "../../services/StockServices";
 
-export default function ByeMenuInsert() {
+interface ByeMenuInsertProps {
+  id: string;
+}
+
+export default function ByeMenuInsert({ id }: ByeMenuInsertProps) {
   const {
     serialNumber,
     setSerialNumber,
@@ -19,7 +24,19 @@ export default function ByeMenuInsert() {
     setBattery,
   } = useContext(StockContext);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const major = sessionStorage.getItem("majorEdit");
+    if (major) {
+      StockService.GetFindStockById(id, major, "ซื้อ").then((res) => {
+        setSerialNumber(res.data.SERIAL_NUMBER);
+        setVersion(res.data.VERSION);
+        setPrice(res.data.PRICE);
+        setImei(res.data.IMEI);
+        setSource(res.data.SOURCE);
+        setBattery(res.data.BATTERY);
+      });
+    }
+  }, []);
 
   return (
     <>

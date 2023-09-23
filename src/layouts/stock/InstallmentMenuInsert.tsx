@@ -13,11 +13,6 @@ export default function InstallmentMenuInsert({
   const { installmentNo, setInstallmentNo, priceTotal, setPriceTotal } =
     useContext(StockContext);
 
-  // useEffect(() => {
-  //   setInstallmentNo(Number(selectCustomer[0].NUMBER_INSTALLMENT) + 1);
-  //   setPriceTotal(selectCustomer[0].INSTALLMENT_MONTH);
-  // }, [selectCustomer]);
-
   return (
     <>
       <div className="form-group">

@@ -14,7 +14,7 @@ import { AlertError, AlertWarning } from "../../common/ToastrCommon";
 import convertDateToThai from "../../common/DateFormat";
 
 export function StockEquipmentPage() {
-  const { majorUser, isEdit, setIsLoading, deleteStock } =
+  const { majorUser, isEdit, setIsLoading, deleteStock, editStock } =
     useContext(AppContext);
   const {
     date,
@@ -173,7 +173,7 @@ export function StockEquipmentPage() {
                       <button
                         type="button"
                         className="btn btn-warning"
-                        onClick={() => {}}
+                        onClick={editStock(item.ID, item.MAJOR, "equipment")}
                       >
                         แก้ไข
                       </button>

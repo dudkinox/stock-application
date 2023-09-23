@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../../contexts";
 import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
 import CustomerServices from "../../services/CustomerServices";
+import StockService from "../../services/StockServices";
 
 interface KayMenuInsertProps {
   id: string;
@@ -82,6 +83,24 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
       }`
     );
   }, [idCard, selectCustomer, customerExists, navigate, setPathUrl]);
+
+  useEffect(() => {
+    const major = sessionStorage.getItem("majorEdit");
+    if (major) {
+      StockService.GetFindStockById(id, major, "ขาย").then((res) => {
+        setCustomer(res.data.CUSTOMER_NAME);
+        setTel(res.data.TEL);
+        setVersion(res.data.VERSION);
+        setImei(res.data.IMEI);
+        setStarMoney(res.data.STAR_MONEY);
+        setMonth(res.data.MONTH);
+        setInstallment(res.data.INSTALLMENT);
+        setDatePayment(res.data.DATE_PAYMENT);
+        setDate(res.data.DATE);
+        setIdCard(res.data.ID_CARD);
+      });
+    }
+  }, []);
 
   return (
     <>

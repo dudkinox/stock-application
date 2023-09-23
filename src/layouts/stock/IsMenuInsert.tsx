@@ -1,9 +1,14 @@
 import TextInput from "../../common/TextInput";
 import { MenuEquipmentEnum } from "../../enum/menuInsert.enum";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { StockContext } from "../../contexts/StockContext";
+import StockService from "../../services/StockServices";
 
-export default function IsMenuInsert() {
+interface IsMenuInsertProps {
+  id: string;
+}
+
+export default function IsMenuInsert({ id }: IsMenuInsertProps) {
   const {
     cases,
     setCases,
@@ -20,6 +25,21 @@ export default function IsMenuInsert() {
     sum,
     setSum,
   } = useContext(StockContext);
+
+  useEffect(() => {
+    const major = sessionStorage.getItem("majorEdit");
+    if (major) {
+      StockService.GetFindStockById(id, major, "อุปกรณ์").then((res) => {
+        setCases(res.data.CASES);
+        setFirm(res.data.FIRM);
+        setLen(res.data.LEN);
+        setBigCharge(res.data.BIG_CHARGE);
+        setCharge(res.data.CHARGE);
+        setRepair(res.data.REPAIR);
+        setSum(res.data.SUM);
+      });
+    }
+  }, []);
 
   return (
     <>
