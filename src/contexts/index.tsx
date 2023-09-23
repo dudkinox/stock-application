@@ -1,6 +1,14 @@
-import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
-import { AlertError } from "../common/ToastrCommon";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { AlertError, AlertSuccess } from "../common/ToastrCommon";
 import AccountServices from "../services/AccountService";
+import StockService from "../services/StockServices";
 
 interface AppContextProps {
   pathUrl: string;
@@ -13,6 +21,7 @@ interface AppContextProps {
   deletePermission: string;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
+  deleteStock: (id: string, major: string) => () => void;
 }
 
 export const AppContext = createContext<AppContextProps>({
@@ -26,6 +35,7 @@ export const AppContext = createContext<AppContextProps>({
   deletePermission: "",
   isLoading: false,
   setIsLoading: () => {},
+  deleteStock: () => () => {},
 });
 
 interface ChildrenProps {
@@ -42,6 +52,26 @@ export function AppContextProvider({ children }: ChildrenProps) {
 
   const isEdit = () => (editPermission === "TRUE" ? true : false);
   const isDelete = () => (deletePermission === "TRUE" ? true : false);
+
+  const deleteStock = (id: string, major: string) => () => {
+    setIsLoading(true);
+    StockService.DeleteStockById(id, major)
+      .then((res) => {
+        AlertSuccess(res.data.message);
+        StockService.GetStock(majorUser)
+          .then((res) => {
+            window.location.reload();
+          })
+          .catch((err) => {
+            AlertError(err.response.data.message);
+            setIsLoading(false);
+          });
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -76,6 +106,7 @@ export function AppContextProvider({ children }: ChildrenProps) {
       deletePermission,
       isLoading,
       setIsLoading,
+      deleteStock,
     }),
     [
       pathUrl,
@@ -88,6 +119,7 @@ export function AppContextProvider({ children }: ChildrenProps) {
       deletePermission,
       isLoading,
       setIsLoading,
+      deleteStock,
     ]
   );
 

@@ -14,7 +14,8 @@ import { AlertError, AlertWarning } from "../../common/ToastrCommon";
 import convertDateToThai from "../../common/DateFormat";
 
 export function StockEquipmentPage() {
-  const { majorUser, isEdit, setIsLoading } = useContext(AppContext);
+  const { majorUser, isEdit, setIsLoading, deleteStock } =
+    useContext(AppContext);
   const {
     date,
     setDate,
@@ -180,7 +181,7 @@ export function StockEquipmentPage() {
                       <button
                         type="button"
                         className="btn btn-danger"
-                        onClick={() => {}}
+                        onClick={deleteStock(item.ID, item.MAJOR)}
                       >
                         ลบ
                       </button>

@@ -19,7 +19,8 @@ import MajorResponse from "../../Models/Response/GetMajorResponse";
 import convertDateToThai from "../../common/DateFormat";
 
 export function StockByePage() {
-  const { majorUser, setIsLoading, isEdit } = useContext(AppContext);
+  const { majorUser, setIsLoading, isEdit, deleteStock } =
+    useContext(AppContext);
   const {
     date,
     setDate,
@@ -62,26 +63,6 @@ export function StockByePage() {
     } else {
       AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
     }
-  };
-
-  const deleteStock = (id: string, major: string) => () => {
-    setIsLoading(true);
-    StockService.DeleteStockById(id, major)
-      .then((res) => {
-        AlertSuccess(res.data.message);
-        StockService.GetStock(majorUser)
-          .then(() => {
-            window.location.reload();
-          })
-          .catch((err) => {
-            AlertError(err.response.data.message);
-            setIsLoading(false);
-          });
-      })
-      .catch((err) => {
-        AlertError(err.response.data.message);
-        setIsLoading(false);
-      });
   };
 
   useEffect(() => {

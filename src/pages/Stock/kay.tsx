@@ -11,7 +11,7 @@ import convertDateToThai from "../../common/DateFormat";
 import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 
 export function StockKayPage() {
-  const { majorUser, setIsLoading } = useContext(AppContext);
+  const { majorUser, setIsLoading, deleteStock } = useContext(AppContext);
   const { setMajorInsert, setImei, setVersion, setStockID } =
     useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
@@ -56,26 +56,6 @@ export function StockKayPage() {
     setImei(imei);
     setStockID(id);
     navigate(`/stock/add?type=kay`, { state: { id } });
-  };
-
-  const deleteStock = (id: string, major: string) => () => {
-    setIsLoading(true);
-    StockService.DeleteStockById(id, major)
-      .then((res) => {
-        AlertSuccess(res.data.message);
-        StockService.GetStock(majorUser)
-          .then((res) => {
-            window.location.reload();
-          })
-          .catch((err) => {
-            AlertError(err.response.data.message);
-            setIsLoading(false);
-          });
-      })
-      .catch((err) => {
-        AlertError(err.response.data.message);
-        setIsLoading(false);
-      });
   };
 
   useEffect(() => {
