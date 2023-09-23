@@ -70,17 +70,8 @@ export function AppContextProvider({ children }: ChildrenProps) {
   };
 
   const editStock = (id: string, major: string, stockType: string) => () => {
-    setIsLoading(true);
-    StockService.GetFindStockById(id, major, stockType)
-      .then((res) => {
-        sessionStorage.setItem("edit", JSON.stringify(res.data));
-        window.location.href = "/stock/add?type=" + stockType + "&id=" + id;
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        AlertError(err.response.data.message);
-        setIsLoading(false);
-      });
+    sessionStorage.setItem("majorEdit", major);
+    window.location.href = "/stock/add?type=" + stockType + "&id=" + id;
   };
 
   useEffect(() => {

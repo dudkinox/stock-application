@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import TextInput from "../../common/TextInput";
 import { StockContext } from "../../contexts/StockContext";
 import { MenuByeEnum } from "../../enum/menuInsert.enum";
@@ -18,6 +18,9 @@ export default function ByeMenuInsert() {
     battery,
     setBattery,
   } = useContext(StockContext);
+
+  useEffect(() => {}, []);
+
   return (
     <>
       <TextInput
