@@ -29,6 +29,7 @@ export function StockKayPage() {
     "ผ่อนกี่เดือน",
     "ผ่อนเดือนละ",
     "จ่ายทุกวันที่",
+    "แก้ไข / ลบ",
   ];
 
   const stockBuyListTableHeaders = [
@@ -40,6 +41,7 @@ export function StockKayPage() {
     "แหล่งที่มา",
     "Battery",
     "ขาย",
+    "แก้ไข / ลบ",
   ];
 
   const handlerKay = (
@@ -114,6 +116,23 @@ export function StockKayPage() {
                                 ขาย
                               </button>
                             </td>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-warning"
+                                onClick={() => {}}
+                              >
+                                แก้ไข
+                              </button>
+                              &emsp;
+                              <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={() => {}}
+                              >
+                                ลบ
+                              </button>
+                            </td>
                           </tr>
                         ) : (
                           <></>
@@ -145,6 +164,23 @@ export function StockKayPage() {
                           <td>{item.MONTH}</td>
                           <td>{item.INSTALLMENT}</td>
                           <td>{item.DATE_PAYMENT}</td>
+                          <td>
+                            <button
+                              type="button"
+                              className="btn btn-warning"
+                              onClick={() => {}}
+                            >
+                              แก้ไข
+                            </button>
+                            &emsp;
+                            <button
+                              type="button"
+                              className="btn btn-danger"
+                              onClick={() => {}}
+                            >
+                              ลบ
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     />
