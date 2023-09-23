@@ -65,10 +65,7 @@ export function StockKayPage() {
         AlertSuccess(res.data.message);
         StockService.GetStock(majorUser)
           .then((res) => {
-            setTimeout(() => destroyTable());
-            setStock(res.data);
-            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-            setIsLoading(false);
+            window.location.reload();
           })
           .catch((err) => {
             AlertError(err.response.data.message);
