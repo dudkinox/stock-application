@@ -31,6 +31,8 @@ export function StockInstallmentPaymentPage() {
   } = useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
   const stockTableHeaders = [
+    "รหัสเอกสาร",
+    "วันที่",
     "เลขบัตรประชาชน / ชื่อลูกค้า",
     "สาขา",
     "งวดที่",
@@ -159,6 +161,8 @@ export function StockInstallmentPaymentPage() {
                 columns={stockTableHeaders}
                 row={stock.map((item, i) => (
                   <tr key={i} className="text-center">
+                    <td>{item.ID}</td>
+                    <td>{item.DATE}</td>
                     <td>{item.ID_CARD}</td>
                     <td>{item.MAJOR}</td>
                     <td>{item.INSTALLMENT_NO}</td>
