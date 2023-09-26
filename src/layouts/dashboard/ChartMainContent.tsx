@@ -178,17 +178,7 @@ export default function ChartMainContent() {
                       <p className="h3">{buyTotal?.BUY.toLocaleString()}</p>
                     </div>
                     <div className="col-4 text-center">
-                      <p className="">
-                        {"เหลือจำนวนเครื่อง"}
-                        <button
-                          className="btn btn-primary mx-2 "
-                          data-toggle="modal"
-                          data-target="#balance-modal"
-                          style={{ fontSize: "13px" }}
-                        >
-                          ดู
-                        </button>
-                      </p>
+                      <p className="">{"เหลือจำนวนเครื่อง"}</p>
                       <p className="h3">{buyTotal?.BALANCE.toLocaleString()}</p>
                     </div>
                   </div>
