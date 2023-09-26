@@ -168,7 +168,7 @@ export function StockKayPage() {
                             <button
                               type="button"
                               className="btn btn-warning"
-                              onClick={() => {}}
+                              onClick={editStock(item.ID, item.MAJOR, "kay")}
                             >
                               แก้ไข
                             </button>

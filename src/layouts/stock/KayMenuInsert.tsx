@@ -45,7 +45,7 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
     useState<GetCustomerResponse | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const insert = !!location.state.insert;
+  const insert = location.state.insert;
 
   useEffect(() => {
     setIsLoading(true);
@@ -88,16 +88,18 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
     const major = sessionStorage.getItem("majorEdit");
     if (major) {
       StockService.GetFindStockById(id, major, "ขาย").then((res) => {
-        setCustomer(res.data.CUSTOMER_NAME);
-        setTel(res.data.TEL);
-        setVersion(res.data.VERSION);
-        setImei(res.data.IMEI);
-        setStarMoney(res.data.STAR_MONEY);
-        setMonth(res.data.MONTH);
-        setInstallment(res.data.INSTALLMENT);
-        setDatePayment(res.data.DATE_PAYMENT);
-        setDate(res.data.DATE);
-        setIdCard(res.data.ID_CARD);
+        console.log(res.data);
+
+        // setCustomer(res.data.CUSTOMER_NAME);
+        // setTel(res.data.TEL);
+        // setVersion(res.data.VERSION);
+        // setImei(res.data.IMEI);
+        // setStarMoney(res.data.STAR_MONEY);
+        // setMonth(res.data.MONTH);
+        // setInstallment(res.data.INSTALLMENT);
+        // setDatePayment(res.data.DATE_PAYMENT);
+        // setDate(res.data.DATE);
+        // setIdCard(res.data.ID_CARD);
       });
     }
   }, []);

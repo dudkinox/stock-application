@@ -33,8 +33,7 @@ export default function StockAddPage() {
           {addType === "bye" && <ByeMenuInsert id={id} />}
           {addType === "kay" && <KayMenuInsert id={id} />}
           {addType === "equipment" && <IsMenuInsert id={id} />}
-          {NewInstallmentMenuInsert && <MenuNewInstallmentInsert />}
-          {installmentMenuInsert && <InstallmentMenuInsert />}
+          {addType === "installment" && <InstallmentMenuInsert />}
           <div className="text-center">
             <button
               type="button"
