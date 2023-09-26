@@ -75,143 +75,138 @@ export default function ChartMainContent() {
         }
         id={"want-money"}
       />
-      <BalanceDetail balanceDetail={balanceDetail} />
       <section className="content">
         <div className="container-fluid">
-          <section className="connectedSortable">
-            <div className="row">
-              <div className="card col-sm-6">
-                <div className="card-body pb-0">
-                  <div className="text-center">
-                    <p>{type === "" ? "-" : `ยอด${type}ทั้งหมด`} </p>
-                    <p className="h3">
-                      {type === "" ? "0" : `${totalSum} เครื่อง`}{" "}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="card col-sm-6">
-                <div className="card-body pb-0">
-                  <div className="text-center">
-                    <p>กำไรทั้งหมด </p>
-                    <p className="h3">{percentage.toLocaleString()} บาท </p>
-                  </div>
-                </div>
-              </div>
-              <div className="card col-sm-6">
-                <div className="card-body pb-0">
-                  <div className="text-center">
-                    <p>
-                      กำไรที่อยากได้{" "}
-                      <button
-                        className="btn btn-warning mx-2 "
-                        data-toggle="modal"
-                        data-target="#want-money"
-                        style={{ fontSize: "13px" }}
-                      >
-                        <i className="nav-icon fas fa-pen" />
-                      </button>
-                    </p>
-                    <p className="h3">{Number(profit).toLocaleString()} บาท</p>
-                  </div>
-                </div>
-              </div>
-              <div className="card col-sm-6">
-                <div className="card-body pb-0">
-                  <div className="text-center">
-                    <p>
-                      {type === ""
-                        ? `-`
-                        : `ราย${
-                            type === "อุปกรณ์"
-                              ? "จ่าย"
-                              : type === "ซื้อ"
-                              ? "จ่าย"
-                              : "รับ"
-                          }จาก${type}${duration}นี้`}
-                    </p>
-                    <p className="h3">
-                      {type !== ""
-                        ? Number(desiredProfit).toLocaleString() + " บาท"
-                        : "-"}
-                    </p>
-                  </div>
+          <div className="row">
+            <div className="card col-sm-6">
+              <div className="card-body pb-0">
+                <div className="text-center">
+                  <p>{type === "" ? "-" : `ยอด${type}ทั้งหมด`} </p>
+                  <p className="h3">
+                    {type === "" ? "0" : `${totalSum} เครื่อง`}{" "}
+                  </p>
                 </div>
               </div>
             </div>
-            <div className="row">
-              <div className="card col-sm-4">
-                <div className="card-body pb-0">
-                  <div className="text-center">
-                    <p>{"ค่าซื้อเครื่องเข้า"}</p>
-                    <p className="h3">{summary?.TUN.toLocaleString()}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="card col-sm-4">
-                <div className="card-body pb-0">
-                  <div className="text-center">
-                    <p>{"เงินดาวน์"}</p>
-                    <p className="h3">{summary?.DOWN.toLocaleString()}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="card col-sm-4">
-                <div className="card-body pb-0">
-                  <div className="text-center">
-                    <p>{"รายการผ่อน"}</p>
-                    <p className="h3">
-                      {summary?.INSTALLMENT.toLocaleString()}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="card col-sm-4">
-                <div className="card-body pb-0">
-                  <div className="text-center">
-                    <p>{"อุปกรณ์"}</p>
-                    <p className="h3">
-                      {summary?.EQUIPMENT_COUNT.toLocaleString()}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="card col-sm-4">
-                <div className="card-body pb-0">
-                  <div className="text-center">
-                    <p>{"รายจ่าย"}</p>
-                    <p className="h3">{summary?.OUTCOME.toLocaleString()}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="card col-sm-4">
-                <div className="card-body pb-0">
-                  <div className="text-center">
-                    <p>{"สุทธิ"}</p>
-                    <p className="h3">{summary?.TOTAL.toLocaleString()}</p>
-                  </div>
+            <div className="card col-sm-6">
+              <div className="card-body pb-0">
+                <div className="text-center">
+                  <p>กำไรทั้งหมด </p>
+                  <p className="h3">{percentage.toLocaleString()} บาท </p>
                 </div>
               </div>
             </div>
-            <div className="card">
-              <div className="card-header pb-0">
-                <div className="row col-12">
-                  <div className="col-4 text-center">
-                    <p>{"จำนวนเครื่องที่ซื้อ"}</p>
-                    <p className="h3">{buyTotal?.COUNT.toLocaleString()}</p>
-                  </div>
-                  <div className="col-4 text-center">
-                    <p>{"ขายไปแล้ว"}</p>
-                    <p className="h3">{buyTotal?.BUY.toLocaleString()}</p>
-                  </div>
-                  <div className="col-4 text-center">
-                    <p>{"เหลือจำนวนเครื่อง"}</p>
-                    <p className="h3">{buyTotal?.BALANCE.toLocaleString()}</p>
-                  </div>
+            <div className="card col-sm-6">
+              <div className="card-body pb-0">
+                <div className="text-center">
+                  <p>
+                    กำไรที่อยากได้{" "}
+                    <button
+                      className="btn btn-warning mx-2 "
+                      data-toggle="modal"
+                      data-target="#want-money"
+                      style={{ fontSize: "13px" }}
+                    >
+                      <i className="nav-icon fas fa-pen" />
+                    </button>
+                  </p>
+                  <p className="h3">{Number(profit).toLocaleString()} บาท</p>
                 </div>
               </div>
             </div>
-          </section>
+            <div className="card col-sm-6">
+              <div className="card-body pb-0">
+                <div className="text-center">
+                  <p>
+                    {type === ""
+                      ? `-`
+                      : `ราย${
+                          type === "อุปกรณ์"
+                            ? "จ่าย"
+                            : type === "ซื้อ"
+                            ? "จ่าย"
+                            : "รับ"
+                        }จาก${type}${duration}นี้`}
+                  </p>
+                  <p className="h3">
+                    {type !== ""
+                      ? Number(desiredProfit).toLocaleString() + " บาท"
+                      : "-"}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="card col-sm-4">
+              <div className="card-body pb-0">
+                <div className="text-center">
+                  <p>{"ค่าซื้อเครื่องเข้า"}</p>
+                  <p className="h3">{summary?.TUN.toLocaleString()}</p>
+                </div>
+              </div>
+            </div>
+            <div className="card col-sm-4">
+              <div className="card-body pb-0">
+                <div className="text-center">
+                  <p>{"เงินดาวน์"}</p>
+                  <p className="h3">{summary?.DOWN.toLocaleString()}</p>
+                </div>
+              </div>
+            </div>
+            <div className="card col-sm-4">
+              <div className="card-body pb-0">
+                <div className="text-center">
+                  <p>{"รายการผ่อน"}</p>
+                  <p className="h3">{summary?.INSTALLMENT.toLocaleString()}</p>
+                </div>
+              </div>
+            </div>
+            <div className="card col-sm-4">
+              <div className="card-body pb-0">
+                <div className="text-center">
+                  <p>{"อุปกรณ์"}</p>
+                  <p className="h3">
+                    {summary?.EQUIPMENT_COUNT.toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="card col-sm-4">
+              <div className="card-body pb-0">
+                <div className="text-center">
+                  <p>{"รายจ่าย"}</p>
+                  <p className="h3">{summary?.OUTCOME.toLocaleString()}</p>
+                </div>
+              </div>
+            </div>
+            <div className="card col-sm-4">
+              <div className="card-body pb-0">
+                <div className="text-center">
+                  <p>{"สุทธิ"}</p>
+                  <p className="h3">{summary?.TOTAL.toLocaleString()}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="card">
+            <div className="card-header pb-0">
+              <div className="row col-12">
+                <div className="col-4 text-center">
+                  <p>{"จำนวนเครื่องที่ซื้อ"}</p>
+                  <p className="h3">{buyTotal?.COUNT.toLocaleString()}</p>
+                </div>
+                <div className="col-4 text-center">
+                  <p>{"ขายไปแล้ว"}</p>
+                  <p className="h3">{buyTotal?.BUY.toLocaleString()}</p>
+                </div>
+                <div className="col-4 text-center">
+                  <p>{"เหลือจำนวนเครื่อง"}</p>
+                  <p className="h3">{buyTotal?.BALANCE.toLocaleString()}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>
