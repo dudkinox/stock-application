@@ -10,11 +10,7 @@ import ModalCommon from "../../common/Modal";
 import SelectChoice from "../../common/Select";
 import TextInput from "../../common/TextInput";
 import MajorServices from "../../services/MajorService";
-import {
-  AlertError,
-  AlertSuccess,
-  AlertWarning,
-} from "../../common/ToastrCommon";
+import { AlertError, AlertWarning } from "../../common/ToastrCommon";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import convertDateToThai from "../../common/DateFormat";
 
