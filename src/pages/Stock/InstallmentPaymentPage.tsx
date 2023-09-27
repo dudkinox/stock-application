@@ -58,7 +58,7 @@ export function StockInstallmentPaymentPage() {
 
   useEffect(() => {
     setIsLoading(true);
-    StockService.GetStockInstallmentPayment(majorUser)
+    StockService.GetStockInstallmentPaymentAll(majorUser)
       .then((res) => {
         setStock(res.data);
         setIsLoading(false);
