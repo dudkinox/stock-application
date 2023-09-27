@@ -493,44 +493,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
               insertStock(params);
             }
             break;
-          case "ผ่อนครั้งแรก":
-            const firstInstallment: StockFirstInstallmentRequest = {
-              ...baseInsert,
-              installmentMonth,
-              numberInstallment,
-              payment,
-              datePayment: newDatePayment,
-              priceTotal: newPriceTotal,
-              starMoney: newStarMoney,
-            };
-            if (
-              firstInstallment.installmentMonth === undefined ||
-              firstInstallment.numberInstallment === undefined ||
-              firstInstallment.payment === undefined ||
-              firstInstallment.datePayment === undefined ||
-              firstInstallment.priceTotal === undefined ||
-              firstInstallment.starMoney === undefined
-            ) {
-              AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
-            } else {
-              params =
-                baseParams +
-                "&installment_month=" +
-                firstInstallment.installmentMonth +
-                "&number_installment=" +
-                firstInstallment.numberInstallment +
-                "&payment=" +
-                firstInstallment.payment +
-                "&date_payment=" +
-                firstInstallment.datePayment +
-                "&price_total=" +
-                firstInstallment.priceTotal +
-                "&star_money=" +
-                firstInstallment.starMoney;
-
-              insertStock(params);
-            }
-            break;
           default:
             const installmentPayment: StockInstallmentPaymentRequest = {
               ...baseInsert,

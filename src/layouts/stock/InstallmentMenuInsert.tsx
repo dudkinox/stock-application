@@ -26,25 +26,10 @@ export default function InstallmentMenuInsert({
     setPriceTotal,
     setCustomerStatus,
     setCustomer,
-    tel,
-    setTel,
-    version,
-    setVersion,
-    imei,
-    setImei,
-    starMoney,
-    setStarMoney,
-    month,
-    setMonth,
-    installment,
-    setInstallment,
-    datePayment,
-    setDatePayment,
     setIdCard,
     idCard,
-    date,
-    setDate,
     setStockType,
+    setDate,
   } = useContext(StockContext);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
     []
@@ -61,7 +46,7 @@ export default function InstallmentMenuInsert({
     CustomerServices.getCustomer(majorUser).then((res) => {
       setSelectCustomer(res.data);
       setIsLoading(false);
-      setStockType("ขาย");
+      setStockType("ผ่อน");
     });
   }, []);
 
@@ -138,7 +123,7 @@ export default function InstallmentMenuInsert({
             </span>
           </div>
           <input
-            type="text"
+            type="number"
             className="form-control"
             onChange={(e: any) => setPriceTotal(e.target.value)}
             placeholder="จำนวนเงิน"
@@ -157,7 +142,7 @@ export default function InstallmentMenuInsert({
             </span>
           </div>
           <input
-            type="text"
+            type="number"
             className="form-control"
             onChange={(e: any) => setInstallmentNo(e.target.value)}
             placeholder="งวดที่"
