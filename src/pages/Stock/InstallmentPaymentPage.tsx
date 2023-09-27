@@ -37,6 +37,7 @@ export function StockInstallmentPaymentPage() {
     "สาขา",
     "งวดที่",
     "จำนวนเงิน",
+    "แก้ไข / ลบ",
   ];
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
 
@@ -167,6 +168,23 @@ export function StockInstallmentPaymentPage() {
                     <td>{item.MAJOR}</td>
                     <td>{item.INSTALLMENT_NO}</td>
                     <td>{item.PRICE_TOTAL}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-warning"
+                        onClick={editStock(item.ID, item.MAJOR, "bye")}
+                      >
+                        แก้ไข
+                      </button>
+                      &emsp;
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={deleteStock(item.ID, item.MAJOR)}
+                      >
+                        ลบ
+                      </button>
+                    </td>
                   </tr>
                 ))}
               />
