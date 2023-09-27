@@ -10,6 +10,7 @@ import { AppContext } from "../../contexts";
 import CustomerServices from "../../services/CustomerServices";
 import { AlertWarning } from "../../common/ToastrCommon";
 import { useLocation, useNavigate } from "react-router-dom";
+import StockService from "../../services/StockServices";
 
 interface InstallmentMenuInsertProps {
   id: string;
@@ -78,40 +79,57 @@ export default function InstallmentMenuInsert({
     );
   }, [idCard, selectCustomer, customerExists, navigate, setPathUrl]);
 
+  useEffect(() => {
+    const major = sessionStorage.getItem("majorEdit");
+    if (major) {
+      StockService.GetFindStockById(id, major, "ผ่อน").then((res) => {
+        setIdCard(res.data.ID_CARD);
+        setCustomer(res.data.CUSTOMER_NAME);
+        setPriceTotal(res.data.PRICE_TOTAL);
+        setInstallmentNo(res.data.INSTALLMENT_NO);
+        setDate(res.data.DATE);
+      });
+    }
+  }, []);
+
   return (
     <>
-      <DataList
-        label={"ค้นหาชื่อ / เลือก เลขบัตรประชาชน:"}
-        setValue={setIdCard}
-        icon={"far fa-id-card"}
-        data={selectCustomer.map((item) => item)}
-        placeholder={"ค้นหาชื่อ / เลขบัตรประชาชน"}
-        minLength={13}
-        maxLength={13}
-        value={idCard}
-      />
-      <div className="form-group">
-        <label className="float-left">{MenuKayEnum.CUSTOMER}</label>
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <span className="input-group-text">
-              <i className="fas fa-user"></i>
-            </span>
-          </div>
-          <input
-            type="text"
-            className="form-control"
-            onChange={(e: any) => setCustomer(e.target.value)}
-            placeholder="ชื่อลูกค้า"
-            value={
-              customerExists
-                ? `${customerExists?.NAME} ${customerExists?.LAST_NAME}`
-                : ""
-            }
-            readOnly={customerExists !== null}
+      {id !== "" && (
+        <>
+          <DataList
+            label={"ค้นหาชื่อ / เลือก เลขบัตรประชาชน:"}
+            setValue={setIdCard}
+            icon={"far fa-id-card"}
+            data={selectCustomer.map((item) => item)}
+            placeholder={"ค้นหาชื่อ / เลขบัตรประชาชน"}
+            minLength={13}
+            maxLength={13}
+            value={idCard}
           />
-        </div>
-      </div>
+          <div className="form-group">
+            <label className="float-left">{MenuKayEnum.CUSTOMER}</label>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <i className="fas fa-user"></i>
+                </span>
+              </div>
+              <input
+                type="text"
+                className="form-control"
+                onChange={(e: any) => setCustomer(e.target.value)}
+                placeholder="ชื่อลูกค้า"
+                value={
+                  customerExists
+                    ? `${customerExists?.NAME} ${customerExists?.LAST_NAME}`
+                    : ""
+                }
+                readOnly={customerExists !== null}
+              />
+            </div>
+          </div>
+        </>
+      )}
       <div className="form-group">
         <label className="float-left">
           {MenuInstallmentPaymentEnum.PRICE_TOTAL}
