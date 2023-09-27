@@ -172,7 +172,7 @@ export function StockInstallmentPaymentPage() {
                       <button
                         type="button"
                         className="btn btn-warning"
-                        onClick={editStock(item.ID, item.MAJOR, "bye")}
+                        onClick={editStock(item.ID, item.MAJOR, "installment_payment")}
                       >
                         แก้ไข
                       </button>
