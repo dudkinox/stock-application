@@ -94,6 +94,7 @@ export const MenuKayArray = [
 ];
 
 export enum MenuInstallmentPaymentEnum {
+  DOC_ID = "รหัสเอกสาร",
   INSTALLMENT_NO = "งวดที่",
   PRICE_TOTAL = "จำนวนเงิน",
 }

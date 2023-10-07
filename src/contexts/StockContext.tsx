@@ -75,6 +75,8 @@ interface StockContextProps {
   setDatePayment: (value: string) => void;
   installmentNo: number | string;
   setInstallmentNo: (value: number) => void;
+  documentId: string;
+  setDocumentId: (value: string) => void;
   priceTotal: number | string;
   setPriceTotal: (value: string) => void;
   menuInsert: (stockType: string) => void;
@@ -160,6 +162,8 @@ export const StockContext = createContext<StockContextProps>({
   setDatePayment: (value: string) => {},
   installmentNo: 0,
   setInstallmentNo: (value: number) => {},
+  documentId: "",
+  setDocumentId: (value: string) => {},
   priceTotal: 0,
   setPriceTotal: (value: number | string) => {},
   menuInsert: (stockType: string) => {},
@@ -224,6 +228,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [installment, setInstallment] = useState<number | string>(0);
   const [datePayment, setDatePayment] = useState<string>("0");
   const [installmentNo, setInstallmentNo] = useState<number | string>(0);
+  const [documentId, setDocumentId] = useState<string>("");
   const [priceTotal, setPriceTotal] = useState<number | string>(0);
   const [stock, setStock] = useState<GetStockResponse[]>([]);
   const [isShowModal, setIsShowModal] = useState(false);
@@ -237,7 +242,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [newStarMoney, setNewStarMoney] = useState("0");
   const [serialNumber, setSerialNumber] = useState("");
   const [stockID, setStockID] = useState("");
-  const navigate = useNavigate();
 
   const menuInsert = useMemo(
     () => (stockType: string) => {
@@ -327,6 +331,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
     setInstallment("");
     setDatePayment("");
     setInstallmentNo("");
+    setDocumentId("");
     setPriceTotal("");
     setSerialNumber("");
     setStockID("");
@@ -646,6 +651,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setDatePayment,
       installmentNo,
       setInstallmentNo,
+      setDocumentId,
+      documentId,
       priceTotal,
       setPriceTotal,
       menuInsert,
@@ -734,6 +741,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setSerialNumber,
       stockID,
       setStockID,
+      documentId,
+      setDocumentId,
     ]
   );
 

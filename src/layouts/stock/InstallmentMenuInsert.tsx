@@ -31,6 +31,8 @@ export default function InstallmentMenuInsert({
     idCard,
     setStockType,
     setDate,
+    setDocumentId,
+    documentId,
   } = useContext(StockContext);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
     []
@@ -96,6 +98,25 @@ export default function InstallmentMenuInsert({
     <>
       {id !== "" && (
         <>
+          <div className="form-group">
+            <label className="float-left">
+              {MenuInstallmentPaymentEnum.DOC_ID}
+            </label>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <i className="fas fa-calendar-check"></i>
+                </span>
+              </div>
+              <input
+                type="text"
+                className="form-control"
+                onChange={(e: any) => setDocumentId(e.target.value)}
+                placeholder="รหัสเอกสาร"
+                value={documentId}
+              />
+            </div>
+          </div>
           <DataList
             label={"ค้นหาชื่อ / เลือก เลขบัตรประชาชน:"}
             setValue={setIdCard}
