@@ -501,13 +501,15 @@ export function StockContextProvider({ children }: ChildrenProps) {
           default:
             const installmentPayment: StockInstallmentPaymentRequest = {
               ...baseInsert,
+              id: documentId,
               installmentNo: Number(installmentNo),
               priceTotal: Number(priceTotal),
             };
 
             if (
               installmentPayment.installmentNo === "" ||
-              installmentPayment.priceTotal === ""
+              installmentPayment.priceTotal === "" ||
+              installmentPayment.id === ""
             ) {
               AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
             } else {
@@ -518,7 +520,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
                 "&price_total=" +
                 installmentPayment.priceTotal +
                 "&id_card=" +
-                idCard;
+                installmentPayment.id;
 
               insertStock(params);
             }
