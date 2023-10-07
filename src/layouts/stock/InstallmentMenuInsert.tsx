@@ -11,6 +11,7 @@ import CustomerServices from "../../services/CustomerServices";
 import { AlertWarning } from "../../common/ToastrCommon";
 import { useLocation, useNavigate } from "react-router-dom";
 import StockService from "../../services/StockServices";
+const major = sessionStorage.getItem("majorEdit");
 
 interface InstallmentMenuInsertProps {
   id: string;
@@ -43,15 +44,22 @@ export default function InstallmentMenuInsert({
 
   const navigate = useNavigate();
   const location = useLocation();
-  const insert = location.state.insert;
+  const insert = location.state?.insert;
 
   useEffect(() => {
-    setIsLoading(true);
-    CustomerServices.getCustomer(majorUser).then((res) => {
-      setSelectCustomer(res.data);
-      setIsLoading(false);
-      setStockType("ผ่อน");
-    });
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const res = await CustomerServices.getCustomer(majorUser);
+        setSelectCustomer(res.data);
+        setIsLoading(false);
+        setStockType("ผ่อน");
+      } catch (err) {
+        console.log("Error fetching customer data:", err);
+      }
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -63,7 +71,7 @@ export default function InstallmentMenuInsert({
   useEffect(() => {
     StockService.GetStockKay(majorUser).then((res) => {
       setPriceTotal(
-        res.data.filter((fil) => fil.ID === documentId)[0].INSTALLMENT
+        res.data.filter((fil) => fil.ID === documentId)[0]?.INSTALLMENT
       );
       setInstallmentNo(1);
     });
@@ -98,7 +106,6 @@ export default function InstallmentMenuInsert({
   }, [idCard, selectCustomer, customerExists, navigate, setPathUrl]);
 
   useEffect(() => {
-    const major = sessionStorage.getItem("majorEdit");
     if (major) {
       StockService.GetFindStockById(id, major, "ผ่อน").then((res) => {
         setIdCard(res.data.ID_CARD);
@@ -106,8 +113,10 @@ export default function InstallmentMenuInsert({
         setPriceTotal(res.data.PRICE_TOTAL);
         setInstallmentNo(res.data.INSTALLMENT_NO);
         setDate(res.data.DATE);
+        console.log(res.data);
       });
     }
+    console.log(major);
   }, []);
 
   return (

@@ -8,11 +8,12 @@ import KayMenuInsert from "../../layouts/stock/KayMenuInsert";
 import { useLocation } from "react-router-dom";
 
 export default function StockAddPage() {
-  const { isMenuInsert, handlerSubmit } = useContext(StockContext);
+  const { isMenuInsert, handlerSubmit, updateStockHandler } =
+    useContext(StockContext);
   const state = useLocation();
   const id =
     new URLSearchParams(useLocation().search).get("id") ?? state.state.id;
-  const addType = new URLSearchParams(useLocation().search).get("type");
+  const addType = new URLSearchParams(useLocation().search).get("type") ?? "";
 
   return (
     <ContentLayOut
@@ -31,7 +32,9 @@ export default function StockAddPage() {
             <button
               type="button"
               className="btn primary-btn col-3 my-3 "
-              onClick={handlerSubmit}
+              onClick={
+                id === 0 ? handlerSubmit : () => updateStockHandler(id, addType)
+              }
             >
               บันทึก
             </button>

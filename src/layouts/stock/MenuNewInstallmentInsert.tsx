@@ -1,9 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import TextInput from "../../common/TextInput";
 import { MenuNewInstallmentEnum } from "../../enum/menuInsert.enum";
 import { StockContext } from "../../contexts/StockContext";
 import SelectChoice from "../../common/Select";
-import React from "react";
 
 export default function MenuNewInstallmentInsert() {
   const {

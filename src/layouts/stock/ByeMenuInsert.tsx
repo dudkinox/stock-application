@@ -22,6 +22,8 @@ export default function ByeMenuInsert({ id }: ByeMenuInsertProps) {
     setSource,
     battery,
     setBattery,
+    setDate,
+    setStockType,
   } = useContext(StockContext);
 
   useEffect(() => {
@@ -34,7 +36,11 @@ export default function ByeMenuInsert({ id }: ByeMenuInsertProps) {
         setImei(res.data.IMEI);
         setSource(res.data.SOURCE);
         setBattery(res.data.BATTERY);
+        setDate(res.data.DATE);
+        setStockType(res.data.STOCK_TYPE);
+        console.log(res.data.DATE);
       });
+      console.log(major);
     }
   }, []);
 
