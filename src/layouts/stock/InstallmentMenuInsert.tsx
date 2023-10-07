@@ -40,7 +40,6 @@ export default function InstallmentMenuInsert({
   const [selectDocId, setSelectDocId] = useState<any[]>([]);
   const [customerExists, setCustomerExists] =
     useState<GetCustomerResponse | null>(null);
-  const [docIdExists, setDocIdExists] = useState<any[]>([]);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -62,8 +61,6 @@ export default function InstallmentMenuInsert({
     const updatedCustomerExists = selectCustomer.find(
       (fil) => fil.ID_CARD === idCard
     );
-    const updatedDocIdExists = selectDocId.find((fil) => fil.ID === documentId);
-    setDocIdExists(updatedDocIdExists ?? null);
     setCustomerExists(updatedCustomerExists ?? null);
     document.body.classList.remove("modal-open");
 
@@ -86,14 +83,7 @@ export default function InstallmentMenuInsert({
         updatedCustomerExists?.LAST_NAME ?? ""
       }`
     );
-  }, [
-    idCard,
-    selectCustomer,
-    docIdExists,
-    customerExists,
-    navigate,
-    setPathUrl,
-  ]);
+  }, [idCard, selectCustomer, customerExists, navigate, setPathUrl]);
 
   useEffect(() => {
     const major = sessionStorage.getItem("majorEdit");
