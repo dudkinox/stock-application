@@ -25,3 +25,4 @@ test.dmg
 .metals
 
 yarn.lock
+vite.config.ts.*
