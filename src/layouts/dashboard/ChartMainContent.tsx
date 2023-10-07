@@ -189,24 +189,6 @@ export default function ChartMainContent() {
               </div>
             </div>
           </div>
-          <div className="card">
-            <div className="card-header pb-0">
-              <div className="row col-12">
-                <div className="col-4 text-center">
-                  <p>{"จำนวนเครื่องที่ซื้อ"}</p>
-                  <p className="h3">{buyTotal?.COUNT.toLocaleString()}</p>
-                </div>
-                <div className="col-4 text-center">
-                  <p>{"ขายไปแล้ว"}</p>
-                  <p className="h3">{buyTotal?.BUY.toLocaleString()}</p>
-                </div>
-                <div className="col-4 text-center">
-                  <p>{"เหลือจำนวนเครื่อง"}</p>
-                  <p className="h3">{buyTotal?.BALANCE.toLocaleString()}</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
     </>
