@@ -61,6 +61,15 @@ export default function InstallmentMenuInsert({
   }, []);
 
   useEffect(() => {
+    StockService.GetStockKay(majorUser).then((res) => {
+      setPriceTotal(
+        res.data.filter((fil) => fil.ID === documentId)[0].INSTALLMENT
+      );
+      setInstallmentNo(1);
+    });
+  }, [documentId]);
+
+  useEffect(() => {
     const updatedCustomerExists = selectCustomer.find(
       (fil) => fil.ID_CARD === idCard
     );
