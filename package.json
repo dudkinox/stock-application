@@ -29,6 +29,6 @@
     "@types/toastr": "^2.1.40",
     "@vitejs/plugin-react": "^3.0.0",
     "typescript": "^4.9.3",
-    "vite": "^4.0.0"
+    "vite": "^4.4.11"
   }
 }
