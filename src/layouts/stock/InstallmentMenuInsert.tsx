@@ -49,11 +49,14 @@ export default function InstallmentMenuInsert({
     setIsLoading(true);
     CustomerServices.getCustomer(majorUser).then((res) => {
       setSelectCustomer(res.data);
-      StockService.GetStockBye(majorUser).then((res) => {
-        setSelectDocId(res.data);
-        setIsLoading(false);
-        setStockType("ผ่อน");
-      });
+      setIsLoading(false);
+      setStockType("ผ่อน");
+    });
+  }, []);
+
+  useEffect(() => {
+    StockService.GetStockBye(majorUser).then((res) => {
+      setSelectDocId(res.data);
     });
   }, []);
 
@@ -102,15 +105,37 @@ export default function InstallmentMenuInsert({
     <>
       {id !== "" && (
         <>
-          <DataList
-            id="docId"
-            label={MenuInstallmentPaymentEnum.DOC_ID}
-            setValue={setDocumentId}
-            icon={"far fa-id-card"}
-            data={selectDocId.map((item) => item)}
-            placeholder={MenuInstallmentPaymentEnum.DOC_ID}
-            value={documentId}
-          />
+          <div className="form-group">
+            <label className="float-left">
+              {MenuInstallmentPaymentEnum.DOC_ID}
+            </label>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <i className="far fa-id-card"></i>
+                </span>
+              </div>
+              <input
+                list="browsers"
+                name="browser"
+                id="browser"
+                className="form-control"
+                onChange={(e: any) => setDocumentId(e.target.value)}
+                placeholder={MenuInstallmentPaymentEnum.DOC_ID}
+                autoComplete="off"
+                value={documentId}
+              />
+              <datalist id="browsers">
+                {selectDocId?.map((item: any) => (
+                  <option
+                    key={item.ID}
+                    label={item.SERIAL_NUMBER}
+                    value={item.ID}
+                  />
+                )) ?? []}
+              </datalist>
+            </div>
+          </div>
           <DataList
             label={"ค้นหาชื่อ / เลือก เลขบัตรประชาชน:"}
             setValue={setIdCard}
