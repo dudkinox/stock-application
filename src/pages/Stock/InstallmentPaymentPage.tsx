@@ -169,14 +169,6 @@ export function StockInstallmentPaymentPage() {
                     <td>
                       <button
                         type="button"
-                        className="btn btn-warning"
-                        onClick={editStock(item.ID, item.MAJOR, "installment")}
-                      >
-                        แก้ไข
-                      </button>
-                      &emsp;
-                      <button
-                        type="button"
                         className="btn btn-danger"
                         onClick={deleteStock(item.ID, item.MAJOR)}
                       >
