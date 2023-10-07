@@ -10,6 +10,7 @@ interface DataListProps {
   data?: GetCustomerResponse[];
   value?: string;
   isReadOnly?: boolean;
+  id?: string;
 }
 
 export default function DataList({
@@ -22,7 +23,9 @@ export default function DataList({
   data,
   value,
   isReadOnly,
+  id,
 }: DataListProps) {
+  const isId = id !== undefined;
   return (
     <div className="form-group">
       <label className="float-left">{label}</label>
@@ -34,8 +37,8 @@ export default function DataList({
         </div>
         <input
           className="form-control"
-          list="datalistOptions"
-          id="exampleDataList"
+          list={isId ? id : "datalistOptions"}
+          id={isId ? id : "exampleDataList"}
           minLength={minLength}
           maxLength={maxLength}
           onChange={(e: any) => setValue(e.target.value)}
@@ -44,14 +47,22 @@ export default function DataList({
           value={value}
           readOnly={isReadOnly}
         />
-        <datalist id="datalistOptions">
-          {data?.map((item: any, index) => (
-            <option
-              key={index}
-              label={`${item.NAME} ${item.LAST_NAME}`}
-              value={item.ID_CARD}
-            />
-          )) ?? []}
+        <datalist id={isId ? id : "datalistOptions"}>
+          {isId
+            ? data?.map((item: any) => (
+                <option
+                  key={item.ID}
+                  label={`${item.ID} ${item.ID}`}
+                  value={item.ID}
+                />
+              ))
+            : data?.map((item: any, index) => (
+                <option
+                  key={index}
+                  label={`${item.NAME} ${item.LAST_NAME}`}
+                  value={item.ID_CARD}
+                />
+              )) ?? []}
         </datalist>
       </div>
     </div>

@@ -37,8 +37,10 @@ export default function InstallmentMenuInsert({
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
     []
   );
+  const [selectDocId, setSelectDocId] = useState<any[]>([]);
   const [customerExists, setCustomerExists] =
     useState<GetCustomerResponse | null>(null);
+  const [docIdExists, setDocIdExists] = useState<any[]>([]);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,8 +50,11 @@ export default function InstallmentMenuInsert({
     setIsLoading(true);
     CustomerServices.getCustomer(majorUser).then((res) => {
       setSelectCustomer(res.data);
-      setIsLoading(false);
-      setStockType("ผ่อน");
+      StockService.GetStockBye(majorUser).then((res) => {
+        setSelectDocId(res.data);
+        setIsLoading(false);
+        setStockType("ผ่อน");
+      });
     });
   }, []);
 
@@ -57,6 +62,8 @@ export default function InstallmentMenuInsert({
     const updatedCustomerExists = selectCustomer.find(
       (fil) => fil.ID_CARD === idCard
     );
+    const updatedDocIdExists = selectDocId.find((fil) => fil.ID === documentId);
+    setDocIdExists(updatedDocIdExists ?? null);
     setCustomerExists(updatedCustomerExists ?? null);
     document.body.classList.remove("modal-open");
 
@@ -79,7 +86,14 @@ export default function InstallmentMenuInsert({
         updatedCustomerExists?.LAST_NAME ?? ""
       }`
     );
-  }, [idCard, selectCustomer, customerExists, navigate, setPathUrl]);
+  }, [
+    idCard,
+    selectCustomer,
+    docIdExists,
+    customerExists,
+    navigate,
+    setPathUrl,
+  ]);
 
   useEffect(() => {
     const major = sessionStorage.getItem("majorEdit");
@@ -98,25 +112,15 @@ export default function InstallmentMenuInsert({
     <>
       {id !== "" && (
         <>
-          <div className="form-group">
-            <label className="float-left">
-              {MenuInstallmentPaymentEnum.DOC_ID}
-            </label>
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text">
-                  <i className="fas fa-calendar-check"></i>
-                </span>
-              </div>
-              <input
-                type="text"
-                className="form-control"
-                onChange={(e: any) => setDocumentId(e.target.value)}
-                placeholder="รหัสเอกสาร"
-                value={documentId}
-              />
-            </div>
-          </div>
+          <DataList
+            id="docId"
+            label={MenuInstallmentPaymentEnum.DOC_ID}
+            setValue={setDocumentId}
+            icon={"far fa-id-card"}
+            data={selectDocId.map((item) => item)}
+            placeholder={MenuInstallmentPaymentEnum.DOC_ID}
+            value={documentId}
+          />
           <DataList
             label={"ค้นหาชื่อ / เลือก เลขบัตรประชาชน:"}
             setValue={setIdCard}
