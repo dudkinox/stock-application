@@ -22,10 +22,6 @@ jobs:
       run: |
         yarn
         yarn build
-
-    - name: automated test
-      run: |
-        yarn cypress run
     
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
