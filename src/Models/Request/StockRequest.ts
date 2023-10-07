@@ -38,6 +38,7 @@ export interface StockKayRequest extends StockRequest {
 }
 
 export interface StockInstallmentPaymentRequest extends StockRequest {
+  id: string;
   installmentNo: number | string;
   priceTotal: number | string;
 }

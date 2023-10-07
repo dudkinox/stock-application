@@ -35,8 +35,8 @@ export default function SelectChoice({
           <option hidden selected>
             {topic}
           </option>
-          {options.map((item, index) => (
-            <option key={index} value={item}>
+          {options.map((item) => (
+            <option key={item} value={item}>
               {item}
             </option>
           ))}
