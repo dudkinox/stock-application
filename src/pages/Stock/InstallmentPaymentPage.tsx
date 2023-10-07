@@ -33,7 +33,6 @@ export function StockInstallmentPaymentPage() {
   const stockTableHeaders = [
     "รหัสเอกสาร",
     "วันที่",
-    "เลขบัตรประชาชน / ชื่อลูกค้า",
     "สาขา",
     "งวดที่",
     "จำนวนเงิน",
@@ -164,7 +163,6 @@ export function StockInstallmentPaymentPage() {
                   <tr key={i} className="text-center">
                     <td>{item.ID}</td>
                     <td>{item.DATE}</td>
-                    <td>{item.ID_CARD}</td>
                     <td>{item.MAJOR}</td>
                     <td>{item.INSTALLMENT_NO}</td>
                     <td>{item.PRICE_TOTAL}</td>
