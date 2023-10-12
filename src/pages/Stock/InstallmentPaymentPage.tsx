@@ -50,7 +50,7 @@ export function StockInstallmentPaymentPage() {
 
     if ((isAdmin && isNextAdmin && isNext) || (!isAdmin && isNext)) {
       navigate(`/stock/add?type=installment`, {
-        state: { id: 0 },
+        state: { id: 0, date },
       });
     } else {
       AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
@@ -168,13 +168,13 @@ export function StockInstallmentPaymentPage() {
                     <td>{item.INSTALLMENT_NO}</td>
                     <td>{item.PRICE_TOTAL}</td>
                     <td>
-                      <button
+                      {/* <button
                         type="button"
                         className="btn btn-warning"
                         onClick={editStock(item.ID, item.MAJOR, "installment")}
                       >
                         แก้ไข
-                      </button>
+                      </button> */}
                       <button
                         type="button"
                         className="btn btn-danger ml-3"

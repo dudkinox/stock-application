@@ -84,26 +84,6 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
     );
   }, [idCard, selectCustomer, customerExists, navigate, setPathUrl]);
 
-  useEffect(() => {
-    const major = sessionStorage.getItem("majorEdit");
-    if (major) {
-      StockService.GetFindStockById(id, major, "ขาย").then((res) => {
-        console.log(res.data);
-
-        // setCustomer(res.data.CUSTOMER_NAME);
-        // setTel(res.data.TEL);
-        // setVersion(res.data.VERSION);
-        // setImei(res.data.IMEI);
-        // setStarMoney(res.data.STAR_MONEY);
-        // setMonth(res.data.MONTH);
-        // setInstallment(res.data.INSTALLMENT);
-        // setDatePayment(res.data.DATE_PAYMENT);
-        // setDate(res.data.DATE);
-        // setIdCard(res.data.ID_CARD);
-      });
-    }
-  }, []);
-
   return (
     <>
       <span className="mt-3"></span>
@@ -189,7 +169,7 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
             onChange={(e: any) => setVersion(e.target.value)}
             placeholder="รุ่น"
             value={version}
-            readOnly
+            // readOnly
           />
         </div>
       </div>
@@ -207,7 +187,7 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
             onChange={(e: any) => setImei(e.target.value)}
             placeholder="imei เครื่อง"
             value={imei}
-            readOnly
+            // readOnly
           />
         </div>
       </div>

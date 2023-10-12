@@ -24,6 +24,8 @@ export default function IsMenuInsert({ id }: IsMenuInsertProps) {
     setRepair,
     sum,
     setSum,
+    setDate,
+    setStockType,
   } = useContext(StockContext);
 
   useEffect(() => {
@@ -37,6 +39,8 @@ export default function IsMenuInsert({ id }: IsMenuInsertProps) {
         setCharge(res.data.CHARGE);
         setRepair(res.data.REPAIR);
         setSum(res.data.SUM);
+        setDate(res.data.DATE.split(" ")[0]);
+        setStockType("อุปกรณ์");
       });
     }
   }, []);
