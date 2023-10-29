@@ -166,7 +166,7 @@ export function StockInstallmentPaymentPage() {
                     <td>{convertDateToThai(new Date(item.DATE))}</td>
                     <td>{item.MAJOR}</td>
                     <td>{item.INSTALLMENT_NO}</td>
-                    <td>{item.PRICE_TOTAL}</td>
+                    <td>{Number(item.PRICE_TOTAL).toLocaleString()} บาท</td>
                     <td>
                       <button
                         type="button"
