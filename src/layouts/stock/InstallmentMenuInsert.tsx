@@ -156,7 +156,7 @@ export default function InstallmentMenuInsert({
                   setDocumentId(e.target.value);
                   PaymentService.InstallmentNumber(e.target.value).then(
                     (res) => {
-                      res.data !== "false"
+                      Number(res.data) !== 0
                         ? setInstallmentNo(Number(res.data) + 1)
                         : ($("#alert-installment-modal") as any).modal("show");
                     }
