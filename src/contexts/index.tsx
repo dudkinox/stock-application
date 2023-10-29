@@ -2,7 +2,6 @@ import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { AlertError, AlertSuccess } from "../common/ToastrCommon";
 import AccountServices from "../services/AccountService";
 import StockService from "../services/StockServices";
-import { useNavigate } from "react-router-dom";
 
 interface AppContextProps {
   pathUrl: string;

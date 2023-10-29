@@ -5,11 +5,10 @@ import IsMenuInsert from "../../layouts/stock/IsMenuInsert";
 import ByeMenuInsert from "../../layouts/stock/ByeMenuInsert";
 import InstallmentMenuInsert from "../../layouts/stock/InstallmentMenuInsert";
 import KayMenuInsert from "../../layouts/stock/KayMenuInsert";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import StockService from "../../services/StockServices";
 import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 import { AppContext } from "../../contexts";
-import { destroyTable } from "../../common/DataTable";
 
 export default function StockAddPage() {
   const { isMenuInsert, handlerSubmit } = useContext(StockContext);
@@ -66,7 +65,7 @@ export default function StockAddPage() {
           <div className="text-center">
             <button
               type="button"
-              className="btn primary-btn col-3 my-3 "
+              className="btn primary-btn col-3 my-3"
               onClick={id === 0 ? handlerSubmit : updateHandlerSubmit}
             >
               บันทึก
