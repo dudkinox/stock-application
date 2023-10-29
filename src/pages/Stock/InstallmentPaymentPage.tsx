@@ -37,7 +37,8 @@ export function StockInstallmentPaymentPage() {
     "สาขา",
     "งวดที่",
     "จำนวนเงิน",
-    "แก้ไข / ลบ",
+    "แก้ไข",
+    "ลบ",
   ];
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
 
@@ -167,6 +168,11 @@ export function StockInstallmentPaymentPage() {
                     <td>{item.MAJOR}</td>
                     <td>{item.INSTALLMENT_NO}</td>
                     <td>{Number(item.PRICE_TOTAL).toLocaleString()} บาท</td>
+                    <td>
+                      <button type="button" className="btn btn-warning">
+                        แก้ไข
+                      </button>
+                    </td>
                     <td>
                       <button
                         type="button"
