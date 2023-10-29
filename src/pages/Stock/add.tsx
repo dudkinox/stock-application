@@ -9,7 +9,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import StockService from "../../services/StockServices";
 import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 import { AppContext } from "../../contexts";
-import { destroyTable } from "../../common/DataTable";
 
 export default function StockAddPage() {
   const { isMenuInsert, handlerSubmit } = useContext(StockContext);
@@ -18,6 +17,7 @@ export default function StockAddPage() {
   const id =
     new URLSearchParams(useLocation().search).get("id") ?? state.state.id;
   const addType = new URLSearchParams(useLocation().search).get("type");
+  const navigate = useNavigate();
 
   const [edit, setEdit] = useState({
     stockType: "",
@@ -33,14 +33,15 @@ export default function StockAddPage() {
         AlertSuccess("แก้ไขข้อมูลสำเร็จ");
         setIsLoading(false);
 
-        window.location.href =
+        navigate(
           edit.stockType === "ซื้อ"
             ? "/stock-bye"
             : edit.stockType === "ขาย"
             ? "/stock-kay"
             : edit.stockType === "อุปกรณ์"
             ? "/stock-equipment"
-            : "/stock-installment-payment";
+            : "/stock-installment-payment"
+        );
       })
       .catch((err) => {
         AlertError(err.response.data.message);
