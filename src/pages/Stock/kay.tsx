@@ -160,9 +160,9 @@ export function StockKayPage() {
                           <td>{item.TEL}</td>
                           <td>{item.VERSION}</td>
                           <td>{item.IMEI}</td>
-                          <td>{item.STAR_MONEY}</td>
+                          <td>{Number(item.STAR_MONEY).toLocaleString()}</td>
                           <td>{item.MONTH}</td>
-                          <td>{item.INSTALLMENT}</td>
+                          <td>{Number(item.INSTALLMENT).toLocaleString()}</td>
                           <td>{item.DATE_PAYMENT}</td>
                           <td>
                             <button
