@@ -347,6 +347,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
         stockType,
         major: majorUser === "admin" ? majorInsert : majorUser,
       };
+
       if (baseInsert.date === "") {
         AlertWarning("กรุณากรอกวันที่");
       } else if (baseInsert.stockType === "") {
@@ -419,6 +420,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
               source: source,
               battery: battery,
             };
+            console.log(bye);
 
             if (
               bye.serialNumber === "" ||
