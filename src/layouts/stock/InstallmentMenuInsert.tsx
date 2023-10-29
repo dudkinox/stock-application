@@ -12,7 +12,6 @@ import { AlertWarning } from "../../common/ToastrCommon";
 import { useLocation, useNavigate } from "react-router-dom";
 import StockService from "../../services/StockServices";
 import PaymentService from "../../services/PaymentService";
-import ModalCommon from "../../common/Modal";
 
 interface InstallmentMenuInsertProps {
   id: string;
@@ -115,28 +114,6 @@ export default function InstallmentMenuInsert({
     <>
       {id !== "" && (
         <>
-          <ModalCommon
-            title={"ชำระครบถ้วน"}
-            id={"alert-installment-modal"}
-            content={
-              <>
-                <div className="modal-body">
-                  <div className="container-fluid">
-                    <h5 className="text-center">ชำระครบถ้วน</h5>
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn primary-btn col-lg-2 col-sm-auto"
-                    data-dismiss="modal"
-                  >
-                    ตกลง
-                  </button>
-                </div>
-              </>
-            }
-          />
           <div className="form-group">
             <label className="float-left">
               {MenuInstallmentPaymentEnum.DOC_ID}
@@ -156,9 +133,7 @@ export default function InstallmentMenuInsert({
                   setDocumentId(e.target.value);
                   PaymentService.InstallmentNumber(e.target.value).then(
                     (res) => {
-                      Number(res.data) !== 0
-                        ? setInstallmentNo(Number(res.data) + 1)
-                        : ($("#alert-installment-modal") as any).modal("show");
+                      setInstallmentNo(Number(res.data) + 1);
                     }
                   );
                 }}
