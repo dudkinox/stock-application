@@ -6,34 +6,34 @@ import StockService from "../../services/StockServices";
 
 interface ByeMenuInsertProps {
   id: string;
-  setEdit: React.Dispatch<
-    React.SetStateAction<{
-      stockType: string;
-      major: string;
-      payload: {};
-    }>
-  >;
-  edit: {
-    stockType: string;
-    major: string;
-    payload: any;
-  };
 }
 
-export default function ByeMenuInsert({
-  id,
-  setEdit,
-  edit,
-}: ByeMenuInsertProps) {
+export default function ByeMenuInsert({ id }: ByeMenuInsertProps) {
+  const {
+    serialNumber,
+    setSerialNumber,
+    version,
+    setVersion,
+    price,
+    setPrice,
+    imei,
+    setImei,
+    source,
+    setSource,
+    battery,
+    setBattery,
+  } = useContext(StockContext);
+
   useEffect(() => {
     const major = sessionStorage.getItem("majorEdit");
     if (major) {
       StockService.GetFindStockById(id, major, "ซื้อ").then((res) => {
-        setEdit({
-          stockType: "ซื้อ",
-          major: major,
-          payload: res.data,
-        });
+        setSerialNumber(res.data.SERIAL_NUMBER);
+        setVersion(res.data.VERSION);
+        setPrice(res.data.PRICE);
+        setImei(res.data.IMEI);
+        setSource(res.data.SOURCE);
+        setBattery(res.data.BATTERY);
       });
     }
   }, []);
@@ -43,105 +43,51 @@ export default function ByeMenuInsert({
       <TextInput
         label={MenuByeEnum.SERIAL_NUMBER}
         icon={"fas fa-mobile"}
-        setValue={(e) =>
-          setEdit({
-            major: edit.major,
-            stockType: edit.stockType,
-            payload: {
-              ...edit.payload,
-              SERIAL_NUMBER: e,
-            },
-          })
-        }
+        setValue={setSerialNumber}
         type={"text"}
         placeholder={"Serial Number"}
-        value={edit.payload.SERIAL_NUMBER}
+        value={serialNumber}
       />
       <TextInput
         label={MenuByeEnum.VERSION}
         icon={"fas fa-mobile"}
-        setValue={(e) =>
-          setEdit({
-            major: edit.major,
-            stockType: edit.stockType,
-            payload: {
-              ...edit.payload,
-              VERSION: e,
-            },
-          })
-        }
+        setValue={setVersion}
         type={"text"}
         placeholder={"รุ่น"}
-        value={edit.payload.VERSION}
+        value={version}
       />
       <TextInput
         label={MenuByeEnum.PRICE}
         type={"number"}
         icon={"fas fa-money-bill"}
-        setValue={(e) =>
-          setEdit({
-            major: edit.major,
-            stockType: edit.stockType,
-            payload: {
-              ...edit.payload,
-              PRICE: e,
-            },
-          })
-        }
+        setValue={setPrice}
         min={0}
         placeholder={"ราคา"}
-        value={edit.payload.PRICE}
+        value={price}
       />
       <TextInput
         label={MenuByeEnum.IMEI}
         icon={"fas fa-mobile"}
-        setValue={(e) =>
-          setEdit({
-            major: edit.major,
-            stockType: edit.stockType,
-            payload: {
-              ...edit.payload,
-              IMEI: e,
-            },
-          })
-        }
+        setValue={setImei}
         type={"text"}
         placeholder={"imei เครื่อง"}
-        value={edit.payload.IMEI}
+        value={imei}
       />
       <TextInput
         label={MenuByeEnum.SOURCE}
         icon={"fas fa-map-marker-alt"}
-        setValue={(e) =>
-          setEdit({
-            major: edit.major,
-            stockType: edit.stockType,
-            payload: {
-              ...edit.payload,
-              SOURCE: e,
-            },
-          })
-        }
+        setValue={setSource}
         type={"text"}
         placeholder={"แหล่งที่มา"}
-        value={edit.payload.SOURCE}
+        value={source}
       />
       <TextInput
         label={MenuByeEnum.BATTERY}
         icon={"fas fa-battery-full"}
-        setValue={(e) =>
-          setEdit({
-            major: edit.major,
-            stockType: edit.stockType,
-            payload: {
-              ...edit.payload,
-              BATTERY: e,
-            },
-          })
-        }
+        setValue={setBattery}
         type={"text"}
         placeholder={"แบตเตอรี่"}
-        value={edit.payload.BATTERY}
+        value={battery}
       />
     </>
   );
