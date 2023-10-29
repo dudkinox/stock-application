@@ -55,10 +55,8 @@ export default function ByeMenuInsert({
   }, []);
 
   useEffect(() => {
-    setIsInsert(Number(id) === 0);
+    setIsInsert(id === "0");
   }, []);
-
-  useEffect(() => {}, []);
 
   return (
     <>
@@ -67,7 +65,7 @@ export default function ByeMenuInsert({
         icon={"fas fa-mobile"}
         setValue={(e) =>
           isInsert
-            ? setSerialNumber(e)
+            ? setSerialNumber
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -86,7 +84,7 @@ export default function ByeMenuInsert({
         icon={"fas fa-mobile"}
         setValue={(e) =>
           isInsert
-            ? setVersion(e)
+            ? setVersion
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -106,7 +104,7 @@ export default function ByeMenuInsert({
         icon={"fas fa-money-bill"}
         setValue={(e) =>
           isInsert
-            ? setPrice(e)
+            ? setPrice
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -125,7 +123,7 @@ export default function ByeMenuInsert({
         icon={"fas fa-mobile"}
         setValue={(e) =>
           isInsert
-            ? setImei(e)
+            ? setImei
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -144,7 +142,7 @@ export default function ByeMenuInsert({
         icon={"fas fa-map-marker-alt"}
         setValue={(e) =>
           isInsert
-            ? setSource(e)
+            ? setSource
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -163,7 +161,7 @@ export default function ByeMenuInsert({
         icon={"fas fa-battery-full"}
         setValue={(e) =>
           isInsert
-            ? setBattery(e)
+            ? setBattery
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
