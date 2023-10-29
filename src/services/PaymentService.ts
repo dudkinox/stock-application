@@ -21,12 +21,17 @@ const ChartMonthSummaryService = () => {
   return Https.get<GetAllChartResponse[]>(`/apis/payments/chart/month`);
 };
 
+const InstallmentNumber = (idCard : string) => {
+  return Https.get<string>(`/apis/installment_payment/fincert/?id_card=${idCard}`);
+};
+
 const PaymentService = {
   PaymentSummary: PaymentSummaryService,
   ChartSummary: ChartSummaryService,
   ChartDaySummary: ChartDaySummaryService,
   ChartWeekSummary: ChartWeekSummaryService,
   ChartMonthSummary: ChartMonthSummaryService,
+  InstallmentNumber: InstallmentNumber,
 };
 
 export default PaymentService;

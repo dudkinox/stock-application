@@ -11,6 +11,7 @@ import CustomerServices from "../../services/CustomerServices";
 import { AlertWarning } from "../../common/ToastrCommon";
 import { useLocation, useNavigate } from "react-router-dom";
 import StockService from "../../services/StockServices";
+import PaymentService from "../../services/PaymentService";
 
 interface InstallmentMenuInsertProps {
   id: string;
@@ -65,7 +66,6 @@ export default function InstallmentMenuInsert({
       setPriceTotal(
         res.data.filter((fil) => fil.ID === documentId)[0].INSTALLMENT
       );
-      setInstallmentNo(1);
     });
   }, [documentId]);
 
@@ -129,7 +129,14 @@ export default function InstallmentMenuInsert({
                 name="browser"
                 id="browser"
                 className="form-control"
-                onChange={(e: any) => setDocumentId(e.target.value)}
+                onChange={(e: any) => {
+                  setDocumentId(e.target.value);
+                  PaymentService.InstallmentNumber(e.target.value).then(
+                    (res) => {
+                      setInstallmentNo(Number(res.data) + 1);
+                    }
+                  );
+                }}
                 placeholder={MenuInstallmentPaymentEnum.DOC_ID}
                 autoComplete="off"
                 value={documentId}
