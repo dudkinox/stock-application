@@ -8,11 +8,9 @@ import KayMenuInsert from "../../layouts/stock/KayMenuInsert";
 import { useLocation } from "react-router-dom";
 import StockService from "../../services/StockServices";
 import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
-import { AppContext } from "../../contexts";
 
 export default function StockAddPage() {
   const { isMenuInsert, handlerSubmit } = useContext(StockContext);
-  const { setIsLoading } = useContext(AppContext);
   const state = useLocation();
   const id =
     new URLSearchParams(useLocation().search).get("id") ?? state.state.id;
@@ -67,4 +65,7 @@ export default function StockAddPage() {
       }
     />
   );
+}
+function setIsLoading(arg0: boolean) {
+  throw new Error("Function not implemented.");
 }
