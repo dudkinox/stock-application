@@ -18,6 +18,7 @@ import StockRequest, {
 import { GetStockResponse } from "../Models/Response/GetStockResponse";
 import StockService from "../services/StockServices";
 import { AppContext } from "./index";
+import { useNavigate } from "react-router-dom";
 
 interface StockContextProps {
   date: string;
@@ -104,7 +105,6 @@ interface StockContextProps {
   setSerialNumber: (value: string) => void;
   stockID: string;
   setStockID: (value: string) => void;
-  updateStockHandler: (id: string, type: string) => void;
 }
 
 export const StockContext = createContext<StockContextProps>({
@@ -192,19 +192,11 @@ export const StockContext = createContext<StockContextProps>({
   setSerialNumber: (value: string) => {},
   stockID: "",
   setStockID: (value: string) => {},
-  updateStockHandler: (id: string, type: string) => {},
 });
 
 interface ChildrenProps {
   children: ReactNode;
 }
-
-type PayloadMap = {
-  อุปกรณ์: StockEquipmentRequest;
-  ซื้อ: StockByeRequest;
-  ขาย: StockKayRequest;
-  ผ่อน: StockInstallmentPaymentRequest;
-};
 
 export function StockContextProvider({ children }: ChildrenProps) {
   const [isMenuInsert, setIsMenuInsert] = useState(false);
@@ -298,85 +290,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
     () => (params: string) => {
       setIsLoading(true);
       StockService.InsertStock(params)
-        .then((res) => {
-          AlertSuccess(res.data.message);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          AlertError(err.response.data.message);
-          setIsLoading(false);
-        });
-    },
-    []
-  );
-
-  const updateStockHandler = useMemo(
-    () => (id: string, type: string) => {
-      setIsLoading(true);
-
-      let payload: any;
-      const major = sessionStorage.getItem("majorEdit") ?? "";
-
-      const baseInsert: StockRequest = {
-        date,
-        invoice: "",
-        customerStatus,
-        stockType,
-        major: majorUser === "admin" ? majorInsert : majorUser,
-      };
-
-      switch (type) {
-        case "equipment":
-          payload = {
-            ...baseInsert,
-            cases: cases,
-            firm: firm,
-            len: len,
-            bigCharge: bigCharge,
-            charge: charge,
-            repair: repair,
-            sum: sum,
-          };
-          break;
-        case "bye":
-          payload = {
-            ...baseInsert,
-            serialNumber: serialNumber,
-            version: version,
-            price: price,
-            imei: imei,
-            source: source,
-            battery: battery,
-          };
-          break;
-        case "kay":
-          payload = {
-            ...baseInsert,
-            customer: customer,
-            tel: tel,
-            version: version,
-            imei: imei,
-            starMoney: starMoney,
-            month: month,
-            installment: installment,
-            datePayment: datePayment,
-            id: id,
-          };
-          break;
-        case "installment":
-          payload = {
-            ...baseInsert,
-            id: documentId,
-            installmentNo: Number(installmentNo),
-            priceTotal: Number(priceTotal),
-          };
-          break;
-      }
-      console.log(date);
-      console.log(type);
-      console.log(payload);
-
-      StockService.UpdateStock(id, type, payload, major)
         .then((res) => {
           AlertSuccess(res.data.message);
           setIsLoading(false);
@@ -770,7 +683,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setSerialNumber,
       stockID,
       setStockID,
-      updateStockHandler,
     }),
     [
       date,
@@ -833,7 +745,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setStockID,
       documentId,
       setDocumentId,
-      updateStockHandler,
     ]
   );
 

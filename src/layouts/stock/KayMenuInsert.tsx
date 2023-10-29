@@ -45,7 +45,7 @@ export default function KayMenuInsert({ id }: KayMenuInsertProps) {
     useState<GetCustomerResponse | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const insert = location.state?.insert;
+  const insert = location.state.insert;
 
   useEffect(() => {
     setIsLoading(true);
