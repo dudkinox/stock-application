@@ -11,6 +11,7 @@ import MajorResponse from "../../Models/Response/GetMajorResponse";
 import { useNavigate } from "react-router-dom";
 import { AlertError, AlertWarning } from "../../common/ToastrCommon";
 import MajorServices from "../../services/MajorService";
+import convertDateToThai from "../../common/DateFormat";
 
 export function StockInstallmentPaymentPage() {
   const { majorUser, setIsLoading, isEdit, deleteStock, editStock } =
@@ -162,7 +163,7 @@ export function StockInstallmentPaymentPage() {
                 row={stock.map((item, i) => (
                   <tr key={i} className="text-center">
                     <td>{item.ID}</td>
-                    <td>{item.DATE}</td>
+                    <td>{convertDateToThai(new Date(item.DATE))}</td>
                     <td>{item.MAJOR}</td>
                     <td>{item.INSTALLMENT_NO}</td>
                     <td>{item.PRICE_TOTAL}</td>
