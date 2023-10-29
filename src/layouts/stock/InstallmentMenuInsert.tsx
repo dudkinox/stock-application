@@ -106,15 +106,17 @@ export default function InstallmentMenuInsert({
   }, [idCard, selectCustomer, customerExists, navigate, setPathUrl]);
 
   useEffect(() => {
-    if (major && Number(id) > 0) {
+    if (major) {
       StockService.GetFindStockById(id, major, "ผ่อน").then((res) => {
         setIdCard(res.data.ID_CARD);
         setCustomer(res.data.CUSTOMER_NAME);
         setPriceTotal(res.data.PRICE_TOTAL);
         setInstallmentNo(res.data.INSTALLMENT_NO);
-        setDate(res.data.DATE.split(" ")[0]);
+        setDate(res.data.DATE);
+        console.log(res.data);
       });
     }
+    console.log(major);
   }, []);
 
   return (

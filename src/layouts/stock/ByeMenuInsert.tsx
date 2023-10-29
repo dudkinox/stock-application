@@ -26,6 +26,24 @@ export default function ByeMenuInsert({ id }: ByeMenuInsertProps) {
     setStockType,
   } = useContext(StockContext);
 
+  useEffect(() => {
+    const major = sessionStorage.getItem("majorEdit");
+    if (major) {
+      StockService.GetFindStockById(id, major, "ซื้อ").then((res) => {
+        setSerialNumber(res.data.SERIAL_NUMBER);
+        setVersion(res.data.VERSION);
+        setPrice(res.data.PRICE);
+        setImei(res.data.IMEI);
+        setSource(res.data.SOURCE);
+        setBattery(res.data.BATTERY);
+        setDate(res.data.DATE);
+        setStockType(res.data.STOCK_TYPE);
+        console.log(res.data.DATE);
+      });
+      console.log(major);
+    }
+  }, []);
+
   return (
     <>
       <TextInput
