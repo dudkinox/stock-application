@@ -11,7 +11,6 @@ import MajorResponse from "../../Models/Response/GetMajorResponse";
 import { useNavigate } from "react-router-dom";
 import { AlertError, AlertWarning } from "../../common/ToastrCommon";
 import MajorServices from "../../services/MajorService";
-import convertDateToThai from "../../common/DateFormat";
 
 export function StockInstallmentPaymentPage() {
   const { majorUser, setIsLoading, isEdit, deleteStock, editStock } =
@@ -37,8 +36,7 @@ export function StockInstallmentPaymentPage() {
     "สาขา",
     "งวดที่",
     "จำนวนเงิน",
-    "แก้ไข",
-    "ลบ",
+    "แก้ไข / ลบ",
   ];
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
 
@@ -164,15 +162,10 @@ export function StockInstallmentPaymentPage() {
                 row={stock.map((item, i) => (
                   <tr key={i} className="text-center">
                     <td>{item.ID}</td>
-                    <td>{convertDateToThai(new Date(item.DATE))}</td>
+                    <td>{item.DATE}</td>
                     <td>{item.MAJOR}</td>
                     <td>{item.INSTALLMENT_NO}</td>
-                    <td>{Number(item.PRICE_TOTAL).toLocaleString()} บาท</td>
-                    <td>
-                      <button type="button" className="btn btn-warning">
-                        แก้ไข
-                      </button>
-                    </td>
+                    <td>{item.PRICE_TOTAL}</td>
                     <td>
                       <button
                         type="button"
