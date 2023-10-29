@@ -5,7 +5,7 @@ import IsMenuInsert from "../../layouts/stock/IsMenuInsert";
 import ByeMenuInsert from "../../layouts/stock/ByeMenuInsert";
 import InstallmentMenuInsert from "../../layouts/stock/InstallmentMenuInsert";
 import KayMenuInsert from "../../layouts/stock/KayMenuInsert";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import StockService from "../../services/StockServices";
 import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 import { AppContext } from "../../contexts";
@@ -17,6 +17,7 @@ export default function StockAddPage() {
   const id =
     new URLSearchParams(useLocation().search).get("id") ?? state.state.id;
   const addType = new URLSearchParams(useLocation().search).get("type");
+  const navigate = useNavigate();
 
   const [edit, setEdit] = useState({
     stockType: "",
@@ -31,7 +32,16 @@ export default function StockAddPage() {
       .then((res) => {
         AlertSuccess("แก้ไขข้อมูลสำเร็จ");
         setIsLoading(false);
-        // window.location.href = "/stock";
+
+        navigate(
+          edit.stockType === "ซื้อ"
+            ? "/stock-bye"
+            : edit.stockType === "ขาย"
+            ? "/stock-kay"
+            : edit.stockType === "อุปกรณ์"
+            ? "/stock-equipment"
+            : "/stock-installment-payment"
+        );
       })
       .catch((err) => {
         AlertError(err.response.data.message);
