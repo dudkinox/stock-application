@@ -163,7 +163,7 @@ export function StockInstallmentPaymentPage() {
                 columns={stockTableHeaders}
                 row={stock.map((item, i) => (
                   <tr key={i} className="text-center">
-                    <td>{item.ID}</td>
+                    <td>{item.ID_CARD}</td>
                     <td>{convertDateToThai(new Date(item.DATE))}</td>
                     <td>{item.MAJOR}</td>
                     <td>{item.INSTALLMENT_NO}</td>
