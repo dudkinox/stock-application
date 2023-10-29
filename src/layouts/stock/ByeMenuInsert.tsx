@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import TextInput from "../../common/TextInput";
 import { StockContext } from "../../contexts/StockContext";
 import { MenuByeEnum } from "../../enum/menuInsert.enum";
@@ -39,7 +39,6 @@ export default function ByeMenuInsert({
     battery,
     setBattery,
   } = useContext(StockContext);
-  const [isInsert, setIsInsert] = useState(false);
 
   useEffect(() => {
     const major = sessionStorage.getItem("majorEdit");
@@ -54,17 +53,13 @@ export default function ByeMenuInsert({
     }
   }, []);
 
-  useEffect(() => {
-    setIsInsert(id === "0");
-  }, []);
-
   return (
     <>
       <TextInput
         label={MenuByeEnum.SERIAL_NUMBER}
         icon={"fas fa-mobile"}
         setValue={(e) =>
-          isInsert
+          edit.payload.SERIAL_NUMBER === ""
             ? setSerialNumber
             : setEdit({
                 major: edit.major,
@@ -77,13 +72,17 @@ export default function ByeMenuInsert({
         }
         type={"text"}
         placeholder={"Serial Number"}
-        value={isInsert ? serialNumber : edit.payload.SERIAL_NUMBER}
+        value={
+          edit.payload.SERIAL_NUMBER === ""
+            ? serialNumber
+            : edit.payload.SERIAL_NUMBER
+        }
       />
       <TextInput
         label={MenuByeEnum.VERSION}
         icon={"fas fa-mobile"}
         setValue={(e) =>
-          isInsert
+          edit.payload.VERSION === ""
             ? setVersion
             : setEdit({
                 major: edit.major,
@@ -96,14 +95,14 @@ export default function ByeMenuInsert({
         }
         type={"text"}
         placeholder={"รุ่น"}
-        value={isInsert ? version : edit.payload.VERSION}
+        value={edit.payload.VERSION === "" ? version : edit.payload.VERSION}
       />
       <TextInput
         label={MenuByeEnum.PRICE}
         type={"number"}
         icon={"fas fa-money-bill"}
         setValue={(e) =>
-          isInsert
+          edit.payload.PRICE === ""
             ? setPrice
             : setEdit({
                 major: edit.major,
@@ -116,13 +115,13 @@ export default function ByeMenuInsert({
         }
         min={0}
         placeholder={"ราคา"}
-        value={isInsert ? price : edit.payload.PRICE}
+        value={edit.payload.PRICE === "" ? price : edit.payload.PRICE}
       />
       <TextInput
         label={MenuByeEnum.IMEI}
         icon={"fas fa-mobile"}
         setValue={(e) =>
-          isInsert
+          edit.payload.IMEI === ""
             ? setImei
             : setEdit({
                 major: edit.major,
@@ -135,13 +134,13 @@ export default function ByeMenuInsert({
         }
         type={"text"}
         placeholder={"imei เครื่อง"}
-        value={isInsert ? imei : edit.payload.IMEI}
+        value={edit.payload.IMEI === "" ? imei : edit.payload.IMEI}
       />
       <TextInput
         label={MenuByeEnum.SOURCE}
         icon={"fas fa-map-marker-alt"}
         setValue={(e) =>
-          isInsert
+          edit.payload.SOURCE === ""
             ? setSource
             : setEdit({
                 major: edit.major,
@@ -154,13 +153,13 @@ export default function ByeMenuInsert({
         }
         type={"text"}
         placeholder={"แหล่งที่มา"}
-        value={isInsert ? source : edit.payload.SOURCE}
+        value={edit.payload.SOURCE === "" ? source : edit.payload.SOURCE}
       />
       <TextInput
         label={MenuByeEnum.BATTERY}
         icon={"fas fa-battery-full"}
         setValue={(e) =>
-          isInsert
+          edit.payload.BATTERY === ""
             ? setBattery
             : setEdit({
                 major: edit.major,
@@ -173,7 +172,7 @@ export default function ByeMenuInsert({
         }
         type={"text"}
         placeholder={"แบตเตอรี่"}
-        value={isInsert ? battery : edit.payload.BATTERY}
+        value={edit.payload.BATTERY === "" ? battery : edit.payload.BATTERY}
       />
     </>
   );
