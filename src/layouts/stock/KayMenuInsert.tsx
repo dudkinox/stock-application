@@ -54,6 +54,7 @@ export default function KayMenuInsert({
     setInstallment,
     datePayment,
     setDatePayment,
+    updateKay,
   } = useContext(StockContext);
   const { setPathUrl, setIsLoading, majorUser } = useContext(AppContext);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
@@ -64,7 +65,6 @@ export default function KayMenuInsert({
   const navigate = useNavigate();
   const location = useLocation();
   const insert = location.state?.insert;
-  const [isInsert, setIsInsert] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -104,10 +104,6 @@ export default function KayMenuInsert({
   }, [idCard, selectCustomer, customerExists, navigate, setPathUrl]);
 
   useEffect(() => {
-    setIsInsert(Number(id) !== 0);
-  }, []);
-
-  useEffect(() => {
     const major = sessionStorage.getItem("majorEdit");
     if (major) {
       StockService.GetFindStockById(id, major, "ขาย").then((res) => {
@@ -123,7 +119,7 @@ export default function KayMenuInsert({
   return (
     <>
       <span className="mt-3"></span>
-      {id === "" && (
+      {!updateKay && (
         <>
           <DataList
             label={"ค้นหาชื่อ / เลือก เลขบัตรประชาชน:"}
@@ -163,8 +159,8 @@ export default function KayMenuInsert({
         label={MenuKayEnum.DATE}
         icon={"fas fa-calendar"}
         setValue={(e: any) =>
-          isInsert
-            ? setDate
+          !updateKay
+            ? setDate(e)
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -176,14 +172,14 @@ export default function KayMenuInsert({
         }
         type={"date"}
         placeholder={"วันที่ขาย"}
-        value={isInsert ? date : edit.payload.DATE}
+        value={!updateKay ? date : edit.payload.DATE}
       />
       <TextInput
         label={MenuKayEnum.TEL}
         icon={"fas fa-phone-alt"}
         setValue={(e) =>
-          isInsert
-            ? setTel
+          !updateKay
+            ? setTel(e)
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -197,14 +193,14 @@ export default function KayMenuInsert({
         minLength={10}
         maxLength={10}
         placeholder="เบอร์โทร"
-        value={isInsert ? tel : edit.payload.TEL}
+        value={!updateKay ? tel : edit.payload.TEL}
       />
       <TextInput
         label={MenuKayEnum.VERSION}
         icon={"fas fa-mobile"}
         setValue={(e: any) =>
-          isInsert
-            ? setVersion
+          !updateKay
+            ? setVersion(e)
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -216,15 +212,15 @@ export default function KayMenuInsert({
         }
         type={"text"}
         placeholder="รุ่น"
-        value={isInsert ? version : edit.payload.VERSION}
-        readonly={isInsert}
+        value={!updateKay ? version : edit.payload.VERSION}
+        readonly={!updateKay}
       />
       <TextInput
         label={MenuKayEnum.IMEI}
         icon={"fas fa-mobile"}
         setValue={(e) =>
-          isInsert
-            ? setImei
+          !updateKay
+            ? setImei(e)
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -236,15 +232,15 @@ export default function KayMenuInsert({
         }
         type={"text"}
         placeholder={"imei เครื่อง"}
-        value={isInsert ? imei : edit.payload.IMEI}
-        readonly={isInsert}
+        value={!updateKay ? imei : edit.payload.IMEI}
+        readonly={!updateKay}
       />
       <TextInput
         label={MenuKayEnum.STAR_MONEY}
         icon={"fas fa-money-check-alt"}
         setValue={(e: any) =>
-          isInsert
-            ? setStarMoney
+          !updateKay
+            ? setStarMoney(e)
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -256,14 +252,14 @@ export default function KayMenuInsert({
         }
         type={"number"}
         placeholder={"เงินดาวน์"}
-        value={isInsert ? starMoney : edit.payload.STAR_MONEY}
+        value={!updateKay ? starMoney : edit.payload.STAR_MONEY}
       />
       <TextInput
         label={MenuKayEnum.MONTH}
         icon={"fas fa-money-check-alt"}
         setValue={(e: any) =>
-          isInsert
-            ? setMonth
+          !updateKay
+            ? setMonth(e)
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -276,14 +272,14 @@ export default function KayMenuInsert({
         type="number"
         min={0}
         placeholder="จำนวนเดือนที่ผ่อน"
-        value={isInsert ? month : edit.payload.MONTH}
+        value={!updateKay ? month : edit.payload.MONTH}
       />
       <TextInput
         label={MenuKayEnum.INSTALLMENT}
         icon={"fas fa-calendar-alt"}
         setValue={(e: any) =>
-          isInsert
-            ? setInstallment
+          !updateKay
+            ? setInstallment(e)
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -296,14 +292,14 @@ export default function KayMenuInsert({
         type="number"
         min={0}
         placeholder="เดือนละ"
-        value={isInsert ? installment : edit.payload.INSTALLMENT}
+        value={!updateKay ? installment : edit.payload.INSTALLMENT}
       />
       <TextInput
         label={MenuKayEnum.DATE_PAYMENT}
         icon={"fas fa-cash-register"}
         setValue={(e: any) =>
-          isInsert
-            ? setDatePayment
+          !updateKay
+            ? setDatePayment(e)
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
@@ -315,7 +311,7 @@ export default function KayMenuInsert({
         }
         type="text"
         placeholder="ชำระทุกวันที่"
-        value={isInsert ? datePayment : edit.payload.DATE_PAYMENT}
+        value={!updateKay ? datePayment : edit.payload.DATE_PAYMENT}
       />
     </>
   );

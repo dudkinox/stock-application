@@ -11,7 +11,7 @@ import convertDateToThai from "../../common/DateFormat";
 export function StockKayPage() {
   const { majorUser, setIsLoading, deleteStock, editStock } =
     useContext(AppContext);
-  const { setMajorInsert, setImei, setVersion, setStockID } =
+  const { setMajorInsert, setImei, setVersion, setStockID, setUpdateKay } =
     useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
   const [buyList, setBuyList] = useState<any[]>([]);
@@ -54,6 +54,7 @@ export function StockKayPage() {
     setVersion(version);
     setImei(imei);
     setStockID(id);
+    setUpdateKay(false);
     navigate(`/stock/add?type=kay`, { state: { id } });
   };
 

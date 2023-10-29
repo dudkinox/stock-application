@@ -105,6 +105,8 @@ interface StockContextProps {
   setSerialNumber: (value: string) => void;
   stockID: string;
   setStockID: (value: string) => void;
+  setUpdateKay: (value: boolean) => void;
+  updateKay: boolean;
 }
 
 export const StockContext = createContext<StockContextProps>({
@@ -192,6 +194,8 @@ export const StockContext = createContext<StockContextProps>({
   setSerialNumber: (value: string) => {},
   stockID: "",
   setStockID: (value: string) => {},
+  setUpdateKay: (value: boolean) => {},
+  updateKay: false,
 });
 
 interface ChildrenProps {
@@ -242,6 +246,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
   const [newStarMoney, setNewStarMoney] = useState("0");
   const [serialNumber, setSerialNumber] = useState("");
   const [stockID, setStockID] = useState("");
+  const [updateKay, setUpdateKay] = useState(false);
 
   const menuInsert = useMemo(
     () => (stockType: string) => {
@@ -685,6 +690,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setSerialNumber,
       stockID,
       setStockID,
+      setUpdateKay,
+      updateKay,
     }),
     [
       date,
@@ -747,6 +754,8 @@ export function StockContextProvider({ children }: ChildrenProps) {
       setStockID,
       documentId,
       setDocumentId,
+      updateKay,
+      setUpdateKay,
     ]
   );
 
