@@ -60,7 +60,7 @@ const GetStockInstallmentPaymentService = (major: string) => {
 
 const GetStockInstallmentPaymentAllService = (major: string) => {
   return Https.get<any[]>(`/apis/installment_payment/get/?major=${major}`);
-}
+};
 
 const StockService = {
   InsertStock: InsertStockService,
@@ -73,7 +73,7 @@ const StockService = {
   GetStockBye: GetStockByeService,
   GetStockEquipment: GetStockEquipmentService,
   GetStockInstallmentPayment: GetStockInstallmentPaymentService,
-  GetStockInstallmentPaymentAll: GetStockInstallmentPaymentAllService
+  GetStockInstallmentPaymentAll: GetStockInstallmentPaymentAllService,
 };
 
 export default StockService;
