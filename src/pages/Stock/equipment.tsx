@@ -29,6 +29,14 @@ export function StockEquipmentPage() {
     majorInsert,
     setMajorInsert,
     clearInputValue,
+    setUpdateKay,
+    setCases,
+    setFirm,
+    setLen,
+    setBigCharge,
+    setCharge,
+    setRepair,
+    setSum,
   } = useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
@@ -59,6 +67,29 @@ export function StockEquipmentPage() {
     } else {
       AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
     }
+  };
+
+  const handlerEquipment = (
+    id: string,
+    majorInsert: string,
+    cases: number,
+    firm: number,
+    len: number,
+    bigCharge: number,
+    charge: number,
+    repair: number,
+    sum: number
+  ) => {
+    setMajorInsert(majorInsert);
+    setCases(cases);
+    setFirm(firm);
+    setLen(len);
+    setBigCharge(bigCharge);
+    setCharge(charge);
+    setRepair(repair);
+    setSum(sum);
+    setUpdateKay(false);
+    navigate(`/stock/add?type=equipment`, { state: { id } });
   };
 
   useEffect(() => {
@@ -173,7 +204,20 @@ export function StockEquipmentPage() {
                       <button
                         type="button"
                         className="btn btn-warning"
-                        onClick={editStock(item.ID, item.MAJOR, "equipment")}
+                        onClick={() =>
+                          handlerEquipment(
+                            item.id,
+                            item.MAJOR,
+                            item.CASES,
+                            item.FIRM,
+                            item.LEN,
+                            item.BIG_CHARGE,
+                            item.CHARGE,
+                            item.REPAIR,
+                            item.SUM
+                          )
+                        }
+                      // onClick={editStock(item.ID, item.MAJOR, "equipment")}
                       >
                         แก้ไข
                       </button>

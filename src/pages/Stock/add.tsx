@@ -55,14 +55,14 @@ export default function StockAddPage() {
       }
       page={
         <>
-          {isMenuInsert && <IsMenuInsert id={id} />}
+          {isMenuInsert && <IsMenuInsert id={id}  setEdit={setEdit} edit={edit}/>}
           {addType === "bye" && (
             <ByeMenuInsert id={id} setEdit={setEdit} edit={edit} />
           )}
           {addType === "kay" && (
             <KayMenuInsert setEdit={setEdit} edit={edit} id={id} />
           )}
-          {addType === "equipment" && <IsMenuInsert id={id} />}
+          {addType === "equipment" && <IsMenuInsert id={id} setEdit={setEdit} edit={edit} />}
           {addType === "installment" && <InstallmentMenuInsert id={id} />}
           <div className="text-center">
             <button

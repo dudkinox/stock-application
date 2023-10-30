@@ -6,9 +6,22 @@ import StockService from "../../services/StockServices";
 
 interface IsMenuInsertProps {
   id: string;
+  setEdit: React.Dispatch<
+  React.SetStateAction<{
+    stockType: string;
+    major: string;
+    payload: {};
+  }>
+>;
+edit: {
+  stockType: string;
+  major: string;
+  payload: any;
+};
 }
 
-export default function IsMenuInsert({ id }: IsMenuInsertProps) {
+export default function IsMenuInsert({ id,setEdit,
+  edit }: IsMenuInsertProps) {
   const {
     cases,
     setCases,
@@ -24,19 +37,18 @@ export default function IsMenuInsert({ id }: IsMenuInsertProps) {
     setRepair,
     sum,
     setSum,
+    updateKay,
   } = useContext(StockContext);
 
   useEffect(() => {
     const major = sessionStorage.getItem("majorEdit");
     if (major) {
       StockService.GetFindStockById(id, major, "อุปกรณ์").then((res) => {
-        setCases(res.data.CASES);
-        setFirm(res.data.FIRM);
-        setLen(res.data.LEN);
-        setBigCharge(res.data.BIG_CHARGE);
-        setCharge(res.data.CHARGE);
-        setRepair(res.data.REPAIR);
-        setSum(res.data.SUM);
+        setEdit({
+          stockType: "อุปกรณ์",
+          major: major,
+          payload: res.data,
+        });
       });
     }
   }, []);
@@ -46,72 +58,142 @@ export default function IsMenuInsert({ id }: IsMenuInsertProps) {
       <TextInput
         label={MenuEquipmentEnum.CASES}
         icon={"fas fa-mobile"}
-        setValue={setCases}
+        setValue={(e) =>
+          !updateKay
+            ? setCases(e)
+            : setEdit({
+                major: edit.major,
+                stockType: edit.stockType,
+                payload: {
+                  ...edit.payload,
+                 CASES: e,
+                },
+              })}
         type={"number"}
         min={0}
         minLength={0}
         placeholder={"เคส"}
-        value={cases}
+        value={!updateKay ? cases : edit.payload.CASES}
       />
       <TextInput
         label={MenuEquipmentEnum.FIRM}
         icon={"fas fa-mobile-alt"}
-        setValue={setFirm}
+        setValue={(e) =>
+          !updateKay
+            ? setFirm(e)
+            : setEdit({
+                major: edit.major,
+                stockType: edit.stockType,
+                payload: {
+                  ...edit.payload,
+                  FIRM: e,
+                },
+              })}
         type={"number"}
         min={0}
         minLength={0}
         placeholder={"ฟิล์ม"}
-        value={firm}
+        value={!updateKay ? firm : edit.payload.FIRM}
       />
       <TextInput
         label={MenuEquipmentEnum.LEN}
         icon={"fas fa-camera"}
-        setValue={setLen}
+        setValue={(e) =>
+          !updateKay
+            ? setLen(e)
+            : setEdit({
+                major: edit.major,
+                stockType: edit.stockType,
+                payload: {
+                  ...edit.payload,
+                  LEN: e,
+                },
+              })}
         type={"number"}
         min={0}
         minLength={0}
         placeholder={"กันเลนส์"}
-        value={len}
+        value={!updateKay ? len : edit.payload.LEN}
       />
       <TextInput
         label={MenuEquipmentEnum.BIG_CHARGE}
         icon={"fas fa-charging-station"}
-        setValue={setBigCharge}
+        setValue={(e) =>
+          !updateKay
+            ? setBigCharge(e)
+            : setEdit({
+                major: edit.major,
+                stockType: edit.stockType,
+                payload: {
+                  ...edit.payload,
+                  BIG_CHARGE: e,
+                },
+              })}
         type={"number"}
         min={0}
         minLength={0}
         placeholder={"หัวชาร์จใหญ่"}
-        value={bigCharge}
+        value={!updateKay ? bigCharge : edit.payload.BIG_CHARGE}
       />
       <TextInput
         label={MenuEquipmentEnum.CHARGE}
         icon={"fas fa-plug"}
-        setValue={setCharge}
+        setValue={(e) =>
+          !updateKay
+            ? setCharge(e)
+            : setEdit({
+                major: edit.major,
+                stockType: edit.stockType,
+                payload: {
+                  ...edit.payload,
+                  CHARGE: e,
+                },
+              })}
         type={"number"}
         min={0}
         minLength={0}
         placeholder={"สายชาร์จ"}
-        value={charge}
+        value={!updateKay ? charge : edit.payload.CHARGE}
       />
       <TextInput
         label={MenuEquipmentEnum.REPAIR}
         icon={"fas fa-tools"}
-        setValue={setRepair}
+        setValue={(e) =>
+          !updateKay
+            ? setRepair(e)
+            : setEdit({
+                major: edit.major,
+                stockType: edit.stockType,
+                payload: {
+                  ...edit.payload,
+                 REPAIR: e,
+                },
+              })}
         type={"number"}
         min={0}
         minLength={0}
         placeholder={"ซ่อม"}
-        value={repair}
+        value={!updateKay ? repair : edit.payload.REPAIR}
       />
       <TextInput
         label={MenuEquipmentEnum.SUM}
         icon={"fas fa-money-bill"}
-        setValue={setSum}
+        setValue={(e) =>
+          !updateKay
+            ? setSum(e)
+            : setEdit({
+                major: edit.major,
+                stockType: edit.stockType,
+                payload: {
+                  ...edit.payload,
+                  SUM: e,
+                },
+              })}
         type={"number"}
         min={0}
         minLength={0}
         placeholder={"ราคา"}
-        value={sum}
+        value={!updateKay ? sum : edit.payload.SUM}
       />
     </>
   );
