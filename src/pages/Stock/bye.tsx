@@ -30,7 +30,7 @@ export function StockByePage() {
     majorInsert,
     setMajorInsert,
     clearInputValue,
-    setUpdateKay,
+    setUpdateKey: setUpdateKay,
   } = useContext(StockContext);
   const [buyList, setBuyList] = useState<any[]>([]);
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);

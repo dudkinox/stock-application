@@ -48,7 +48,7 @@ export default function InstallmentMenuInsert({
     setStockType,
     setDocumentId,
     documentId,
-    updateKay,
+    updateKey: updateKay,
   } = useContext(StockContext);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
     []

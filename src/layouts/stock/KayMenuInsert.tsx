@@ -54,7 +54,7 @@ export default function KayMenuInsert({
     setInstallment,
     datePayment,
     setDatePayment,
-    updateKay,
+    updateKey: updateKay,
   } = useContext(StockContext);
   const { setPathUrl, setIsLoading, majorUser } = useContext(AppContext);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(

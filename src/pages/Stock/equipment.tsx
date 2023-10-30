@@ -1,22 +1,21 @@
-import { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import TableCommon from '../../common/Table'
-import ContentLayOut from '../../layouts/ContentLayOut'
-import StockService from '../../services/StockServices'
-import { AppContext } from '../../contexts'
-import { StockContext } from '../../contexts/StockContext'
-import TextInput from '../../common/TextInput'
-import SelectChoice from '../../common/Select'
-import ModalCommon from '../../common/Modal'
-import MajorResponse from '../../Models/Response/GetMajorResponse'
-import MajorServices from '../../services/MajorService'
-import { AlertError, AlertWarning } from '../../common/ToastrCommon'
-import convertDateToThai from '../../common/DateFormat'
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import TableCommon from "../../common/Table";
+import ContentLayOut from "../../layouts/ContentLayOut";
+import StockService from "../../services/StockServices";
+import { AppContext } from "../../contexts";
+import { StockContext } from "../../contexts/StockContext";
+import TextInput from "../../common/TextInput";
+import SelectChoice from "../../common/Select";
+import ModalCommon from "../../common/Modal";
+import MajorResponse from "../../Models/Response/GetMajorResponse";
+import MajorServices from "../../services/MajorService";
+import { AlertError, AlertWarning } from "../../common/ToastrCommon";
+import convertDateToThai from "../../common/DateFormat";
 
 export function StockEquipmentPage() {
-  const { majorUser, isEdit, setIsLoading, deleteStock } = useContext(
-    AppContext,
-  )
+  const { majorUser, isEdit, setIsLoading, deleteStock } =
+    useContext(AppContext);
   const {
     date,
     setDate,
@@ -30,7 +29,7 @@ export function StockEquipmentPage() {
     majorInsert,
     setMajorInsert,
     clearInputValue,
-    setUpdateKay,
+    setUpdateKey: setUpdateKay,
     setCases,
     setFirm,
     setLen,
@@ -39,37 +38,37 @@ export function StockEquipmentPage() {
     setRepair,
     setSum,
     setStockID,
-  } = useContext(StockContext)
-  const [stock, setStock] = useState<any[]>([])
-  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([])
+  } = useContext(StockContext);
+  const [stock, setStock] = useState<any[]>([]);
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const stockTableHeaders = [
-    'รหัสเอกสาร',
-    'สาขา',
-    'วันที่',
-    'เคส',
-    'ฟิล์ม',
-    'เลน',
-    'หัวชาร์จใหญ่',
-    'สายชาร์จ',
-    'ซ่อม',
-    'ราคารวม',
-    'แก้ไข ลบ',
-  ]
-  const navigate = useNavigate()
+    "รหัสเอกสาร",
+    "สาขา",
+    "วันที่",
+    "เคส",
+    "ฟิล์ม",
+    "เลน",
+    "หัวชาร์จใหญ่",
+    "สายชาร์จ",
+    "ซ่อม",
+    "ราคารวม",
+    "แก้ไข ลบ",
+  ];
+  const navigate = useNavigate();
 
   const nextValidate = () => {
-    const isNext = date !== '' && stockType !== ''
-    const isAdmin = majorUser === 'admin'
-    const isNextAdmin = isAdmin && majorInsert !== ''
+    const isNext = date !== "" && stockType !== "";
+    const isAdmin = majorUser === "admin";
+    const isNextAdmin = isAdmin && majorInsert !== "";
 
     if ((isAdmin && isNextAdmin && isNext) || (!isAdmin && isNext)) {
       navigate(`/stock/add?type=equipment`, {
         state: { id: 0 },
-      })
+      });
     } else {
-      AlertWarning('กรุณากรอกข้อมูลให้ครบถ้วน')
+      AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
     }
-  }
+  };
 
   const handlerEquipment = (
     id: string,
@@ -80,57 +79,57 @@ export function StockEquipmentPage() {
     bigCharge: number,
     charge: number,
     repair: number,
-    sum: number,
+    sum: number
   ) => {
-    sessionStorage.setItem('majorEdit', majorInsert)
-    setStockID(id)
-    setMajorInsert(majorInsert)
-    setCases(cases)
-    setFirm(firm)
-    setLen(len)
-    setBigCharge(bigCharge)
-    setCharge(charge)
-    setRepair(repair)
-    setSum(sum)
-    setUpdateKay(true)
-    navigate(`/stock/add?type=equipment`, { state: { id } })
-  }
+    sessionStorage.setItem("majorEdit", majorInsert);
+    setStockID(id);
+    setMajorInsert(majorInsert);
+    setCases(cases);
+    setFirm(firm);
+    setLen(len);
+    setBigCharge(bigCharge);
+    setCharge(charge);
+    setRepair(repair);
+    setSum(sum);
+    setUpdateKay(true);
+    navigate(`/stock/add?type=equipment`, { state: { id } });
+  };
 
   useEffect(() => {
-    setIsLoading(true)
-    setStockType('อุปกรณ์')
+    setIsLoading(true);
+    setStockType("อุปกรณ์");
     MajorServices.getMajors()
       .then((res) => {
-        setFetchMajor(res.data)
-        setIsLoading(false)
+        setFetchMajor(res.data);
+        setIsLoading(false);
       })
       .catch((err) => {
-        AlertError(err.response.data.message)
-        setIsLoading(false)
-      })
-  }, [setFetchMajor, stockType])
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  }, [setFetchMajor, stockType]);
 
   useEffect(() => {
     StockService.GetStockEquipment(majorUser).then((res) => {
-      setStock(res.data)
-    })
-  }, [])
+      setStock(res.data);
+    });
+  }, []);
 
   return (
     <>
       <ContentLayOut
-        title={'stock'}
-        topic={'อุปกรณ์'}
+        title={"stock"}
+        topic={"อุปกรณ์"}
         btnHeader={
           <button
             onClick={() => {
-              setDate('')
-              setIdCard('')
-              setIsMenuInsert(false)
-              setByeMenuInsert(false)
-              setKayMenuInsert(false)
-              setNewInstallmentMenuInsert(false)
-              clearInputValue()
+              setDate("");
+              setIdCard("");
+              setIsMenuInsert(false);
+              setByeMenuInsert(false);
+              setKayMenuInsert(false);
+              setNewInstallmentMenuInsert(false);
+              clearInputValue();
             }}
             className="btn primary-btn text-white float-right"
             data-toggle="modal"
@@ -143,34 +142,34 @@ export function StockEquipmentPage() {
         page={
           <>
             <ModalCommon
-              title={'เพิ่มข้อมูล'}
-              id={'insert-modal'}
+              title={"เพิ่มข้อมูล"}
+              id={"insert-modal"}
               content={
                 <>
                   <div className="modal-body">
                     <div className="container-fluid">
-                      {isEdit() && majorUser === 'admin' && (
+                      {isEdit() && majorUser === "admin" && (
                         <SelectChoice
                           topic="เลือกสาขา"
                           setValue={setMajorInsert}
                           icon="far fa-calendar-alt"
-                          label={'สาขา:'}
+                          label={"สาขา:"}
                           value={majorInsert}
                           options={fetchMajor.map((item) => item.NAME)}
                         />
                       )}
                       <TextInput
-                        label={'วันที่:'}
-                        icon={'far fa-calendar-alt'}
+                        label={"วันที่:"}
+                        icon={"far fa-calendar-alt"}
                         setValue={setDate}
-                        type={'date'}
+                        type={"date"}
                         value={date}
                       />
                       <TextInput
-                        label={'ประเภท'}
+                        label={"ประเภท"}
                         setValue={setStockType}
-                        icon={'far fa-file'}
-                        type={'text'}
+                        icon={"far fa-file"}
+                        type={"text"}
                         value={stockType}
                         readonly={true}
                       />
@@ -218,7 +217,7 @@ export function StockEquipmentPage() {
                             item.BIG_CHARGE,
                             item.CHARGE,
                             item.REPAIR,
-                            item.SUM,
+                            item.SUM
                           )
                         }
                       >
@@ -241,5 +240,5 @@ export function StockEquipmentPage() {
         }
       />
     </>
-  )
+  );
 }
