@@ -14,7 +14,7 @@ import MajorServices from "../../services/MajorService";
 import convertDateToThai from "../../common/DateFormat";
 
 export function StockInstallmentPaymentPage() {
-  const { majorUser, setIsLoading, isEdit, deleteStock, editStock } =
+  const { majorUser, setIsLoading, isEdit, deleteStock } =
     useContext(AppContext);
   const {
     date,
