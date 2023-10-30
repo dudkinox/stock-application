@@ -56,7 +56,6 @@ export default function InstallmentMenuInsert({
   const [selectDocId, setSelectDocId] = useState<any[]>([]);
   const [customerExists, setCustomerExists] =
     useState<GetCustomerResponse | null>(null);
-  const [isInsert, setIsInsert] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const insert = location.state.insert;
@@ -126,10 +125,6 @@ export default function InstallmentMenuInsert({
     }
   }, []);
 
-  useEffect(() => {
-    setIsInsert(Number(id) === 0);
-  }, []);
-
   return (
     <>
       {!updateKay && (
@@ -183,7 +178,7 @@ export default function InstallmentMenuInsert({
                 }}
                 placeholder={MenuInstallmentPaymentEnum.DOC_ID}
                 autoComplete="off"
-                value={isInsert ? documentId : edit.payload.DOCUMENT_ID}
+                value={documentId}
               />
               <datalist id="browsers">
                 {selectDocId?.map((item: any) => (
