@@ -30,6 +30,7 @@ export function StockByePage() {
     majorInsert,
     setMajorInsert,
     clearInputValue,
+    setUpdateKay,
   } = useContext(StockContext);
   const [buyList, setBuyList] = useState<any[]>([]);
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
@@ -181,6 +182,7 @@ export function StockByePage() {
                         className="btn btn-warning"
                         onClick={() => {
                           sessionStorage.setItem("majorEdit", item.MAJOR);
+                          setUpdateKay(true);
                           navigate(`/stock/add?type=bye&id=${item.ID}`);
                         }}
                       >

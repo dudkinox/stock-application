@@ -125,6 +125,7 @@ export function StockKayPage() {
                                     "majorEdit",
                                     item.MAJOR
                                   );
+                                  setUpdateKay(true);
                                   navigate(`/stock/add?type=bye&id=${item.ID}`);
                                 }}
                               >
