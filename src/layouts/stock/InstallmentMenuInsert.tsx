@@ -116,6 +116,7 @@ export default function InstallmentMenuInsert({
 
     if (major) {
       StockService.GetFindStockById(id, major, "ผ่อน").then((res) => {
+        console.log(res.data);
         setEdit({
           stockType: "ผ่อน",
           major: major,

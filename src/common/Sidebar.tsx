@@ -44,6 +44,19 @@ export default function SidebarCommon() {
                   </a>
                 </li>
               ) : null}
+              {majorUser === "admin" ? (
+                <li className="nav-item">
+                  <a
+                    href="/"
+                    className={`nav-link ${
+                      pathUrl === PathEnum.DASHBOARD ? "active" : ""
+                    }`}
+                  >
+                    <i className="nav-icon fas fa-book" />
+                    <p>ข้อมูลสัญญา</p>
+                  </a>
+                </li>
+              ) : null}
               <li className="nav-item menu-open">
                 <a href="#" className="nav-link">
                   <i className="nav-icon fas fa-tachometer-alt" />

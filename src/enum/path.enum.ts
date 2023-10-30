@@ -1,5 +1,6 @@
 export enum PathEnum {
   DASHBOARD = "/",
+  DOCUMENT = "/document",
   STOCK_SUM = "/stock",
   STOCK_BYE = "/stock-bye",
   STOCK_KAY = "/stock-kay",
