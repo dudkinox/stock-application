@@ -1,27 +1,26 @@
-import TextInput from "../../common/TextInput";
-import { MenuEquipmentEnum } from "../../enum/menuInsert.enum";
-import { useContext, useEffect } from "react";
-import { StockContext } from "../../contexts/StockContext";
-import StockService from "../../services/StockServices";
+import TextInput from '../../common/TextInput'
+import { MenuEquipmentEnum } from '../../enum/menuInsert.enum'
+import { useContext, useEffect, useState } from 'react'
+import { StockContext } from '../../contexts/StockContext'
+import StockService from '../../services/StockServices'
 
 interface IsMenuInsertProps {
-  id: string;
+  id: string
   setEdit: React.Dispatch<
-  React.SetStateAction<{
-    stockType: string;
-    major: string;
-    payload: {};
-  }>
->;
-edit: {
-  stockType: string;
-  major: string;
-  payload: any;
-};
+    React.SetStateAction<{
+      stockType: string
+      major: string
+      payload: {}
+    }>
+  >
+  edit: {
+    stockType: string
+    major: string
+    payload: any
+  }
 }
 
-export default function IsMenuInsert({ id,setEdit,
-  edit }: IsMenuInsertProps) {
+export default function IsMenuInsert({ id, setEdit, edit }: IsMenuInsertProps) {
   const {
     cases,
     setCases,
@@ -38,49 +37,55 @@ export default function IsMenuInsert({ id,setEdit,
     sum,
     setSum,
     updateKay,
-  } = useContext(StockContext);
+  } = useContext(StockContext)
+  const [isInsert, setIsInsert] = useState(false)
 
   useEffect(() => {
-    const major = sessionStorage.getItem("majorEdit");
-    
+    const major = sessionStorage.getItem('majorEdit')
+
     if (major) {
-      StockService.GetFindStockById(id, major, "อุปกรณ์").then((res) => {
+      StockService.GetFindStockById(id, major, 'อุปกรณ์').then((res) => {
         setEdit({
-          stockType: "อุปกรณ์",
+          stockType: 'อุปกรณ์',
           major: major,
           payload: res.data,
-        });
-      });
+        })
+      })
     }
-  }, []);
+  }, [])
+
+  useEffect(() => {
+    setIsInsert(Number(id) === 0)
+  }, [])
 
   return (
     <>
       <TextInput
         label={MenuEquipmentEnum.CASES}
-        icon={"fas fa-mobile"}
+        icon={'fas fa-mobile'}
         setValue={(e) =>
-          !updateKay
+          isInsert
             ? setCases(e)
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
                 payload: {
                   ...edit.payload,
-                 CASES: e,
+                  CASES: e,
                 },
-              })}
-        type={"number"}
+              })
+        }
+        type={'number'}
         min={0}
         minLength={0}
-        placeholder={"เคส"}
-        value={!updateKay ? cases : edit.payload.CASES}
+        placeholder={'เคส'}
+        value={isInsert ? cases : edit.payload.CASES}
       />
       <TextInput
         label={MenuEquipmentEnum.FIRM}
-        icon={"fas fa-mobile-alt"}
+        icon={'fas fa-mobile-alt'}
         setValue={(e) =>
-          !updateKay
+          isInsert
             ? setFirm(e)
             : setEdit({
                 major: edit.major,
@@ -89,18 +94,19 @@ export default function IsMenuInsert({ id,setEdit,
                   ...edit.payload,
                   FIRM: e,
                 },
-              })}
-        type={"number"}
+              })
+        }
+        type={'number'}
         min={0}
         minLength={0}
-        placeholder={"ฟิล์ม"}
-        value={!updateKay ? firm : edit.payload.FIRM}
+        placeholder={'ฟิล์ม'}
+        value={isInsert ? firm : edit.payload.FIRM}
       />
       <TextInput
         label={MenuEquipmentEnum.LEN}
-        icon={"fas fa-camera"}
+        icon={'fas fa-camera'}
         setValue={(e) =>
-          !updateKay
+          isInsert
             ? setLen(e)
             : setEdit({
                 major: edit.major,
@@ -109,18 +115,19 @@ export default function IsMenuInsert({ id,setEdit,
                   ...edit.payload,
                   LEN: e,
                 },
-              })}
-        type={"number"}
+              })
+        }
+        type={'number'}
         min={0}
         minLength={0}
-        placeholder={"กันเลนส์"}
-        value={!updateKay ? len : edit.payload.LEN}
+        placeholder={'กันเลนส์'}
+        value={isInsert ? len : edit.payload.LEN}
       />
       <TextInput
         label={MenuEquipmentEnum.BIG_CHARGE}
-        icon={"fas fa-charging-station"}
+        icon={'fas fa-charging-station'}
         setValue={(e) =>
-          !updateKay
+          isInsert
             ? setBigCharge(e)
             : setEdit({
                 major: edit.major,
@@ -129,18 +136,19 @@ export default function IsMenuInsert({ id,setEdit,
                   ...edit.payload,
                   BIG_CHARGE: e,
                 },
-              })}
-        type={"number"}
+              })
+        }
+        type={'number'}
         min={0}
         minLength={0}
-        placeholder={"หัวชาร์จใหญ่"}
-        value={!updateKay ? bigCharge : edit.payload.BIG_CHARGE}
+        placeholder={'หัวชาร์จใหญ่'}
+        value={isInsert ? bigCharge : edit.payload.BIG_CHARGE}
       />
       <TextInput
         label={MenuEquipmentEnum.CHARGE}
-        icon={"fas fa-plug"}
+        icon={'fas fa-plug'}
         setValue={(e) =>
-          !updateKay
+          isInsert
             ? setCharge(e)
             : setEdit({
                 major: edit.major,
@@ -149,38 +157,40 @@ export default function IsMenuInsert({ id,setEdit,
                   ...edit.payload,
                   CHARGE: e,
                 },
-              })}
-        type={"number"}
+              })
+        }
+        type={'number'}
         min={0}
         minLength={0}
-        placeholder={"สายชาร์จ"}
-        value={!updateKay ? charge : edit.payload.CHARGE}
+        placeholder={'สายชาร์จ'}
+        value={isInsert ? charge : edit.payload.CHARGE}
       />
       <TextInput
         label={MenuEquipmentEnum.REPAIR}
-        icon={"fas fa-tools"}
+        icon={'fas fa-tools'}
         setValue={(e) =>
-          !updateKay
+          isInsert
             ? setRepair(e)
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
                 payload: {
                   ...edit.payload,
-                 REPAIR: e,
+                  REPAIR: e,
                 },
-              })}
-        type={"number"}
+              })
+        }
+        type={'number'}
         min={0}
         minLength={0}
-        placeholder={"ซ่อม"}
-        value={!updateKay ? repair : edit.payload.REPAIR}
+        placeholder={'ซ่อม'}
+        value={isInsert ? repair : edit.payload.REPAIR}
       />
       <TextInput
         label={MenuEquipmentEnum.SUM}
-        icon={"fas fa-money-bill"}
+        icon={'fas fa-money-bill'}
         setValue={(e) =>
-          !updateKay
+          isInsert
             ? setSum(e)
             : setEdit({
                 major: edit.major,
@@ -189,13 +199,14 @@ export default function IsMenuInsert({ id,setEdit,
                   ...edit.payload,
                   SUM: e,
                 },
-              })}
-        type={"number"}
+              })
+        }
+        type={'number'}
         min={0}
         minLength={0}
-        placeholder={"ราคา"}
-        value={!updateKay ? sum : edit.payload.SUM}
+        placeholder={'ราคา'}
+        value={isInsert ? sum : edit.payload.SUM}
       />
     </>
-  );
+  )
 }

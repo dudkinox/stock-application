@@ -23,6 +23,10 @@ export default function StockAddPage() {
     major: "",
     payload: {},
   });
+  id === 0 || !updateKay ? console.log("111") : console.log("22");
+  
+  
+  
 
   const updateHandlerSubmit = () => {
     setIsLoading(true);
