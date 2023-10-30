@@ -88,7 +88,7 @@ export function StockEquipmentPage() {
     setCharge(charge);
     setRepair(repair);
     setSum(sum);
-    setUpdateKay(false);
+    setUpdateKay(true);
     navigate(`/stock/add?type=equipment`, { state: { id } });
   };
 
@@ -206,7 +206,7 @@ export function StockEquipmentPage() {
                         className="btn btn-warning"
                         onClick={() =>
                           handlerEquipment(
-                            item.id,
+                            item.ID,
                             item.MAJOR,
                             item.CASES,
                             item.FIRM,

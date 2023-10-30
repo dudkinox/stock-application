@@ -42,6 +42,7 @@ export default function IsMenuInsert({ id,setEdit,
 
   useEffect(() => {
     const major = sessionStorage.getItem("majorEdit");
+    
     if (major) {
       StockService.GetFindStockById(id, major, "อุปกรณ์").then((res) => {
         setEdit({
