@@ -1,59 +1,64 @@
-import { useContext, useState } from "react";
-import ContentLayOut from "../../layouts/ContentLayOut";
-import { StockContext } from "../../contexts/StockContext";
-import IsMenuInsert from "../../layouts/stock/IsMenuInsert";
-import ByeMenuInsert from "../../layouts/stock/ByeMenuInsert";
-import InstallmentMenuInsert from "../../layouts/stock/InstallmentMenuInsert";
-import KayMenuInsert from "../../layouts/stock/KayMenuInsert";
-import { useLocation } from "react-router-dom";
-import StockService from "../../services/StockServices";
-import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
-import { AppContext } from "../../contexts";
+import { useContext, useState } from 'react'
+import ContentLayOut from '../../layouts/ContentLayOut'
+import { StockContext } from '../../contexts/StockContext'
+import IsMenuInsert from '../../layouts/stock/IsMenuInsert'
+import ByeMenuInsert from '../../layouts/stock/ByeMenuInsert'
+import InstallmentMenuInsert from '../../layouts/stock/InstallmentMenuInsert'
+import KayMenuInsert from '../../layouts/stock/KayMenuInsert'
+import { useLocation } from 'react-router-dom'
+import StockService from '../../services/StockServices'
+import { AlertError, AlertSuccess } from '../../common/ToastrCommon'
+import { AppContext } from '../../contexts'
 
 export default function StockAddPage() {
-  const {
-    isMenuInsert,
-    handlerSubmit,
-    updateKey: updateKay,
-  } = useContext(StockContext);
-  const { setIsLoading } = useContext(AppContext);
-  const state = useLocation();
+  const { isMenuInsert, handlerSubmit, updateKey: updateKay } = useContext(
+    StockContext,
+  )
+  const { setIsLoading } = useContext(AppContext)
+  const state = useLocation()
   const id =
-    new URLSearchParams(useLocation().search).get("id") ?? state.state.id;
-  const addType = new URLSearchParams(useLocation().search).get("type");
+    new URLSearchParams(useLocation().search).get('id') ?? state.state.id
+  const addType = new URLSearchParams(useLocation().search).get('type')
 
   const [edit, setEdit] = useState({
-    stockType: "",
-    major: "",
+    stockType: '',
+    major: '',
     payload: {},
-  });
+  })
+
+  const handleSetEdit = () => {
+    setEdit((prevEdit) => ({
+      ...prevEdit,
+      stockType: 'ผ่อน',
+    }))
+  }
 
   const updateHandlerSubmit = () => {
-    setIsLoading(true);
+    setIsLoading(true)
 
     StockService.UpdateStock(id, edit.stockType, edit.payload, edit.major)
       .then(() => {
-        AlertSuccess("แก้ไขข้อมูลสำเร็จ");
-        setIsLoading(false);
+        AlertSuccess('แก้ไขข้อมูลสำเร็จ')
+        setIsLoading(false)
 
         window.location.href =
-          edit.stockType === "ซื้อ"
-            ? "/stock-bye"
-            : edit.stockType === "ขาย"
-            ? "/stock-kay"
-            : edit.stockType === "อุปกรณ์"
-            ? "/stock-equipment"
-            : "/stock-installment-payment";
+          edit.stockType === 'ซื้อ'
+            ? '/stock-bye'
+            : edit.stockType === 'ขาย'
+            ? '/stock-kay'
+            : edit.stockType === 'อุปกรณ์'
+            ? '/stock-equipment'
+            : '/stock-installment-payment'
       })
       .catch((err) => {
-        AlertError(err.response.data.message);
-        setIsLoading(false);
-      });
-  };
+        AlertError(err.response.data.message)
+        setIsLoading(false)
+      })
+  }
 
   return (
     <ContentLayOut
-      title={"เพิ่มข้อมูล"}
+      title={'เพิ่มข้อมูล'}
       topic={
         id === 0 ? `รหัสเอกสารจะถูกสร้างขึ้นหลังกดบันทึก` : `รหัสเอกสาร : ${id}`
       }
@@ -62,17 +67,21 @@ export default function StockAddPage() {
           {isMenuInsert && (
             <IsMenuInsert id={id} setEdit={setEdit} edit={edit} />
           )}
-          {addType === "bye" && (
+          {addType === 'bye' && (
             <ByeMenuInsert id={id} setEdit={setEdit} edit={edit} />
           )}
-          {addType === "kay" && (
+          {addType === 'kay' && (
             <KayMenuInsert setEdit={setEdit} edit={edit} id={id} />
           )}
-          {addType === "equipment" && (
+          {addType === 'equipment' && (
             <IsMenuInsert id={id} setEdit={setEdit} edit={edit} />
           )}
-          {addType === "installment" && (
-            <InstallmentMenuInsert id={id} setEdit={setEdit} edit={edit} />
+          {addType === 'installment' && (
+            <InstallmentMenuInsert
+              id={id}
+              setEdit={handleSetEdit}
+              edit={edit}
+            />
           )}
           <div className="text-center">
             <button
@@ -88,5 +97,5 @@ export default function StockAddPage() {
         </>
       }
     />
-  );
+  )
 }
