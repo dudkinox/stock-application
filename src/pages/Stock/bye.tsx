@@ -15,7 +15,7 @@ import MajorResponse from "../../Models/Response/GetMajorResponse";
 import convertDateToThai from "../../common/DateFormat";
 
 export function StockByePage() {
-  const { majorUser, setIsLoading, isEdit, deleteStock, editStock } =
+  const { majorUser, setIsLoading, isEdit, deleteStock } =
     useContext(AppContext);
   const {
     date,
@@ -179,7 +179,10 @@ export function StockByePage() {
                       <button
                         type="button"
                         className="btn btn-warning"
-                        onClick={editStock(item.ID, item.MAJOR, "bye")}
+                        onClick={() => {
+                          sessionStorage.setItem("majorEdit", item.MAJOR);
+                          navigate(`/stock/add?type=bye&id=${item.ID}`);
+                        }}
                       >
                         แก้ไข
                       </button>

@@ -120,7 +120,13 @@ export function StockKayPage() {
                               <button
                                 type="button"
                                 className="btn btn-warning"
-                                onClick={() => {}}
+                                onClick={() => {
+                                  sessionStorage.setItem(
+                                    "majorEdit",
+                                    item.MAJOR
+                                  );
+                                  navigate(`/stock/add?type=bye&id=${item.ID}`);
+                                }}
                               >
                                 แก้ไข
                               </button>
