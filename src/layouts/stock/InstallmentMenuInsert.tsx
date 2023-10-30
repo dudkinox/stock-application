@@ -1,27 +1,41 @@
-import { useContext, useEffect, useState } from "react";
-import { StockContext } from "../../contexts/StockContext";
+import { useContext, useEffect, useState } from 'react'
+import { StockContext } from '../../contexts/StockContext'
 import {
   MenuInstallmentPaymentEnum,
   MenuKayEnum,
-} from "../../enum/menuInsert.enum";
-import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
-import DataList from "../../common/DataList";
-import { AppContext } from "../../contexts";
-import CustomerServices from "../../services/CustomerServices";
-import { AlertWarning } from "../../common/ToastrCommon";
-import { useLocation, useNavigate } from "react-router-dom";
-import StockService from "../../services/StockServices";
-import PaymentService from "../../services/PaymentService";
-import ModalCommon from "../../common/Modal";
+} from '../../enum/menuInsert.enum'
+import { GetCustomerResponse } from '../../Models/Response/GetCustomerResponse'
+import DataList from '../../common/DataList'
+import { AppContext } from '../../contexts'
+import CustomerServices from '../../services/CustomerServices'
+import { AlertWarning } from '../../common/ToastrCommon'
+import { useLocation, useNavigate } from 'react-router-dom'
+import StockService from '../../services/StockServices'
+import PaymentService from '../../services/PaymentService'
+import ModalCommon from '../../common/Modal'
 
 interface InstallmentMenuInsertProps {
-  id: string;
+  id: string
+  setEdit: React.Dispatch<
+    React.SetStateAction<{
+      stockType: string
+      major: string
+      payload: {}
+    }>
+  >
+  edit: {
+    stockType: string
+    major: string
+    payload: any
+  }
 }
 
 export default function InstallmentMenuInsert({
   id,
+  setEdit,
+  edit,
 }: InstallmentMenuInsertProps) {
-  const { setPathUrl, setIsLoading, majorUser } = useContext(AppContext);
+  const { setPathUrl, setIsLoading, majorUser } = useContext(AppContext)
   const {
     installmentNo,
     setInstallmentNo,
@@ -32,92 +46,98 @@ export default function InstallmentMenuInsert({
     setIdCard,
     idCard,
     setStockType,
-    setDate,
     setDocumentId,
     documentId,
-  } = useContext(StockContext);
+  } = useContext(StockContext)
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
-    []
-  );
-  const [selectDocId, setSelectDocId] = useState<any[]>([]);
-  const [customerExists, setCustomerExists] =
-    useState<GetCustomerResponse | null>(null);
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const insert = location.state.insert;
+    [],
+  )
+  const [selectDocId, setSelectDocId] = useState<any[]>([])
+  const [
+    customerExists,
+    setCustomerExists,
+  ] = useState<GetCustomerResponse | null>(null)
+  const [isInsert, setIsInsert] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const insert = location.state.insert
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(true)
     CustomerServices.getCustomer(majorUser).then((res) => {
-      setSelectCustomer(res.data);
-      setIsLoading(false);
-      setStockType("ผ่อน");
-    });
-  }, []);
+      setSelectCustomer(res.data)
+      setIsLoading(false)
+      setStockType('ผ่อน')
+    })
+  }, [])
 
   useEffect(() => {
     StockService.GetStockBye(majorUser).then((res) => {
-      setSelectDocId(res.data);
-    });
-  }, []);
+      setSelectDocId(res.data)
+    })
+  }, [])
 
   useEffect(() => {
     StockService.GetStockKay(majorUser).then((res) => {
       setPriceTotal(
-        res.data.filter((fil) => fil.ID === documentId)[0].INSTALLMENT
-      );
-    });
-  }, [documentId]);
+        res.data.filter((fil) => fil.ID === documentId)[0]?.INSTALLMENT,
+      )
+    })
+  }, [documentId])
 
   useEffect(() => {
     const updatedCustomerExists = selectCustomer.find(
-      (fil) => fil.ID_CARD === idCard
-    );
-    setCustomerExists(updatedCustomerExists ?? null);
-    document.body.classList.remove("modal-open");
+      (fil) => fil.ID_CARD === idCard,
+    )
+    setCustomerExists(updatedCustomerExists ?? null)
+    document.body.classList.remove('modal-open')
 
     if (idCard.length === 13 && !updatedCustomerExists && !insert) {
-      AlertWarning("กรุณากรอกข้อมูลลูกค้าก่อนทำรายการ Stock");
-      setPathUrl("/customer");
-      navigate("/customer", {
+      AlertWarning('กรุณากรอกข้อมูลลูกค้าก่อนทำรายการ Stock')
+      setPathUrl('/customer')
+      navigate('/customer', {
         state: { enable: true, id: id },
-      });
+      })
     } else if (idCard.length === 13 && !updatedCustomerExists) {
-      $("#insert-modal").hide();
-      $(".modal-backdrop.fade.show").remove();
+      $('#insert-modal').hide()
+      $('.modal-backdrop.fade.show').remove()
     } else if (insert) {
-      $("#insert-modal").hide();
-      $(".modal-backdrop.fade.show").remove();
+      $('#insert-modal').hide()
+      $('.modal-backdrop.fade.show').remove()
     }
-    setCustomerStatus(updatedCustomerExists?.CUSTOMER_STATUS ?? "");
+    setCustomerStatus(updatedCustomerExists?.CUSTOMER_STATUS ?? '')
     setCustomer(
-      `${updatedCustomerExists?.NAME ?? ""} ${
-        updatedCustomerExists?.LAST_NAME ?? ""
-      }`
-    );
-  }, [idCard, selectCustomer, customerExists, navigate, setPathUrl]);
+      `${updatedCustomerExists?.NAME ?? ''} ${
+        updatedCustomerExists?.LAST_NAME ?? ''
+      }`,
+    )
+  }, [idCard, selectCustomer, customerExists, navigate, setPathUrl])
 
   useEffect(() => {
-    const major = sessionStorage.getItem("majorEdit");
+    const major = sessionStorage.getItem('majorEdit')
+
     if (major) {
-      StockService.GetFindStockById(id, major, "ผ่อน").then((res) => {
-        setIdCard(res.data.ID_CARD);
-        setCustomer(res.data.CUSTOMER_NAME);
-        setPriceTotal(res.data.PRICE_TOTAL);
-        setInstallmentNo(res.data.INSTALLMENT_NO);
-        setDate(res.data.DATE);
-      });
+      StockService.GetFindStockById(id, major, 'ผ่อน').then((res) => {
+        setEdit({
+          stockType: 'ผ่อน',
+          major: major,
+          payload: res.data,
+        })
+      })
     }
-  }, []);
+  }, [])
+
+  useEffect(() => {
+    setIsInsert(Number(id) === 0)
+  }, [])
 
   return (
     <>
-      {id !== "" && (
+      {id !== '' && (
         <>
           <ModalCommon
-            title={"ชำระครบถ้วน"}
-            id={"alert-installment-modal"}
+            title={'ชำระครบถ้วน'}
+            id={'alert-installment-modal'}
             content={
               <>
                 <div className="modal-body">
@@ -153,18 +173,18 @@ export default function InstallmentMenuInsert({
                 id="browser"
                 className="form-control"
                 onChange={(e: any) => {
-                  setDocumentId(e.target.value);
+                  setDocumentId(e.target.value)
                   PaymentService.InstallmentNumber(e.target.value).then(
                     (res) => {
-                      Boolean(res.data) !== false
+                      Boolean(res.data) !== false || Number(res.data) === 0
                         ? setInstallmentNo(Number(res.data) + 1)
-                        : ($("#alert-installment-modal") as any).modal("show");
-                    }
-                  );
+                        : ($('#alert-installment-modal') as any).modal('show')
+                    },
+                  )
                 }}
                 placeholder={MenuInstallmentPaymentEnum.DOC_ID}
                 autoComplete="off"
-                value={documentId}
+                value={isInsert ? documentId : edit.payload.DOCUMENT_ID}
               />
               <datalist id="browsers">
                 {selectDocId?.map((item: any) => (
@@ -178,11 +198,11 @@ export default function InstallmentMenuInsert({
             </div>
           </div>
           <DataList
-            label={"ค้นหาชื่อ / เลือก เลขบัตรประชาชน:"}
+            label={'ค้นหาชื่อ / เลือก เลขบัตรประชาชน:'}
             setValue={setIdCard}
-            icon={"far fa-id-card"}
+            icon={'far fa-id-card'}
             data={selectCustomer.map((item) => item)}
-            placeholder={"ค้นหาชื่อ / เลขบัตรประชาชน"}
+            placeholder={'ค้นหาชื่อ / เลขบัตรประชาชน'}
             minLength={13}
             maxLength={13}
             value={idCard}
@@ -203,7 +223,7 @@ export default function InstallmentMenuInsert({
                 value={
                   customerExists
                     ? `${customerExists?.NAME} ${customerExists?.LAST_NAME}`
-                    : ""
+                    : ''
                 }
                 readOnly={customerExists !== null}
               />
@@ -224,9 +244,20 @@ export default function InstallmentMenuInsert({
           <input
             type="number"
             className="form-control"
-            onChange={(e: any) => setPriceTotal(e.target.value)}
+            onChange={(e: any) =>
+              isInsert
+                ? setPriceTotal(e)
+                : setEdit({
+                    major: edit.major,
+                    stockType: edit.stockType,
+                    payload: {
+                      ...edit.payload,
+                      PRICE_TOTAL: e,
+                    },
+                  })
+            }
             placeholder="จำนวนเงิน"
-            value={priceTotal}
+            value={isInsert ? priceTotal : edit.payload.PRICE_TOTAL}
           />
         </div>
       </div>
@@ -243,12 +274,23 @@ export default function InstallmentMenuInsert({
           <input
             type="number"
             className="form-control"
-            onChange={(e: any) => setInstallmentNo(e.target.value)}
+            onChange={(e: any) =>
+              isInsert
+                ? setInstallmentNo(e)
+                : setEdit({
+                    major: edit.major,
+                    stockType: edit.stockType,
+                    payload: {
+                      ...edit.payload,
+                      INSTALLMENT_NO: e,
+                    },
+                  })
+            }
             placeholder="งวดที่"
-            value={installmentNo}
+            value={isInsert ? installmentNo : edit.payload.INSTALLMENT_NO}
           />
         </div>
       </div>
     </>
-  );
+  )
 }

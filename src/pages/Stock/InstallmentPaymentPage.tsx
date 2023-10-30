@@ -1,21 +1,22 @@
-import { useContext, useEffect, useState } from "react";
-import TableCommon from "../../common/Table";
-import ContentLayOut from "../../layouts/ContentLayOut";
-import StockService from "../../services/StockServices";
-import { AppContext } from "../../contexts";
-import ModalCommon from "../../common/Modal";
-import SelectChoice from "../../common/Select";
-import TextInput from "../../common/TextInput";
-import { StockContext } from "../../contexts/StockContext";
-import MajorResponse from "../../Models/Response/GetMajorResponse";
-import { useNavigate } from "react-router-dom";
-import { AlertError, AlertWarning } from "../../common/ToastrCommon";
-import MajorServices from "../../services/MajorService";
-import convertDateToThai from "../../common/DateFormat";
+import { useContext, useEffect, useState } from 'react'
+import TableCommon from '../../common/Table'
+import ContentLayOut from '../../layouts/ContentLayOut'
+import StockService from '../../services/StockServices'
+import { AppContext } from '../../contexts'
+import ModalCommon from '../../common/Modal'
+import SelectChoice from '../../common/Select'
+import TextInput from '../../common/TextInput'
+import { StockContext } from '../../contexts/StockContext'
+import MajorResponse from '../../Models/Response/GetMajorResponse'
+import { useNavigate } from 'react-router-dom'
+import { AlertError, AlertWarning } from '../../common/ToastrCommon'
+import MajorServices from '../../services/MajorService'
+import convertDateToThai from '../../common/DateFormat'
 
 export function StockInstallmentPaymentPage() {
-  const { majorUser, setIsLoading, isEdit, deleteStock } =
-    useContext(AppContext);
+  const { majorUser, setIsLoading, isEdit, deleteStock } = useContext(
+    AppContext,
+  )
   const {
     date,
     setDate,
@@ -29,77 +30,96 @@ export function StockInstallmentPaymentPage() {
     majorInsert,
     setMajorInsert,
     clearInputValue,
-  } = useContext(StockContext);
-  const [stock, setStock] = useState<any[]>([]);
+    setUpdateKay,
+    setStockID,
+    setPriceTotal,
+    setInstallmentNo,
+  } = useContext(StockContext)
+  const [stock, setStock] = useState<any[]>([])
   const stockTableHeaders = [
-    "รหัสเอกสาร",
-    "วันที่",
-    "สาขา",
-    "งวดที่",
-    "จำนวนเงิน",
-    "แก้ไข",
-    "ลบ",
-  ];
-  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
+    'รหัสเอกสาร',
+    'วันที่',
+    'สาขา',
+    'งวดที่',
+    'จำนวนเงิน',
+    'แก้ไข',
+    'ลบ',
+  ]
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([])
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const nextValidate = () => {
-    const isNext = date !== "" && stockType !== "";
-    const isAdmin = majorUser === "admin";
-    const isNextAdmin = isAdmin && majorInsert !== "";
+    const isNext = date !== '' && stockType !== ''
+    const isAdmin = majorUser === 'admin'
+    const isNextAdmin = isAdmin && majorInsert !== ''
 
     if ((isAdmin && isNextAdmin && isNext) || (!isAdmin && isNext)) {
       navigate(`/stock/add?type=installment`, {
         state: { id: 0 },
-      });
+      })
     } else {
-      AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
+      AlertWarning('กรุณากรอกข้อมูลให้ครบถ้วน')
     }
-  };
+  }
+
+  const handlerInstallment = (
+    id: string,
+    majorInsert: string,
+    installmentNo: number,
+    priceTotal: string,
+  ) => {
+    sessionStorage.setItem('majorEdit', majorInsert)
+    setStockID(id)
+    setMajorInsert(majorInsert)
+    setPriceTotal(priceTotal)
+    setInstallmentNo(installmentNo)
+    setUpdateKay(true)
+    navigate(`/stock/add?type=installment`, { state: { id } })
+  }
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(true)
     StockService.GetStockInstallmentPaymentAll(majorUser)
       .then((res) => {
-        setStock(res.data);
-        setIsLoading(false);
+        setStock(res.data)
+        setIsLoading(false)
       })
       .catch((err) => {
-        AlertError(err.response.data.message);
-        setIsLoading(false);
-      });
-  }, []);
+        AlertError(err.response.data.message)
+        setIsLoading(false)
+      })
+  }, [])
 
   useEffect(() => {
-    setIsLoading(true);
-    setStockType("ผ่อน");
+    setIsLoading(true)
+    setStockType('ผ่อน')
     MajorServices.getMajors()
       .then((res) => {
-        setFetchMajor(res.data);
-        setIsLoading(false);
+        setFetchMajor(res.data)
+        setIsLoading(false)
       })
       .catch((err) => {
-        AlertError(err.response.data.message);
-        setIsLoading(false);
-      });
-  }, [setFetchMajor, stockType]);
+        AlertError(err.response.data.message)
+        setIsLoading(false)
+      })
+  }, [setFetchMajor, stockType])
 
   return (
     <>
       <ContentLayOut
-        title={"stock"}
-        topic={"ผ่อน"}
+        title={'stock'}
+        topic={'ผ่อน'}
         btnHeader={
           <button
             onClick={() => {
-              setDate("");
-              setIdCard("");
-              setIsMenuInsert(false);
-              setByeMenuInsert(false);
-              setKayMenuInsert(false);
-              setNewInstallmentMenuInsert(false);
-              clearInputValue();
+              setDate('')
+              setIdCard('')
+              setIsMenuInsert(false)
+              setByeMenuInsert(false)
+              setKayMenuInsert(false)
+              setNewInstallmentMenuInsert(false)
+              clearInputValue()
             }}
             className="btn primary-btn text-white float-right"
             data-toggle="modal"
@@ -112,34 +132,34 @@ export function StockInstallmentPaymentPage() {
         page={
           <>
             <ModalCommon
-              title={"เพิ่มข้อมูลผ่อน"}
-              id={"insert-modal"}
+              title={'เพิ่มข้อมูลผ่อน'}
+              id={'insert-modal'}
               content={
                 <>
                   <div className="modal-body">
                     <div className="container-fluid">
-                      {isEdit() && majorUser === "admin" && (
+                      {isEdit() && majorUser === 'admin' && (
                         <SelectChoice
                           topic="เลือกสาขา"
                           setValue={setMajorInsert}
                           icon="far fa-calendar-alt"
-                          label={"สาขา:"}
+                          label={'สาขา:'}
                           value={majorInsert}
                           options={fetchMajor.map((item) => item.NAME)}
                         />
                       )}
                       <TextInput
-                        label={"วันที่:"}
-                        icon={"far fa-calendar-alt"}
+                        label={'วันที่:'}
+                        icon={'far fa-calendar-alt'}
                         setValue={setDate}
-                        type={"date"}
+                        type={'date'}
                         value={date}
                       />
                       <TextInput
-                        label={"ประเภท"}
+                        label={'ประเภท'}
                         setValue={setStockType}
-                        icon={"far fa-file"}
-                        type={"text"}
+                        icon={'far fa-file'}
+                        type={'text'}
                         value={stockType}
                         readonly={true}
                       />
@@ -169,7 +189,18 @@ export function StockInstallmentPaymentPage() {
                     <td>{item.INSTALLMENT_NO}</td>
                     <td>{Number(item.PRICE_TOTAL).toLocaleString()} บาท</td>
                     <td>
-                      <button type="button" className="btn btn-warning">
+                      <button
+                        type="button"
+                        className="btn btn-warning"
+                        onClick={() =>
+                          handlerInstallment(
+                            item.ID,
+                            item.MAJOR,
+                            item.INSTALLMENT_NO,
+                            item.PRICE_TOTAL,
+                          )
+                        }
+                      >
                         แก้ไข
                       </button>
                     </td>
@@ -190,5 +221,5 @@ export function StockInstallmentPaymentPage() {
         }
       />
     </>
-  );
+  )
 }
