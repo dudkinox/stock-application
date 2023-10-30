@@ -47,9 +47,9 @@ export default function SidebarCommon() {
               {majorUser === "admin" ? (
                 <li className="nav-item">
                   <a
-                    href="/"
+                    href="/document"
                     className={`nav-link ${
-                      pathUrl === PathEnum.DASHBOARD ? "active" : ""
+                      pathUrl === PathEnum.DOCUMENT ? "active" : ""
                     }`}
                   >
                     <i className="nav-icon fas fa-book" />
