@@ -45,6 +45,7 @@ export enum MenuNewInstallmentEnum {
 }
 
 export enum MenuByeEnum {
+  DATE = "วันที่ซื้อ",
   SERIAL_NUMBER = "Serial Number",
   VERSION = "รุ่น",
   PRICE = "ราคา",

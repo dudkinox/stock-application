@@ -62,6 +62,25 @@ export default function ByeMenuInsert({
 
   return (
     <>
+      {!isInsert && (
+        <TextInput
+          label={MenuByeEnum.DATE}
+          icon={"fas fa-calendar"}
+          setValue={(e: any) =>
+            setEdit({
+              major: edit.major,
+              stockType: edit.stockType,
+              payload: {
+                ...edit.payload,
+                DATE: e,
+              },
+            })
+          }
+          type={"date"}
+          placeholder={"วันที่ขาย"}
+          value={String(edit.payload.DATE).split(" ")[0]}
+        />
+      )}
       <TextInput
         label={MenuByeEnum.SERIAL_NUMBER}
         icon={"fas fa-mobile"}
