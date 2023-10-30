@@ -32,7 +32,7 @@ export default function StockAddPage() {
     setIsLoading(true);
 
     StockService.UpdateStock(id, edit.stockType, edit.payload, edit.major)
-      .then((res) => {
+      .then(() => {
         AlertSuccess("แก้ไขข้อมูลสำเร็จ");
         setIsLoading(false);
 
