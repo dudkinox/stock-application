@@ -172,7 +172,7 @@ export default function KayMenuInsert({
         }
         type={"date"}
         placeholder={"วันที่ขาย"}
-        value={!updateKay ? date : edit.payload.DATE}
+        value={!updateKay ? date : String(edit.payload.DATE).split(" ")[0]}
       />
       <TextInput
         label={MenuKayEnum.TEL}

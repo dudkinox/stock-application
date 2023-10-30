@@ -9,8 +9,7 @@ import { StockContext } from "../../contexts/StockContext";
 import convertDateToThai from "../../common/DateFormat";
 
 export function StockKayPage() {
-  const { majorUser, setIsLoading, deleteStock, editStock } =
-    useContext(AppContext);
+  const { majorUser, setIsLoading, deleteStock } = useContext(AppContext);
   const { setMajorInsert, setImei, setVersion, setStockID, setUpdateKay } =
     useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
@@ -121,7 +120,7 @@ export function StockKayPage() {
                               <button
                                 type="button"
                                 className="btn btn-warning"
-                                onClick={editStock(item.ID, item.MAJOR, "bye")}
+                                onClick={() => {}}
                               >
                                 แก้ไข
                               </button>
@@ -169,7 +168,13 @@ export function StockKayPage() {
                             <button
                               type="button"
                               className="btn btn-warning"
-                              onClick={editStock(item.ID, item.MAJOR, "kay")}
+                              onClick={() => {
+                                sessionStorage.setItem("majorEdit", item.MAJOR);
+                                navigate(`/stock/add?type=kay`, {
+                                  state: { id: item.ID },
+                                });
+                                setUpdateKay(true);
+                              }}
                             >
                               แก้ไข
                             </button>

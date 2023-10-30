@@ -2,6 +2,7 @@ import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { AlertError, AlertSuccess } from "../common/ToastrCommon";
 import AccountServices from "../services/AccountService";
 import StockService from "../services/StockServices";
+import { useNavigate } from "react-router-dom";
 
 interface AppContextProps {
   pathUrl: string;
@@ -15,7 +16,6 @@ interface AppContextProps {
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
   deleteStock: (id: string, major: string) => () => void;
-  editStock: (id: string, major: string, stockType: string) => () => void;
 }
 
 export const AppContext = createContext<AppContextProps>({
@@ -30,7 +30,6 @@ export const AppContext = createContext<AppContextProps>({
   isLoading: false,
   setIsLoading: () => {},
   deleteStock: () => () => {},
-  editStock: () => () => {},
 });
 
 interface ChildrenProps {
@@ -68,11 +67,6 @@ export function AppContextProvider({ children }: ChildrenProps) {
       });
   };
 
-  const editStock = (id: string, major: string, stockType: string) => () => {
-    sessionStorage.setItem("majorEdit", major);
-    window.location.href = "/stock/add?type=" + stockType + "&id=" + id;
-  };
-
   useEffect(() => {
     setIsLoading(true);
     AccountServices.getFindUser(isLogin)
@@ -107,7 +101,6 @@ export function AppContextProvider({ children }: ChildrenProps) {
       isLoading,
       setIsLoading,
       deleteStock,
-      editStock,
     }),
     [
       pathUrl,
@@ -121,7 +114,6 @@ export function AppContextProvider({ children }: ChildrenProps) {
       isLoading,
       setIsLoading,
       deleteStock,
-      editStock,
     ]
   );
 

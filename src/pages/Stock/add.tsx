@@ -23,10 +23,6 @@ export default function StockAddPage() {
     major: "",
     payload: {},
   });
-  id === 0 || !updateKay ? console.log("111") : console.log("22");
-  
-  
-  
 
   const updateHandlerSubmit = () => {
     setIsLoading(true);
@@ -59,14 +55,18 @@ export default function StockAddPage() {
       }
       page={
         <>
-          {isMenuInsert && <IsMenuInsert id={id}  setEdit={setEdit} edit={edit}/>}
+          {isMenuInsert && (
+            <IsMenuInsert id={id} setEdit={setEdit} edit={edit} />
+          )}
           {addType === "bye" && (
             <ByeMenuInsert id={id} setEdit={setEdit} edit={edit} />
           )}
           {addType === "kay" && (
             <KayMenuInsert setEdit={setEdit} edit={edit} id={id} />
           )}
-          {addType === "equipment" && <IsMenuInsert id={id} setEdit={setEdit} edit={edit} />}
+          {addType === "equipment" && (
+            <IsMenuInsert id={id} setEdit={setEdit} edit={edit} />
+          )}
           {addType === "installment" && <InstallmentMenuInsert id={id} />}
           <div className="text-center">
             <button
