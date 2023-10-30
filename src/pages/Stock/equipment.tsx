@@ -220,7 +220,6 @@ export function StockEquipmentPage() {
                             item.SUM
                           )
                         }
-                        // onClick={editStock(item.ID, item.MAJOR, "equipment")}
                       >
                         แก้ไข
                       </button>
