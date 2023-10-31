@@ -347,7 +347,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
     () => () => {
       const baseInsert: StockRequest = {
         date,
-        invoice: "",
+        invoice: idCard,
         customerStatus,
         stockType,
         major: majorUser === "admin" ? majorInsert : majorUser,
