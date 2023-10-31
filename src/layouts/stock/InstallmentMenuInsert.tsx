@@ -46,9 +46,10 @@ export default function InstallmentMenuInsert({
     setIdCard,
     idCard,
     setStockType,
+    setDate,
     setDocumentId,
     documentId,
-    updateKey: updateKay,
+    updateKey,
   } = useContext(StockContext);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
     []
@@ -116,7 +117,6 @@ export default function InstallmentMenuInsert({
 
     if (major) {
       StockService.GetFindStockById(id, major, "ผ่อน").then((res) => {
-        console.log(res.data);
         setEdit({
           stockType: "ผ่อน",
           major: major,
@@ -128,7 +128,7 @@ export default function InstallmentMenuInsert({
 
   return (
     <>
-      {!updateKay && (
+      {!updateKey && (
         <>
           <ModalCommon
             title={"ชำระครบถ้วน"}
@@ -171,7 +171,7 @@ export default function InstallmentMenuInsert({
                   setDocumentId(e.target.value);
                   PaymentService.InstallmentNumber(e.target.value).then(
                     (res) => {
-                      Boolean(res.data) !== false || Number(res.data) === 0
+                      Boolean(res.data) !== false
                         ? setInstallmentNo(Number(res.data) + 1)
                         : ($("#alert-installment-modal") as any).modal("show");
                     }
@@ -240,7 +240,7 @@ export default function InstallmentMenuInsert({
             type="number"
             className="form-control"
             onChange={(e: any) =>
-              !updateKay
+              !updateKey
                 ? setPriceTotal(e)
                 : setEdit({
                     major: edit.major,
@@ -252,7 +252,7 @@ export default function InstallmentMenuInsert({
                   })
             }
             placeholder="จำนวนเงิน"
-            value={!updateKay ? priceTotal : edit.payload.PRICE_TOTAL}
+            value={!updateKey ? priceTotal : edit.payload.PRICE_TOTAL}
           />
         </div>
       </div>
@@ -270,7 +270,7 @@ export default function InstallmentMenuInsert({
             type="number"
             className="form-control"
             onChange={(e: any) =>
-              !updateKay
+              !updateKey
                 ? setInstallmentNo(e)
                 : setEdit({
                     major: edit.major,
@@ -282,7 +282,7 @@ export default function InstallmentMenuInsert({
                   })
             }
             placeholder="งวดที่"
-            value={!updateKay ? installmentNo : edit.payload.INSTALLMENT_NO}
+            value={!updateKey ? installmentNo : edit.payload.INSTALLMENT_NO}
           />
         </div>
       </div>

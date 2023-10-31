@@ -11,11 +11,7 @@ import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 import { AppContext } from "../../contexts";
 
 export default function StockAddPage() {
-  const {
-    isMenuInsert,
-    handlerSubmit,
-    updateKey: updateKay,
-  } = useContext(StockContext);
+  const { isMenuInsert, handlerSubmit, updateKey } = useContext(StockContext);
   const { setIsLoading } = useContext(AppContext);
   const state = useLocation();
   const id =
@@ -79,7 +75,7 @@ export default function StockAddPage() {
               type="button"
               className="btn primary-btn col-3 my-3"
               onClick={
-                id === 0 || !updateKay ? handlerSubmit : updateHandlerSubmit
+                id === 0 || !updateKey ? handlerSubmit : updateHandlerSubmit
               }
             >
               บันทึก

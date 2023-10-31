@@ -29,7 +29,7 @@ export function StockInstallmentPaymentPage() {
     majorInsert,
     setMajorInsert,
     clearInputValue,
-    setUpdateKey: setUpdateKay,
+    setUpdateKey,
     setStockID,
     setPriceTotal,
     setInstallmentNo,
@@ -73,7 +73,7 @@ export function StockInstallmentPaymentPage() {
     setMajorInsert(majorInsert);
     setPriceTotal(priceTotal);
     setInstallmentNo(installmentNo);
-    setUpdateKay(true);
+    setUpdateKey(true);
     navigate(`/stock/add?type=installment`, { state: { id } });
   };
 
