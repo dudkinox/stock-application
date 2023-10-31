@@ -1,33 +1,33 @@
-import { useContext, useEffect, useState } from "react";
-import { StockContext } from "../../contexts/StockContext";
+import { useContext, useEffect, useState } from 'react'
+import { StockContext } from '../../contexts/StockContext'
 import {
   MenuInstallmentPaymentEnum,
   MenuKayEnum,
-} from "../../enum/menuInsert.enum";
-import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
-import DataList from "../../common/DataList";
-import { AppContext } from "../../contexts";
-import CustomerServices from "../../services/CustomerServices";
-import { AlertWarning } from "../../common/ToastrCommon";
-import { useLocation, useNavigate } from "react-router-dom";
-import StockService from "../../services/StockServices";
-import PaymentService from "../../services/PaymentService";
-import ModalCommon from "../../common/Modal";
+} from '../../enum/menuInsert.enum'
+import { GetCustomerResponse } from '../../Models/Response/GetCustomerResponse'
+import DataList from '../../common/DataList'
+import { AppContext } from '../../contexts'
+import CustomerServices from '../../services/CustomerServices'
+import { AlertWarning } from '../../common/ToastrCommon'
+import { useLocation, useNavigate } from 'react-router-dom'
+import StockService from '../../services/StockServices'
+import PaymentService from '../../services/PaymentService'
+import ModalCommon from '../../common/Modal'
 
 interface InstallmentMenuInsertProps {
-  id: string;
+  id: string
   setEdit: React.Dispatch<
     React.SetStateAction<{
-      stockType: string;
-      major: string;
-      payload: {};
+      stockType: string
+      major: string
+      payload: {}
     }>
-  >;
+  >
   edit: {
-    stockType: string;
-    major: string;
-    payload: any;
-  };
+    stockType: string
+    major: string
+    payload: any
+  }
 }
 
 export default function InstallmentMenuInsert({
@@ -35,7 +35,7 @@ export default function InstallmentMenuInsert({
   setEdit,
   edit,
 }: InstallmentMenuInsertProps) {
-  const { majorUser } = useContext(AppContext);
+  const { majorUser } = useContext(AppContext)
   const {
     installmentNo,
     setInstallmentNo,
@@ -45,53 +45,57 @@ export default function InstallmentMenuInsert({
     setDocumentId,
     documentId,
     updateKey,
-  } = useContext(StockContext);
-
-  const [selectDocId, setSelectDocId] = useState<any[]>([]);
+  } = useContext(StockContext)
+  const [selectDocId, setSelectDocId] = useState<any[]>([])
   const [dataCustomer, setDataCustomer] = useState({
-    CUSTOMER_NAME: "",
-    ID_CARD: "",
-  });
+    CUSTOMER_NAME: '',
+    ID_CARD: '',
+  })
 
   useEffect(() => {
-    setStockType("ผ่อน");
-    StockService.GetStockBye(majorUser).then((res) => {
-      setSelectDocId(res.data);
-    });
-  }, []);
+    setStockType('ผ่อน')
+    if (!updateKey) {
+      StockService.GetStockBye(majorUser).then((res) => {
+        setSelectDocId(res.data)
+      })
+    }
+  }, [])
 
   useEffect(() => {
-    StockService.GetStockKay(majorUser).then((res) => {
-      const filter = res.data.filter((fil) => fil.ID === documentId)[0];
-      setPriceTotal(filter?.INSTALLMENT);
-      setDataCustomer({
-        CUSTOMER_NAME: filter?.CUSTOMER,
-        ID_CARD: filter?.ID_CARD,
-      });
-    });
-  }, [documentId]);
+    if (!updateKey) {
+      StockService.GetStockKay(majorUser).then((res) => {
+        const filter = res.data.filter((fil) => fil.ID === documentId)[0]
+
+        setPriceTotal(filter.INSTALLMENT)
+        setDataCustomer({
+          CUSTOMER_NAME: filter.CUSTOMER,
+          ID_CARD: filter.ID_CARD,
+        })
+      })
+    }
+  }, [documentId])
 
   useEffect(() => {
-    const major = sessionStorage.getItem("majorEdit");
+    const major = sessionStorage.getItem('majorEdit')
 
     if (major) {
-      StockService.GetFindStockById(id, major, "ผ่อน").then((res) => {
+      StockService.GetStockInstallment(id).then((res) => {
         setEdit({
-          stockType: "ผ่อน",
+          stockType: 'ผ่อน',
           major: major,
           payload: res.data,
-        });
-      });
+        })
+      })
     }
-  }, []);
+  }, [])
 
   return (
     <>
       {!updateKey && (
         <>
           <ModalCommon
-            title={"ชำระครบถ้วน"}
-            id={"alert-installment-modal"}
+            title={'ชำระครบถ้วน'}
+            id={'alert-installment-modal'}
             content={
               <>
                 <div className="modal-body">
@@ -127,14 +131,14 @@ export default function InstallmentMenuInsert({
                 id="browser"
                 className="form-control"
                 onChange={(e: any) => {
-                  setDocumentId(e.target.value);
+                  setDocumentId(e.target.value)
                   PaymentService.InstallmentNumber(e.target.value).then(
                     (res) => {
-                      String(res.data) === "false"
-                        ? ($("#alert-installment-modal") as any).modal("show")
-                        : setInstallmentNo(Number(res.data) + 1);
-                    }
-                  );
+                      String(res.data) === 'false'
+                        ? ($('#alert-installment-modal') as any).modal('show')
+                        : setInstallmentNo(Number(res.data) + 1)
+                    },
+                  )
                 }}
                 placeholder={MenuInstallmentPaymentEnum.DOC_ID}
                 autoComplete="off"
@@ -208,7 +212,7 @@ export default function InstallmentMenuInsert({
                     stockType: edit.stockType,
                     payload: {
                       ...edit.payload,
-                      PRICE_TOTAL: e,
+                      PRICE_TOTAL: e.target.value,
                     },
                   })
             }
@@ -238,7 +242,7 @@ export default function InstallmentMenuInsert({
                     stockType: edit.stockType,
                     payload: {
                       ...edit.payload,
-                      INSTALLMENT_NO: e,
+                      INSTALLMENT_NO: e.target.value,
                     },
                   })
             }
@@ -248,5 +252,5 @@ export default function InstallmentMenuInsert({
         </div>
       </div>
     </>
-  );
+  )
 }
