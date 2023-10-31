@@ -35,42 +35,26 @@ export default function InstallmentMenuInsert({
   setEdit,
   edit,
 }: InstallmentMenuInsertProps) {
-  const { setPathUrl, setIsLoading, majorUser } = useContext(AppContext);
+  const { majorUser } = useContext(AppContext);
   const {
     installmentNo,
     setInstallmentNo,
     priceTotal,
     setPriceTotal,
-    setCustomerStatus,
-    setCustomer,
-    setIdCard,
-    idCard,
     setStockType,
-    setDate,
     setDocumentId,
     documentId,
     updateKey,
   } = useContext(StockContext);
-  const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
-    []
-  );
+
   const [selectDocId, setSelectDocId] = useState<any[]>([]);
-  const [customerExists, setCustomerExists] =
-    useState<GetCustomerResponse | null>(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const insert = location.state.insert;
+  const [dataCustomer, setDataCustomer] = useState({
+    CUSTOMER_NAME: "",
+    ID_CARD: "",
+  });
 
   useEffect(() => {
-    setIsLoading(true);
-    CustomerServices.getCustomer(majorUser).then((res) => {
-      setSelectCustomer(res.data);
-      setIsLoading(false);
-      setStockType("ผ่อน");
-    });
-  }, []);
-
-  useEffect(() => {
+    setStockType("ผ่อน");
     StockService.GetStockBye(majorUser).then((res) => {
       setSelectDocId(res.data);
     });
@@ -78,39 +62,14 @@ export default function InstallmentMenuInsert({
 
   useEffect(() => {
     StockService.GetStockKay(majorUser).then((res) => {
-      setPriceTotal(
-        res.data.filter((fil) => fil.ID === documentId)[0]?.INSTALLMENT
-      );
+      const filter = res.data.filter((fil) => fil.ID === documentId)[0];
+      setPriceTotal(filter?.INSTALLMENT);
+      setDataCustomer({
+        CUSTOMER_NAME: filter?.CUSTOMER,
+        ID_CARD: filter?.ID_CARD,
+      });
     });
   }, [documentId]);
-
-  useEffect(() => {
-    const updatedCustomerExists = selectCustomer.find(
-      (fil) => fil.ID_CARD === idCard
-    );
-    setCustomerExists(updatedCustomerExists ?? null);
-    document.body.classList.remove("modal-open");
-
-    if (idCard.length === 13 && !updatedCustomerExists && !insert) {
-      AlertWarning("กรุณากรอกข้อมูลลูกค้าก่อนทำรายการ Stock");
-      setPathUrl("/customer");
-      navigate("/customer", {
-        state: { enable: true, id: id },
-      });
-    } else if (idCard.length === 13 && !updatedCustomerExists) {
-      $("#insert-modal").hide();
-      $(".modal-backdrop.fade.show").remove();
-    } else if (insert) {
-      $("#insert-modal").hide();
-      $(".modal-backdrop.fade.show").remove();
-    }
-    setCustomerStatus(updatedCustomerExists?.CUSTOMER_STATUS ?? "");
-    setCustomer(
-      `${updatedCustomerExists?.NAME ?? ""} ${
-        updatedCustomerExists?.LAST_NAME ?? ""
-      }`
-    );
-  }, [idCard, selectCustomer, customerExists, navigate, setPathUrl]);
 
   useEffect(() => {
     const major = sessionStorage.getItem("majorEdit");
@@ -192,16 +151,23 @@ export default function InstallmentMenuInsert({
               </datalist>
             </div>
           </div>
-          <DataList
-            label={"ค้นหาชื่อ / เลือก เลขบัตรประชาชน:"}
-            setValue={setIdCard}
-            icon={"far fa-id-card"}
-            data={selectCustomer.map((item) => item)}
-            placeholder={"ค้นหาชื่อ / เลขบัตรประชาชน"}
-            minLength={13}
-            maxLength={13}
-            value={idCard}
-          />
+          <div className="form-group">
+            <label className="float-left">{MenuKayEnum.ID_CARD}</label>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <i className="fas fa-user"></i>
+                </span>
+              </div>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="กรุณาเลือกรหัสเอกสาร"
+                value={dataCustomer.ID_CARD}
+                readOnly
+              />
+            </div>
+          </div>
           <div className="form-group">
             <label className="float-left">{MenuKayEnum.CUSTOMER}</label>
             <div className="input-group">
@@ -213,14 +179,9 @@ export default function InstallmentMenuInsert({
               <input
                 type="text"
                 className="form-control"
-                onChange={(e: any) => setCustomer(e.target.value)}
-                placeholder="ชื่อลูกค้า"
-                value={
-                  customerExists
-                    ? `${customerExists?.NAME} ${customerExists?.LAST_NAME}`
-                    : ""
-                }
-                readOnly={customerExists !== null}
+                placeholder="กรุณาเลือกรหัสเอกสาร"
+                value={dataCustomer.CUSTOMER_NAME}
+                readOnly
               />
             </div>
           </div>
