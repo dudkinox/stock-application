@@ -148,7 +148,7 @@ export function StockInstallmentPaymentPage() {
               </div>
               <div className="card-header">
                 <h2 className="card-title mt-2">
-                  {"เพิ่ม / ลบ / แก้ไข / ค้นหา"}
+                  {"ค้นหา / เพิ่ม / ลบ / แก้ไข"}
                 </h2>
                 <button
                   onClick={() => {
