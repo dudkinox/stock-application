@@ -111,6 +111,53 @@ export function StockInstallmentPaymentPage() {
         topic={""}
         page={
           <>
+            <ModalCommon
+              title={"เพิ่มข้อมูลผ่อน"}
+              id={"insert-modal"}
+              content={
+                <>
+                  <div className="modal-body">
+                    <div className="container-fluid">
+                      {isEdit() && majorUser === "admin" && (
+                        <SelectChoice
+                          topic="เลือกสาขา"
+                          setValue={setMajorInsert}
+                          icon="far fa-calendar-alt"
+                          label={"สาขา:"}
+                          value={majorInsert}
+                          options={fetchMajor.map((item) => item.NAME)}
+                        />
+                      )}
+                      <TextInput
+                        label={"วันที่:"}
+                        icon={"far fa-calendar-alt"}
+                        setValue={setDate}
+                        type={"date"}
+                        value={date}
+                      />
+                      <TextInput
+                        label={"ประเภท"}
+                        setValue={setStockType}
+                        icon={"far fa-file"}
+                        type={"text"}
+                        value={stockType}
+                        readonly={true}
+                      />
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                    <button
+                      type="button"
+                      className="btn primary-btn col-lg-2 col-sm-auto"
+                      data-dismiss="modal"
+                      onClick={nextValidate}
+                    >
+                      ถัดไป
+                    </button>
+                  </div>
+                </>
+              }
+            />
             <div className="card card-primary card-outline card-tabs">
               <div className="card-header p-0 pt-1 border-bottom-0">
                 <ul
@@ -177,55 +224,6 @@ export function StockInstallmentPaymentPage() {
                     aria-labelledby="custom-tabs-three-home-tab"
                   >
                     <>
-                      <ModalCommon
-                        title={"เพิ่มข้อมูลผ่อน"}
-                        id={"insert-modal"}
-                        content={
-                          <>
-                            <div className="modal-body">
-                              <div className="container-fluid">
-                                {isEdit() && majorUser === "admin" && (
-                                  <SelectChoice
-                                    topic="เลือกสาขา"
-                                    setValue={setMajorInsert}
-                                    icon="far fa-calendar-alt"
-                                    label={"สาขา:"}
-                                    value={majorInsert}
-                                    options={fetchMajor.map(
-                                      (item) => item.NAME
-                                    )}
-                                  />
-                                )}
-                                <TextInput
-                                  label={"วันที่:"}
-                                  icon={"far fa-calendar-alt"}
-                                  setValue={setDate}
-                                  type={"date"}
-                                  value={date}
-                                />
-                                <TextInput
-                                  label={"ประเภท"}
-                                  setValue={setStockType}
-                                  icon={"far fa-file"}
-                                  type={"text"}
-                                  value={stockType}
-                                  readonly={true}
-                                />
-                              </div>
-                            </div>
-                            <div className="modal-footer">
-                              <button
-                                type="button"
-                                className="btn primary-btn col-lg-2 col-sm-auto"
-                                data-dismiss="modal"
-                                onClick={nextValidate}
-                              >
-                                ถัดไป
-                              </button>
-                            </div>
-                          </>
-                        }
-                      />
                       <div className="card-body">
                         <TableCommon
                           columns={stockTableHeaders}
