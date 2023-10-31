@@ -239,9 +239,9 @@ export default function InstallmentMenuInsert({
           <input
             type="number"
             className="form-control"
-            onChange={(e: any) =>
+            onChange={(e) =>
               !updateKey
-                ? setPriceTotal(e)
+                ? setPriceTotal(e.target.value)
                 : setEdit({
                     major: edit.major,
                     stockType: edit.stockType,
@@ -269,9 +269,9 @@ export default function InstallmentMenuInsert({
           <input
             type="number"
             className="form-control"
-            onChange={(e: any) =>
+            onChange={(e) =>
               !updateKey
-                ? setInstallmentNo(e)
+                ? setInstallmentNo(Number(e.target.value))
                 : setEdit({
                     major: edit.major,
                     stockType: edit.stockType,
