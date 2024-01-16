@@ -29,7 +29,7 @@ export default function SelectChoice({
         <select
           className="form-control"
           onChange={(e: any) => setValue(e.target.value)}
-          placeholder={placeholder}
+          aria-placeholder={placeholder}
           value={value}
         >
           <option hidden selected>
