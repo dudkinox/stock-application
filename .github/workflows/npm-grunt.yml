@@ -30,7 +30,7 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: -D6bgR2Q4W)5df
         local-dir: dist/
-        server-dir: domains/sabaiphone-admin.com/public_html/
+        server-dir: domains/sabuyphone-admin.com/public_html/
         timeout: 999999
   connect-to-server:
     needs: web-deploy
