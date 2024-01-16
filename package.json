@@ -18,7 +18,7 @@
     "react-router-dom": "^6.7.0",
     "toastr": "^2.1.4"
   },
-  "homepage": "https://sabaiphone-admin.com",
+  "homepage": "https://sabuyphone-admin.com",
   "devDependencies": {
     "@types/node": "^20.5.7",
     "@types/react": "^18.0.27",
