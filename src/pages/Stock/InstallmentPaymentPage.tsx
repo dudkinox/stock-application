@@ -273,7 +273,8 @@ export function StockInstallmentPaymentPage() {
                     role="tabpanel"
                     aria-labelledby="custom-tabs-three-profile-tab"
                   >
-                    test
+                    สำหรับดูว่ามีใครใกล้ครบกำหนดการเก็บเงินบ้าง (feature
+                    นี้สำหรับผ่านการทดสอบการใช้งานแล้วระดับหนึ่งถึงจะนำเอาเข้ามา)
                   </div>
                 </div>
               </div>
