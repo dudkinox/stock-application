@@ -95,14 +95,18 @@ export function CustomerContextProvider({ children }: ChildrenProps) {
       setIsLoading(true);
       CustomerServices.insertCustomer(data)
         .then((res) => {
-          AlertSuccess(res.data.message);
-          reGetCustomer();
-          if (id !== undefined) {
-            navigate(`/stock/add?type=kay`, {
-              state: { id: id, insert: true },
-            });
+          if (res.data.code === "003") {
+            AlertWarning(res.data.message);
           } else {
-            ($("#insert-modal") as any).modal("hide");
+            AlertSuccess(res.data.message);
+            reGetCustomer();
+            if (id !== undefined) {
+              navigate(`/stock/add?type=kay`, {
+                state: { id: id, insert: true },
+              });
+            } else {
+              ($("#insert-modal") as any).modal("hide");
+            }
           }
           setIsLoading(false);
         })
