@@ -32,7 +32,7 @@ export default function ContentLayOut({
               </div>
               {page}
             </div>
-            {topicFunds === "" || topicFunds === undefined? (
+            {topicFunds === "" || topicFunds === undefined ? (
               <></>
             ) : (
               <div className="card col-12">
