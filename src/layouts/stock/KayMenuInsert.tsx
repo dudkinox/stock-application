@@ -232,6 +232,7 @@ export default function KayMenuInsert({
         }
         type={"text"}
         placeholder={"imei เครื่อง"}
+        maxLength={15}
         value={!updateKay ? imei : edit.payload.IMEI}
         readonly={!updateKay}
       />

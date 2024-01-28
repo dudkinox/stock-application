@@ -156,6 +156,7 @@ export default function ByeMenuInsert({
         }
         type={"text"}
         placeholder={"imei เครื่อง"}
+        maxLength={15}
         value={isInsert ? imei : edit.payload.IMEI}
       />
       <TextInput
