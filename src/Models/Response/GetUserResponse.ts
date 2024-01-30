@@ -1,5 +1,6 @@
 export interface GetUserResponse {
   ID: string;
+  CREATED_AT: string;
   USERNAME: string;
   PASSWORD: string;
   MAJOR: string;

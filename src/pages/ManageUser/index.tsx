@@ -15,6 +15,7 @@ import MajorServices from "../../services/MajorService";
 import SelectChoice from "../../common/Select";
 import AccountServices from "../../services/AccountService";
 import { AppContext } from "../../contexts";
+import convertDateToThai from "./../../common/DateFormat";
 
 export default function ManageUser() {
   const {
@@ -165,7 +166,7 @@ export default function ManageUser() {
       page={
         <>
           <ModalCommon
-            title={isUpdate ? "แก้ไขข้อมูล":"เพิ่มข้อมูล"}
+            title={isUpdate ? "แก้ไขข้อมูล" : "เพิ่มข้อมูล"}
             id={"insert-modal"}
             content={
               <>
@@ -280,6 +281,7 @@ export default function ManageUser() {
                     <i className="nav-icon fas fa-plus" />
                   </button>
                 </>,
+                "วันที่เพิ่มข้อมูล",
                 "ชื่อผู้ใช้ / username",
                 "สิทธิการแก้ไขข้อมูล",
                 "สิทธิการลบข้อมูล",
@@ -289,6 +291,7 @@ export default function ManageUser() {
               row={user.map((item, i) => (
                 <tr key={i} className="text-center">
                   <td>{item.MAJOR}</td>
+                  <td>{convertDateToThai(new Date(item.CREATED_AT))}</td>
                   <td>{item.USERNAME}</td>
                   <td>{item.CAN_EDIT ? "มี" : "ไม่มี"}</td>
                   <td>{item.CAN_DELETE ? "มี" : "ไม่มี"}</td>
