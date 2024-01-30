@@ -42,6 +42,7 @@ export function StockEquipmentPage() {
   const [stock, setStock] = useState<any[]>([]);
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const stockTableHeaders = [
+    "วันที่เพิ่มข้อมูล",
     "รหัสเอกสาร",
     "สาขา",
     "วันที่",
@@ -193,6 +194,7 @@ export function StockEquipmentPage() {
                 columns={stockTableHeaders}
                 row={stock.map((item, i) => (
                   <tr key={i} className="text-center">
+                    <td>{convertDateToThai(new Date(item.CREATED_AT))}</td>
                     <td>{item.ID}</td>
                     <td>{item.MAJOR}</td>
                     <td>{convertDateToThai(new Date(item.DATE))}</td>
