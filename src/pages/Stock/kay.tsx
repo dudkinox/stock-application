@@ -22,6 +22,7 @@ export function StockKayPage() {
   const navigate = useNavigate();
 
   const stockTableHeaders = [
+    "วันที่เพิ่มข้อมูล",
     "รหัสเอกสาร",
     "สาขา",
     "วันที่ขาย",
@@ -37,6 +38,7 @@ export function StockKayPage() {
   ];
 
   const stockBuyListTableHeaders = [
+    "วันที่เพิ่มข้อมูล",
     "รหัสเอกสาร",
     "สาขา",
     "Serial Number",
@@ -98,6 +100,9 @@ export function StockKayPage() {
                       row={buyList.map((item, i) =>
                         item.STATUS === "0" ? (
                           <tr key={i} className="text-center">
+                            <td>
+                              {convertDateToThai(new Date(item.CREATED_AT))}
+                            </td>
                             <td>{item.ID}</td>
                             <td>{item.MAJOR}</td>
                             <td>{item.SERIAL_NUMBER}</td>
@@ -165,6 +170,9 @@ export function StockKayPage() {
                       columns={stockTableHeaders}
                       row={stock.map((item, i) => (
                         <tr key={i} className="text-center">
+                          <td>
+                            {convertDateToThai(new Date(item.CREATED_AT))}
+                          </td>
                           <td>{item.ID}</td>
                           <td>{item.MAJOR}</td>
                           <td>{convertDateToThai(new Date(item.DATE))}</td>
