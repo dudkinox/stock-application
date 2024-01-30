@@ -16,6 +16,7 @@ import { AppContext } from "../../contexts/index";
 import MajorServices from "../../services/MajorService";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import { StockContext } from "../../contexts/StockContext";
+import convertDateToThai from "../../common/DateFormat";
 
 export default function CustomerPage() {
   const { idCard: idCardStock } = useContext(StockContext);
@@ -47,6 +48,7 @@ export default function CustomerPage() {
   const stateLocation = useLocation();
 
   const customerTableHeaders = [
+    "วันที่เพิ่มข้อมูล",
     "รหัสลูกค้า",
     "เลขบัตรประชาชน",
     "ชื่อ-สกุล",
@@ -287,6 +289,7 @@ export default function CustomerPage() {
               }
               row={customer.map((item, i) => (
                 <tr key={i} className="text-center">
+                  <td>{convertDateToThai(new Date(item.CREATED_AT))}</td>
                   <td>{item.ID}</td>
                   <td>{item.ID_CARD}</td>
                   <td>
