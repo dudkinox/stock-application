@@ -35,6 +35,7 @@ export function StockByePage() {
   const [buyList, setBuyList] = useState<any[]>([]);
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const stockBuyListTableHeaders = [
+    "วันที่เพิ่มข้อมูล",
     "รหัสเอกสาร",
     "สาขา",
     "วันที่ซื้อ",
