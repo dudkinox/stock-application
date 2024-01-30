@@ -11,6 +11,7 @@ import MajorResponse from "../../Models/Response/GetMajorResponse";
 import initTable, { destroyTable } from "../../common/DataTable";
 import TableCommon from "../../common/Table";
 import { AppContext } from "../../contexts";
+import convertDateToThai from "./../../common/DateFormat";
 
 interface MajorManageProps {
   fetchMajor: MajorResponse[];
@@ -25,7 +26,7 @@ export default function MajorManage({
   const [addMajor, setAddMajor] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [idUpdate, setIdUpdate] = useState<number>(0);
-  const { setIsLoading} = useContext(AppContext);
+  const { setIsLoading } = useContext(AppContext);
 
   const addMajorHandler = () => {
     setRowTableMajor(true);
@@ -146,6 +147,7 @@ export default function MajorManage({
                   <i className="nav-icon fas fa-plus" />
                 </button>
               </>,
+              "วันที่เพิ่มข้อมูล",
               "จัดการ",
             ]}
             row={
@@ -153,6 +155,7 @@ export default function MajorManage({
                 {fetchMajor.map((item, i) => (
                   <tr key={i}>
                     <td id={`${item.ID}`}>{item.NAME}</td>
+                    <td>{convertDateToThai(new Date(item.CREATED_AT))}</td>
                     <td>
                       <div
                         className="row justify-content-center"
