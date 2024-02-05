@@ -425,7 +425,6 @@ export function StockContextProvider({ children }: ChildrenProps) {
               source: source,
               battery: battery,
             };
-            console.log(bye);
 
             if (
               bye.serialNumber === "" ||
