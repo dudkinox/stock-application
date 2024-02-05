@@ -2,8 +2,11 @@ import Https from "../Https/Index";
 import { GetStockResponse } from "../Models/Response/GetStockResponse";
 import { InsertStockResponse as StatusStockResponse } from "../Models/Response/InsertStockResponse";
 
-const InsertStockService = (payload: string) => {
-  return Https.get<StatusStockResponse>(`/apis/stocks/insert/${payload}`);
+const InsertStockService = (params: string, payload: any) => {
+  return Https.post<StatusStockResponse>(
+    `/apis/stocks/insert/${params}`,
+    payload
+  );
 };
 
 const GetStockService = (major: string) => {
@@ -63,7 +66,9 @@ const GetStockInstallmentPaymentAllService = (major: string) => {
 };
 
 const GetStockInstallmentService = (id: string) => {
-  return Https.get<any[]>(`/apis/installment_payment/get-installment/?id=${id}`);
+  return Https.get<any[]>(
+    `/apis/installment_payment/get-installment/?id=${id}`
+  );
 };
 
 const StockService = {

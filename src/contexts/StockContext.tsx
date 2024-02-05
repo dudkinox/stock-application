@@ -19,6 +19,7 @@ import { GetStockResponse } from "../Models/Response/GetStockResponse";
 import StockService from "../services/StockServices";
 import { AppContext } from "./index";
 import { useNavigate } from "react-router-dom";
+import { camelToSnakeObject } from "../common/CamelToSnake";
 
 interface StockContextProps {
   date: string;
@@ -292,9 +293,9 @@ export function StockContextProvider({ children }: ChildrenProps) {
   );
 
   const insertStock = useMemo(
-    () => (params: string) => {
+    () => (params: string, payload: any) => {
       setIsLoading(true);
-      StockService.InsertStock(params)
+      StockService.InsertStock(params, payload)
         .then((res) => {
           AlertSuccess(res.data.message);
           setIsLoading(false);
@@ -366,12 +367,9 @@ export function StockContextProvider({ children }: ChildrenProps) {
           baseInsert.invoice +
           "&customer_status=" +
           baseInsert.customerStatus +
-          "&stock_type=" +
-          baseInsert.stockType +
           "&major=" +
           baseInsert.major;
 
-        var params = "";
         switch (stockType) {
           case "อุปกรณ์":
             const equipment: StockEquipmentRequest = {
@@ -383,6 +381,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
               charge: Number(charge),
               repair: Number(repair),
               sum: Number(sum),
+              stockType: baseInsert.stockType,
             };
 
             if (
@@ -396,23 +395,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
             ) {
               AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
             } else {
-              params =
-                baseParams +
-                "&cases=" +
-                equipment.cases +
-                "&firm=" +
-                equipment.firm +
-                "&len=" +
-                equipment.len +
-                "&big_charge=" +
-                equipment.bigCharge +
-                "&charge=" +
-                equipment.charge +
-                "&repair=" +
-                equipment.repair +
-                "&sum=" +
-                equipment.sum;
-              insertStock(params);
+              insertStock(baseParams, camelToSnakeObject(equipment));
             }
             break;
           case "ซื้อ":
@@ -424,6 +407,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
               imei: imei,
               source: source,
               battery: battery,
+              stockType: baseInsert.stockType,
             };
 
             if (
@@ -436,22 +420,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
             ) {
               AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
             } else {
-              params =
-                baseParams +
-                "&version=" +
-                bye.version +
-                "&price=" +
-                bye.price +
-                "&imei=" +
-                bye.imei +
-                "&source=" +
-                bye.source +
-                "&battery=" +
-                bye.battery +
-                "&serial_number=" +
-                bye.serialNumber;
-
-              insertStock(params);
+              insertStock(baseParams, camelToSnakeObject(bye));
             }
             break;
           case "ขาย":
@@ -466,6 +435,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
               installment: installment,
               datePayment: datePayment,
               id: stockID,
+              stockType: baseInsert.stockType,
             };
 
             if (
@@ -480,28 +450,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
             ) {
               AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
             } else {
-              params =
-                baseParams +
-                "&id=" +
-                kay.id +
-                "&customer=" +
-                kay.customer +
-                "&tel=" +
-                kay.tel +
-                "&version=" +
-                kay.version +
-                "&imei=" +
-                kay.imei +
-                "&star_money=" +
-                kay.starMoney +
-                "&month=" +
-                kay.month +
-                "&installment=" +
-                kay.installment +
-                "&date_payment=" +
-                kay.datePayment;
-
-              insertStock(params);
+              insertStock(baseParams, camelToSnakeObject(kay));
             }
             break;
           default:
@@ -510,6 +459,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
               id: documentId,
               installmentNo: Number(installmentNo),
               priceTotal: Number(priceTotal),
+              stockType: baseInsert.stockType,
             };
 
             if (
@@ -519,16 +469,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
             ) {
               AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
             } else {
-              params =
-                baseParams +
-                "&installment_no=" +
-                installmentPayment.installmentNo +
-                "&price_total=" +
-                installmentPayment.priceTotal +
-                "&id_card=" +
-                installmentPayment.id;
-
-              insertStock(params);
+              insertStock(baseParams, camelToSnakeObject(installmentPayment));
             }
             break;
         }
