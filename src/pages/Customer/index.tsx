@@ -202,7 +202,6 @@ export default function CustomerPage() {
                       minLength={13}
                       maxLength={13}
                       value={idCard}
-                      isReadOnly={isUpdate}
                     />
                     {isEdit() && majorUser === "admin" && (
                       <SelectChoice
