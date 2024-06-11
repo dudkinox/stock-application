@@ -17,8 +17,10 @@ export default function convertDateToThai(date: Date): string {
   const day = date.getDate();
   const month = thaiMonths[date.getMonth()];
   const year = date.getFullYear() + 543;
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
 
-  return `วันที่ ${day} ${month} ${year}`;
+  return `วันที่ ${day} ${month} ${year} เวลา ${hours}:${minutes} น.`;
 }
 export function convertToDateFormat(
   inputDate: string | undefined | null
