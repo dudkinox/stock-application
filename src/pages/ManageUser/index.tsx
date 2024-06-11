@@ -16,6 +16,7 @@ import SelectChoice from "../../common/Select";
 import AccountServices from "../../services/AccountService";
 import { AppContext } from "../../contexts";
 import convertDateToThai from "./../../common/DateFormat";
+import ChangePasswordForm from "../ChangePassword";
 
 export default function ManageUser() {
   const {
@@ -40,6 +41,9 @@ export default function ManageUser() {
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
+  const [changePassword, setChangePassword] = useState<string>("");
+
+  const changePasswordFunc = () => {};
 
   const openModalUpdate = (id: string, username: string) => () => {
     ($("#insert-modal") as any).modal("show");
@@ -268,6 +272,17 @@ export default function ManageUser() {
               />
             }
           />
+          <ModalCommon
+            title={"เปลี่ยนรหัสผ่าน"}
+            id={"change-password-modal"}
+            content={
+              <ChangePasswordForm
+                setChangePassword={setChangePassword}
+                changePassword={changePassword}
+                changePasswordFunc={changePasswordFunc}
+              />
+            }
+          />
           <div className="card-body">
             <TableCommon
               columns={[
@@ -285,6 +300,7 @@ export default function ManageUser() {
                 "ชื่อผู้ใช้ / username",
                 "สิทธิการแก้ไขข้อมูล",
                 "สิทธิการลบข้อมูล",
+                "เปลี่ยนรหัสผ่าน",
                 "แก้ไข",
                 "ลบ",
               ]}
@@ -295,6 +311,16 @@ export default function ManageUser() {
                   <td>{item.USERNAME}</td>
                   <td>{item.CAN_EDIT ? "มี" : "ไม่มี"}</td>
                   <td>{item.CAN_DELETE ? "มี" : "ไม่มี"}</td>
+                  <td>
+                    <button
+                      className="btn btn-primary"
+                      onClick={($("#change-password-modal") as any).modal(
+                        "show"
+                      )}
+                    >
+                      เปลี่ยนรหัส
+                    </button>
+                  </td>
                   <td>
                     {isEdit() ? (
                       <button
