@@ -314,9 +314,9 @@ export default function ManageUser() {
                   <td>
                     <button
                       className="btn btn-primary"
-                      onClick={($("#change-password-modal") as any).modal(
-                        "show"
-                      )}
+                      onClick={() => {
+                        ($("#change-password-modal") as any).modal("show");
+                      }}
                     >
                       เปลี่ยนรหัส
                     </button>
