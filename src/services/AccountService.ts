@@ -13,9 +13,14 @@ const getFindUserService = (username: string) => {
   );
 };
 
+const changePasswordService = (password: string, id: string) => {
+  return Https.post(`/apis/accounts/change_password/?id=${id}`, { password });
+};
+
 const AccountServices = {
   getLogin: getLoginService,
   getFindUser: getFindUserService,
+  changePassword: changePasswordService,
 };
 
 export default AccountServices;

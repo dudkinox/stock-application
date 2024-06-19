@@ -42,8 +42,22 @@ export default function ManageUser() {
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
   const [changePassword, setChangePassword] = useState<string>("");
+  const [id, setId] = useState<string>("");
 
-  const changePasswordFunc = () => {};
+  const changePasswordFunc = () => {
+    setIsLoading(true);
+    AccountServices.changePassword(changePassword, id)
+      .then((res) => {
+        AlertSuccess(res.data.message);
+        ($("#change-password-modal") as any).modal("hide");
+        setChangePassword("");
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  };
 
   const openModalUpdate = (id: string, username: string) => () => {
     ($("#insert-modal") as any).modal("show");
@@ -316,6 +330,7 @@ export default function ManageUser() {
                       className="btn btn-primary"
                       onClick={() => {
                         ($("#change-password-modal") as any).modal("show");
+                        setId(item.ID);
                       }}
                     >
                       เปลี่ยนรหัส
