@@ -20,7 +20,7 @@ export default function convertDateToThai(date: Date): string {
   const hours = date.getHours();
   const minutes = date.getMinutes();
 
-  return `วันที่ ${day} ${month} ${year} เวลา ${hours}:${minutes} น.`;
+  return `วันที่ ${day} ${month} ${year} ${hours}:${minutes} น.`;
 }
 export function convertToDateFormat(
   inputDate: string | undefined | null
