@@ -1,25 +1,25 @@
-import { useState, useContext, useEffect } from "react";
-import ContentLayOut from "../../layouts/ContentLayOut";
-import TableCommon from "../../common/Table";
-import ModalCommon from "../../common/Modal";
-import TextInput from "../../common/TextInput";
-import DataList from "../../common/DataList";
-import { CustomerContext } from "../../contexts/CustomerContext";
-import CustomerServices from "../../services/CustomerServices";
-import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
-import initTable, { destroyTable } from "../../common/DataTable";
-import SelectChoice from "../../common/Select";
-import { CustomerRequest } from "../../Models/Request/CustomerRequest";
-import { camelToSnakeObject } from "../../common/CamelToSnake";
-import { useLocation } from "react-router-dom";
-import { AppContext } from "../../contexts/index";
-import MajorServices from "../../services/MajorService";
-import MajorResponse from "../../Models/Response/GetMajorResponse";
-import { StockContext } from "../../contexts/StockContext";
-import convertDateToThai from "../../common/DateFormat";
+import { useState, useContext, useEffect } from 'react'
+import ContentLayOut from '../../layouts/ContentLayOut'
+import TableCommon from '../../common/Table'
+import ModalCommon from '../../common/Modal'
+import TextInput from '../../common/TextInput'
+import DataList from '../../common/DataList'
+import { CustomerContext } from '../../contexts/CustomerContext'
+import CustomerServices from '../../services/CustomerServices'
+import { AlertError, AlertSuccess } from '../../common/ToastrCommon'
+import initTable, { destroyTable } from '../../common/DataTable'
+import SelectChoice from '../../common/Select'
+import { CustomerRequest } from '../../Models/Request/CustomerRequest'
+import { camelToSnakeObject } from '../../common/CamelToSnake'
+import { useLocation } from 'react-router-dom'
+import { AppContext } from '../../contexts/index'
+import MajorServices from '../../services/MajorService'
+import MajorResponse from '../../Models/Response/GetMajorResponse'
+import { StockContext } from '../../contexts/StockContext'
+import { convertDateToThaiV2 } from '../../common/DateFormat'
 
 export default function CustomerPage() {
-  const { idCard: idCardStock } = useContext(StockContext);
+  const { idCard: idCardStock } = useContext(StockContext)
   const {
     customer,
     idCard,
@@ -39,45 +39,45 @@ export default function CustomerPage() {
     majorInsert: majorAdminChange,
     setMajorInsert,
     clearInputValue,
-  } = useContext(CustomerContext);
-  const { majorUser, isEdit, isDelete, setIsLoading } = useContext(AppContext);
-  const [isUpdate, setIsUpdate] = useState<boolean>(false);
-  const [updateId, setUpdateId] = useState<string>("");
-  const [majorGet, setMajorGet] = useState<string>("");
-  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
-  const stateLocation = useLocation();
+  } = useContext(CustomerContext)
+  const { majorUser, isEdit, isDelete, setIsLoading } = useContext(AppContext)
+  const [isUpdate, setIsUpdate] = useState<boolean>(false)
+  const [updateId, setUpdateId] = useState<string>('')
+  const [majorGet, setMajorGet] = useState<string>('')
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([])
+  const stateLocation = useLocation()
 
   const customerTableHeaders = [
-    "วันที่เพิ่มข้อมูล",
-    "รหัสลูกค้า",
-    "เลขบัตรประชาชน",
-    "ชื่อ-สกุล",
-    "ประวัติลูกค้า",
-    "สถานะ",
-  ];
+    'วันที่เพิ่มข้อมูล',
+    'รหัสลูกค้า',
+    'เลขบัตรประชาชน',
+    'ชื่อ-สกุล',
+    'ประวัติลูกค้า',
+    'สถานะ',
+  ]
 
-  const editableCustomerTableHeaders = [...customerTableHeaders, "แก้ไข", "ลบ"];
+  const editableCustomerTableHeaders = [...customerTableHeaders, 'แก้ไข', 'ลบ']
 
   const openModalUpdate = (id: string) => () => {
-    ($("#insert-modal") as any).modal("show");
-    setIsUpdate(true);
-    setIsLoading(true);
+    ;($('#insert-modal') as any).modal('show')
+    setIsUpdate(true)
+    setIsLoading(true)
     CustomerServices.getCustomerById(id)
       .then((res: any) => {
-        setUpdateId(id);
-        setMajorGet(res.data.MAJOR);
-        setIdCard(res.data.ID_CARD);
-        setName(res.data.NAME);
-        setLastName(res.data.LAST_NAME);
-        setCustomerStatus(res.data.CUSTOMER_STATUS);
-        setProcess(res.data.PROCESS);
-        setIsLoading(false);
+        setUpdateId(id)
+        setMajorGet(res.data.MAJOR)
+        setIdCard(res.data.ID_CARD)
+        setName(res.data.NAME)
+        setLastName(res.data.LAST_NAME)
+        setCustomerStatus(res.data.CUSTOMER_STATUS)
+        setProcess(res.data.PROCESS)
+        setIsLoading(false)
       })
       .catch((err: any) => {
-        AlertError(err.response.data.message);
-        setIsLoading(false);
-      });
-  };
+        AlertError(err.response.data.message)
+        setIsLoading(false)
+      })
+  }
 
   const updateStockHandler = (id: string) => () => {
     let payload: CustomerRequest = {
@@ -87,95 +87,95 @@ export default function CustomerPage() {
       process,
       customerStatus,
       major: majorAdminChange,
-    };
-    setIsLoading(true);
+    }
+    setIsLoading(true)
     CustomerServices.updateCustomer(
       id,
       majorAdminChange,
       camelToSnakeObject(payload)
     )
       .then((res) => {
-        AlertSuccess(res.data.message);
-        reGetCustomer();
-        setIsLoading(false);
+        AlertSuccess(res.data.message)
+        reGetCustomer()
+        setIsLoading(false)
       })
       .catch((err) => {
-        AlertError(err.response.data.message);
-        setIsLoading(false);
-      });
-  };
+        AlertError(err.response.data.message)
+        setIsLoading(false)
+      })
+  }
 
   const deleteCustomer = (id: string) => () => {
-    setIsLoading(true);
+    setIsLoading(true)
     CustomerServices.deleteCustomer(id)
       .then((res) => {
-        AlertSuccess(res.data.message);
+        AlertSuccess(res.data.message)
         CustomerServices.getCustomer(majorUser)
           .then((res) => {
-            setTimeout(() => destroyTable());
-            setCustomer(res.data);
-            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-            setIsLoading(false);
+            setTimeout(() => destroyTable())
+            setCustomer(res.data)
+            setTimeout(() => initTable(res.data.length.toString() ?? '0'), 100)
+            setIsLoading(false)
           })
           .catch((err) => {
-            AlertError(err.response.data.message);
-            setIsLoading(false);
-          });
+            AlertError(err.response.data.message)
+            setIsLoading(false)
+          })
       })
       .catch((err) => {
-        AlertError(err.response.data.message);
-        setIsLoading(false);
-      });
-  };
+        AlertError(err.response.data.message)
+        setIsLoading(false)
+      })
+  }
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(true)
     CustomerServices.getCustomer(majorUser)
       .then((res) => {
-        setCustomer(res.data);
-        setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-        setIsLoading(false);
+        setCustomer(res.data)
+        setTimeout(() => initTable(res.data.length.toString() ?? '0'), 100)
+        setIsLoading(false)
       })
       .catch((err) => {
-        AlertError(err.response.data.message);
-        setIsLoading(false);
-      });
-  }, [setCustomer]);
+        AlertError(err.response.data.message)
+        setIsLoading(false)
+      })
+  }, [setCustomer])
 
   useEffect(() => {
     stateLocation && stateLocation.state
-      ? document.getElementById("insert-customer")?.click()
-      : null;
-  }, [stateLocation.state]);
+      ? document.getElementById('insert-customer')?.click()
+      : null
+  }, [stateLocation.state])
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(true)
     MajorServices.getMajors()
       .then((res) => {
-        setFetchMajor(res.data);
-        setIsLoading(false);
+        setFetchMajor(res.data)
+        setIsLoading(false)
       })
       .catch((err) => {
-        AlertError(err.response.data.message);
-        setIsLoading(false);
-      });
-  }, [setFetchMajor]);
+        AlertError(err.response.data.message)
+        setIsLoading(false)
+      })
+  }, [setFetchMajor])
 
   useEffect(() => {
     if (idCardStock !== undefined) {
-      setIdCard(idCardStock);
+      setIdCard(idCardStock)
     }
-  }, [idCardStock, setIdCard]);
+  }, [idCardStock, setIdCard])
 
   return (
     <ContentLayOut
-      title={"Customer"}
-      topic={"ข้อมูลลูกค้า"}
+      title={'Customer'}
+      topic={'ข้อมูลลูกค้า'}
       btnHeader={
         <button
           onClick={() => {
-            setIsUpdate(false);
-            clearInputValue();
+            setIsUpdate(false)
+            clearInputValue()
           }}
           className="btn primary-btn text-white float-right"
           data-toggle="modal"
@@ -188,63 +188,63 @@ export default function CustomerPage() {
       page={
         <>
           <ModalCommon
-            title={isUpdate ? "แก้ไขข้อมูล" : "เพิ่มข้อมูล"}
-            id={"insert-modal"}
+            title={isUpdate ? 'แก้ไขข้อมูล' : 'เพิ่มข้อมูล'}
+            id={'insert-modal'}
             content={
               <>
                 <div className="modal-body">
                   <div className="container-fluid">
                     <DataList
-                      label={"เลขบัตรประชาชน:"}
+                      label={'เลขบัตรประชาชน:'}
                       setValue={setIdCard}
-                      icon={"far fa-id-card"}
-                      placeholder={"เลขบัตรประชาชน"}
+                      icon={'far fa-id-card'}
+                      placeholder={'เลขบัตรประชาชน'}
                       minLength={13}
                       maxLength={13}
                       value={idCard}
                     />
-                    {isEdit() && majorUser === "admin" && (
+                    {isEdit() && majorUser === 'admin' && (
                       <SelectChoice
-                        topic={isUpdate ? majorGet : "เลือกสาขา"}
+                        topic={isUpdate ? majorGet : 'เลือกสาขา'}
                         setValue={setMajorInsert}
                         icon="far fa-calendar-alt"
-                        label={"สาขา:"}
+                        label={'สาขา:'}
                         value={majorAdminChange}
                         options={fetchMajor.map((item) => item.NAME)}
                       />
                     )}
                     <TextInput
-                      label={"ชื่อ:"}
-                      icon={"fas fa-user"}
+                      label={'ชื่อ:'}
+                      icon={'fas fa-user'}
                       setValue={setName}
-                      type={"text"}
-                      placeholder={"ชื่อ"}
+                      type={'text'}
+                      placeholder={'ชื่อ'}
                       value={name}
                     />
                     <TextInput
-                      label={"นามสกุล:"}
-                      icon={"fas fa-user"}
+                      label={'นามสกุล:'}
+                      icon={'fas fa-user'}
                       setValue={setLastName}
-                      type={"text"}
-                      placeholder={"นามสกุล"}
+                      type={'text'}
+                      placeholder={'นามสกุล'}
                       value={lastName}
                     />
                     <SelectChoice
-                      label={"สถานะ"}
+                      label={'สถานะ'}
                       setValue={setProcess}
                       placeholder="เลือกสถานะ"
-                      icon={"fas fa-history"}
-                      topic={"เลือกสถานะ"}
-                      options={["กำลังผ่อน", "ชำระครบถ้วน", "ไม่ระบุ"]}
+                      icon={'fas fa-history'}
+                      topic={'เลือกสถานะ'}
+                      options={['กำลังผ่อน', 'ชำระครบถ้วน', 'ไม่ระบุ']}
                       value={process}
                     />
                     <SelectChoice
-                      label={"ประวัติลูกค้า"}
+                      label={'ประวัติลูกค้า'}
                       setValue={setCustomerStatus}
-                      icon={"fas fa-history"}
-                      topic={"ประวัติลูกค้า"}
-                      options={["ลูกค้าดี", "ลูกค้าโกง", "ลูกค้าจ่ายช้า"]}
-                      placeholder={"ประวัติลูกค้า"}
+                      icon={'fas fa-history'}
+                      topic={'ประวัติลูกค้า'}
+                      options={['ลูกค้าดี', 'ลูกค้าโกง', 'ลูกค้าจ่ายช้า']}
+                      placeholder={'ประวัติลูกค้า'}
                       value={customerStatus}
                     />
                   </div>
@@ -288,7 +288,7 @@ export default function CustomerPage() {
               }
               row={customer.map((item, i) => (
                 <tr key={i} className="text-center">
-                  <td>{convertDateToThai(new Date(item.CREATED_AT))}</td>
+                  <td>{convertDateToThaiV2(new Date(item.CREATED_AT))}</td>
                   <td>{item.ID}</td>
                   <td>{item.ID_CARD}</td>
                   <td>
@@ -307,7 +307,7 @@ export default function CustomerPage() {
                         </button>
                       </div>
                     ) : (
-                      "ไม่มีสิทธิ"
+                      'ไม่มีสิทธิ'
                     )}
                   </td>
                   <td>
@@ -321,7 +321,7 @@ export default function CustomerPage() {
                         </button>
                       </div>
                     ) : (
-                      "ไม่มีสิทธิ"
+                      'ไม่มีสิทธิ'
                     )}
                   </td>
                 </tr>
@@ -331,5 +331,5 @@ export default function CustomerPage() {
         </>
       }
     />
-  );
+  )
 }
