@@ -82,25 +82,6 @@ export default function ByeMenuInsert({
         />
       )}
       <TextInput
-        label={MenuByeEnum.SERIAL_NUMBER}
-        icon={"fas fa-mobile"}
-        setValue={(e) =>
-          isInsert
-            ? setSerialNumber(e)
-            : setEdit({
-                major: edit.major,
-                stockType: edit.stockType,
-                payload: {
-                  ...edit.payload,
-                  SERIAL_NUMBER: e,
-                },
-              })
-        }
-        type={"text"}
-        placeholder={"Serial Number"}
-        value={isInsert ? serialNumber : edit.payload.SERIAL_NUMBER}
-      />
-      <TextInput
         label={MenuByeEnum.VERSION}
         icon={"fas fa-mobile"}
         setValue={(e) =>
@@ -158,6 +139,25 @@ export default function ByeMenuInsert({
         placeholder={"imei เครื่อง"}
         maxLength={15}
         value={isInsert ? imei : edit.payload.IMEI}
+      />
+      <TextInput
+        label={MenuByeEnum.SERIAL_NUMBER}
+        icon={"fas fa-mobile"}
+        setValue={(e) =>
+          isInsert
+            ? setSerialNumber(e)
+            : setEdit({
+                major: edit.major,
+                stockType: edit.stockType,
+                payload: {
+                  ...edit.payload,
+                  SERIAL_NUMBER: e,
+                },
+              })
+        }
+        type={"text"}
+        placeholder={"Serial Number"}
+        value={isInsert ? serialNumber : edit.payload.SERIAL_NUMBER}
       />
       <TextInput
         label={MenuByeEnum.SOURCE}
