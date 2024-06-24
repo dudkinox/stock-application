@@ -8,6 +8,7 @@ interface contentLayOutProps {
   pageFunds?: JSX.Element;
   btnHeader?: JSX.Element;
   btnHeaderFunds?: JSX.Element;
+  filter?: JSX.Element;
 }
 
 export default function ContentLayOut({
@@ -18,6 +19,7 @@ export default function ContentLayOut({
   pageFunds,
   btnHeader,
   btnHeaderFunds,
+  filter,
 }: contentLayOutProps) {
   return (
     <div className="content-wrapper">
@@ -30,6 +32,7 @@ export default function ContentLayOut({
                 <h2 className="card-title">{topic}</h2>
                 {btnHeader}
               </div>
+              <div className="card-title">{filter}</div>
               {page}
             </div>
             {topicFunds === "" || topicFunds === undefined ? (

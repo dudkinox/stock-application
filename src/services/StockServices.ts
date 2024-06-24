@@ -49,8 +49,9 @@ const GetStockKayService = (major: string) => {
   return Https.get<any[]>(`/apis/kay/get/?major=${major}`);
 };
 
-const GetStockByeService = (major: string) => {
-  return Https.get<any[]>(`/apis/bye/get/?major=${major}`);
+const GetStockByeService = (major: string, filterDate?: string) => {
+  const params = `?major=${major}` + (filterDate ? `&filter=${filterDate}` : "");
+  return Https.get<any[]>(`/apis/bye/get/${params}`);
 };
 
 const GetStockEquipmentService = (major: string) => {
