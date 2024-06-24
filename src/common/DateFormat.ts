@@ -20,7 +20,7 @@ export default function convertDateToThai(date: Date): string {
   const hours = date.getHours()
   const minutes = date.getMinutes()
 
-  return `วันที่ ${day} ${month} ${year} ${hours}:${minutes} น.`
+  return `วันที่ ${day} ${month} ${year} ${hours}:${minutes}`
 }
 export function convertDateToThaiV2(date: Date): string {
   const thaiMonths = [
@@ -45,7 +45,7 @@ export function convertDateToThaiV2(date: Date): string {
   const minutes = String(date.getMinutes()).padStart(2, '0')
   const seconds = String(date.getSeconds()).padStart(2, '0')
 
-  return `วันที่ ${day} ${month} ${year} ${hours}:${minutes}:${seconds} น.`
+  return `วันที่ ${day} ${month} ${year} ${hours}:${minutes}:${seconds}`
 }
 
 export function convertToDateFormat(
