@@ -42,6 +42,7 @@ export function StockByePage() {
     "วันที่ซื้อ",
     "Serial Number",
     "รุ่น",
+    "ราคาซื้อ",
     "imei",
     "แหล่งที่มา",
     "Battery",
@@ -210,6 +211,7 @@ export function StockByePage() {
                   <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
                   <td>{item.SERIAL_NUMBER}</td>
                   <td>{item.VERSION}</td>
+                  <td>{Number(item.PRICE).toLocaleString()} บาท</td>
                   <td>{item.IMEI}</td>
                   <td>{item.SOURCE}</td>
                   <td>{item.BATTERY}</td>
