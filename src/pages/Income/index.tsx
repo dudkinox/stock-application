@@ -25,7 +25,6 @@ export default function IncomePage() {
   const { isEdit, isDelete, setIsLoading } = useContext(AppContext);
   const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
   const [fundList, setFundList] = useState<GetFundResponse[]>([]);
-  // const [incomeFind, setIncomeFind] = useState<GetIncomeResponse[]>([]);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [updateId, setUpdateId] = useState<string>("");
   const [funds, setFunds] = useState<string>("");
@@ -53,6 +52,7 @@ export default function IncomePage() {
   } = useContext(IncomeContext);
 
   const incomeTableHeaders = [
+    "วันที่กรอกข้อมูล",
     "วันที่",
     "รายการ",
     "สาขา",
@@ -484,6 +484,9 @@ export default function IncomePage() {
                     outcomeTotal += Number(item.REVENUE);
                     return (
                       <tr key={i} className="text-center">
+                        <td>
+                          {convertDateToThaiV2(new Date(item.CREATED_AT))}
+                        </td>
                         <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
                         <td>{item.LIST_NAME}</td>
                         <td>{item.MAJOR}</td>
@@ -663,7 +666,7 @@ export default function IncomePage() {
                 })}
                 {
                   <tr className="text-center">
-                    <td colSpan={1}>รวม</td>
+                    <td colSpan={2}>รวม</td>
                     <td>{fundTotal.toLocaleString()} บาท</td>
                     <td colSpan={3}></td>
                   </tr>
