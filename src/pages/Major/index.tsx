@@ -1,135 +1,137 @@
-import { useContext, useEffect, useState } from 'react'
-import TextInput from '../../common/TextInput'
-import MajorServices from '../../services/MajorService'
-import { MajorRequest } from '../../Models/Request/MajorRequest'
+import { useContext, useEffect, useState } from "react";
+import TextInput from "../../common/TextInput";
+import MajorServices from "../../services/MajorService";
+import { MajorRequest } from "../../Models/Request/MajorRequest";
 import {
   AlertError,
   AlertSuccess,
   AlertWarning,
-} from '../../common/ToastrCommon'
-import MajorResponse from '../../Models/Response/GetMajorResponse'
-import initTable, { destroyTable } from '../../common/DataTable'
-import TableCommon from '../../common/Table'
-import { AppContext } from '../../contexts'
-import { convertDateToThaiV2 } from './../../common/DateFormat'
+} from "../../common/ToastrCommon";
+import MajorResponse from "../../Models/Response/GetMajorResponse";
+import initTable, { destroyTable } from "../../common/DataTable";
+import TableCommon from "../../common/Table";
+import { AppContext } from "../../contexts";
+import { convertDateToThaiV2 } from "./../../common/DateFormat";
 
 interface MajorManageProps {
-  fetchMajor: MajorResponse[]
-  setFetchMajor: (value: MajorResponse[]) => void
+  fetchMajor: MajorResponse[];
+  setFetchMajor: (value: MajorResponse[]) => void;
 }
 
 export default function MajorManage({
   fetchMajor,
   setFetchMajor,
 }: MajorManageProps) {
-  const [rowTableMajor, setRowTableMajor] = useState<boolean>(false)
-  const [addMajor, setAddMajor] = useState<string>('')
-  const [isUpdate, setIsUpdate] = useState<boolean>(false)
-  const [idUpdate, setIdUpdate] = useState<number>(0)
-  const { setIsLoading } = useContext(AppContext)
+  const [rowTableMajor, setRowTableMajor] = useState<boolean>(false);
+  const [addMajor, setAddMajor] = useState<string>("");
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [idUpdate, setIdUpdate] = useState<number>(0);
+  const { setIsLoading } = useContext(AppContext);
 
   const addMajorHandler = () => {
-    setRowTableMajor(true)
-  }
+    setRowTableMajor(true);
+  };
 
   const addMajorSubmitHandler = () => {
     const payload: MajorRequest = {
       name: addMajor,
-    }
+    };
 
-    if (payload.name !== '') {
-      setIsLoading(true)
+    if (payload.name !== "") {
+      setIsLoading(true);
       MajorServices.addMajor(payload)
         .then((res) => {
-          AlertSuccess(res.data.message)
-          setAddMajor('')
-          fetchMajorHandler()
-          setIsLoading(false)
+          AlertSuccess(res.data.message);
+          setAddMajor("");
+          fetchMajorHandler();
+          setIsLoading(false);
         })
         .catch((err) => {
-          AlertError(err.response.data.message)
-          setIsLoading(false)
-        })
+          AlertError(err.response.data.message);
+          setIsLoading(false);
+        });
     } else {
-      AlertWarning('กรุณากรอกชื่อสาขา')
+      AlertWarning("กรุณากรอกชื่อสาขา");
     }
-  }
+  };
 
   const deleteMajorHandler = (id: number) => {
-    setIsLoading(true)
+    const choice = prompt('พิมพ์ว่า "ยืนยัน" เพื่อยืนยันการลบข้อมูล');
+    if (choice !== "ยืนยัน") return;
+    setIsLoading(true);
     MajorServices.deleteMajor(id)
       .then((res) => {
-        AlertSuccess(res.data.message)
-        fetchMajorHandler()
-        setIsLoading(false)
+        AlertSuccess(res.data.message);
+        fetchMajorHandler();
+        setIsLoading(false);
       })
       .catch((err) => {
-        AlertError(err.response.data.message)
-        setIsLoading(false)
-      })
-  }
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  };
 
   const inputUpdate = (id: number, name: string) => {
     $(`#${id}`).html(
       `<input type="text" class="form-control" id="update-major" value="${name}" />`
-    )
-    setIdUpdate(id)
-    setIsUpdate(true)
-  }
+    );
+    setIdUpdate(id);
+    setIsUpdate(true);
+  };
 
   const updateMajorHandler = () => {
-    const update = $('#update-major').val() as string
+    const update = $("#update-major").val() as string;
 
     const payload: MajorRequest = {
       name: update,
-    }
+    };
 
-    if (payload.name === '') {
-      AlertWarning('กรุณากรอกชื่อสาขา')
-      return
+    if (payload.name === "") {
+      AlertWarning("กรุณากรอกชื่อสาขา");
+      return;
     }
-    setIsLoading(true)
+    setIsLoading(true);
     MajorServices.updateMajor(payload, idUpdate)
       .then((res) => {
-        AlertSuccess(res.data.message)
-        setAddMajor('')
-        setIsUpdate(false)
-        fetchMajorHandler()
-        setIsLoading(false)
+        AlertSuccess(res.data.message);
+        setAddMajor("");
+        setIsUpdate(false);
+        fetchMajorHandler();
+        setIsLoading(false);
       })
       .catch((err) => {
-        AlertError(err.response.data.message)
-        setIsLoading(false)
-      })
-  }
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  };
 
   const fetchMajorHandler = () => {
-    setIsLoading(true)
+    setIsLoading(true);
     MajorServices.getMajors()
       .then((res) => {
-        destroyTable('#major-table')
-        setFetchMajor(res.data)
+        destroyTable("#major-table");
+        setFetchMajor(res.data);
         setTimeout(
-          () => initTable(res.data.length.toString() ?? '0', '#major-table'),
+          () => initTable(res.data.length.toString() ?? "0", "#major-table"),
           100
-        )
-        setIsLoading(false)
+        );
+        setIsLoading(false);
       })
       .catch((err) => {
-        AlertError(err.response.data.message)
-        setIsLoading(false)
-      })
-  }
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  };
 
   useEffect(() => {
-    fetchMajorHandler()
-  }, [setFetchMajor])
+    fetchMajorHandler();
+  }, [setFetchMajor]);
 
   useEffect(() => {
     if (!isUpdate) {
-      fetchMajorHandler()
+      fetchMajorHandler();
     }
-  }, [isUpdate])
+  }, [isUpdate]);
 
   return (
     <>
@@ -147,8 +149,8 @@ export default function MajorManage({
                   <i className="nav-icon fas fa-plus" />
                 </button>
               </>,
-              'วันที่เพิ่มข้อมูล',
-              'จัดการ',
+              "วันที่เพิ่มข้อมูล",
+              "จัดการ",
             ]}
             row={
               <>
@@ -187,7 +189,7 @@ export default function MajorManage({
                             <button
                               className="btn btn-danger"
                               onClick={() => {
-                                setIsUpdate(false)
+                                setIsUpdate(false);
                               }}
                             >
                               ยกเลิก
@@ -206,10 +208,10 @@ export default function MajorManage({
           <div className="row container-fluid col-12 mt-3 text-center">
             <div className="col-7">
               <TextInput
-                label={'พิมพ์ชื่อสาขาที่ต้องการเพิ่ม'}
+                label={"พิมพ์ชื่อสาขาที่ต้องการเพิ่ม"}
                 setValue={setAddMajor}
-                type={'text'}
-                icon={'fa fa-building'}
+                type={"text"}
+                icon={"fa fa-building"}
                 value={addMajor}
               />
             </div>
@@ -223,8 +225,8 @@ export default function MajorManage({
               <button
                 className="btn primary-btn h-75 col-4"
                 onClick={() => {
-                  setRowTableMajor(false)
-                  setAddMajor('')
+                  setRowTableMajor(false);
+                  setAddMajor("");
                 }}
               >
                 ยกเลิก
@@ -244,5 +246,5 @@ export default function MajorManage({
         </button>
       </div>
     </>
-  )
+  );
 }

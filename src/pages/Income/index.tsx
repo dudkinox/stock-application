@@ -1,40 +1,40 @@
-import { useContext, useEffect, useState } from 'react'
-import ContentLayOut from '../../layouts/ContentLayOut'
-import ModalCommon from '../../common/Modal'
-import TextInput from '../../common/TextInput'
-import { IncomeContext } from '../../contexts/IncomeContext'
-import GetIncomeResponse from '../../Models/Response/GetIncomeResponse'
-import { convertDateToThaiV2 } from '../../common/DateFormat'
-import GetIncomeRequest from '../../Models/Request/GetIncomeRequest'
-import incomeServices from '../../services/IncomeServices'
+import { useContext, useEffect, useState } from "react";
+import ContentLayOut from "../../layouts/ContentLayOut";
+import ModalCommon from "../../common/Modal";
+import TextInput from "../../common/TextInput";
+import { IncomeContext } from "../../contexts/IncomeContext";
+import GetIncomeResponse from "../../Models/Response/GetIncomeResponse";
+import { convertDateToThaiV2 } from "../../common/DateFormat";
+import GetIncomeRequest from "../../Models/Request/GetIncomeRequest";
+import incomeServices from "../../services/IncomeServices";
 import {
   AlertError,
   AlertSuccess,
   AlertWarning,
-} from '../../common/ToastrCommon'
-import { AppContext } from '../../contexts'
-import GetFundResponse from '../../Models/Response/GetFundResponse'
-import fundServices from '../../services/FundServices'
-import GetFundRequest from '../../Models/Request/GetFundRequest'
-import SelectChoice from '../../common/Select'
-import MajorResponse from '../../Models/Response/GetMajorResponse'
-import { UserContext } from '../../contexts/ManageUserContext'
-import MajorServices from '../../services/MajorService'
+} from "../../common/ToastrCommon";
+import { AppContext } from "../../contexts";
+import GetFundResponse from "../../Models/Response/GetFundResponse";
+import fundServices from "../../services/FundServices";
+import GetFundRequest from "../../Models/Request/GetFundRequest";
+import SelectChoice from "../../common/Select";
+import MajorResponse from "../../Models/Response/GetMajorResponse";
+import { UserContext } from "../../contexts/ManageUserContext";
+import MajorServices from "../../services/MajorService";
 
 export default function IncomePage() {
-  const { isEdit, isDelete, setIsLoading } = useContext(AppContext)
-  const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([])
-  const [fundList, setFundList] = useState<GetFundResponse[]>([])
+  const { isEdit, isDelete, setIsLoading } = useContext(AppContext);
+  const [incomeList, setIncomeList] = useState<GetIncomeResponse[]>([]);
+  const [fundList, setFundList] = useState<GetFundResponse[]>([]);
   // const [incomeFind, setIncomeFind] = useState<GetIncomeResponse[]>([]);
-  const [isUpdate, setIsUpdate] = useState<boolean>(false)
-  const [updateId, setUpdateId] = useState<string>('')
-  const [funds, setFunds] = useState<string>('')
-  const [updateIdFund, setUpdateIdFund] = useState<string>('')
-  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([])
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [updateId, setUpdateId] = useState<string>("");
+  const [funds, setFunds] = useState<string>("");
+  const [updateIdFund, setUpdateIdFund] = useState<string>("");
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
 
-  let fundTotal = 0
-  let incomeTotal = 0
-  let outcomeTotal = 0
+  let fundTotal = 0;
+  let incomeTotal = 0;
+  let outcomeTotal = 0;
   const {
     date,
     setDate,
@@ -50,177 +50,179 @@ export default function IncomePage() {
     clearInputValue,
     major,
     setMajor,
-  } = useContext(IncomeContext)
+  } = useContext(IncomeContext);
 
   const incomeTableHeaders = [
-    'วันที่',
-    'รายการ',
-    'สาขา',
-    'รายจ่าย(บาท)',
-    'รายรับ(บาท)',
-    'หมายเหตุ',
-    'แก้ไข',
-    'ลบ',
-  ]
+    "วันที่",
+    "รายการ",
+    "สาขา",
+    "รายจ่าย(บาท)",
+    "รายรับ(บาท)",
+    "หมายเหตุ",
+    "แก้ไข",
+    "ลบ",
+  ];
 
-  const fundTableHeaders = ['วันที่', 'รายจ่าย(บาท)', 'แก้ไข', 'ลบ']
+  const fundTableHeaders = ["วันที่", "รายจ่าย(บาท)", "แก้ไข", "ลบ"];
 
   const openModalIncomeUpdate = (id: string) => () => {
-    ;($('#insert-modal') as any).modal('show')
+    ($("#insert-modal") as any).modal("show");
 
-    setIsUpdate(true)
-    setIsLoading(true)
+    setIsUpdate(true);
+    setIsLoading(true);
 
     incomeServices
       .findIncome(id)
       .then((res: any) => {
-        const data = res.data
+        const data = res.data;
 
-        setUpdateId(data.ID)
-        setDate(data.DATE)
-        setListName(data.LIST_NAME)
-        setRevenue(data.REVENUE)
-        setExpense(data.EXPENSE)
-        setNote(data.NOTE)
-        setIsLoading(false)
+        setUpdateId(data.ID);
+        setDate(data.DATE);
+        setListName(data.LIST_NAME);
+        setRevenue(data.REVENUE);
+        setExpense(data.EXPENSE);
+        setNote(data.NOTE);
+        setIsLoading(false);
       })
       .catch((err: any) => {
-        console.log(err)
+        console.log(err);
 
-        AlertError(err)
-        setIsLoading(false)
-      })
-  }
+        AlertError(err);
+        setIsLoading(false);
+      });
+  };
 
   const openModalFundUpdate = (id: string) => () => {
-    ;($('#want-money-update') as any).modal('show')
+    ($("#want-money-update") as any).modal("show");
 
-    setIsUpdate(true)
+    setIsUpdate(true);
 
-    setIsLoading(true)
+    setIsLoading(true);
     fundServices
       .findFund(id)
       .then((res: any) => {
-        const data = res.data
-        setFunds(data.MONEY)
-        setUpdateIdFund(data.ID)
-        setIsLoading(false)
+        const data = res.data;
+        setFunds(data.MONEY);
+        setUpdateIdFund(data.ID);
+        setIsLoading(false);
       })
       .catch((err: any) => {
-        console.log(err)
+        console.log(err);
 
-        AlertError(err)
-        setIsLoading(false)
-      })
-  }
+        AlertError(err);
+        setIsLoading(false);
+      });
+  };
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     incomeServices.getAll().then((res) => {
-      setIncomeList(res.data)
-    })
+      setIncomeList(res.data);
+    });
     fundServices.getAll().then((res) => {
-      setFundList(res.data)
-      setIsLoading(false)
-    })
-  }, [setIncomeList, setFundList])
+      setFundList(res.data);
+      setIsLoading(false);
+    });
+  }, [setIncomeList, setFundList]);
 
   const insertFund = () => {
     const payload: GetFundRequest = {
       money: funds,
-    }
+    };
 
-    setIsLoading(true)
+    setIsLoading(true);
     fundServices
       .InsertFundList(payload)
       .then((res: any) => {
-        AlertSuccess(res.data.message)
+        AlertSuccess(res.data.message);
 
         fundServices
           .getAll()
           .then((res: any) => {
-            setFundList(res.data)
-            clearInputValue()
-            setIsLoading(false)
+            setFundList(res.data);
+            clearInputValue();
+            setIsLoading(false);
           })
           .catch((err: any) => {
-            AlertError(err)
-            setIsLoading(false)
-          })
+            AlertError(err);
+            setIsLoading(false);
+          });
       })
       .catch((err: any) => {
-        AlertError(err)
-        setIsLoading(false)
-      })
-  }
+        AlertError(err);
+        setIsLoading(false);
+      });
+  };
 
   const updateFund = (id: string) => () => {
     const payload: GetFundRequest = {
       money: funds,
-    }
-    setIsLoading(true)
+    };
+    setIsLoading(true);
     fundServices
       .updateFundList(id, payload)
       .then((res: any) => {
-        AlertSuccess(res.data.message)
-        setIsUpdate(false)
-        clearInputValue()
+        AlertSuccess(res.data.message);
+        setIsUpdate(false);
+        clearInputValue();
         fundServices
           .getAll()
           .then((res: any) => {
-            setFundList(res.data)
-            setIsLoading(false)
+            setFundList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
-            AlertError(err)
-            setIsLoading(false)
-          })
+            AlertError(err);
+            setIsLoading(false);
+          });
       })
       .catch((err: any) => {
-        AlertError(err.message)
+        AlertError(err.message);
         fundServices
           .getAll()
           .then((res: any) => {
-            setFundList(res.data)
-            setIsLoading(false)
+            setFundList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
-            AlertError(err)
-            setIsLoading(false)
-          })
-      })
-  }
+            AlertError(err);
+            setIsLoading(false);
+          });
+      });
+  };
 
   const deleteFund = (id: string) => () => {
-    setIsLoading(true)
+    const choice = prompt('พิมพ์ว่า "ยืนยัน" เพื่อยืนยันการลบข้อมูล');
+    if (choice !== "ยืนยัน") return;
+    setIsLoading(true);
     fundServices
       .DeleteFundList(id)
       .then((res: any) => {
         fundServices
           .getAll()
           .then((res: any) => {
-            setFundList(res.data)
-            setIsLoading(false)
+            setFundList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
-            AlertError(err)
-            setIsLoading(false)
-          })
+            AlertError(err);
+            setIsLoading(false);
+          });
       })
       .catch((err: any) => {
-        AlertSuccess('ลบสำเร็จ')
+        AlertSuccess("ลบสำเร็จ");
         fundServices
           .getAll()
           .then((res: any) => {
-            setFundList(res.data)
-            setIsLoading(false)
+            setFundList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
-            AlertError(err)
-            setIsLoading(false)
-          })
-      })
-  }
+            AlertError(err);
+            setIsLoading(false);
+          });
+      });
+  };
 
   const insertHandler = () => {
     const payload: GetIncomeRequest = {
@@ -230,40 +232,40 @@ export default function IncomePage() {
       EXPENSE: expense,
       NOTE: note,
       MAJOR: major,
-    }
+    };
     if (
-      date !== '' &&
-      listName !== '' &&
-      revenue !== '' &&
-      expense !== '' &&
-      major !== ''
+      date !== "" &&
+      listName !== "" &&
+      revenue !== "" &&
+      expense !== "" &&
+      major !== ""
     ) {
-      setIsLoading(true)
+      setIsLoading(true);
 
       incomeServices
         .InsertIncomeList(payload)
         .then((res: any) => {
-          AlertSuccess(res.data.message)
+          AlertSuccess(res.data.message);
 
           incomeServices
             .getAll()
             .then((res: any) => {
-              setIncomeList(res.data)
-              clearInputValue()
-              setIsLoading(false)
+              setIncomeList(res.data);
+              clearInputValue();
+              setIsLoading(false);
             })
             .catch((err: any) => {
-              AlertError(err)
-              setIsLoading(false)
-            })
+              AlertError(err);
+              setIsLoading(false);
+            });
         })
         .catch((err: any) => {
-          AlertError(err)
-        })
+          AlertError(err);
+        });
     } else {
-      AlertWarning('กรุณากรอกข้อมูลให้ครบถ้วน')
+      AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
     }
-  }
+  };
 
   const updateHandler = (id: string) => () => {
     const payload: GetIncomeRequest = {
@@ -273,94 +275,96 @@ export default function IncomePage() {
       EXPENSE: expense,
       NOTE: note,
       MAJOR: major,
-    }
-    setIsLoading(true)
+    };
+    setIsLoading(true);
 
     incomeServices
       .updateIncomeList(id, payload)
       .then((res: any) => {
-        AlertSuccess(res.data.message)
+        AlertSuccess(res.data.message);
         incomeServices
           .getAll()
           .then((res: any) => {
-            setIncomeList(res.data)
-            setIsLoading(false)
+            setIncomeList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
-            AlertError(err)
-            setIsLoading(false)
-          })
+            AlertError(err);
+            setIsLoading(false);
+          });
       })
       .catch((err: any) => {
-        AlertError(err.message)
+        AlertError(err.message);
         incomeServices
           .getAll()
           .then((res: any) => {
-            setIncomeList(res.data)
-            setIsLoading(false)
+            setIncomeList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
-            AlertError(err)
-            setIsLoading(false)
-          })
-      })
-  }
+            AlertError(err);
+            setIsLoading(false);
+          });
+      });
+  };
 
   const deleteHandler = (id: string) => () => {
-    setIsLoading(true)
+    const choice = prompt('พิมพ์ว่า "ยืนยัน" เพื่อยืนยันการลบข้อมูล');
+    if (choice !== "ยืนยัน") return;
+    setIsLoading(true);
     incomeServices
       .DeleteIncomeList(id)
       .then((res: any) => {
-        AlertSuccess(res.data.message)
+        AlertSuccess(res.data.message);
         incomeServices
           .getAll()
           .then((res: any) => {
-            setIncomeList(res.data)
-            setIsLoading(false)
+            setIncomeList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
-            AlertError(err)
-            setIsLoading(false)
-          })
+            AlertError(err);
+            setIsLoading(false);
+          });
       })
       .catch((err: any) => {
-        AlertError(err.message)
+        AlertError(err.message);
         incomeServices
           .getAll()
           .then((res: any) => {
-            setIncomeList(res.data)
-            setIsLoading(false)
+            setIncomeList(res.data);
+            setIsLoading(false);
           })
           .catch((err: any) => {
-            AlertError(err)
-            setIsLoading(false)
-          })
-      })
-  }
+            AlertError(err);
+            setIsLoading(false);
+          });
+      });
+  };
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     MajorServices.getMajors()
       .then((res) => {
-        const data = res.data
-        setFetchMajor(data)
-        setIsLoading(false)
+        const data = res.data;
+        setFetchMajor(data);
+        setIsLoading(false);
       })
       .catch((err) => {
-        AlertError(err.response.data.message)
-        setIsLoading(false)
-      })
-  }, [setFetchMajor])
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  }, [setFetchMajor]);
 
   return (
     <ContentLayOut
-      title={'รายรับ-รายจ่าย'}
-      topic={'รายรับ-รายจ่าย'}
+      title={"รายรับ-รายจ่าย"}
+      topic={"รายรับ-รายจ่าย"}
       btnHeader={
         <button
           onClick={() => {
-            setIsUpdate(false)
-            clearInputValue()
+            setIsUpdate(false);
+            clearInputValue();
           }}
           className="btn primary-btn text-white float-right"
           data-toggle="modal"
@@ -373,53 +377,53 @@ export default function IncomePage() {
       page={
         <>
           <ModalCommon
-            title={isUpdate ? 'แก้ไขข้อมูล' : 'เพิ่มข้อมูล'}
-            id={'insert-modal'}
+            title={isUpdate ? "แก้ไขข้อมูล" : "เพิ่มข้อมูล"}
+            id={"insert-modal"}
             content={
               <>
                 <div className="modal-body">
                   <div className="container-fluid">
                     <TextInput
-                      label={'วันที่:'}
-                      icon={'far fa-calendar-alt'}
+                      label={"วันที่:"}
+                      icon={"far fa-calendar-alt"}
                       setValue={setDate}
-                      type={'date'}
+                      type={"date"}
                       value={date}
                     />
                     <SelectChoice
                       topic="เลือกสาขา"
                       setValue={setMajor}
                       icon="far fa-calendar-alt"
-                      label={'สาขา:'}
+                      label={"สาขา:"}
                       value={major}
                       options={fetchMajor.map((item) => item.NAME)}
                     />
                     <TextInput
-                      label={'ชื่อรายการ:'}
-                      icon={'far fa-list-alt'}
+                      label={"ชื่อรายการ:"}
+                      icon={"far fa-list-alt"}
                       setValue={setListName}
-                      type={'text'}
+                      type={"text"}
                       value={listName}
                     />
                     <TextInput
-                      label={'รายจ่าย:'}
-                      icon={'fas fa-money-bill-wave'}
+                      label={"รายจ่าย:"}
+                      icon={"fas fa-money-bill-wave"}
                       setValue={setRevenue}
-                      type={'number'}
+                      type={"number"}
                       value={revenue}
                     />
                     <TextInput
-                      label={'รายรับ:'}
-                      icon={'fas fa-money-bill-wave'}
+                      label={"รายรับ:"}
+                      icon={"fas fa-money-bill-wave"}
                       setValue={setExpense}
-                      type={'number'}
+                      type={"number"}
                       value={expense}
                     />
                     <TextInput
-                      label={'หมายเหตุ:'}
-                      icon={'far fa-comments'}
+                      label={"หมายเหตุ:"}
+                      icon={"far fa-comments"}
                       setValue={setNote}
-                      type={'text'}
+                      type={"text"}
                       value={note}
                     />
                   </div>
@@ -459,8 +463,8 @@ export default function IncomePage() {
             <div
               className="tablecommon-responsive"
               style={{
-                overflowX: 'auto',
-                scrollbarGutter: 'stable',
+                overflowX: "auto",
+                scrollbarGutter: "stable",
               }}
             >
               <table
@@ -476,8 +480,8 @@ export default function IncomePage() {
                 </thead>
                 <tbody>
                   {incomeList.map((item, i) => {
-                    incomeTotal += Number(item.EXPENSE)
-                    outcomeTotal += Number(item.REVENUE)
+                    incomeTotal += Number(item.EXPENSE);
+                    outcomeTotal += Number(item.REVENUE);
                     return (
                       <tr key={i} className="text-center">
                         <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
@@ -495,7 +499,7 @@ export default function IncomePage() {
                               <i className="nav-icon fas fa-pen" />
                             </button>
                           ) : (
-                            'ไม่มีสิทธิ'
+                            "ไม่มีสิทธิ"
                           )}
                         </td>
                         <td>
@@ -507,11 +511,11 @@ export default function IncomePage() {
                               <i className="nav-icon fas fa-trash" />
                             </button>
                           ) : (
-                            'ไม่มีสิทธิ'
+                            "ไม่มีสิทธิ"
                           )}
                         </td>
                       </tr>
-                    )
+                    );
                   })}
                   {
                     <tr className="text-center">
@@ -527,7 +531,7 @@ export default function IncomePage() {
           </div>
         </>
       }
-      topicFunds={'ทุน'}
+      topicFunds={"ทุน"}
       btnHeaderFunds={
         <button
           className="btn primary-btn text-white float-right"
@@ -540,17 +544,17 @@ export default function IncomePage() {
       pageFunds={
         <>
           <ModalCommon
-            title={'เพิ่มทุน'}
-            id={'want-money'}
+            title={"เพิ่มทุน"}
+            id={"want-money"}
             content={
               <>
                 <div className="modal-body">
                   <div className="container-fluid">
                     <TextInput
-                      label={'ทุน'}
+                      label={"ทุน"}
                       setValue={setFunds}
-                      type={'number'}
-                      icon={'fa fa-money-bill'}
+                      type={"number"}
+                      icon={"fa fa-money-bill"}
                       value={funds}
                     />
                   </div>
@@ -576,17 +580,17 @@ export default function IncomePage() {
             }
           />
           <ModalCommon
-            title={'แก้ไขทุน'}
-            id={'want-money-update'}
+            title={"แก้ไขทุน"}
+            id={"want-money-update"}
             content={
               <>
                 <div className="modal-body">
                   <div className="container-fluid">
                     <TextInput
-                      label={'ทุน'}
+                      label={"ทุน"}
                       setValue={setFunds}
-                      type={'number'}
-                      icon={'fa fa-money-bill'}
+                      type={"number"}
+                      icon={"fa fa-money-bill"}
                       value={funds}
                     />
                   </div>
@@ -625,7 +629,7 @@ export default function IncomePage() {
               </thead>
               <tbody>
                 {fundList.map((item, i) => {
-                  fundTotal += Number(item.MONEY)
+                  fundTotal += Number(item.MONEY);
                   return (
                     <tr key={i} className="text-center">
                       <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
@@ -639,7 +643,7 @@ export default function IncomePage() {
                             <i className="nav-icon fas fa-pen" />
                           </button>
                         ) : (
-                          'ไม่มีสิทธิ'
+                          "ไม่มีสิทธิ"
                         )}
                       </td>
                       <td>
@@ -651,11 +655,11 @@ export default function IncomePage() {
                             <i className="nav-icon fas fa-trash" />
                           </button>
                         ) : (
-                          'ไม่มีสิทธิ'
+                          "ไม่มีสิทธิ"
                         )}
                       </td>
                     </tr>
-                  )
+                  );
                 })}
                 {
                   <tr className="text-center">
@@ -670,5 +674,5 @@ export default function IncomePage() {
         </>
       }
     />
-  )
+  );
 }

@@ -1,37 +1,37 @@
-import { useContext, useEffect, useState } from 'react'
-import initTable, { destroyTable } from '../../common/DataTable'
-import { StockContext } from '../../contexts/StockContext'
-import StockService from '../../services/StockServices'
-import ContentLayOut from '../../layouts/ContentLayOut'
-import ModalCommon from '../../common/Modal'
-import DataList from '../../common/DataList'
-import SelectChoice from '../../common/Select'
-import TextInput from '../../common/TextInput'
-import ByeMenuInsert from '../../layouts/stock/ByeMenuInsert'
-import InstallmentMenuInsert from '../../layouts/stock/InstallmentMenuInsert'
-import IsMenuInsert from '../../layouts/stock/IsMenuInsert'
-import TableCommon from '../../common/Table'
+import { useContext, useEffect, useState } from "react";
+import initTable, { destroyTable } from "../../common/DataTable";
+import { StockContext } from "../../contexts/StockContext";
+import StockService from "../../services/StockServices";
+import ContentLayOut from "../../layouts/ContentLayOut";
+import ModalCommon from "../../common/Modal";
+import DataList from "../../common/DataList";
+import SelectChoice from "../../common/Select";
+import TextInput from "../../common/TextInput";
+import ByeMenuInsert from "../../layouts/stock/ByeMenuInsert";
+import InstallmentMenuInsert from "../../layouts/stock/InstallmentMenuInsert";
+import IsMenuInsert from "../../layouts/stock/IsMenuInsert";
+import TableCommon from "../../common/Table";
 import {
   MenuByeArray,
   MenuEquipmentArray,
   MenuInstallmentPaymentArray,
   MenuKayArray,
   MenuNewInstallmentArray,
-} from '../../enum/menuInsert.enum'
-import { camelToSnakeObject } from '../../common/CamelToSnake'
+} from "../../enum/menuInsert.enum";
+import { camelToSnakeObject } from "../../common/CamelToSnake";
 import {
   AlertError,
   AlertSuccess,
   AlertWarning,
-} from '../../common/ToastrCommon'
-import CustomerServices from '../../services/CustomerServices'
-import { GetCustomerResponse } from '../../Models/Response/GetCustomerResponse'
-import { useNavigate } from 'react-router-dom'
-import { AppContext } from '../../contexts'
-import MajorResponse from '../../Models/Response/GetMajorResponse'
-import MajorServices from '../../services/MajorService'
-import { convertDateToThaiV2 } from '../../common/DateFormat'
-import MenuNewInstallmentInsert from '../../layouts/stock/MenuNewInstallmentInsert'
+} from "../../common/ToastrCommon";
+import CustomerServices from "../../services/CustomerServices";
+import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../contexts";
+import MajorResponse from "../../Models/Response/GetMajorResponse";
+import MajorServices from "../../services/MajorService";
+import { convertDateToThaiV2 } from "../../common/DateFormat";
+import MenuNewInstallmentInsert from "../../layouts/stock/MenuNewInstallmentInsert";
 
 export default function StockPage() {
   const {
@@ -114,127 +114,129 @@ export default function StockPage() {
     setNewStarMoney,
     setSerialNumber,
     serialNumber,
-  } = useContext(StockContext)
+  } = useContext(StockContext);
   const { setPathUrl, majorUser, isEdit, isDelete, setIsLoading } =
-    useContext(AppContext)
-  const [itemList, setItemList] = useState<any>({})
-  const [typeStock, setTypeStock] = useState<string>('')
-  const [isUpdate, setIsUpdate] = useState<boolean>(false)
-  const [updateId, setUpdateId] = useState<string>('')
-  const [majorForUpdate, setMajorForUpdate] = useState<string>('')
-  const [customerFind, setCustomerFind] = useState<GetCustomerResponse>()
-  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([])
+    useContext(AppContext);
+  const [itemList, setItemList] = useState<any>({});
+  const [typeStock, setTypeStock] = useState<string>("");
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [updateId, setUpdateId] = useState<string>("");
+  const [majorForUpdate, setMajorForUpdate] = useState<string>("");
+  const [customerFind, setCustomerFind] = useState<GetCustomerResponse>();
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
     []
-  )
-  const [updateStockType, setUpdateStockType] = useState<string>('')
-  const customerExists = selectCustomer.find((fil) => fil.ID_CARD === idCard)
-  const navigate = useNavigate()
+  );
+  const [updateStockType, setUpdateStockType] = useState<string>("");
+  const customerExists = selectCustomer.find((fil) => fil.ID_CARD === idCard);
+  const navigate = useNavigate();
 
-  const stockTableHeaders = ['รหัสเอกสาร', 'วันที่', 'ประเภท', 'รายละเอียด']
+  const stockTableHeaders = ["รหัสเอกสาร", "วันที่", "ประเภท", "รายละเอียด"];
 
-  const editableStockTableHeaders = [...stockTableHeaders, 'ลบ']
+  const editableStockTableHeaders = [...stockTableHeaders, "ลบ"];
 
   const deleteStock = (id: string, major: string) => () => {
-    setIsLoading(true)
+    const choice = prompt('พิมพ์ว่า "ยืนยัน" เพื่อยืนยันการลบข้อมูล');
+    if (choice !== "ยืนยัน") return;
+    setIsLoading(true);
     StockService.DeleteStockById(id, major)
       .then((res) => {
-        AlertSuccess(res.data.message)
+        AlertSuccess(res.data.message);
         StockService.GetStock(majorUser)
           .then((res) => {
-            setTimeout(() => destroyTable())
-            setStock(res.data)
-            setTimeout(() => initTable(res.data.length.toString() ?? '0'), 100)
-            setIsLoading(false)
+            setTimeout(() => destroyTable());
+            setStock(res.data);
+            setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+            setIsLoading(false);
           })
           .catch((err) => {
-            AlertError(err.response.data.message)
-            setIsLoading(false)
-          })
+            AlertError(err.response.data.message);
+            setIsLoading(false);
+          });
       })
       .catch((err) => {
-        AlertError(err.response.data.message)
-        setIsLoading(false)
-      })
-  }
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  };
 
   const openModalDetail =
     (idCard: string, stockType: string, major: string) => () => {
-      ;($('#detail-modal') as any).modal('show')
-      setTypeStock(stockType)
-      setIsLoading(true)
+      ($("#detail-modal") as any).modal("show");
+      setTypeStock(stockType);
+      setIsLoading(true);
       StockService.GetFindStockById(idCard, major, stockType)
         .then((res) => {
-          setItemList(res.data)
-          setIsLoading(false)
+          setItemList(res.data);
+          setIsLoading(false);
         })
         .catch((err) => {
-          AlertError(err.response.data.message)
-          setIsLoading(false)
-        })
-    }
+          AlertError(err.response.data.message);
+          setIsLoading(false);
+        });
+    };
 
   const fetchTableStock = () => {
     StockService.GetStock(majorUser)
       .then((res) => {
-        setStock(res.data)
-        setTimeout(() => initTable(res.data.length.toString() ?? '0'), 1000)
-        setIsLoading(false)
+        setStock(res.data);
+        setTimeout(() => initTable(res.data.length.toString() ?? "0"), 1000);
+        setIsLoading(false);
       })
       .catch((err) => {
-        AlertError(err.response.data.message)
-        setIsLoading(false)
-      })
-  }
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  };
 
   const nextValidate = () => {
-    const isNext = date !== '' && stockType !== ''
-    const isAdmin = majorUser === 'admin'
-    const isNextAdmin = isAdmin && majorInsert !== ''
+    const isNext = date !== "" && stockType !== "";
+    const isAdmin = majorUser === "admin";
+    const isNextAdmin = isAdmin && majorInsert !== "";
 
     if ((isAdmin && isNextAdmin && isNext) || (!isAdmin && isNext)) {
       navigate(
-        `/stock/add?type=${stockType === 'ซื้อ' ? 'bye' : 'equipment'}`,
+        `/stock/add?type=${stockType === "ซื้อ" ? "bye" : "equipment"}`,
         {
           state: { id: 0 },
         }
-      )
+      );
     } else {
-      AlertWarning('กรุณากรอกข้อมูลให้ครบถ้วน')
+      AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
     }
-  }
+  };
 
   useEffect(() => {
-    setIsLoading(true)
-    fetchTableStock()
-  }, [setStock])
+    setIsLoading(true);
+    fetchTableStock();
+  }, [setStock]);
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     CustomerServices.getCustomer(majorUser).then((res) => {
-      setSelectCustomer(res.data)
-      setIsLoading(false)
-    })
-  }, [])
+      setSelectCustomer(res.data);
+      setIsLoading(false);
+    });
+  }, []);
 
   useEffect(() => {
-    setCustomerFind(customerExists)
-    setCustomerStatus(customerFind?.CUSTOMER_STATUS ?? '')
+    setCustomerFind(customerExists);
+    setCustomerStatus(customerFind?.CUSTOMER_STATUS ?? "");
   }, [
     customerExists,
     customerFind?.CUSTOMER_STATUS,
     idCard,
     selectCustomer,
     setCustomerStatus,
-  ])
+  ]);
 
   useEffect(() => {
     if (idCard.length === 13 && !customerExists) {
-      $('#insert-modal').hide()
-      $('.modal-backdrop.fade.show').remove()
-      AlertWarning('กรุณากรอกข้อมูลลูกค้าก่อนทำรายการ Stock')
-      setPathUrl('/customer')
-      navigate('/customer', { state: true })
+      $("#insert-modal").hide();
+      $(".modal-backdrop.fade.show").remove();
+      AlertWarning("กรุณากรอกข้อมูลลูกค้าก่อนทำรายการ Stock");
+      setPathUrl("/customer");
+      navigate("/customer", { state: true });
     }
   }, [
     customerExists,
@@ -243,37 +245,37 @@ export default function StockPage() {
     navigate,
     selectCustomer,
     setPathUrl,
-  ])
+  ]);
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     MajorServices.getMajors()
       .then((res) => {
-        setFetchMajor(res.data)
-        setIsLoading(false)
+        setFetchMajor(res.data);
+        setIsLoading(false);
       })
       .catch((err) => {
-        AlertError(err.response.data.message)
-        setIsLoading(false)
-      })
-  }, [setFetchMajor])
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  }, [setFetchMajor]);
 
   return (
     <ContentLayOut
-      title={'stock'}
-      topic={'สต๊อกสินค้า'}
+      title={"stock"}
+      topic={"สต๊อกสินค้า"}
       btnHeader={
         <button
           onClick={() => {
-            setDate('')
-            setIdCard('')
-            setIsUpdate(false)
-            setStockType('')
-            setIsMenuInsert(false)
-            setByeMenuInsert(false)
-            setKayMenuInsert(false)
-            setNewInstallmentMenuInsert(false)
-            clearInputValue()
+            setDate("");
+            setIdCard("");
+            setIsUpdate(false);
+            setStockType("");
+            setIsMenuInsert(false);
+            setByeMenuInsert(false);
+            setKayMenuInsert(false);
+            setNewInstallmentMenuInsert(false);
+            clearInputValue();
           }}
           className="btn primary-btn text-white float-right"
           data-toggle="modal"
@@ -286,58 +288,58 @@ export default function StockPage() {
       page={
         <>
           <ModalCommon
-            title={'เพิ่มข้อมูล'}
-            id={'insert-modal'}
+            title={"เพิ่มข้อมูล"}
+            id={"insert-modal"}
             content={
               <>
                 <div className="modal-body">
                   <div className="container-fluid">
-                    {isEdit() && majorUser === 'admin' && (
+                    {isEdit() && majorUser === "admin" && (
                       <SelectChoice
                         topic="เลือกสาขา"
                         setValue={setMajorInsert}
                         icon="far fa-calendar-alt"
-                        label={'สาขา:'}
+                        label={"สาขา:"}
                         value={majorInsert}
                         options={fetchMajor.map((item) => item.NAME)}
                       />
                     )}
                     <TextInput
-                      label={'วันที่:'}
-                      icon={'far fa-calendar-alt'}
+                      label={"วันที่:"}
+                      icon={"far fa-calendar-alt"}
                       setValue={setDate}
-                      type={'date'}
+                      type={"date"}
                       value={date}
                     />
                     {isUpdate ? (
                       <>
                         <TextInput
-                          label={'ประวัติลูกค้า:'}
-                          icon={'fas fa-history'}
+                          label={"ประวัติลูกค้า:"}
+                          icon={"fas fa-history"}
                           setValue={setCustomerStatus}
-                          type={'text'}
-                          placeholder={'ประวัติลูกค้า'}
+                          type={"text"}
+                          placeholder={"ประวัติลูกค้า"}
                           value={customerStatus}
                           readonly={true}
                         />
                         <TextInput
-                          label={'ประเภท:'}
-                          icon={'far fa-file'}
+                          label={"ประเภท:"}
+                          icon={"far fa-file"}
                           setValue={setStockType}
-                          type={'text'}
-                          placeholder={'ประเภท'}
+                          type={"text"}
+                          placeholder={"ประเภท"}
                           value={stockType}
                           readonly={true}
                         />
                       </>
                     ) : (
                       <SelectChoice
-                        label={'ประเภท'}
+                        label={"ประเภท"}
                         setValue={setStockType}
-                        icon={'far fa-file'}
-                        topic={'ประเภท'}
-                        options={['ซื้อ', 'ผ่อน', 'ผ่อนครั้งแรก', 'อุปกรณ์']}
-                        placeholder={'ประเภทลูกค้า'}
+                        icon={"far fa-file"}
+                        topic={"ประเภท"}
+                        options={["ซื้อ", "ผ่อน", "ผ่อนครั้งแรก", "อุปกรณ์"]}
+                        placeholder={"ประเภทลูกค้า"}
                         value={stockType}
                       />
                     )}
@@ -358,7 +360,7 @@ export default function StockPage() {
           />
           <ModalCommon
             title={`รายละเอียด ${typeStock}`}
-            id={'detail-modal'}
+            id={"detail-modal"}
             content={
               <>
                 <div className="modal-body">
@@ -370,13 +372,13 @@ export default function StockPage() {
                             <>
                               <div className="col-2 my-3">
                                 <label className="col-form-label">
-                                  {typeStock === 'อุปกรณ์'
+                                  {typeStock === "อุปกรณ์"
                                     ? MenuEquipmentArray[index - 2]
-                                    : typeStock === 'ซื้อ'
+                                    : typeStock === "ซื้อ"
                                     ? MenuByeArray[index - 2]
-                                    : typeStock === 'ขาย'
+                                    : typeStock === "ขาย"
                                     ? MenuKayArray[index - 2]
-                                    : typeStock === 'ผ่อนครั้งแรก'
+                                    : typeStock === "ผ่อนครั้งแรก"
                                     ? MenuNewInstallmentArray[index - 2]
                                     : MenuInstallmentPaymentArray[index - 2]}
                                 </label>
@@ -391,9 +393,9 @@ export default function StockPage() {
                                 />
                               </div>
                             </>
-                          )
+                          );
                         } else {
-                          return null
+                          return null;
                         }
                       })}
                     </div>
@@ -442,7 +444,7 @@ export default function StockPage() {
                         <i className="nav-icon fas fa-trash" />
                       </button>
                     ) : (
-                      'ไม่มีสิทธิ'
+                      "ไม่มีสิทธิ"
                     )}
                   </td>
                 </tr>
@@ -452,5 +454,5 @@ export default function StockPage() {
         </>
       }
     />
-  )
+  );
 }
