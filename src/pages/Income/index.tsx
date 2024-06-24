@@ -18,7 +18,6 @@ import fundServices from "../../services/FundServices";
 import GetFundRequest from "../../Models/Request/GetFundRequest";
 import SelectChoice from "../../common/Select";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
-import { UserContext } from "../../contexts/ManageUserContext";
 import MajorServices from "../../services/MajorService";
 
 export default function IncomePage() {
@@ -426,6 +425,18 @@ export default function IncomePage() {
                       type={"text"}
                       value={note}
                     />
+                    <div>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="get_money"
+                        />
+                        <label className="form-check-label" htmlFor="get_money">
+                          ติ๊กเพื่อดึงเงินออก (จะไม่รวมสถิติ รายรับ - รายจ่าย)
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="modal-footer">
