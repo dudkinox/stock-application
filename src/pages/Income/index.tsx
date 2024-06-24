@@ -522,7 +522,7 @@ export default function IncomePage() {
                   })}
                   {
                     <tr className="text-center">
-                      <td colSpan={3}>รวม</td>
+                      <td colSpan={4}>รวม</td>
                       <td>{outcomeTotal.toLocaleString()} บาท</td>
                       <td>{incomeTotal.toLocaleString()} บาท</td>
                       <td colSpan={3}></td>
@@ -666,7 +666,7 @@ export default function IncomePage() {
                 })}
                 {
                   <tr className="text-center">
-                    <td colSpan={2}>รวม</td>
+                    <td colSpan={1}>รวม</td>
                     <td>{fundTotal.toLocaleString()} บาท</td>
                     <td colSpan={3}></td>
                   </tr>
