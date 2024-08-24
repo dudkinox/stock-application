@@ -29,6 +29,7 @@ export default function IncomePage() {
   const [funds, setFunds] = useState<string>("");
   const [updateIdFund, setUpdateIdFund] = useState<string>("");
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
+  const [isExcept, setIsExcept] = useState<boolean>(false);
 
   let fundTotal = 0;
   let incomeTotal = 0;
@@ -231,6 +232,7 @@ export default function IncomePage() {
       EXPENSE: expense,
       NOTE: note,
       MAJOR: major,
+      IS_EXCEPT: isExcept,
     };
     if (
       date !== "" &&
@@ -274,6 +276,7 @@ export default function IncomePage() {
       EXPENSE: expense,
       NOTE: note,
       MAJOR: major,
+      IS_EXCEPT: isExcept,
     };
     setIsLoading(true);
 
@@ -431,6 +434,8 @@ export default function IncomePage() {
                           className="form-check-input"
                           type="checkbox"
                           id="get_money"
+                          onChange={() => setIsExcept(!isExcept)}
+                          value={isExcept ? "true" : "false"}
                         />
                         <label className="form-check-label" htmlFor="get_money">
                           ติ๊กเพื่อดึงเงินออก (จะไม่รวมสถิติ รายรับ - รายจ่าย)
