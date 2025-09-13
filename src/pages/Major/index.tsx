@@ -73,9 +73,12 @@ export default function MajorManage({
       });
   };
 
-  const inputUpdate = (id: number, name: string) => {
+  const inputUpdate = (id: number, name: string, majorCode: string) => {
     $(`#${id}`).html(
       `<input type="text" class="form-control" id="update-major" value="${name}" />`
+    );
+    $(`#${id}-code`).html(
+      `<input type="text" class="form-control" id="update-major-code" value="${majorCode}" />`
     );
     setIdUpdate(id);
     setIsUpdate(true);
@@ -83,6 +86,7 @@ export default function MajorManage({
 
   const updateMajorHandler = () => {
     const update = $("#update-major").val() as string;
+    const majorCode = $("#update-major-code").val() as string;
 
     const payload: MajorRequest = {
       code: majorCode,
@@ -91,6 +95,10 @@ export default function MajorManage({
 
     if (payload.name === "") {
       AlertWarning("กรุณากรอกชื่อสาขา");
+      return;
+    }
+    if (payload.code === "") {
+      AlertWarning("กรุณากรอกชื่อรหัสสาขา");
       return;
     }
     setIsLoading(true);
@@ -161,7 +169,7 @@ export default function MajorManage({
                 {fetchMajor.map((item, i) => (
                   <tr key={i}>
                     <td id={`${item.ID}`}>{item.NAME}</td>
-                    <td>{item.CODE ?? "-"}</td>
+                    <td id={`${item.ID}-code`}>{item.CODE ?? "-"}</td>
                     <td>{convertDateToThaiV2(new Date(item.CREATED_AT))}</td>
                     <td>
                       <div
@@ -172,7 +180,7 @@ export default function MajorManage({
                           <>
                             <button
                               className="btn btn-warning mx-2"
-                              onClick={() => inputUpdate(item.ID, item.NAME)}
+                              onClick={() => inputUpdate(item.ID, item.NAME, item.CODE)}
                             >
                               <i className="nav-icon fas fa-pen" />
                             </button>
