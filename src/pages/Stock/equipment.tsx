@@ -200,13 +200,13 @@ export function StockEquipmentPage() {
                   <td>{`${item.CODE}-${item.ID}`}</td>
                   <td>{item.MAJOR}</td>
                   <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
-                  <td>{item.CASES}</td>
-                  <td>{item.FIRM}</td>
-                  <td>{item.LEN}</td>
-                  <td>{item.BIG_CHARGE}</td>
-                  <td>{item.CHARGE}</td>
-                  <td>{item.REPAIR}</td>
-                  <td>{item.SUM}</td>
+                  <td>{Number(item.CASES).toLocaleString()}</td>
+                  <td>{Number(item.FIRM).toLocaleString()}</td>
+                  <td>{Number(item.LEN).toLocaleString()}</td>
+                  <td>{Number(item.BIG_CHARGE).toLocaleString()}</td>
+                  <td>{Number(item.CHARGE).toLocaleString()}</td>
+                  <td>{Number(item.REPAIR).toLocaleString()}</td>
+                  <td>{Number(item.SUM).toLocaleString()}</td>
                   <td>
                     {isEdit() ? (
                       <button
