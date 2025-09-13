@@ -1,4 +1,5 @@
 export interface GetCustomerResponse {
+  CODE?: string;
   CREATED_AT: string;
   ID: string;
   ID_CARD: string;

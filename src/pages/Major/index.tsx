@@ -24,6 +24,7 @@ export default function MajorManage({
 }: MajorManageProps) {
   const [rowTableMajor, setRowTableMajor] = useState<boolean>(false);
   const [addMajor, setAddMajor] = useState<string>("");
+  const [majorCode, setMajorCode] = useState<string>("");
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [idUpdate, setIdUpdate] = useState<number>(0);
   const { setIsLoading } = useContext(AppContext);
@@ -34,6 +35,7 @@ export default function MajorManage({
 
   const addMajorSubmitHandler = () => {
     const payload: MajorRequest = {
+      code: majorCode,
       name: addMajor,
     };
 
@@ -210,7 +212,17 @@ export default function MajorManage({
           <div className="row container-fluid col-12 mt-3 text-center">
             <div className="col-7">
               <TextInput
-                label={"พิมพ์ชื่อสาขาที่ต้องการเพิ่ม"}
+                label={"พิมพ์รหัสสาขา"}
+                placeholder="เช่น AA"
+                setValue={setMajorCode}
+                type={"text"}
+                icon={"fa fa-code"}
+                value={majorCode}
+              />
+            </div>
+            <div className="col-7">
+              <TextInput
+                label={"พิมพ์ชื่อสาขา"}
                 setValue={setAddMajor}
                 type={"text"}
                 icon={"fa fa-building"}

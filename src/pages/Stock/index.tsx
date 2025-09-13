@@ -4,12 +4,8 @@ import { StockContext } from "../../contexts/StockContext";
 import StockService from "../../services/StockServices";
 import ContentLayOut from "../../layouts/ContentLayOut";
 import ModalCommon from "../../common/Modal";
-import DataList from "../../common/DataList";
 import SelectChoice from "../../common/Select";
 import TextInput from "../../common/TextInput";
-import ByeMenuInsert from "../../layouts/stock/ByeMenuInsert";
-import InstallmentMenuInsert from "../../layouts/stock/InstallmentMenuInsert";
-import IsMenuInsert from "../../layouts/stock/IsMenuInsert";
 import TableCommon from "../../common/Table";
 import {
   MenuByeArray,
@@ -18,7 +14,6 @@ import {
   MenuKayArray,
   MenuNewInstallmentArray,
 } from "../../enum/menuInsert.enum";
-import { camelToSnakeObject } from "../../common/CamelToSnake";
 import {
   AlertError,
   AlertSuccess,
@@ -31,7 +26,6 @@ import { AppContext } from "../../contexts";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import MajorServices from "../../services/MajorService";
 import { convertDateToThaiV2 } from "../../common/DateFormat";
-import MenuNewInstallmentInsert from "../../layouts/stock/MenuNewInstallmentInsert";
 
 export default function StockPage() {
   const {

@@ -291,7 +291,7 @@ export default function CustomerPage() {
               row={customer.map((item, i) => (
                 <tr key={i} className="text-center">
                   <td>{convertDateToThaiV2(new Date(item.CREATED_AT))}</td>
-                  <td>{item.ID}</td>
+                  <td>{`${item.CODE}-${item.ID}`}</td>
                   <td>{item.ID_CARD}</td>
                   <td>
                     {item.NAME} {item.LAST_NAME}
