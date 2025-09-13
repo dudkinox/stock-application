@@ -8,7 +8,6 @@ import { AppContext } from "../../contexts";
 import { GetCustomerResponse } from "../../Models/Response/GetCustomerResponse";
 import CustomerServices from "../../services/CustomerServices";
 import StockService from "../../services/StockServices";
-import { convertToDateFormat } from "../../common/DateFormat";
 import TextInput from "../../common/TextInput";
 
 interface KayMenuInsertProps {
@@ -254,6 +253,11 @@ export default function KayMenuInsert({
         type={"number"}
         placeholder={"เงินดาวน์"}
         value={!updateKay ? starMoney : edit.payload.STAR_MONEY}
+        onClick={(e: any) => {
+          if (!updateKay && e.target.value === "0") {
+            setStarMoney("");
+          }
+        }}
       />
       <TextInput
         label={MenuKayEnum.MONTH}
@@ -274,6 +278,11 @@ export default function KayMenuInsert({
         min={0}
         placeholder="จำนวนเดือนที่ผ่อน"
         value={!updateKay ? month : edit.payload.MONTH}
+        onClick={(e: any) => {
+          if (!updateKay && e.target.value === "0") {
+            setMonth("");
+          }
+        }}
       />
       <TextInput
         label={MenuKayEnum.INSTALLMENT}
@@ -294,6 +303,11 @@ export default function KayMenuInsert({
         min={0}
         placeholder="เดือนละ"
         value={!updateKay ? installment : edit.payload.INSTALLMENT}
+        onClick={(e: any) => {
+          if (!updateKay && e.target.value === "0") {
+            setInstallment("");
+          }
+        }}
       />
       <TextInput
         label={MenuKayEnum.DATE_PAYMENT}
@@ -313,6 +327,11 @@ export default function KayMenuInsert({
         type="text"
         placeholder="ชำระทุกวันที่"
         value={!updateKay ? datePayment : edit.payload.DATE_PAYMENT}
+        onClick={(e: any) => {
+          if (!updateKay && e.target.value === "0") {
+            setDatePayment("");
+          }
+        }}
       />
     </>
   );

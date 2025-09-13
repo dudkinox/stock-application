@@ -13,6 +13,7 @@ interface TextInputProps {
   readonly?: boolean;
   value?: number | string;
   bgColor?: string;
+  onClick?: (e: React.MouseEvent<HTMLInputElement>) => void;
 }
 
 export default function TextInput({
@@ -30,6 +31,7 @@ export default function TextInput({
   readonly,
   value,
   bgColor,
+  onClick,
 }: TextInputProps) {
   return (
     <div className="form-group">
@@ -55,6 +57,7 @@ export default function TextInput({
           placeholder={placeholder}
           readOnly={readonly}
           value={value}
+          onClick={onClick}
         />
       </div>
     </div>
