@@ -34,7 +34,7 @@ export default function InstallmentMenuInsert({
   id,
   setEdit,
   edit,
-}: InstallmentMenuInsertProps) {
+}: Readonly<InstallmentMenuInsertProps>) {
   const { majorUser } = useContext(AppContext)
   const {
     installmentNo,
