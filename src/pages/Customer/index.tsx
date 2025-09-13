@@ -105,6 +105,23 @@ export default function CustomerPage() {
       });
   };
 
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case "ลูกค้าดี":
+        return "badge-success mx-1";
+      case "ลูกค้าโกง":
+        return "badge-danger mx-1";
+      case "ลูกค้าจ่ายช้า":
+        return "badge-warning mx-1";
+      case "กำลังผ่อน":
+        return "badge-primary mx-1";
+      case "ชำระครบถ้วน":
+        return "badge-success mx-1";
+      default:
+        return "badge-secondary mx-1";
+    }
+  };
+
   const deleteCustomer = (id: string) => () => {
     const choice = prompt('พิมพ์ว่า "ยืนยัน" เพื่อยืนยันการลบข้อมูล');
     if (choice !== "ยืนยัน") return;
@@ -294,8 +311,20 @@ export default function CustomerPage() {
                   <td>
                     {item.NAME} {item.LAST_NAME}
                   </td>
-                  <td>{item.CUSTOMER_STATUS}</td>
-                  <td>{item.PROCESS}</td>
+                  <td>
+                    <span
+                      className={`badge ${getStatusBadge(
+                        item.CUSTOMER_STATUS
+                      )}`}
+                    >
+                      {item.CUSTOMER_STATUS}
+                    </span>
+                  </td>
+                  <td>
+                    <span className={`badge ${getStatusBadge(item.PROCESS)}`}>
+                      {item.PROCESS}
+                    </span>
+                  </td>
                   <td>
                     {isEdit() ? (
                       <div className="row justify-content-center">
@@ -326,9 +355,7 @@ export default function CustomerPage() {
                       </div>
                     ) : (
                       <div className="row justify-content-center">
-                        <button
-                          className="btn btn-danger disabled"
-                        >
+                        <button className="btn btn-danger disabled">
                           <i className="nav-icon fas fa-trash" />
                         </button>
                       </div>

@@ -100,7 +100,7 @@ export default function InstallmentMenuInsert({
               <>
                 <div className="modal-body">
                   <div className="container-fluid">
-                    <h5 className="text-center">ชำระครบถ้วน</h5>
+                    <h5 className="text-center">ชำระครบถ้วน หรืออาจไม่ได้ระบุ</h5>
                   </div>
                 </div>
                 <div className="modal-footer">
