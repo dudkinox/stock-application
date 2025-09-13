@@ -186,7 +186,7 @@ export function StockKayPage() {
                   row={stock.map((item, i) => (
                     <tr key={i} className="text-center">
                       <td>{convertDateToThaiV2(new Date(item.CREATED_AT))}</td>
-                      <td>{item.ID}</td>
+                      <td>{`${item.CODE}-${item.ID}`}</td>
                       <td>{item.MAJOR}</td>
                       <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
                       <td>{item.CUSTOMER}</td>
