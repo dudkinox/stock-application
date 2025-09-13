@@ -102,7 +102,7 @@ export function StockKayPage() {
                         <td>
                           {convertDateToThaiV2(new Date(item.CREATED_AT))}
                         </td>
-                        <td>{item.ID}</td>
+                        <td>{`${item.CODE}-${item.ID}`}</td>
                         <td>{item.MAJOR}</td>
                         <td>{item.SERIAL_NUMBER}</td>
                         <td>{item.VERSION}</td>

@@ -149,6 +149,7 @@ export default function MajorManage({
                   <i className="nav-icon fas fa-plus" />
                 </button>
               </>,
+              "รหัสสาขา",
               "วันที่เพิ่มข้อมูล",
               "จัดการ",
             ]}
@@ -157,6 +158,7 @@ export default function MajorManage({
                 {fetchMajor.map((item, i) => (
                   <tr key={i}>
                     <td id={`${item.ID}`}>{item.NAME}</td>
+                    <td>{item.CODE ?? "-"}</td>
                     <td>{convertDateToThaiV2(new Date(item.CREATED_AT))}</td>
                     <td>
                       <div
