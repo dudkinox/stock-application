@@ -30,7 +30,7 @@ export default function LoginPage() {
               res.data.CAN_DELETE ? 'TRUE' : 'FALSE'
             )
             setTimeout(() => {
-              window.location.href = res.data.MAJOR === 'admin' ? '/' : '/stock'
+              window.location.href = res.data.MAJOR === 'admin' ? '/' : '/stock-kay'
             }, 100)
           })
           setIsLoading(false)

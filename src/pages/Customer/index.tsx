@@ -54,9 +54,9 @@ export default function CustomerPage() {
     "ชื่อ-สกุล",
     "ประวัติลูกค้า",
     "สถานะ",
+    "แก้ไข",
+    "ลบ",
   ];
-
-  const editableCustomerTableHeaders = [...customerTableHeaders, "แก้ไข", "ลบ"];
 
   const openModalUpdate = (id: string) => () => {
     ($("#insert-modal") as any).modal("show");
@@ -285,9 +285,7 @@ export default function CustomerPage() {
           />
           <div className="card-body">
             <TableCommon
-              columns={
-                isEdit() ? editableCustomerTableHeaders : customerTableHeaders
-              }
+              columns={customerTableHeaders}
               row={customer.map((item, i) => (
                 <tr key={i} className="text-center">
                   <td>{convertDateToThaiV2(new Date(item.CREATED_AT))}</td>
@@ -309,7 +307,11 @@ export default function CustomerPage() {
                         </button>
                       </div>
                     ) : (
-                      "ไม่มีสิทธิ"
+                      <div className="row justify-content-center">
+                        <button className="btn btn-warning mx-2 disabled">
+                          <i className="nav-icon fas fa-pen" />
+                        </button>
+                      </div>
                     )}
                   </td>
                   <td>
@@ -323,7 +325,13 @@ export default function CustomerPage() {
                         </button>
                       </div>
                     ) : (
-                      "ไม่มีสิทธิ"
+                      <div className="row justify-content-center">
+                        <button
+                          className="btn btn-danger disabled"
+                        >
+                          <i className="nav-icon fas fa-trash" />
+                        </button>
+                      </div>
                     )}
                   </td>
                 </tr>
