@@ -198,27 +198,45 @@ export function StockKayPage() {
                       <td>{Number(item.INSTALLMENT).toLocaleString()}</td>
                       <td>{item.DATE_PAYMENT}</td>
                       <td>
-                        <button
-                          type="button"
-                          className="btn btn-warning"
-                          onClick={() => {
-                            sessionStorage.setItem("majorEdit", item.MAJOR);
-                            navigate(`/stock/add?type=kay`, {
-                              state: { id: item.ID },
-                            });
-                            setUpdateKay(true);
-                          }}
-                        >
-                          แก้ไข
-                        </button>
+                        {isEdit() ? (
+                          <button
+                            type="button"
+                            className="btn btn-warning"
+                            onClick={() => {
+                              sessionStorage.setItem("majorEdit", item.MAJOR);
+                              navigate(`/stock/add?type=kay`, {
+                                state: { id: item.ID },
+                              });
+                              setUpdateKay(true);
+                            }}
+                          >
+                            แก้ไข
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            className="btn btn-warning disabled"
+                          >
+                            แก้ไข
+                          </button>
+                        )}
                         &emsp;
-                        <button
-                          type="button"
-                          className="btn btn-danger"
-                          onClick={deleteStock(item.ID, item.MAJOR)}
-                        >
-                          ลบ
-                        </button>
+                        {isDelete() ? (
+                          <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={deleteStock(item.ID, item.MAJOR)}
+                          >
+                            ลบ
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            className="btn btn-danger disabled"
+                          >
+                            ลบ
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}

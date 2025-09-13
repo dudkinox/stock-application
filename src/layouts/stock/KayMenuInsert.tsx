@@ -30,7 +30,7 @@ export default function KayMenuInsert({
   id,
   setEdit,
   edit,
-}: KayMenuInsertProps) {
+}: Readonly<KayMenuInsertProps>) {
   const {
     setCustomerStatus,
     setCustomer,
