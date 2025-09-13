@@ -240,7 +240,7 @@ export function StockEquipmentPage() {
                     {isDelete() ? (
                       <button
                         type="button"
-                        className="btn btn-danger"
+                        className="btn my-3 btn-danger"
                         onClick={deleteStock(item.ID, item.MAJOR)}
                       >
                         ลบ
