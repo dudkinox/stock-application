@@ -15,7 +15,7 @@ import MajorResponse from "../../Models/Response/GetMajorResponse";
 import { convertDateToThaiV2 } from "../../common/DateFormat";
 
 export function StockByePage() {
-  const { majorUser, setIsLoading, isEdit, deleteStock } =
+  const { majorUser, setIsLoading, isEdit, isDelete, deleteStock } =
     useContext(AppContext);
   const {
     date,
@@ -220,25 +220,40 @@ export function StockByePage() {
                   <td>{item.BATTERY}</td>
                   <td>{item.STATUS === "0" ? "ยังไม่ขาย" : "ขายไปแล้ว"}</td>
                   <td>
-                    <button
-                      type="button"
-                      className="btn btn-warning"
-                      onClick={() => {
-                        sessionStorage.setItem("majorEdit", item.MAJOR);
-                        setUpdateKay(true);
-                        navigate(`/stock/add?type=bye&id=${item.ID}`);
-                      }}
-                    >
-                      แก้ไข
-                    </button>
+                    {isEdit() ? (
+                      <button
+                        type="button"
+                        className="btn btn-warning"
+                        onClick={() => {
+                          sessionStorage.setItem("majorEdit", item.MAJOR);
+                          setUpdateKay(true);
+                          navigate(`/stock/add?type=bye&id=${item.ID}`);
+                        }}
+                      >
+                        แก้ไข
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn btn-warning disabled"
+                      >
+                        แก้ไข
+                      </button>
+                    )}
                     &emsp;
-                    <button
-                      type="button"
-                      className="btn btn-danger"
-                      onClick={deleteStock(item.ID, item.MAJOR)}
-                    >
-                      ลบ
-                    </button>
+                    {isDelete() ? (
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={deleteStock(item.ID, item.MAJOR)}
+                      >
+                        ลบ
+                      </button>
+                    ) : (
+                      <button type="button" className="btn btn-danger disabled">
+                        ลบ
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}

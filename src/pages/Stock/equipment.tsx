@@ -1,21 +1,21 @@
-import { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import TableCommon from '../../common/Table'
-import ContentLayOut from '../../layouts/ContentLayOut'
-import StockService from '../../services/StockServices'
-import { AppContext } from '../../contexts'
-import { StockContext } from '../../contexts/StockContext'
-import TextInput from '../../common/TextInput'
-import SelectChoice from '../../common/Select'
-import ModalCommon from '../../common/Modal'
-import MajorResponse from '../../Models/Response/GetMajorResponse'
-import MajorServices from '../../services/MajorService'
-import { AlertError, AlertWarning } from '../../common/ToastrCommon'
-import { convertDateToThaiV2 } from '../../common/DateFormat'
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import TableCommon from "../../common/Table";
+import ContentLayOut from "../../layouts/ContentLayOut";
+import StockService from "../../services/StockServices";
+import { AppContext } from "../../contexts";
+import { StockContext } from "../../contexts/StockContext";
+import TextInput from "../../common/TextInput";
+import SelectChoice from "../../common/Select";
+import ModalCommon from "../../common/Modal";
+import MajorResponse from "../../Models/Response/GetMajorResponse";
+import MajorServices from "../../services/MajorService";
+import { AlertError, AlertWarning } from "../../common/ToastrCommon";
+import { convertDateToThaiV2 } from "../../common/DateFormat";
 
 export function StockEquipmentPage() {
-  const { majorUser, isEdit, setIsLoading, deleteStock } =
-    useContext(AppContext)
+  const { majorUser, isEdit, isDelete, setIsLoading, deleteStock } =
+    useContext(AppContext);
   const {
     date,
     setDate,
@@ -38,38 +38,38 @@ export function StockEquipmentPage() {
     setRepair,
     setSum,
     setStockID,
-  } = useContext(StockContext)
-  const [stock, setStock] = useState<any[]>([])
-  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([])
+  } = useContext(StockContext);
+  const [stock, setStock] = useState<any[]>([]);
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const stockTableHeaders = [
-    'วันที่เพิ่มข้อมูล',
-    'รหัสเอกสาร',
-    'สาขา',
-    'วันที่',
-    'เคส',
-    'ฟิล์ม',
-    'เลน',
-    'หัวชาร์จใหญ่',
-    'สายชาร์จ',
-    'ซ่อม',
-    'ราคารวม',
-    'แก้ไข ลบ',
-  ]
-  const navigate = useNavigate()
+    "วันที่เพิ่มข้อมูล",
+    "รหัสเอกสาร",
+    "สาขา",
+    "วันที่",
+    "เคส",
+    "ฟิล์ม",
+    "เลน",
+    "หัวชาร์จใหญ่",
+    "สายชาร์จ",
+    "ซ่อม",
+    "ราคารวม",
+    "แก้ไข ลบ",
+  ];
+  const navigate = useNavigate();
 
   const nextValidate = () => {
-    const isNext = date !== '' && stockType !== ''
-    const isAdmin = majorUser === 'admin'
-    const isNextAdmin = isAdmin && majorInsert !== ''
+    const isNext = date !== "" && stockType !== "";
+    const isAdmin = majorUser === "admin";
+    const isNextAdmin = isAdmin && majorInsert !== "";
 
     if ((isAdmin && isNextAdmin && isNext) || (!isAdmin && isNext)) {
       navigate(`/stock/add?type=equipment`, {
         state: { id: 0 },
-      })
+      });
     } else {
-      AlertWarning('กรุณากรอกข้อมูลให้ครบถ้วน')
+      AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
     }
-  }
+  };
 
   const handlerEquipment = (
     id: string,
@@ -82,39 +82,39 @@ export function StockEquipmentPage() {
     repair: number,
     sum: number
   ) => {
-    sessionStorage.setItem('majorEdit', majorInsert)
-    setStockID(id)
-    setMajorInsert(majorInsert)
-    setCases(cases)
-    setFirm(firm)
-    setLen(len)
-    setBigCharge(bigCharge)
-    setCharge(charge)
-    setRepair(repair)
-    setSum(sum)
-    setUpdateKay(true)
-    navigate(`/stock/add?type=equipment`, { state: { id } })
-  }
+    sessionStorage.setItem("majorEdit", majorInsert);
+    setStockID(id);
+    setMajorInsert(majorInsert);
+    setCases(cases);
+    setFirm(firm);
+    setLen(len);
+    setBigCharge(bigCharge);
+    setCharge(charge);
+    setRepair(repair);
+    setSum(sum);
+    setUpdateKay(true);
+    navigate(`/stock/add?type=equipment`, { state: { id } });
+  };
 
   useEffect(() => {
-    setIsLoading(true)
-    setStockType('อุปกรณ์')
+    setIsLoading(true);
+    setStockType("อุปกรณ์");
     MajorServices.getMajors()
       .then((res) => {
-        setFetchMajor(res.data)
-        setIsLoading(false)
+        setFetchMajor(res.data);
+        setIsLoading(false);
       })
       .catch((err) => {
-        AlertError(err.response.data.message)
-        setIsLoading(false)
-      })
-  }, [setFetchMajor, stockType])
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  }, [setFetchMajor, stockType]);
 
   useEffect(() => {
     StockService.GetStockEquipment(majorUser).then((res) => {
-      setStock(res.data)
-    })
-  }, [])
+      setStock(res.data);
+    });
+  }, []);
 
   return (
     <ContentLayOut
@@ -208,33 +208,51 @@ export function StockEquipmentPage() {
                   <td>{item.REPAIR}</td>
                   <td>{item.SUM}</td>
                   <td>
-                    <button
-                      type="button"
-                      className="btn btn-warning"
-                      onClick={() =>
-                        handlerEquipment(
-                          item.ID,
-                          item.MAJOR,
-                          item.CASES,
-                          item.FIRM,
-                          item.LEN,
-                          item.BIG_CHARGE,
-                          item.CHARGE,
-                          item.REPAIR,
-                          item.SUM
-                        )
-                      }
-                    >
-                      แก้ไข
-                    </button>
+                    {isEdit() ? (
+                      <button
+                        type="button"
+                        className="btn btn-warning"
+                        onClick={() =>
+                          handlerEquipment(
+                            item.ID,
+                            item.MAJOR,
+                            item.CASES,
+                            item.FIRM,
+                            item.LEN,
+                            item.BIG_CHARGE,
+                            item.CHARGE,
+                            item.REPAIR,
+                            item.SUM
+                          )
+                        }
+                      >
+                        แก้ไข
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn btn-warning disabled"
+                      >
+                        แก้ไข
+                      </button>
+                    )}
                     &emsp;
-                    <button
-                      type="button"
-                      className="btn btn-danger"
-                      onClick={deleteStock(item.ID, item.MAJOR)}
-                    >
-                      ลบ
-                    </button>
+                    {isDelete() ? (
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={deleteStock(item.ID, item.MAJOR)}
+                      >
+                        ลบ
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn my-3 btn-danger disabled"
+                      >
+                        ลบ
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}

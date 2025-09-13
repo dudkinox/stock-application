@@ -14,7 +14,7 @@ import MajorServices from '../../services/MajorService'
 import { convertDateToThaiV2 } from '../../common/DateFormat'
 
 export function StockInstallmentPaymentPage() {
-  const { majorUser, setIsLoading, isEdit, deleteStock } =
+  const { majorUser, setIsLoading, isEdit, isDelete, deleteStock } =
     useContext(AppContext)
   const {
     date,
@@ -243,29 +243,47 @@ export function StockInstallmentPaymentPage() {
                             {Number(item.PRICE_TOTAL).toLocaleString()} บาท
                           </td>
                           <td>
-                            <button
-                              type="button"
-                              className="btn btn-warning"
-                              onClick={() =>
-                                handlerInstallment(
-                                  item.ID,
-                                  item.MAJOR,
-                                  item.INSTALLMENT_NO,
-                                  item.PRICE_TOTAL
-                                )
-                              }
-                            >
-                              แก้ไข
-                            </button>
+                            {isEdit() ? (
+                              <button
+                                type="button"
+                                className="btn btn-warning"
+                                onClick={() =>
+                                  handlerInstallment(
+                                    item.ID,
+                                    item.MAJOR,
+                                    item.INSTALLMENT_NO,
+                                    item.PRICE_TOTAL
+                                  )
+                                }
+                              >
+                                แก้ไข
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                className="btn btn-warning disabled"
+                              >
+                                แก้ไข
+                              </button>
+                            )}
                           </td>
                           <td>
-                            <button
-                              type="button"
-                              className="btn btn-danger"
-                              onClick={deleteStock(item.ID, item.MAJOR)}
-                            >
-                              ลบ
-                            </button>
+                            {isDelete() ? (
+                              <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={deleteStock(item.ID, item.MAJOR)}
+                              >
+                                ลบ
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                className="btn btn-danger disabled"
+                              >
+                                ลบ
+                              </button>
+                            )}
                           </td>
                         </tr>
                       ))}
