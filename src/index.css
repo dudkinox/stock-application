@@ -74,6 +74,17 @@ a.nav-link.active {
   color: #343a40;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
 @media screen and (max-width: 1440px) {
   .gif {
     left: 43.5%;

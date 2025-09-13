@@ -49,7 +49,7 @@ export default function CustomerPage() {
 
   const customerTableHeaders = [
     "วันที่เพิ่มข้อมูล",
-    "รหัสลูกค้า",
+    "ชื่อสาขา",
     "เลขบัตรประชาชน",
     "ชื่อ-สกุล",
     "ประวัติลูกค้า",
@@ -289,7 +289,7 @@ export default function CustomerPage() {
               row={customer.map((item, i) => (
                 <tr key={i} className="text-center">
                   <td>{convertDateToThaiV2(new Date(item.CREATED_AT))}</td>
-                  <td>{`${item.CODE}-${item.ID}`}</td>
+                  <td>{item.MAJOR}</td>
                   <td>{item.ID_CARD}</td>
                   <td>
                     {item.NAME} {item.LAST_NAME}
