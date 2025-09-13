@@ -85,6 +85,7 @@ export default function MajorManage({
     const update = $("#update-major").val() as string;
 
     const payload: MajorRequest = {
+      code: majorCode,
       name: update,
     };
 
