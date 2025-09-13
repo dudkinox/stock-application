@@ -19,7 +19,7 @@ export default function SidebarCommon() {
           </div>
           <div className="info">
             <a href="#admin" className="d-block">
-              Admin
+              { majorUser }
             </a>
           </div>
         </div>
