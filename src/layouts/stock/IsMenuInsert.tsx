@@ -20,7 +20,7 @@ interface IsMenuInsertProps {
   };
 }
 
-export default function IsMenuInsert({ id, setEdit, edit }: IsMenuInsertProps) {
+export default function IsMenuInsert({ id, setEdit, edit }: Readonly<IsMenuInsertProps>) {
   const {
     cases,
     setCases,
