@@ -369,7 +369,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
           baseInsert.customerStatus +
           "&major=" +
           baseInsert.major;
-
+        let isSuccess = false;
         switch (stockType) {
           case "อุปกรณ์":
             const equipment: StockEquipmentRequest = {
@@ -396,6 +396,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
               AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
             } else {
               insertStock(baseParams, camelToSnakeObject(equipment));
+              isSuccess = true;
             }
             break;
           case "ซื้อ":
@@ -421,6 +422,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
               AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
             } else {
               insertStock(baseParams, camelToSnakeObject(bye));
+              isSuccess = true;
             }
             break;
           case "ขาย":
@@ -451,6 +453,7 @@ export function StockContextProvider({ children }: ChildrenProps) {
               AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
             } else {
               insertStock(baseParams, camelToSnakeObject(kay));
+              isSuccess = true;
             }
             break;
           default:
@@ -470,28 +473,33 @@ export function StockContextProvider({ children }: ChildrenProps) {
               AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
             } else {
               insertStock(baseParams, camelToSnakeObject(installmentPayment));
+              isSuccess = true;
             }
             break;
         }
         setIsLoading(true);
-        StockService.GetStock(majorUser)
-          .then(() => {
-            clearInputValue();
-            if (stockType === "ขาย") {
-              window.location.href = "/stock-kay";
-            } else if (stockType === "ซื้อ") {
-              window.location.href = "/stock-bye";
-            } else if (stockType === "อุปกรณ์") {
-              window.location.href = "/stock-equipment";
-            } else {
-              window.location.href = "/stock-installment-payment";
-            }
-            setIsLoading(false);
-          })
-          .catch((err) => {
-            AlertError(err.response.data.message);
-            setIsLoading(false);
-          });
+        if (isSuccess) {
+          StockService.GetStock(majorUser)
+            .then(() => {
+              clearInputValue();
+              if (stockType === "ขาย") {
+                window.location.href = "/stock-kay";
+              } else if (stockType === "ซื้อ") {
+                window.location.href = "/stock-bye";
+              } else if (stockType === "อุปกรณ์") {
+                window.location.href = "/stock-equipment";
+              } else {
+                window.location.href = "/stock-installment-payment";
+              }
+              setIsLoading(false);
+            })
+            .catch((err) => {
+              AlertError(err.response.data.message);
+              setIsLoading(false);
+            });
+        } else {
+          setIsLoading(false);
+        }
       }
     },
     [

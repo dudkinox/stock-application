@@ -24,7 +24,7 @@ export default function ByeMenuInsert({
   id,
   setEdit,
   edit,
-}: ByeMenuInsertProps) {
+}: Readonly<ByeMenuInsertProps>) {
   const {
     serialNumber,
     setSerialNumber,
@@ -57,8 +57,6 @@ export default function ByeMenuInsert({
   useEffect(() => {
     setIsInsert(Number(id) === 0);
   }, []);
-
-  useEffect(() => {}, []);
 
   return (
     <>
