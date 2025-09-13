@@ -118,18 +118,18 @@ export function StockEquipmentPage() {
 
   return (
     <ContentLayOut
-      title={'stock'}
-      topic={'อุปกรณ์'}
+      title={"stock"}
+      topic={"อุปกรณ์"}
       btnHeader={
         <button
           onClick={() => {
-            setDate('')
-            setIdCard('')
-            setIsMenuInsert(false)
-            setByeMenuInsert(false)
-            setKayMenuInsert(false)
-            setNewInstallmentMenuInsert(false)
-            clearInputValue()
+            setDate("");
+            setIdCard("");
+            setIsMenuInsert(false);
+            setByeMenuInsert(false);
+            setKayMenuInsert(false);
+            setNewInstallmentMenuInsert(false);
+            clearInputValue();
           }}
           className="btn primary-btn text-white float-right"
           data-toggle="modal"
@@ -142,34 +142,34 @@ export function StockEquipmentPage() {
       page={
         <>
           <ModalCommon
-            title={'เพิ่มข้อมูล'}
-            id={'insert-modal'}
+            title={"เพิ่มข้อมูล"}
+            id={"insert-modal"}
             content={
               <>
                 <div className="modal-body">
                   <div className="container-fluid">
-                    {isEdit() && majorUser === 'admin' && (
+                    {isEdit() && majorUser === "admin" && (
                       <SelectChoice
                         topic="เลือกสาขา"
                         setValue={setMajorInsert}
                         icon="far fa-calendar-alt"
-                        label={'สาขา:'}
+                        label={"สาขา:"}
                         value={majorInsert}
                         options={fetchMajor.map((item) => item.NAME)}
                       />
                     )}
                     <TextInput
-                      label={'วันที่:'}
-                      icon={'far fa-calendar-alt'}
+                      label={"วันที่:"}
+                      icon={"far fa-calendar-alt"}
                       setValue={setDate}
-                      type={'date'}
+                      type={"date"}
                       value={date}
                     />
                     <TextInput
-                      label={'ประเภท'}
+                      label={"ประเภท"}
                       setValue={setStockType}
-                      icon={'far fa-file'}
-                      type={'text'}
+                      icon={"far fa-file"}
+                      type={"text"}
                       value={stockType}
                       readonly={true}
                     />
@@ -193,7 +193,10 @@ export function StockEquipmentPage() {
               columns={stockTableHeaders}
               row={stock.map((item, i) => (
                 <tr key={i} className="text-center">
-                  <td>{convertDateToThaiV2(new Date(item.CREATED_AT))}</td>
+                  <td>
+                    <span className="d-none">{item.CREATED_AT}</span>
+                    {convertDateToThaiV2(new Date(item.CREATED_AT))}
+                  </td>
                   <td>{`${item.CODE}-${item.ID}`}</td>
                   <td>{item.MAJOR}</td>
                   <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
@@ -240,5 +243,5 @@ export function StockEquipmentPage() {
         </>
       }
     />
-  )
+  );
 }

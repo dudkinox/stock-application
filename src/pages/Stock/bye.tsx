@@ -205,7 +205,10 @@ export function StockByePage() {
               columns={stockBuyListTableHeaders}
               row={buyList.map((item, i) => (
                 <tr key={i} className="text-center">
-                  <td>{convertDateToThaiV2(new Date(item.CREATED_AT))}</td>
+                  <td>
+                    <span className="d-none">{item.CREATED_AT}</span>
+                    {convertDateToThaiV2(new Date(item.CREATED_AT))}
+                  </td>
                   <td>{`${item.CODE}-${item.ID}`}</td>
                   <td>{item.MAJOR}</td>
                   <td>{convertDateToThaiV2(new Date(item.DATE))}</td>

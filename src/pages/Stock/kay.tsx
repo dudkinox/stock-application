@@ -84,22 +84,25 @@ export function StockKayPage() {
 
   return (
     <div className="content-wrapper">
-      <HeaderPageCommon title={'stock'} />
+      <HeaderPageCommon title={"stock"} />
       <section className="content">
         <div className="container-fluid">
           <div className="row">
             <div className="card col-12">
               <div className="card-header">
-                <h2 className="card-title">{'เครื่องที่มีในคลัง'}</h2>
+                <h2 className="card-title">{"เครื่องที่มีในคลัง"}</h2>
               </div>
 
               <div className="card-body">
                 <TableCommon
                   columns={stockBuyListTableHeaders}
                   row={buyList.map((item, i) =>
-                    item.STATUS === '0' ? (
+                    item.STATUS === "0" ? (
                       <tr key={i} className="text-center">
                         <td>
+                          <span className="d-none">
+                            {item.CREATED_AT}
+                          </span>
                           {convertDateToThaiV2(new Date(item.CREATED_AT))}
                         </td>
                         <td>{`${item.CODE}-${item.ID}`}</td>
@@ -130,9 +133,9 @@ export function StockKayPage() {
                             type="button"
                             className="btn btn-warning"
                             onClick={() => {
-                              sessionStorage.setItem('majorEdit', item.MAJOR)
-                              setUpdateKay(true)
-                              navigate(`/stock/add?type=bye&id=${item.ID}`)
+                              sessionStorage.setItem("majorEdit", item.MAJOR);
+                              setUpdateKay(true);
+                              navigate(`/stock/add?type=bye&id=${item.ID}`);
                             }}
                           >
                             แก้ไข
@@ -156,7 +159,7 @@ export function StockKayPage() {
             </div>
             <div className="card col-12">
               <div className="card-header">
-                <h2 className="card-title">{'ขายไปแล้ว'}</h2>
+                <h2 className="card-title">{"ขายไปแล้ว"}</h2>
               </div>
 
               <div className="card-body">
@@ -182,11 +185,11 @@ export function StockKayPage() {
                           type="button"
                           className="btn btn-warning"
                           onClick={() => {
-                            sessionStorage.setItem('majorEdit', item.MAJOR)
+                            sessionStorage.setItem("majorEdit", item.MAJOR);
                             navigate(`/stock/add?type=kay`, {
                               state: { id: item.ID },
-                            })
-                            setUpdateKay(true)
+                            });
+                            setUpdateKay(true);
                           }}
                         >
                           แก้ไข
@@ -209,5 +212,5 @@ export function StockKayPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

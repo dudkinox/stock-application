@@ -107,39 +107,39 @@ export function StockInstallmentPaymentPage() {
 
   return (
     <ContentLayOut
-      title={'ผ่อน'}
-      topic={''}
+      title={"ผ่อน"}
+      topic={""}
       page={
         <>
           <ModalCommon
-            title={'เพิ่มข้อมูลผ่อน'}
-            id={'insert-modal'}
+            title={"เพิ่มข้อมูลผ่อน"}
+            id={"insert-modal"}
             content={
               <>
                 <div className="modal-body">
                   <div className="container-fluid">
-                    {isEdit() && majorUser === 'admin' && (
+                    {isEdit() && majorUser === "admin" && (
                       <SelectChoice
                         topic="เลือกสาขา"
                         setValue={setMajorInsert}
                         icon="far fa-calendar-alt"
-                        label={'สาขา:'}
+                        label={"สาขา:"}
                         value={majorInsert}
                         options={fetchMajor.map((item) => item.NAME)}
                       />
                     )}
                     <TextInput
-                      label={'วันที่:'}
-                      icon={'far fa-calendar-alt'}
+                      label={"วันที่:"}
+                      icon={"far fa-calendar-alt"}
                       setValue={setDate}
-                      type={'date'}
+                      type={"date"}
                       value={date}
                     />
                     <TextInput
-                      label={'ประเภท'}
+                      label={"ประเภท"}
                       setValue={setStockType}
-                      icon={'far fa-file'}
-                      type={'text'}
+                      icon={"far fa-file"}
+                      type={"text"}
                       value={stockType}
                       readonly={true}
                     />
@@ -195,17 +195,17 @@ export function StockInstallmentPaymentPage() {
             </div>
             <div className="card-header">
               <h2 className="card-title mt-2">
-                {'ค้นหา / เพิ่ม / ลบ / แก้ไข'}
+                {"ค้นหา / เพิ่ม / ลบ / แก้ไข"}
               </h2>
               <button
                 onClick={() => {
-                  setDate('')
-                  setIdCard('')
-                  setIsMenuInsert(false)
-                  setByeMenuInsert(false)
-                  setKayMenuInsert(false)
-                  setNewInstallmentMenuInsert(false)
-                  clearInputValue()
+                  setDate("");
+                  setIdCard("");
+                  setIsMenuInsert(false);
+                  setByeMenuInsert(false);
+                  setKayMenuInsert(false);
+                  setNewInstallmentMenuInsert(false);
+                  clearInputValue();
                 }}
                 className="btn primary-btn text-white float-right"
                 data-toggle="modal"
@@ -229,10 +229,14 @@ export function StockInstallmentPaymentPage() {
                       row={stock.map((item, i) => (
                         <tr key={i} className="text-center">
                           <td>
+                            <span className="d-none">{item.CREATED_AT}</span>
                             {convertDateToThaiV2(new Date(item.CREATED_AT))}
                           </td>
                           <td>{item.ID_CARD}</td>
-                          <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
+                          <td>
+                            <span className="d-none">{item.CREATED_AT}</span>
+                            {convertDateToThaiV2(new Date(item.DATE))}
+                          </td>
                           <td>{item.MAJOR}</td>
                           <td>{item.INSTALLMENT_NO}</td>
                           <td>
@@ -283,5 +287,5 @@ export function StockInstallmentPaymentPage() {
         </>
       }
     />
-  )
+  );
 }
