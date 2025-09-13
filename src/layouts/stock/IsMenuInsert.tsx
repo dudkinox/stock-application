@@ -75,11 +75,16 @@ export default function IsMenuInsert({ id, setEdit, edit }: IsMenuInsertProps) {
                 },
               })
         }
-        type={"number"}
         min={0}
         minLength={0}
+        type={"number"}
         placeholder={"เคส"}
         value={isInsert ? cases : edit.payload.CASES}
+        onClick={(e: any) => {
+          if (!updateKay && e.target.value === "0") {
+            setCases("");
+          }
+        }}
       />
       <TextInput
         label={MenuEquipmentEnum.FIRM}
@@ -101,6 +106,11 @@ export default function IsMenuInsert({ id, setEdit, edit }: IsMenuInsertProps) {
         minLength={0}
         placeholder={"ฟิล์ม"}
         value={isInsert ? firm : edit.payload.FIRM}
+        onClick={(e: any) => {
+          if (!updateKay && e.target.value === "0") {
+            setFirm("");
+          }
+        }}
       />
       <TextInput
         label={MenuEquipmentEnum.LEN}
@@ -122,6 +132,11 @@ export default function IsMenuInsert({ id, setEdit, edit }: IsMenuInsertProps) {
         minLength={0}
         placeholder={"กันเลนส์"}
         value={isInsert ? len : edit.payload.LEN}
+        onClick={(e: any) => {
+          if (!updateKay && e.target.value === "0") {
+            setLen("");
+          }
+        }}
       />
       <TextInput
         label={MenuEquipmentEnum.BIG_CHARGE}
@@ -143,6 +158,11 @@ export default function IsMenuInsert({ id, setEdit, edit }: IsMenuInsertProps) {
         minLength={0}
         placeholder={"หัวชาร์จใหญ่"}
         value={isInsert ? bigCharge : edit.payload.BIG_CHARGE}
+        onClick={(e: any) => {
+          if (!updateKay && e.target.value === "0") {
+            setBigCharge("");
+          }
+        }}
       />
       <TextInput
         label={MenuEquipmentEnum.CHARGE}
@@ -164,6 +184,11 @@ export default function IsMenuInsert({ id, setEdit, edit }: IsMenuInsertProps) {
         minLength={0}
         placeholder={"สายชาร์จ"}
         value={isInsert ? charge : edit.payload.CHARGE}
+        onClick={(e: any) => {
+          if (!updateKay && e.target.value === "0") {
+            setCharge("");
+          }
+        }}
       />
       <TextInput
         label={MenuEquipmentEnum.REPAIR}
@@ -185,6 +210,11 @@ export default function IsMenuInsert({ id, setEdit, edit }: IsMenuInsertProps) {
         minLength={0}
         placeholder={"ซ่อม"}
         value={isInsert ? repair : edit.payload.REPAIR}
+        onClick={(e: any) => {
+          if (!updateKay && e.target.value === "0") {
+            setRepair("");
+          }
+        }}
       />
       <TextInput
         label={MenuEquipmentEnum.SUM}
@@ -206,6 +236,11 @@ export default function IsMenuInsert({ id, setEdit, edit }: IsMenuInsertProps) {
         minLength={0}
         placeholder={"ราคา"}
         value={isInsert ? sum : edit.payload.SUM}
+        onClick={(e: any) => {
+          if (!updateKay && e.target.value === "0") {
+            setSum("");
+          }
+        }}
       />
     </>
   );
