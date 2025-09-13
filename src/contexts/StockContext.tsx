@@ -203,7 +203,7 @@ interface ChildrenProps {
   children: ReactNode;
 }
 
-export function StockContextProvider({ children }: ChildrenProps) {
+export function StockContextProvider({ children }: Readonly<ChildrenProps>) {
   const [isMenuInsert, setIsMenuInsert] = useState(false);
   const [byeMenuInsert, setByeMenuInsert] = useState(false);
   const [kayMenuInsert, setKayMenuInsert] = useState(false);
