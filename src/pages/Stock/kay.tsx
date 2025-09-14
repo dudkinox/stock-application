@@ -21,8 +21,10 @@ export function StockKayPage() {
   } = useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
   const [buyList, setBuyList] = useState<any[]>([]);
-  const [createAt, setCreateAt] = useState<string>("");
-  const [filterDate, setFilterDate] = useState<string>("");
+  const [createAtStart, setCreateAtStart] = useState<string>("");
+  const [createAtEnd, setCreateAtEnd] = useState<string>("");
+  const [filterDateStart, setFilterDateStart] = useState<string>("");
+  const [filterDateEnd, setFilterDateEnd] = useState<string>("");
   const navigate = useNavigate();
 
   const stockTableHeaders = [
@@ -87,10 +89,31 @@ export function StockKayPage() {
     navigate(`/stock/add?type=kay`, { state: { id } });
   };
 
+  const handleResetFilter = () => {
+    setCreateAtStart("");
+    setCreateAtEnd("");
+    setFilterDateStart("");
+    setFilterDateEnd("");
+    StockService.GetStockKay(majorUser).then((res) => {
+      destroyTable("#kay-table");
+      setStock(res.data);
+      setTimeout(
+        () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
+        100
+      );
+    });
+  };
+
   const handleFilter = () => {
     setIsLoading(true);
-    StockService.GetStockKay(majorUser, createAt, filterDate).then((res) => {
-      destroyTable();
+    StockService.GetStockKay(
+      majorUser,
+      createAtStart,
+      createAtEnd,
+      filterDateStart,
+      filterDateEnd
+    ).then((res) => {
+      destroyTable("#kay-table");
       setStock(res.data);
       setTimeout(
         () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
@@ -103,7 +126,7 @@ export function StockKayPage() {
   useEffect(() => {
     setIsLoading(true);
     StockService.GetStockKay(majorUser).then((res) => {
-      destroyTable();
+      destroyTable("#kay-table");
       setStock(res.data);
       setTimeout(
         () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
@@ -111,7 +134,7 @@ export function StockKayPage() {
       );
     });
     StockService.GetStockBye(majorUser).then((res) => {
-      destroyTable();
+      destroyTable("#buy-table");
       setBuyList(res.data);
       setTimeout(
         () => initTable(res.data.length.toString() ?? "0", "#buy-table"),
@@ -220,22 +243,22 @@ export function StockKayPage() {
               <div className="card-body">
                 <div className="container-fluid">
                   <div className="row text-center">
-                    <div className="col-sm-10">
+                    <div className="col-sm-5">
                       <TextInput
-                        label={"Filter วันที่เพิ่มข้อมูล"}
-                        setValue={setCreateAt}
+                        label={"Filter วันที่เพิ่มข้อมูลเริ่ม"}
+                        setValue={setCreateAtStart}
                         type={"date"}
                         icon={"far fa-calendar-alt"}
-                        value={createAt}
+                        value={createAtStart}
                       />
                     </div>
-                    <div className="col-sm-10">
+                    <div className="col-sm-5">
                       <TextInput
-                        label={"Filter วันที่ขาย"}
-                        setValue={setFilterDate}
+                        label={"Filter วันที่เพิ่มข้อมูลสิ้นสุด"}
+                        setValue={setCreateAtEnd}
                         type={"date"}
                         icon={"far fa-calendar-alt"}
-                        value={filterDate}
+                        value={createAtEnd}
                       />
                     </div>
                     <div className="col-sm-2">
@@ -245,6 +268,33 @@ export function StockKayPage() {
                         onClick={handleFilter}
                       >
                         ค้นหา
+                      </button>
+                    </div>
+                    <div className="col-sm-5">
+                      <TextInput
+                        label={"Filter วันที่ขายเริ่มต้น"}
+                        setValue={setFilterDateStart}
+                        type={"date"}
+                        icon={"far fa-calendar-alt"}
+                        value={filterDateStart}
+                      />
+                    </div>
+                    <div className="col-sm-5">
+                      <TextInput
+                        label={"Filter วันที่ขายสิ้นสุด"}
+                        setValue={setFilterDateEnd}
+                        type={"date"}
+                        icon={"far fa-calendar-alt"}
+                        value={filterDateEnd}
+                      />
+                    </div>
+                    <div className="col-sm-2">
+                      <br />
+                      <button
+                        className="btn btn-warning mt-2"
+                        onClick={handleResetFilter}
+                      >
+                        ล้างค่า
                       </button>
                     </div>
                   </div>
