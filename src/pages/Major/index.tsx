@@ -170,7 +170,11 @@ export default function MajorManage({
                   <tr key={i}>
                     <td id={`${item.ID}`}>{item.NAME}</td>
                     <td id={`${item.ID}-code`}>{item.CODE ?? "-"}</td>
-                    <td>{convertDateToThaiV2(new Date(item.CREATED_AT))}</td>
+                    <td>
+                      {item.NAME !== "admin"
+                        ? convertDateToThaiV2(new Date(item.CREATED_AT))
+                        : "-"}
+                    </td>
                     <td>
                       <div
                         className="row justify-content-center"
@@ -180,7 +184,9 @@ export default function MajorManage({
                           <>
                             <button
                               className="btn btn-warning mx-2"
-                              onClick={() => inputUpdate(item.ID, item.NAME, item.CODE)}
+                              onClick={() =>
+                                inputUpdate(item.ID, item.NAME, item.CODE)
+                              }
                             >
                               <i className="nav-icon fas fa-pen" />
                             </button>
