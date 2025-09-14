@@ -171,7 +171,11 @@ export default function KayMenuInsert({
         }
         type={"date"}
         placeholder={"วันที่ขาย"}
-        value={!updateKay ? date : String(edit.payload.DATE).split(" ")[0]}
+        value={
+          !updateKay
+            ? datePayment
+            : String(edit.payload.DATE_PAYMENT).split(" ")[0]
+        }
       />
       <TextInput
         label={MenuKayEnum.TEL}
@@ -324,7 +328,7 @@ export default function KayMenuInsert({
                 },
               })
         }
-        type="text"
+        type="date"
         placeholder="ชำระทุกวันที่"
         value={!updateKay ? datePayment : edit.payload.DATE_PAYMENT}
         onClick={(e: any) => {
