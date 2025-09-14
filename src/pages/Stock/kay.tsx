@@ -325,7 +325,9 @@ export function StockKayPage() {
                         </td>
                         <td>{`${item.CODE}-${item.ID}`}</td>
                         <td>{item.MAJOR}</td>
-                        <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
+                        <td>
+                          {convertDateToThaiV2(new Date(item.DATE_PAYMENT))}
+                        </td>
                         {majorUser.toLocaleLowerCase() === "admin" && (
                           <td>
                             <p className="badge badge-success mx-1">
