@@ -218,7 +218,13 @@ export function StockByePage() {
                   <td>{item.IMEI}</td>
                   <td>{item.SOURCE}</td>
                   <td>{item.BATTERY}</td>
-                  <td>{item.STATUS === "0" ? "ยังไม่ขาย" : "ขายไปแล้ว"}</td>
+                  <td>
+                    {item.STATUS === "0" ? (
+                      <p className="badge badge-warning">ยังไม่ขาย</p>
+                    ) : (
+                      <p className="badge badge-success">ขายไปแล้ว</p>
+                    )}
+                  </td>
                   <td>
                     {isEdit() ? (
                       <button

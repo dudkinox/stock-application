@@ -38,6 +38,23 @@ export function StockKayPage() {
     "แก้ไข / ลบ",
   ];
 
+  const stockTableHeadersAdmin = [
+    "วันที่เพิ่มข้อมูล",
+    "รหัสเอกสาร",
+    "สาขา",
+    "วันที่ขาย",
+    "กำไร",
+    "ชื่อลูกค้า",
+    "เบอร์โทร",
+    "รุ่น",
+    "imei",
+    "เงินดาว",
+    "ผ่อนกี่เดือน",
+    "ผ่อนเดือนละ",
+    "จ่ายทุกวันที่",
+    "แก้ไข / ลบ",
+  ];
+
   const stockBuyListTableHeaders = [
     "วันที่เพิ่มข้อมูล",
     "รหัสเอกสาร",
@@ -182,64 +199,83 @@ export function StockKayPage() {
               <div className="card-body">
                 <TableCommon
                   id="kay-table"
-                  columns={stockTableHeaders}
-                  row={stock.map((item, i) => (
-                    <tr key={i} className="text-center">
-                      <td>{convertDateToThaiV2(new Date(item.CREATED_AT))}</td>
-                      <td>{`${item.CODE}-${item.ID}`}</td>
-                      <td>{item.MAJOR}</td>
-                      <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
-                      <td>{item.CUSTOMER}</td>
-                      <td>{item.TEL}</td>
-                      <td>{item.VERSION}</td>
-                      <td>{item.IMEI}</td>
-                      <td>{Number(item.STAR_MONEY).toLocaleString()}</td>
-                      <td>{item.MONTH}</td>
-                      <td>{Number(item.INSTALLMENT).toLocaleString()}</td>
-                      <td>{item.DATE_PAYMENT}</td>
-                      <td>
-                        {isEdit() ? (
-                          <button
-                            type="button"
-                            className="btn btn-warning"
-                            onClick={() => {
-                              sessionStorage.setItem("majorEdit", item.MAJOR);
-                              navigate(`/stock/add?type=kay`, {
-                                state: { id: item.ID },
-                              });
-                              setUpdateKay(true);
-                            }}
-                          >
-                            แก้ไข
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            className="btn btn-warning disabled"
-                          >
-                            แก้ไข
-                          </button>
+                  columns={
+                    majorUser.toLocaleLowerCase() === "admin"
+                      ? stockTableHeadersAdmin
+                      : stockTableHeaders
+                  }
+                  row={stock.map((item, i) => {
+                    const profit =
+                      Number(item.MONTH) * Number(item.INSTALLMENT) +
+                      Number(item.STAR_MONEY) -
+                      Number(item.COST);
+                    return (
+                      <tr key={i} className="text-center">
+                        <td>
+                          {convertDateToThaiV2(new Date(item.CREATED_AT))}
+                        </td>
+                        <td>{`${item.CODE}-${item.ID}`}</td>
+                        <td>{item.MAJOR}</td>
+                        <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
+                        {majorUser.toLocaleLowerCase() === "admin" && (
+                          <td>
+                            <p className="badge badge-success mx-1">
+                              {profit.toLocaleString()} บาท
+                            </p>
+                          </td>
                         )}
-                        &emsp;
-                        {isDelete() ? (
-                          <button
-                            type="button"
-                            className="btn btn-danger"
-                            onClick={deleteStock(item.ID, item.MAJOR)}
-                          >
-                            ลบ
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            className="btn btn-danger disabled"
-                          >
-                            ลบ
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
+                        <td>{item.CUSTOMER}</td>
+                        <td>{item.TEL}</td>
+                        <td>{item.VERSION}</td>
+                        <td>{item.IMEI}</td>
+                        <td>{Number(item.STAR_MONEY).toLocaleString()}</td>
+                        <td>{item.MONTH}</td>
+                        <td>{Number(item.INSTALLMENT).toLocaleString()}</td>
+                        <td>{item.DATE_PAYMENT}</td>
+                        <td>
+                          {isEdit() ? (
+                            <button
+                              type="button"
+                              className="btn btn-warning"
+                              onClick={() => {
+                                sessionStorage.setItem("majorEdit", item.MAJOR);
+                                navigate(`/stock/add?type=kay`, {
+                                  state: { id: item.ID },
+                                });
+                                setUpdateKay(true);
+                              }}
+                            >
+                              แก้ไข
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              className="btn btn-warning disabled"
+                            >
+                              แก้ไข
+                            </button>
+                          )}
+                          &emsp;
+                          {isDelete() ? (
+                            <button
+                              type="button"
+                              className="btn btn-danger"
+                              onClick={deleteStock(item.ID, item.MAJOR)}
+                            >
+                              ลบ
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              className="btn btn-danger disabled"
+                            >
+                              ลบ
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 />
               </div>
             </div>
