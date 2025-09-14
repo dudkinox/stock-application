@@ -37,8 +37,6 @@ export default function KayMenuInsert({
     setIdCard,
     idCard,
     setStockType,
-    date,
-    setDate,
     tel,
     setTel,
     version,
@@ -328,9 +326,14 @@ export default function KayMenuInsert({
                 },
               })
         }
-        type="date"
-        placeholder="ชำระทุกวันที่"
-        value={!updateKay ? datePayment : edit.payload.DATE_PAYMENT}
+        type="text"
+        readonly={true}
+        placeholder="ชำระทุกวันที่ (แก้วันที่ขาย)"
+        value={
+          !updateKay
+            ? new Date(datePayment).getDate()
+            : new Date(edit.payload.DATE_PAYMENT).getDate()
+        }
         onClick={(e: any) => {
           setDatePayment(e);
         }}

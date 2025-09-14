@@ -342,9 +342,7 @@ export function StockKayPage() {
                         <td>{Number(item.STAR_MONEY).toLocaleString()}</td>
                         <td>{item.MONTH}</td>
                         <td>{Number(item.INSTALLMENT).toLocaleString()}</td>
-                        <td>
-                          {convertDateToThaiV2(new Date(item.DATE_PAYMENT))}
-                        </td>
+                        <td>{new Date(item.DATE_PAYMENT).getDate()}</td>
                         <td>
                           {isEdit() ? (
                             <button
