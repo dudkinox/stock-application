@@ -312,7 +312,7 @@ export default function ManageUser() {
                     <i className="nav-icon fas fa-plus" />
                   </button>
                 </>,
-                "วันที่เพิ่มข้อมูล",
+                "timestamp",
                 "ชื่อผู้ใช้ / username",
                 "สิทธิการแก้ไขข้อมูล",
                 "สิทธิการลบข้อมูล",

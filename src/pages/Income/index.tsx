@@ -52,7 +52,7 @@ export default function IncomePage() {
   } = useContext(IncomeContext);
 
   const incomeTableHeaders = [
-    "วันที่กรอกข้อมูล",
+    "timestamp",
     "วันที่",
     "รายการ",
     "สาขา",

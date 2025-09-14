@@ -28,7 +28,7 @@ export function StockKayPage() {
   const navigate = useNavigate();
 
   const stockTableHeaders = [
-    "วันที่เพิ่มข้อมูล",
+    "timestamp",
     "เลือก",
     "รหัสเอกสาร",
     "สาขา",
@@ -45,7 +45,7 @@ export function StockKayPage() {
   ];
 
   const stockTableHeadersAdmin = [
-    "วันที่เพิ่มข้อมูล",
+    "timestamp",
     "เลือก",
     "รหัสเอกสาร",
     "สาขา",
@@ -63,7 +63,7 @@ export function StockKayPage() {
   ];
 
   const stockBuyListTableHeaders = [
-    "วันที่เพิ่มข้อมูล",
+    "timestamp",
     "รหัสเอกสาร",
     "สาขา",
     "Serial Number",
@@ -245,7 +245,7 @@ export function StockKayPage() {
                   <div className="row text-center">
                     <div className="col-sm-5">
                       <TextInput
-                        label={"Filter วันที่เพิ่มข้อมูลเริ่ม"}
+                        label={"Filter timestamp เริ่ม"}
                         setValue={setCreateAtStart}
                         type={"date"}
                         icon={"far fa-calendar-alt"}
@@ -254,7 +254,7 @@ export function StockKayPage() {
                     </div>
                     <div className="col-sm-5">
                       <TextInput
-                        label={"Filter วันที่เพิ่มข้อมูลสิ้นสุด"}
+                        label={"Filter timestamp สิ้นสุด"}
                         setValue={setCreateAtEnd}
                         type={"date"}
                         icon={"far fa-calendar-alt"}

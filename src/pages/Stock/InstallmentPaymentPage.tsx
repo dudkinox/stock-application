@@ -1,21 +1,21 @@
-import { useContext, useEffect, useState } from 'react'
-import TableCommon from '../../common/Table'
-import ContentLayOut from '../../layouts/ContentLayOut'
-import StockService from '../../services/StockServices'
-import { AppContext } from '../../contexts'
-import ModalCommon from '../../common/Modal'
-import SelectChoice from '../../common/Select'
-import TextInput from '../../common/TextInput'
-import { StockContext } from '../../contexts/StockContext'
-import MajorResponse from '../../Models/Response/GetMajorResponse'
-import { useNavigate } from 'react-router-dom'
-import { AlertError, AlertWarning } from '../../common/ToastrCommon'
-import MajorServices from '../../services/MajorService'
-import { convertDateToThaiV2 } from '../../common/DateFormat'
+import { useContext, useEffect, useState } from "react";
+import TableCommon from "../../common/Table";
+import ContentLayOut from "../../layouts/ContentLayOut";
+import StockService from "../../services/StockServices";
+import { AppContext } from "../../contexts";
+import ModalCommon from "../../common/Modal";
+import SelectChoice from "../../common/Select";
+import TextInput from "../../common/TextInput";
+import { StockContext } from "../../contexts/StockContext";
+import MajorResponse from "../../Models/Response/GetMajorResponse";
+import { useNavigate } from "react-router-dom";
+import { AlertError, AlertWarning } from "../../common/ToastrCommon";
+import MajorServices from "../../services/MajorService";
+import { convertDateToThaiV2 } from "../../common/DateFormat";
 
 export function StockInstallmentPaymentPage() {
   const { majorUser, setIsLoading, isEdit, isDelete, deleteStock } =
-    useContext(AppContext)
+    useContext(AppContext);
   const {
     date,
     setDate,
@@ -33,35 +33,35 @@ export function StockInstallmentPaymentPage() {
     setStockID,
     setPriceTotal,
     setInstallmentNo,
-  } = useContext(StockContext)
-  const [stock, setStock] = useState<any[]>([])
+  } = useContext(StockContext);
+  const [stock, setStock] = useState<any[]>([]);
   const stockTableHeaders = [
-    'วันที่เพิ่มข้อมูล',
-    'รหัสเอกสาร',
-    'วันที่',
-    'สาขา',
-    'งวดที่',
-    'จำนวนเงิน',
-    'แก้ไข',
-    'ลบ',
-  ]
-  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([])
+    "timestamp",
+    "รหัสเอกสาร",
+    "วันที่",
+    "สาขา",
+    "งวดที่",
+    "จำนวนเงิน",
+    "แก้ไข",
+    "ลบ",
+  ];
+  const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const nextValidate = () => {
-    const isNext = date !== '' && stockType !== ''
-    const isAdmin = majorUser === 'admin'
-    const isNextAdmin = isAdmin && majorInsert !== ''
+    const isNext = date !== "" && stockType !== "";
+    const isAdmin = majorUser === "admin";
+    const isNextAdmin = isAdmin && majorInsert !== "";
 
     if ((isAdmin && isNextAdmin && isNext) || (!isAdmin && isNext)) {
       navigate(`/stock/add?type=installment`, {
         state: { id: 0 },
-      })
+      });
     } else {
-      AlertWarning('กรุณากรอกข้อมูลให้ครบถ้วน')
+      AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
     }
-  }
+  };
 
   const handlerInstallment = (
     id: string,
@@ -69,41 +69,41 @@ export function StockInstallmentPaymentPage() {
     installmentNo: number,
     priceTotal: string
   ) => {
-    sessionStorage.setItem('majorEdit', majorInsert)
-    setStockID(id)
-    setMajorInsert(majorInsert)
-    setPriceTotal(priceTotal)
-    setInstallmentNo(installmentNo)
-    setUpdateKey(true)
-    navigate(`/stock/add?type=installment`, { state: { id } })
-  }
+    sessionStorage.setItem("majorEdit", majorInsert);
+    setStockID(id);
+    setMajorInsert(majorInsert);
+    setPriceTotal(priceTotal);
+    setInstallmentNo(installmentNo);
+    setUpdateKey(true);
+    navigate(`/stock/add?type=installment`, { state: { id } });
+  };
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     StockService.GetStockInstallmentPaymentAll(majorUser)
       .then((res) => {
-        setStock(res.data)
-        setIsLoading(false)
+        setStock(res.data);
+        setIsLoading(false);
       })
       .catch((err) => {
-        AlertError(err.response.data.message)
-        setIsLoading(false)
-      })
-  }, [])
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
-    setIsLoading(true)
-    setStockType('ผ่อน')
+    setIsLoading(true);
+    setStockType("ผ่อน");
     MajorServices.getMajors()
       .then((res) => {
-        setFetchMajor(res.data)
-        setIsLoading(false)
+        setFetchMajor(res.data);
+        setIsLoading(false);
       })
       .catch((err) => {
-        AlertError(err.response.data.message)
-        setIsLoading(false)
-      })
-  }, [setFetchMajor, stockType])
+        AlertError(err.response.data.message);
+        setIsLoading(false);
+      });
+  }, [setFetchMajor, stockType]);
 
   return (
     <ContentLayOut

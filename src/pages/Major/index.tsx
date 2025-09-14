@@ -161,7 +161,7 @@ export default function MajorManage({
                 </button>
               </>,
               "รหัสสาขา",
-              "วันที่เพิ่มข้อมูล",
+              "timestamp",
               "จัดการ",
             ]}
             row={

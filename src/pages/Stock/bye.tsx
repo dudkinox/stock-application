@@ -36,7 +36,7 @@ export function StockByePage() {
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [filterDate, setFilterDate] = useState<string>("");
   const stockBuyListTableHeaders = [
-    "วันที่เพิ่มข้อมูล",
+    "timestamp",
     "รหัสเอกสาร",
     "สาขา",
     "วันที่ซื้อ",
@@ -114,7 +114,7 @@ export function StockByePage() {
           <div className="row text-center">
             <div className="col-sm-10">
               <TextInput
-                label={"Filter วันที่เพิ่มข้อมูล"}
+                label={"Filter timestamp:"}
                 setValue={setFilterDate}
                 type={"date"}
                 icon={"far fa-calendar-alt"}

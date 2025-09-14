@@ -42,7 +42,7 @@ export function StockEquipmentPage() {
   const [stock, setStock] = useState<any[]>([]);
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const stockTableHeaders = [
-    "วันที่เพิ่มข้อมูล",
+    "timestamp",
     "รหัสเอกสาร",
     "สาขา",
     "วันที่",

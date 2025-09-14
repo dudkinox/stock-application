@@ -48,7 +48,7 @@ export default function CustomerPage() {
   const stateLocation = useLocation();
 
   const customerTableHeaders = [
-    "วันที่เพิ่มข้อมูล",
+    "timestamp",
     "ชื่อสาขา",
     "เลขบัตรประชาชน",
     "ชื่อ-สกุล",
