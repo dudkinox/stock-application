@@ -28,8 +28,8 @@ export function StockKayPage() {
   const navigate = useNavigate();
 
   const stockTableHeaders = [
-    "เลือก",
     "วันที่เพิ่มข้อมูล",
+    "เลือก",
     "รหัสเอกสาร",
     "สาขา",
     "วันที่ขาย",
@@ -45,8 +45,8 @@ export function StockKayPage() {
   ];
 
   const stockTableHeadersAdmin = [
-    "เลือก",
     "วันที่เพิ่มข้อมูล",
+    "เลือก",
     "รหัสเอกสาร",
     "สาขา",
     "วันที่ขาย",
@@ -318,10 +318,10 @@ export function StockKayPage() {
                     return (
                       <tr key={i} className="text-center">
                         <td>
-                          <input type="checkbox" className="row-check" />
+                          {convertDateToThaiV2(new Date(item.CREATED_AT))}
                         </td>
                         <td>
-                          {convertDateToThaiV2(new Date(item.CREATED_AT))}
+                          <input type="checkbox" className="row-check" />
                         </td>
                         <td>{`${item.CODE}-${item.ID}`}</td>
                         <td>{item.MAJOR}</td>
