@@ -159,13 +159,13 @@ export default function KayMenuInsert({
         icon={"fas fa-calendar"}
         setValue={(e: any) =>
           !updateKay
-            ? setDate(e)
+            ? setDatePayment(e)
             : setEdit({
                 major: edit.major,
                 stockType: edit.stockType,
                 payload: {
                   ...edit.payload,
-                  DATE: e,
+                  DATE_PAYMENT: e,
                 },
               })
         }
@@ -332,9 +332,7 @@ export default function KayMenuInsert({
         placeholder="ชำระทุกวันที่"
         value={!updateKay ? datePayment : edit.payload.DATE_PAYMENT}
         onClick={(e: any) => {
-          if (!updateKay && e.target.value === "0") {
-            setDatePayment("");
-          }
+          setDatePayment(e);
         }}
       />
     </>
