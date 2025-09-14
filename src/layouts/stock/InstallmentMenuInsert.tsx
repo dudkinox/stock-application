@@ -129,16 +129,9 @@ export default function InstallmentMenuInsert({
                 list="browsers"
                 name="browser"
                 id="browser"
-                className="form-control"
+                className="form-control col-10"
                 onChange={(e: any) => {
                   setDocumentId(e.target.value)
-                  PaymentService.InstallmentNumber(e.target.value).then(
-                    (res) => {
-                      String(res.data) === 'false'
-                        ? ($('#alert-installment-modal') as any).modal('show')
-                        : setInstallmentNo(Number(res.data) + 1)
-                    },
-                  )
                 }}
                 placeholder={MenuInstallmentPaymentEnum.DOC_ID}
                 autoComplete="off"
@@ -153,6 +146,21 @@ export default function InstallmentMenuInsert({
                   />
                 )) ?? []}
               </datalist>
+              <button
+                type="button"
+                className="btn primary-btn col-lg-2 col-sm-auto"
+                onClick={() => {
+                  PaymentService.InstallmentNumber(documentId).then(
+                    (res) => {
+                      String(res.data) === 'false'
+                        ? ($('#alert-installment-modal') as any).modal('show')
+                        : setInstallmentNo(Number(res.data) + 1)
+                    },
+                  )
+                }}
+              >
+                ตรวจสอบงวด
+              </button>
             </div>
           </div>
           <div className="form-group">
