@@ -312,7 +312,7 @@ export default function KayMenuInsert({
         }}
       />
       <TextInput
-        label={MenuKayEnum.DATE_PAYMENT}
+        label={MenuKayEnum.DATE_PAYMENT + " (ให้แก้วันที่ขาย)"}
         icon={"fas fa-cash-register"}
         setValue={(e: any) =>
           !updateKay
