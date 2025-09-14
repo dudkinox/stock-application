@@ -110,27 +110,25 @@ export function StockByePage() {
       title={"stock"}
       topic={"สต๊อกสินค้า ที่ซื้อ"}
       filter={
-        <>
-          <div className="container-fluid">
-            <div className="row text-center">
-              <div className="col-sm-10">
-                <TextInput
-                  label={"Filter วันที่เพิ่มข้อมูล"}
-                  setValue={setFilterDate}
-                  type={"date"}
-                  icon={"far fa-calendar-alt"}
-                  value={filterDate}
-                />
-              </div>
-              <div className="col-sm-2">
-                <br />
-                <button className="btn btn-primary mt-2" onClick={handleFilter}>
-                  ค้นหา
-                </button>
-              </div>
+        <div className="container-fluid">
+          <div className="row text-center">
+            <div className="col-sm-10">
+              <TextInput
+                label={"Filter วันที่เพิ่มข้อมูล"}
+                setValue={setFilterDate}
+                type={"date"}
+                icon={"far fa-calendar-alt"}
+                value={filterDate}
+              />
+            </div>
+            <div className="col-sm-2">
+              <br />
+              <button className="btn btn-primary mt-2" onClick={handleFilter}>
+                ค้นหา
+              </button>
             </div>
           </div>
-        </>
+        </div>
       }
       btnHeader={
         <button

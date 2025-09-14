@@ -7,6 +7,7 @@ import initTable, { destroyTable } from "../../common/DataTable";
 import { useNavigate } from "react-router-dom";
 import { StockContext } from "../../contexts/StockContext";
 import { convertDateToThaiV2 } from "../../common/DateFormat";
+import TextInput from "../../common/TextInput";
 
 export function StockKayPage() {
   const { majorUser, setIsLoading, deleteStock, isEdit, isDelete } =
@@ -20,9 +21,12 @@ export function StockKayPage() {
   } = useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
   const [buyList, setBuyList] = useState<any[]>([]);
+  const [createAt, setCreateAt] = useState<string>("");
+  const [filterDate, setFilterDate] = useState<string>("");
   const navigate = useNavigate();
 
   const stockTableHeaders = [
+    "เลือก",
     "วันที่เพิ่มข้อมูล",
     "รหัสเอกสาร",
     "สาขา",
@@ -39,6 +43,7 @@ export function StockKayPage() {
   ];
 
   const stockTableHeadersAdmin = [
+    "เลือก",
     "วันที่เพิ่มข้อมูล",
     "รหัสเอกสาร",
     "สาขา",
@@ -82,18 +87,34 @@ export function StockKayPage() {
     navigate(`/stock/add?type=kay`, { state: { id } });
   };
 
+  const handleFilter = () => {
+    setIsLoading(true);
+    StockService.GetStockKay(majorUser, createAt, filterDate).then((res) => {
+      destroyTable();
+      setStock(res.data);
+      setTimeout(
+        () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
+        100
+      );
+      setIsLoading(false);
+    });
+  };
+
   useEffect(() => {
     setIsLoading(true);
     StockService.GetStockKay(majorUser).then((res) => {
       destroyTable();
       setStock(res.data);
-      setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
+      setTimeout(
+        () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
+        100
+      );
     });
     StockService.GetStockBye(majorUser).then((res) => {
       destroyTable();
       setBuyList(res.data);
       setTimeout(
-        () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
+        () => initTable(res.data.length.toString() ?? "0", "#buy-table"),
         100
       );
       setIsLoading(false);
@@ -113,6 +134,7 @@ export function StockKayPage() {
 
               <div className="card-body">
                 <TableCommon
+                  id="buy-table"
                   columns={stockBuyListTableHeaders}
                   row={buyList.map((item, i) =>
                     item.STATUS === "0" ? (
@@ -195,6 +217,39 @@ export function StockKayPage() {
               <div className="card-header">
                 <h2 className="card-title">{"ขายไปแล้ว"}</h2>
               </div>
+              <div className="card-body">
+                <div className="container-fluid">
+                  <div className="row text-center">
+                    <div className="col-sm-10">
+                      <TextInput
+                        label={"Filter วันที่เพิ่มข้อมูล"}
+                        setValue={setCreateAt}
+                        type={"date"}
+                        icon={"far fa-calendar-alt"}
+                        value={createAt}
+                      />
+                    </div>
+                    <div className="col-sm-10">
+                      <TextInput
+                        label={"Filter วันที่ขาย"}
+                        setValue={setFilterDate}
+                        type={"date"}
+                        icon={"far fa-calendar-alt"}
+                        value={filterDate}
+                      />
+                    </div>
+                    <div className="col-sm-2">
+                      <br />
+                      <button
+                        className="btn btn-primary mt-2"
+                        onClick={handleFilter}
+                      >
+                        ค้นหา
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div className="card-body">
                 <TableCommon
@@ -209,8 +264,12 @@ export function StockKayPage() {
                       Number(item.MONTH) * Number(item.INSTALLMENT) +
                       Number(item.STAR_MONEY) -
                       Number(item.COST);
+
                     return (
                       <tr key={i} className="text-center">
+                        <td>
+                          <input type="checkbox" className="row-check" />
+                        </td>
                         <td>
                           {convertDateToThaiV2(new Date(item.CREATED_AT))}
                         </td>

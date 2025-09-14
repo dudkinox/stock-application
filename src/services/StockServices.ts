@@ -45,8 +45,8 @@ const DeleteStockByIdService = (id: string, major: string) => {
   );
 };
 
-const GetStockKayService = (major: string) => {
-  return Https.get<any[]>(`/apis/kay/get/?major=${major}`);
+const GetStockKayService = (major: string, createAt?: string, filterDate?: string) => {
+  return Https.get<any[]>(`/apis/kay/get/?major=${major}` + (createAt ? `&created_at=${createAt}` : "") + (filterDate ? `&filter_date=${filterDate}` : ""));
 };
 
 const GetStockByeService = (major: string, filterDate?: string) => {
