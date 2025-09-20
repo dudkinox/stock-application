@@ -78,7 +78,7 @@ export function StockByePage() {
       filterDateStart,
       filterDateEnd
     ).then((res) => {
-      destroyTable();
+      destroyTable("#bye-table");
       setBuyList(res.data);
       setTimeout(
         () => initTable(res.data.length.toString() ?? "0", "#bye-table"),
@@ -95,7 +95,7 @@ export function StockByePage() {
     setFilterDateEnd("");
     setIsLoading(true);
     StockService.GetStockBye(majorUser).then((res) => {
-      destroyTable();
+      destroyTable("#bye-table");
       setBuyList(res.data);
       setTimeout(
         () => initTable(res.data.length.toString() ?? "0", "#bye-table"),
@@ -122,7 +122,7 @@ export function StockByePage() {
   useEffect(() => {
     setIsLoading(true);
     StockService.GetStockBye(majorUser).then((res) => {
-      destroyTable();
+      destroyTable("#bye-table");
       setBuyList(res.data);
       setTimeout(
         () => initTable(res.data.length.toString() ?? "0", "#bye-table"),
