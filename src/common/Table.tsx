@@ -26,7 +26,7 @@ export default function TableCommon({
         <thead>
           <tr className="text-center">
             {columns.map((item, i) => (
-              <th key={i} className="align-middle">
+              <th key={item.ID ?? i} className="align-middle">
                 {item}
               </th>
             ))}

@@ -44,9 +44,22 @@ export function StockKayPage() {
     "แก้ไข / ลบ",
   ];
 
+  const selectAll = () => {
+    const checkBoxes = document.getElementsByClassName(
+      "row-check"
+    ) as HTMLCollectionOf<HTMLInputElement>;
+    const mainCheckBox = document.getElementById(
+      "flexCheckDefault"
+    ) as HTMLInputElement;
+
+    for (const element of checkBoxes) {
+      element.checked = mainCheckBox.checked;
+    }
+  };
+
   function blogSelectCal() {
     return (
-      <div className="form-check">
+      <div className="form-check" onClick={selectAll}>
         <input
           className="form-check-input"
           type="checkbox"
@@ -340,8 +353,22 @@ export function StockKayPage() {
                         <td>
                           {convertDateToThaiV2(new Date(item.CREATED_AT))}
                         </td>
-                        <td>
-                          <input type="checkbox" className="row-check" />
+                        <td
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            const checkBox = document.getElementById(
+                              `row-${item.ID}`
+                            ) as HTMLInputElement;
+
+                            checkBox.checked = !checkBox.checked;
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            className="row-check"
+                            id={`row-${item.ID}`}
+                            onClick={(e) => e.stopPropagation()}
+                          />
                         </td>
                         <td>{`${item.CODE}-${item.ID}`}</td>
                         <td>{item.MAJOR}</td>
