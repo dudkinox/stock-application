@@ -119,7 +119,7 @@ export function StockByePage() {
       destroyTable();
       setBuyList(res.data);
       setTimeout(
-        () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
+        () => initTable(res.data.length.toString() ?? "0", "#bye-table"),
         100
       );
       setIsLoading(false);
