@@ -355,13 +355,16 @@ export function StockContextProvider({ children }: Readonly<ChildrenProps>) {
         major: majorUser === "admin" ? majorInsert : majorUser,
       };
 
+      if (stockType === "ขาย") {
+        baseInsert.date = datePayment;
+      }
       if (baseInsert.date === "") {
         AlertWarning("กรุณากรอกวันที่");
       } else if (baseInsert.stockType === "") {
         AlertWarning("กรุณาเลือกประเภท");
       } else {
         setIsShowModal(true);
-        var baseParams =
+        let baseParams =
           "?date=" +
           baseInsert.date +
           "&id_card=" +

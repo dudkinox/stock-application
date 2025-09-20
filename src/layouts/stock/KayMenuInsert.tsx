@@ -334,9 +334,6 @@ export default function KayMenuInsert({
             ? new Date(datePayment).getDate()
             : new Date(edit.payload.DATE_PAYMENT).getDate()
         }
-        onClick={(e: any) => {
-          setDatePayment(e);
-        }}
       />
     </>
   );
