@@ -11,10 +11,9 @@ const PageDown: React.FC = () => {
   return (
     <div className="page-down" title="เลื่อนลง">
       <button
-        className="page-down-btn"
-        onClick={scrollToBottom}
-        title="เลื่อนลง"
+        className="fab-btn page-down-btn"
         type="button"
+        onClick={scrollToBottom}
       >
         <i className="fas fa-arrow-down" aria-hidden="true" />
         <span className="sr-only">เลื่อนลง</span>

@@ -84,13 +84,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.page-down {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 99999;
-}
-.page-down-btn {
+.fab-btn {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -103,22 +97,42 @@ input[type="number"] {
   transition: all 0.3s ease;
 }
 
-.page-down-btn:hover {
+.fab-btn:hover {
   transform: translateY(-5px) scale(1.08);
   background: linear-gradient(135deg, #ff3366, #ff004d);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
 }
 
-.page-down-btn:active {
+.fab-btn:active {
   transform: translateY(2px) scale(0.95);
 }
 
-.page-down-btn i {
+.fab-btn i {
   transition: transform 0.3s ease;
 }
 
+/* เอฟเฟกต์แยกสำหรับขึ้น/ลง */
 .page-down-btn:hover i {
-  transform: translateY(3px);
+  transform: translateY(3px); /* ลง */
+}
+
+.page-up-btn:hover i {
+  transform: translateY(-3px); /* ขึ้น */
+}
+
+/* --- ตำแหน่ง --- */
+.page-down {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99999;
+}
+
+.page-up {
+  position: fixed;
+  bottom: 90px; /* ให้อยู่เหนือ page-down */
+  right: 20px; /* ใช้มุมเดียวกัน */
+  z-index: 99999;
 }
 
 @media screen and (max-width: 1440px) {

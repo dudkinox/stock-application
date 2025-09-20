@@ -21,7 +21,8 @@ import { StockByePage } from "./pages/Stock/bye";
 import { StockEquipmentPage } from "./pages/Stock/equipment";
 import { StockInstallmentPaymentPage } from "./pages/Stock/InstallmentPaymentPage";
 import StockAddPage from "./pages/Stock/add";
-import PageDown from "./layouts/pageDown";
+import PageDown from "./layouts/page/pageDown";
+import PageUp from "./layouts/page/pageUp";
 
 export default function App() {
   const { isLogin, isLoading, majorUser } = useContext(AppContext);
@@ -34,7 +35,12 @@ export default function App() {
 
   return (
     <>
-      <PageDown />
+      {!isLoading && isLogin && (
+        <>
+          <PageUp />
+          <PageDown />
+        </>
+      )}
       {isLoading && <LoadingCommon />}
       {!isLoading && (
         <>
