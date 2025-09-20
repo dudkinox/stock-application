@@ -2,9 +2,15 @@ interface TableCommonProps {
   columns: any[];
   row: any;
   id?: string;
+  foot?: any;
 }
 
-export default function TableCommon({ columns, row, id }: TableCommonProps) {
+export default function TableCommon({
+  columns,
+  row,
+  id,
+  foot,
+}: Readonly<TableCommonProps>) {
   return (
     <div
       className="tablecommon-responsive"
@@ -20,11 +26,14 @@ export default function TableCommon({ columns, row, id }: TableCommonProps) {
         <thead>
           <tr className="text-center">
             {columns.map((item, i) => (
-              <th key={i}>{item}</th>
+              <th key={i} className="align-middle">
+                {item}
+              </th>
             ))}
           </tr>
         </thead>
         <tbody>{row}</tbody>
+        <tfoot>{foot}</tfoot>
       </table>
     </div>
   );

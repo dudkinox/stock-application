@@ -44,9 +44,29 @@ export function StockKayPage() {
     "แก้ไข / ลบ",
   ];
 
+  function blogSelectCal() {
+    return (
+      <div className="form-check">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          id="flexCheckDefault"
+          style={{ cursor: "pointer" }}
+        />
+        <label
+          className="form-check-label"
+          htmlFor="flexCheckDefault"
+          style={{ cursor: "pointer" }}
+        >
+          ติ๊กเพื่อเลือกทั้งหมด
+        </label>
+      </div>
+    );
+  }
+
   const stockTableHeadersAdmin = [
     "timestamp",
-    "เลือก",
+    blogSelectCal(),
     "รหัสเอกสาร",
     "สาขา",
     "วันที่ขาย",
@@ -159,9 +179,9 @@ export function StockKayPage() {
                 <TableCommon
                   id="buy-table"
                   columns={stockBuyListTableHeaders}
-                  row={buyList.map((item, i) =>
+                  row={buyList.map((item) =>
                     item.STATUS === "0" ? (
-                      <tr key={i} className="text-center">
+                      <tr key={item.ID} className="text-center">
                         <td>
                           <span className="d-none">{item.CREATED_AT}</span>
                           {convertDateToThaiV2(new Date(item.CREATED_AT))}
@@ -309,14 +329,14 @@ export function StockKayPage() {
                       ? stockTableHeadersAdmin
                       : stockTableHeaders
                   }
-                  row={stock.map((item, i) => {
+                  row={stock.map((item) => {
                     const profit =
                       Number(item.MONTH) * Number(item.INSTALLMENT) +
                       Number(item.STAR_MONEY) -
                       Number(item.COST);
 
                     return (
-                      <tr key={i} className="text-center">
+                      <tr key={item.ID} className="text-center">
                         <td>
                           {convertDateToThaiV2(new Date(item.CREATED_AT))}
                         </td>
@@ -387,6 +407,17 @@ export function StockKayPage() {
                       </tr>
                     );
                   })}
+                  foot={
+                    <tr className="text-center">
+                      <td colSpan={5}>รวม</td>
+                      <td>{1000} บาท</td>
+                      <td colSpan={4}></td>
+                      <td>{1000} บาท</td>
+                      <td>{1000} เดือน</td>
+                      <td>{1000} บาท</td>
+                      <td colSpan={2}></td>
+                    </tr>
+                  }
                 />
               </div>
             </div>

@@ -1,5 +1,10 @@
 export default function initTable(max: string, id?: string) {
-  ($(id ?? "#stock-table") as any).DataTable({
+  let options = {};
+  if (id === "#kay-table") {
+    options = { columnDefs: [{ orderable: false, targets: [1] }] };
+  }
+  options = {
+    ...options,
     responsive: false,
     autoWidth: true,
     paging: true,
@@ -28,7 +33,9 @@ export default function initTable(max: string, id?: string) {
       [5, 10, 25, 50, 100, 200, 500, 1000, -1],
       [5, 10, 25, 50, 100, 200, 500, 1000, "ทั้งหมด"],
     ],
-  });
+  };
+
+  ($(id ?? "#stock-table") as any).DataTable(options);
 }
 
 export function destroyTable(id?: string) {
