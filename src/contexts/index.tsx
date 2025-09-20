@@ -55,7 +55,7 @@ export function AppContextProvider({ children }: ChildrenProps) {
       .then((res) => {
         AlertSuccess(res.data.message);
         StockService.GetStock(majorUser)
-          .then((res) => {
+          .then(() => {
             window.location.reload();
           })
           .catch((err) => {
