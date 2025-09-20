@@ -507,7 +507,10 @@ export default function IncomePage() {
                         <span className="d-none">{item.CREATED_AT}</span>
                         {convertDateToThaiV2(new Date(item.CREATED_AT))}
                       </td>
-                      <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
+                      <td>
+                        <span className="d-none">{item.DATE}</span>
+                        {convertDateToThaiV2(new Date(item.DATE))}
+                      </td>
                       <td>{item.LIST_NAME}</td>
                       <td>{item.MAJOR}</td>
                       <td>{Number(item.REVENUE).toLocaleString()}</td>
@@ -645,7 +648,10 @@ export default function IncomePage() {
                 fundTotal += Number(item.MONEY);
                 return (
                   <tr key={item.ID} className="text-center">
-                    <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
+                    <td>
+                      <span className="d-none">{item.DATE}</span>
+                      {convertDateToThaiV2(new Date(item.DATE))}
+                    </td>
                     <td>{Number(item.MONEY).toLocaleString()}</td>
                     <td>
                       {isEdit() ? (
