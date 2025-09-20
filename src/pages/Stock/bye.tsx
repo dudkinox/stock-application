@@ -71,7 +71,13 @@ export function StockByePage() {
 
   const handleFilter = () => {
     setIsLoading(true);
-    StockService.GetStockBye(majorUser, createAtStart).then((res) => {
+    StockService.GetStockBye(
+      majorUser,
+      createAtStart,
+      createAtEnd,
+      filterDateStart,
+      filterDateEnd
+    ).then((res) => {
       destroyTable();
       setBuyList(res.data);
       setTimeout(
