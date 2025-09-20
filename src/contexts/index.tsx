@@ -2,7 +2,6 @@ import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { AlertError, AlertSuccess } from "../common/ToastrCommon";
 import AccountServices from "../services/AccountService";
 import StockService from "../services/StockServices";
-import { useNavigate } from "react-router-dom";
 
 interface AppContextProps {
   pathUrl: string;
@@ -36,7 +35,7 @@ interface ChildrenProps {
   children: ReactNode;
 }
 
-export function AppContextProvider({ children }: ChildrenProps) {
+export function AppContextProvider({ children }: Readonly<ChildrenProps>) {
   const [pathUrl, setPathUrl] = useState<string>(window.location.pathname);
   const isLogin = sessionStorage.getItem("account") ?? "";
   const majorUser = sessionStorage.getItem("major") ?? "";

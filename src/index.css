@@ -80,10 +80,46 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
+.page-down {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99999;
+}
+.page-down-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #ff004d, #d90041);
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+
+.page-down-btn:hover {
+  transform: translateY(-5px) scale(1.08);
+  background: linear-gradient(135deg, #ff3366, #ff004d);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+}
+
+.page-down-btn:active {
+  transform: translateY(2px) scale(0.95);
+}
+
+.page-down-btn i {
+  transition: transform 0.3s ease;
+}
+
+.page-down-btn:hover i {
+  transform: translateY(3px);
+}
 
 @media screen and (max-width: 1440px) {
   .gif {
