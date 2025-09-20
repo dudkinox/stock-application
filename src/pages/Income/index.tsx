@@ -55,7 +55,6 @@ export default function IncomePage() {
 
   const incomeTableHeaders = [
     "timestamp",
-    "วันที่",
     "รายการ",
     "สาขา",
     "รายจ่าย(บาท)",
@@ -501,15 +500,12 @@ export default function IncomePage() {
                 row={incomeList.map((item) => {
                   incomeTotal += Number(item.EXPENSE);
                   outcomeTotal += Number(item.REVENUE);
+
                   return (
                     <tr key={item.ID} className="text-center">
                       <td>
                         <span className="d-none">{item.CREATED_AT}</span>
                         {convertDateToThaiV2(new Date(item.CREATED_AT))}
-                      </td>
-                      <td>
-                        <span className="d-none">{item.DATE}</span>
-                        {convertDateToThaiV2(new Date(item.DATE))}
                       </td>
                       <td>{item.LIST_NAME}</td>
                       <td>{item.MAJOR}</td>
@@ -545,7 +541,7 @@ export default function IncomePage() {
                 })}
                 foot={
                   <tr className="text-center">
-                    <td colSpan={4}>รวม</td>
+                    <td colSpan={3}>รวม</td>
                     <td>{outcomeTotal.toLocaleString()} บาท</td>
                     <td>{incomeTotal.toLocaleString()} บาท</td>
                     <td colSpan={3}></td>
