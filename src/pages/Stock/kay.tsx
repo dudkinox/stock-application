@@ -136,6 +136,16 @@ export function StockKayPage() {
       setStock(res.data);
       setTotalProfit(0);
       setTotalStarMoney(0);
+      const checkBoxes = document.getElementsByClassName(
+        "row-check"
+      ) as HTMLCollectionOf<HTMLInputElement>;
+      for (const element of checkBoxes) {
+        element.checked = false;
+      }
+      const mainCheckBox = document.getElementById(
+        "flexCheckDefault"
+      ) as HTMLInputElement;
+      if (mainCheckBox) mainCheckBox.checked = false;
       setTimeout(
         () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
         100
