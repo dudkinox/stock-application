@@ -226,13 +226,13 @@ export function StockInstallmentPaymentPage() {
                   <div className="card-body">
                     <TableCommon
                       columns={stockTableHeaders}
-                      row={stock.map((item, i) => (
-                        <tr key={i} className="text-center">
+                      row={stock.map((item) => (
+                        <tr key={item.ID} className="text-center">
                           <td>
                             <span className="d-none">{item.CREATED_AT}</span>
                             {convertDateToThaiV2(new Date(item.CREATED_AT))}
                           </td>
-                          <td>{item.ID_CARD}</td>
+                          <td>{item.ID}</td>
                           <td>
                             <span className="d-none">{item.CREATED_AT}</span>
                             {convertDateToThaiV2(new Date(item.DATE))}

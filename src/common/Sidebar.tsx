@@ -19,7 +19,7 @@ export default function SidebarCommon() {
           </div>
           <div className="info">
             <a href="#admin" className="d-block">
-              { majorUser }
+              {majorUser}
             </a>
           </div>
         </div>
@@ -47,13 +47,13 @@ export default function SidebarCommon() {
               {majorUser === "admin" ? (
                 <li className="nav-item">
                   <a
-                    href="/document"
+                    href={PathEnum.DOCUMENT}
                     className={`nav-link ${
                       pathUrl === PathEnum.DOCUMENT ? "active" : ""
                     }`}
                   >
-                    <i className="nav-icon fas fa-book" />
-                    <p>ข้อมูลสัญญา</p>
+                    <i className="nav-icon fas fa-file-import" />
+                    <p>นำเข้าข้อมูล</p>
                   </a>
                 </li>
               ) : null}
