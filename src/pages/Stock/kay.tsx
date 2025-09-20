@@ -25,6 +25,8 @@ export function StockKayPage() {
   const [createAtEnd, setCreateAtEnd] = useState<string>("");
   const [filterDateStart, setFilterDateStart] = useState<string>("");
   const [filterDateEnd, setFilterDateEnd] = useState<string>("");
+  const [totalProfit, setTotalProfit] = useState<number>(0);
+  const [totalStarMoney, setTotalStarMoney] = useState<number>(0);
   const navigate = useNavigate();
 
   const stockTableHeaders = [
@@ -55,6 +57,8 @@ export function StockKayPage() {
     for (const element of checkBoxes) {
       element.checked = mainCheckBox.checked;
     }
+
+    updateTotalProfitFromSelection();
   };
 
   function blogSelectCal() {
@@ -130,6 +134,8 @@ export function StockKayPage() {
     StockService.GetStockKay(majorUser).then((res) => {
       destroyTable("#kay-table");
       setStock(res.data);
+      setTotalProfit(0);
+      setTotalStarMoney(0);
       setTimeout(
         () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
         100
@@ -148,6 +154,8 @@ export function StockKayPage() {
     ).then((res) => {
       destroyTable("#kay-table");
       setStock(res.data);
+      setTotalProfit(0);
+      setTotalStarMoney(0);
       setTimeout(
         () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
         100
@@ -156,11 +164,55 @@ export function StockKayPage() {
     });
   };
 
+  const updateTotalProfitFromSelection = () => {
+    setTotalProfit(calProfitBySelected());
+    setTotalStarMoney(calStarMoneyBySelected());
+  };
+
+  const calProfitBySelected = () => {
+    const checkBoxes = document.getElementsByClassName(
+      "row-check"
+    ) as HTMLCollectionOf<HTMLInputElement>;
+    let total = 0;
+
+    for (const element of checkBoxes) {
+      if (element.checked) {
+        const id = element.id.replace("row-", "");
+        const item = stock.find((s) => s.ID === id);
+        const profit =
+          Number(item.MONTH) * Number(item.INSTALLMENT) +
+          Number(item.STAR_MONEY) -
+          Number(item.COST);
+        total += profit;
+      }
+    }
+
+    return total;
+  };
+
+  const calStarMoneyBySelected = () => {
+    const checkBoxes = document.getElementsByClassName(
+      "row-check"
+    ) as HTMLCollectionOf<HTMLInputElement>;
+    let total = 0;
+
+    for (const element of checkBoxes) {
+      if (element.checked) {
+        const id = element.id.replace("row-", "");
+        const item = stock.find((s) => s.ID === id);
+        total += Number(item.STAR_MONEY);
+      }
+    }
+
+    return total;
+  };
+
   useEffect(() => {
     setIsLoading(true);
     StockService.GetStockKay(majorUser).then((res) => {
       destroyTable("#kay-table");
       setStock(res.data);
+      setTotalProfit(0);
       setTimeout(
         () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
         100
@@ -361,6 +413,7 @@ export function StockKayPage() {
                             ) as HTMLInputElement;
 
                             checkBox.checked = !checkBox.checked;
+                            updateTotalProfitFromSelection();
                           }}
                         >
                           <input
@@ -368,6 +421,7 @@ export function StockKayPage() {
                             className="row-check"
                             id={`row-${item.ID}`}
                             onClick={(e) => e.stopPropagation()}
+                            onChange={updateTotalProfitFromSelection}
                           />
                         </td>
                         <td>{`${item.CODE}-${item.ID}`}</td>
@@ -437,12 +491,10 @@ export function StockKayPage() {
                   foot={
                     <tr className="text-center">
                       <td colSpan={5}>รวม</td>
-                      <td>{1000} บาท</td>
+                      <td>{totalProfit.toLocaleString()} บาท</td>
                       <td colSpan={4}></td>
-                      <td>{1000} บาท</td>
-                      <td>{1000} เดือน</td>
-                      <td>{1000} บาท</td>
-                      <td colSpan={2}></td>
+                      <td>{totalStarMoney.toLocaleString()} บาท</td>
+                      <td colSpan={4}></td>
                     </tr>
                   }
                 />
