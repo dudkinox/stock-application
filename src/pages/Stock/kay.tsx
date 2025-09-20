@@ -413,6 +413,7 @@ export function StockKayPage() {
                     return (
                       <tr key={item.ID} className="text-center">
                         <td>
+                          <span className="d-none">{item.CREATED_AT}</span>
                           {convertDateToThaiV2(new Date(item.CREATED_AT))}
                         </td>
                         <td
@@ -441,6 +442,7 @@ export function StockKayPage() {
                         </td>
                         {majorUser.toLocaleLowerCase() === "admin" && (
                           <td>
+                            <span className="d-none">{profit}</span>
                             <p className="badge badge-success mx-1">
                               {profit.toLocaleString()} บาท
                             </p>
@@ -450,9 +452,15 @@ export function StockKayPage() {
                         <td>{item.TEL}</td>
                         <td>{item.VERSION}</td>
                         <td>{item.IMEI}</td>
-                        <td>{Number(item.STAR_MONEY).toLocaleString()}</td>
+                        <td>
+                          <span className="d-none">{item.STAR_MONEY}</span>
+                          {Number(item.STAR_MONEY).toLocaleString()}
+                        </td>
                         <td>{item.MONTH}</td>
-                        <td>{Number(item.INSTALLMENT).toLocaleString()}</td>
+                        <td>
+                          <span className="d-none">{item.INSTALLMENT}</span>
+                          {Number(item.INSTALLMENT).toLocaleString()}
+                        </td>
                         <td>{new Date(item.DATE_PAYMENT).getDate()}</td>
                         <td>
                           {isEdit() ? (

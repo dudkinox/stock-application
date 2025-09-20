@@ -19,6 +19,8 @@ import GetFundRequest from "../../Models/Request/GetFundRequest";
 import SelectChoice from "../../common/Select";
 import MajorResponse from "../../Models/Response/GetMajorResponse";
 import MajorServices from "../../services/MajorService";
+import TableCommon from "../../common/Table";
+import initTable, { destroyTable } from "../../common/DataTable";
 
 export default function IncomePage() {
   const { isEdit, isDelete, setIsLoading } = useContext(AppContext);
@@ -117,10 +119,20 @@ export default function IncomePage() {
   useEffect(() => {
     setIsLoading(true);
     incomeServices.getAll().then((res) => {
+      destroyTable("#income-table");
       setIncomeList(res.data);
+      setTimeout(
+        () => initTable(res.data.length.toString() ?? "0", "#income-table"),
+        100
+      );
     });
     fundServices.getAll().then((res) => {
+      destroyTable("#fund-table");
       setFundList(res.data);
+      setTimeout(
+        () => initTable(res.data.length.toString() ?? "0", "#fund-table"),
+        100
+      );
       setIsLoading(false);
     });
   }, [setIncomeList, setFundList]);
@@ -483,69 +495,60 @@ export default function IncomePage() {
                 scrollbarGutter: "stable",
               }}
             >
-              <table
-                id="stock-table"
-                className="table table-bordered table-hover dtr-inline collapsed w-100"
-              >
-                <thead>
-                  <tr className="text-center">
-                    {incomeTableHeaders.map((item, i) => (
-                      <th key={i}>{item}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {incomeList.map((item, i) => {
-                    incomeTotal += Number(item.EXPENSE);
-                    outcomeTotal += Number(item.REVENUE);
-                    return (
-                      <tr key={i} className="text-center">
-                        <td>
-                          {convertDateToThaiV2(new Date(item.CREATED_AT))}
-                        </td>
-                        <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
-                        <td>{item.LIST_NAME}</td>
-                        <td>{item.MAJOR}</td>
-                        <td>{Number(item.REVENUE).toLocaleString()}</td>
-                        <td>{Number(item.EXPENSE).toLocaleString()}</td>
-                        <td>{item.NOTE}</td>
-                        <td>
-                          {isEdit() ? (
-                            <button
-                              className="btn btn-warning mx-2"
-                              onClick={openModalIncomeUpdate(item.ID)}
-                            >
-                              <i className="nav-icon fas fa-pen" />
-                            </button>
-                          ) : (
-                            "ไม่มีสิทธิ"
-                          )}
-                        </td>
-                        <td>
-                          {isDelete() ? (
-                            <button
-                              className="btn btn-danger"
-                              onClick={deleteHandler(item.ID)}
-                            >
-                              <i className="nav-icon fas fa-trash" />
-                            </button>
-                          ) : (
-                            "ไม่มีสิทธิ"
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                  {
-                    <tr className="text-center">
-                      <td colSpan={4}>รวม</td>
-                      <td>{outcomeTotal.toLocaleString()} บาท</td>
-                      <td>{incomeTotal.toLocaleString()} บาท</td>
-                      <td colSpan={3}></td>
+              <TableCommon
+                id="income-table"
+                columns={incomeTableHeaders}
+                row={incomeList.map((item) => {
+                  incomeTotal += Number(item.EXPENSE);
+                  outcomeTotal += Number(item.REVENUE);
+                  return (
+                    <tr key={item.ID} className="text-center">
+                      <td>
+                        <span className="d-none">{item.CREATED_AT}</span>
+                        {convertDateToThaiV2(new Date(item.CREATED_AT))}
+                      </td>
+                      <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
+                      <td>{item.LIST_NAME}</td>
+                      <td>{item.MAJOR}</td>
+                      <td>{Number(item.REVENUE).toLocaleString()}</td>
+                      <td>{Number(item.EXPENSE).toLocaleString()}</td>
+                      <td>{item.NOTE}</td>
+                      <td>
+                        {isEdit() ? (
+                          <button
+                            className="btn btn-warning mx-2"
+                            onClick={openModalIncomeUpdate(item.ID)}
+                          >
+                            <i className="nav-icon fas fa-pen" />
+                          </button>
+                        ) : (
+                          "ไม่มีสิทธิ"
+                        )}
+                      </td>
+                      <td>
+                        {isDelete() ? (
+                          <button
+                            className="btn btn-danger"
+                            onClick={deleteHandler(item.ID)}
+                          >
+                            <i className="nav-icon fas fa-trash" />
+                          </button>
+                        ) : (
+                          "ไม่มีสิทธิ"
+                        )}
+                      </td>
                     </tr>
-                  }
-                </tbody>
-              </table>
+                  );
+                })}
+                foot={
+                  <tr className="text-center">
+                    <td colSpan={4}>รวม</td>
+                    <td>{outcomeTotal.toLocaleString()} บาท</td>
+                    <td>{incomeTotal.toLocaleString()} บาท</td>
+                    <td colSpan={3}></td>
+                  </tr>
+                }
+              />
             </div>
           </div>
         </>
@@ -635,60 +638,50 @@ export default function IncomePage() {
             }
           />
           <div className="card-body">
-            <table
-              id="stock-table"
-              className="table table-bordered table-hover dtr-inline collapsed w-100"
-            >
-              <thead>
-                <tr className="text-center">
-                  {fundTableHeaders.map((item, i) => (
-                    <th key={i}>{item}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {fundList.map((item, i) => {
-                  fundTotal += Number(item.MONEY);
-                  return (
-                    <tr key={i} className="text-center">
-                      <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
-                      <td>{Number(item.MONEY).toLocaleString()}</td>
-                      <td>
-                        {isEdit() ? (
-                          <button
-                            className="btn btn-warning mx-2"
-                            onClick={openModalFundUpdate(item.ID)}
-                          >
-                            <i className="nav-icon fas fa-pen" />
-                          </button>
-                        ) : (
-                          "ไม่มีสิทธิ"
-                        )}
-                      </td>
-                      <td>
-                        {isDelete() ? (
-                          <button
-                            className="btn btn-danger"
-                            onClick={deleteFund(item.ID)}
-                          >
-                            <i className="nav-icon fas fa-trash" />
-                          </button>
-                        ) : (
-                          "ไม่มีสิทธิ"
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-                {
-                  <tr className="text-center">
-                    <td colSpan={1}>รวม</td>
-                    <td>{fundTotal.toLocaleString()} บาท</td>
-                    <td colSpan={3}></td>
+            <TableCommon
+              id="fund-table"
+              columns={fundTableHeaders}
+              row={fundList.map((item) => {
+                fundTotal += Number(item.MONEY);
+                return (
+                  <tr key={item.ID} className="text-center">
+                    <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
+                    <td>{Number(item.MONEY).toLocaleString()}</td>
+                    <td>
+                      {isEdit() ? (
+                        <button
+                          className="btn btn-warning mx-2"
+                          onClick={openModalFundUpdate(item.ID)}
+                        >
+                          <i className="nav-icon fas fa-pen" />
+                        </button>
+                      ) : (
+                        "ไม่มีสิทธิ"
+                      )}
+                    </td>
+                    <td>
+                      {isDelete() ? (
+                        <button
+                          className="btn btn-danger"
+                          onClick={deleteFund(item.ID)}
+                        >
+                          <i className="nav-icon fas fa-trash" />
+                        </button>
+                      ) : (
+                        "ไม่มีสิทธิ"
+                      )}
+                    </td>
                   </tr>
-                }
-              </tbody>
-            </table>
+                );
+              })}
+              foot={
+                <tr className="text-center">
+                  <td colSpan={1}>รวม</td>
+                  <td>{fundTotal.toLocaleString()} บาท</td>
+                  <td colSpan={3}></td>
+                </tr>
+              }
+            />
           </div>
         </>
       }
