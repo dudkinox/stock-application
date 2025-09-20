@@ -97,7 +97,6 @@ export default function IncomePage() {
     ($("#want-money-update") as any).modal("show");
 
     setIsUpdate(true);
-
     setIsLoading(true);
     fundServices
       .findFund(id)
@@ -108,8 +107,6 @@ export default function IncomePage() {
         setIsLoading(false);
       })
       .catch((err: any) => {
-        console.log(err);
-
         AlertError(err);
         setIsLoading(false);
       });
@@ -137,11 +134,12 @@ export default function IncomePage() {
   }, [setIncomeList, setFundList]);
 
   const insertFund = () => {
+    setIsLoading(true);
+
     const payload: GetFundRequest = {
       money: funds,
     };
 
-    setIsLoading(true);
     fundServices
       .InsertFundList(payload)
       .then((res: any) => {
@@ -680,7 +678,7 @@ export default function IncomePage() {
                 <tr className="text-center">
                   <td colSpan={1}>รวม</td>
                   <td>{fundTotal.toLocaleString()} บาท</td>
-                  <td colSpan={3}></td>
+                  <td colSpan={2}></td>
                 </tr>
               }
             />

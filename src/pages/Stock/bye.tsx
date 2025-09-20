@@ -34,7 +34,11 @@ export function StockByePage() {
   } = useContext(StockContext);
   const [buyList, setBuyList] = useState<any[]>([]);
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
-  const [filterDate, setFilterDate] = useState<string>("");
+  const [createAtStart, setCreateAtStart] = useState<string>("");
+  const [createAtEnd, setCreateAtEnd] = useState<string>("");
+  const [filterDateStart, setFilterDateStart] = useState<string>("");
+  const [filterDateEnd, setFilterDateEnd] = useState<string>("");
+
   const stockBuyListTableHeaders = [
     "timestamp",
     "รหัสเอกสาร",
@@ -67,11 +71,28 @@ export function StockByePage() {
 
   const handleFilter = () => {
     setIsLoading(true);
-    StockService.GetStockBye(majorUser, filterDate).then((res) => {
+    StockService.GetStockBye(majorUser, createAtStart).then((res) => {
       destroyTable();
       setBuyList(res.data);
       setTimeout(
-        () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
+        () => initTable(res.data.length.toString() ?? "0", "#bye-table"),
+        100
+      );
+      setIsLoading(false);
+    });
+  };
+
+  const handleResetFilter = () => {
+    setCreateAtStart("");
+    setCreateAtEnd("");
+    setFilterDateStart("");
+    setFilterDateEnd("");
+    setIsLoading(true);
+    StockService.GetStockBye(majorUser).then((res) => {
+      destroyTable();
+      setBuyList(res.data);
+      setTimeout(
+        () => initTable(res.data.length.toString() ?? "0", "#bye-table"),
         100
       );
       setIsLoading(false);
@@ -109,27 +130,6 @@ export function StockByePage() {
     <ContentLayOut
       title={"stock"}
       topic={"สต๊อกสินค้า ที่ซื้อ"}
-      filter={
-        <div className="container-fluid">
-          <div className="row text-center">
-            <div className="col-sm-10">
-              <TextInput
-                label={"Filter timestamp:"}
-                setValue={setFilterDate}
-                type={"date"}
-                icon={"far fa-calendar-alt"}
-                value={filterDate}
-              />
-            </div>
-            <div className="col-sm-2">
-              <br />
-              <button className="btn btn-primary mt-2" onClick={handleFilter}>
-                ค้นหา
-              </button>
-            </div>
-          </div>
-        </div>
-      }
       btnHeader={
         <button
           onClick={() => {
@@ -199,10 +199,71 @@ export function StockByePage() {
             }
           />
           <div className="card-body">
+            <div className="container-fluid">
+              <div className="row text-center">
+                <div className="col-sm-5">
+                  <TextInput
+                    label={"Filter timestamp:"}
+                    setValue={setCreateAtStart}
+                    type={"date"}
+                    icon={"far fa-calendar-alt"}
+                    value={createAtStart}
+                  />
+                </div>
+                <div className="col-sm-5">
+                  <TextInput
+                    label={"Filter timestamp สิ้นสุด"}
+                    setValue={setCreateAtEnd}
+                    type={"date"}
+                    icon={"far fa-calendar-alt"}
+                    value={createAtEnd}
+                  />
+                </div>
+                <div className="col-sm-2">
+                  <br />
+                  <button
+                    className="btn btn-primary mt-2"
+                    onClick={handleFilter}
+                  >
+                    ค้นหา
+                  </button>
+                </div>
+                <div className="col-sm-5">
+                  <TextInput
+                    label={"Filter วันที่ซื้อเริ่มต้น"}
+                    setValue={setFilterDateStart}
+                    type={"date"}
+                    icon={"far fa-calendar-alt"}
+                    value={filterDateStart}
+                  />
+                </div>
+                <div className="col-sm-5">
+                  <TextInput
+                    label={"Filter วันที่ซื้อสิ้นสุด"}
+                    setValue={setFilterDateEnd}
+                    type={"date"}
+                    icon={"far fa-calendar-alt"}
+                    value={filterDateEnd}
+                  />
+                </div>
+                <div className="col-sm-2">
+                  <br />
+                  <button
+                    className="btn btn-warning mt-2"
+                    onClick={handleResetFilter}
+                  >
+                    ล้างค่า
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="card-body">
             <TableCommon
+              id="bye-table"
               columns={stockBuyListTableHeaders}
               row={buyList.map((item, i) => (
-                <tr key={i} className="text-center">
+                <tr key={item.ID} className="text-center">
                   <td>
                     <span className="d-none">{item.CREATED_AT}</span>
                     {convertDateToThaiV2(new Date(item.CREATED_AT))}
