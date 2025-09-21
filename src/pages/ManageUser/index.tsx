@@ -110,8 +110,8 @@ export default function ManageUser() {
   };
 
   const deleteUser = (id: string) => () => {
-    const choice = prompt('พิมพ์ว่า "ยืนยัน" เพื่อยืนยันการลบข้อมูล');
-    if (choice !== "ยืนยัน") return;
+    const choice = confirm("คุณต้องการลบข้อมูลนี้ใช่หรือไม่?");
+    if (!choice) return;
     setIsLoading(true);
     UserServices.deleteUser(id)
       .then((res) => {

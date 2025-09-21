@@ -58,8 +58,8 @@ export default function MajorManage({
   };
 
   const deleteMajorHandler = (id: number) => {
-    const choice = prompt('พิมพ์ว่า "ยืนยัน" เพื่อยืนยันการลบข้อมูล');
-    if (choice !== "ยืนยัน") return;
+    const choice = confirm("คุณต้องการลบข้อมูลนี้ใช่หรือไม่?");
+    if (!choice) return;
     setIsLoading(true);
     MajorServices.deleteMajor(id)
       .then((res) => {

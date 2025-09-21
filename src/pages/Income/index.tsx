@@ -201,8 +201,8 @@ export default function IncomePage() {
   };
 
   const deleteFund = (id: string) => () => {
-    const choice = prompt('พิมพ์ว่า "ยืนยัน" เพื่อยืนยันการลบข้อมูล');
-    if (choice !== "ยืนยัน") return;
+    const choice = confirm("คุณต้องการลบข้อมูลนี้ใช่หรือไม่?");
+    if (!choice) return;
     setIsLoading(true);
     fundServices
       .DeleteFundList(id)
@@ -320,8 +320,8 @@ export default function IncomePage() {
   };
 
   const deleteHandler = (id: string) => () => {
-    const choice = prompt('พิมพ์ว่า "ยืนยัน" เพื่อยืนยันการลบข้อมูล');
-    if (choice !== "ยืนยัน") return;
+    const choice = confirm("คุณต้องการลบข้อมูลนี้ใช่หรือไม่?");
+    if (!choice) return;
     setIsLoading(true);
     incomeServices
       .DeleteIncomeList(id)

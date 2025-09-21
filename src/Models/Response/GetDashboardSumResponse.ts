@@ -5,4 +5,5 @@ export interface GetDashboardSumResponse {
   EQUIPMENT_COUNT: number;
   OUTCOME: number;
   TOTAL: number;
+  REMAINING: number;
 }

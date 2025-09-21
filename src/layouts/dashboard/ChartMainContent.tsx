@@ -188,6 +188,16 @@ export default function ChartMainContent() {
                 </div>
               </div>
             </div>
+            <div className="card col-sm-12">
+              <div className="card-body pb-0">
+                <div className="text-center">
+                  <p>{"เงินที่เหลือของร้าน"}</p>
+                  <p className="h3">
+                    {(summary?.REMAINING ?? 0).toLocaleString()} บาท
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
