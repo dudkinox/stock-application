@@ -315,13 +315,16 @@ export function StockByePage() {
                     {isDelete() ? (
                       <button
                         type="button"
-                        className="btn btn-danger"
+                        className="btn my-3 btn-danger"
                         onClick={deleteStock(item.ID, item.MAJOR)}
                       >
                         ลบ
                       </button>
                     ) : (
-                      <button type="button" className="btn btn-danger disabled">
+                      <button
+                        type="button"
+                        className="btn my-3 btn-danger disabled"
+                      >
                         ลบ
                       </button>
                     )}
