@@ -95,6 +95,7 @@ export function StockKayPage() {
     "ผ่อนกี่เดือน",
     "ผ่อนเดือนละ",
     "จ่ายทุกวันที่",
+    "ยอดผ่อน",
     "กำไร",
     "แก้ไข / ลบ",
   ];
@@ -409,6 +410,7 @@ export function StockKayPage() {
                       Number(item.MONTH) * Number(item.INSTALLMENT) +
                       Number(item.STAR_MONEY) -
                       Number(item.COST);
+                    const totalInstallment = Number(item.INSTALLMENT) * Number(item.MONTH);
 
                     return (
                       <tr key={item.ID} className="text-center">
@@ -454,6 +456,7 @@ export function StockKayPage() {
                           {Number(item.INSTALLMENT).toLocaleString()}
                         </td>
                         <td>{new Date(item.DATE_PAYMENT).getDate()}</td>
+                        <td>{totalInstallment.toLocaleString()} บาท</td>
                         {majorUser.toLocaleLowerCase() === "admin" && (
                           <td>
                             <span className="d-none">{profit}</span>
