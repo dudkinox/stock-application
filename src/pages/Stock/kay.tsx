@@ -87,7 +87,6 @@ export function StockKayPage() {
     "รหัสเอกสาร",
     "สาขา",
     "วันที่ขาย",
-    "กำไร",
     "ชื่อลูกค้า",
     "เบอร์โทร",
     "รุ่น",
@@ -96,6 +95,7 @@ export function StockKayPage() {
     "ผ่อนกี่เดือน",
     "ผ่อนเดือนละ",
     "จ่ายทุกวันที่",
+    "กำไร",
     "แก้ไข / ลบ",
   ];
 
@@ -440,14 +440,6 @@ export function StockKayPage() {
                         <td>
                           {convertDateToThaiV2(new Date(item.DATE_PAYMENT))}
                         </td>
-                        {majorUser.toLocaleLowerCase() === "admin" && (
-                          <td>
-                            <span className="d-none">{profit}</span>
-                            <p className="badge badge-success mx-1">
-                              {profit.toLocaleString()} บาท
-                            </p>
-                          </td>
-                        )}
                         <td>{item.CUSTOMER}</td>
                         <td>{item.TEL}</td>
                         <td>{item.VERSION}</td>
@@ -462,6 +454,14 @@ export function StockKayPage() {
                           {Number(item.INSTALLMENT).toLocaleString()}
                         </td>
                         <td>{new Date(item.DATE_PAYMENT).getDate()}</td>
+                        {majorUser.toLocaleLowerCase() === "admin" && (
+                          <td>
+                            <span className="d-none">{profit}</span>
+                            <p className="badge badge-success mx-1">
+                              {profit.toLocaleString()} บาท
+                            </p>
+                          </td>
+                        )}
                         <td>
                           {isEdit() ? (
                             <button

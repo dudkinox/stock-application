@@ -46,7 +46,7 @@ export function StockByePage() {
     "วันที่ซื้อ",
     "Serial Number",
     "รุ่น",
-    "ราคาซื้อ",
+    "ต้นทุน",
     "imei",
     "แหล่งที่มา",
     "Battery",
