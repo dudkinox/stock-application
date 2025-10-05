@@ -1,5 +1,6 @@
 import Https from "../Https/Index";
 import { GetStockResponse } from "../Models/Response/GetStockResponse";
+import { GetSummarizeResponse } from "../Models/Response/GetSummarizeResponse";
 import { InsertStockResponse as StatusStockResponse } from "../Models/Response/InsertStockResponse";
 
 const InsertStockService = (params: string, payload: any) => {
@@ -95,6 +96,12 @@ const GetStockInstallmentService = (id: string) => {
   );
 };
 
+const GetInstallmentSummarizeService = (major: string) => {
+  return Https.get<GetSummarizeResponse[]>(
+    `/apis/installment_payment/summarize/?major=${major}`
+  );
+};
+
 const StockService = {
   InsertStock: InsertStockService,
   GetStock: GetStockService,
@@ -108,6 +115,7 @@ const StockService = {
   GetStockInstallmentPayment: GetStockInstallmentPaymentService,
   GetStockInstallmentPaymentAll: GetStockInstallmentPaymentAllService,
   GetStockInstallment: GetStockInstallmentService,
+  GetInstallmentSummarize: GetInstallmentSummarizeService,
 };
 
 export default StockService;
