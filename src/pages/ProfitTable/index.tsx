@@ -66,8 +66,10 @@ export default function ProfitTable() {
     updateTotalFromSelection();
   };
   const columns = [
-    "สาขา",
+    "วันที่ขาย",
     blogSelectCal(selectAll),
+    "สาขา",
+    "รหัสเอกสาร",
     "เงินดาว",
     "ทุน",
     "ยอดผ่อน",
@@ -81,7 +83,9 @@ export default function ProfitTable() {
   const mockData = [
     {
       ID: "1",
+      DATE_KAY: "2024-06-01",
       MAJOR: "สาขา A",
+      CODE: "DOC-001",
       TOTAL_STAR_MONEY: "5000",
       COST: "10000",
       TOTAL_INSTALLMENT: "15000",
@@ -112,7 +116,7 @@ export default function ProfitTable() {
                   row={mockData.map((item) => {
                     return (
                       <tr key={item.ID} className="text-center">
-                        <td>{item.MAJOR}</td>
+                        <td>{item.DATE_KAY}</td>
                         <td
                           style={{ cursor: "pointer" }}
                           onClick={() => {
@@ -132,6 +136,8 @@ export default function ProfitTable() {
                             onChange={updateTotalFromSelection}
                           />
                         </td>
+                        <td>{item.MAJOR}</td>
+                        <td>{item.CODE}</td>
                         <td>
                           {Number(item.TOTAL_STAR_MONEY).toLocaleString()} บาท
                         </td>
@@ -148,7 +154,7 @@ export default function ProfitTable() {
                   })}
                   foot={
                     <tr className="text-center">
-                      <th colSpan={2}>รวม</th>
+                      <th colSpan={4}>รวม</th>
                       <th>{totalStarMoney.toLocaleString()} บาท</th>
                       <th>{totalFund.toLocaleString()} บาท</th>
                       <th>{totalInstallment.toLocaleString()} บาท</th>
