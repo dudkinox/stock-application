@@ -3,6 +3,8 @@ import HeaderPageCommon from "../../common/HeaderPageCommon";
 import TableCommon from "../../common/Table";
 import initTable, { destroyTable } from "../../common/DataTable";
 import blogSelectCal from "../../common/SelectRow";
+import { convertDateToThaiV2 } from "../../common/DateFormat";
+import TextInput from "../../common/TextInput";
 
 export default function ProfitTable() {
   const [totalFund, setTotalFund] = useState(0);
@@ -10,6 +12,8 @@ export default function ProfitTable() {
   const [totalKay, setTotalKay] = useState(0);
   const [totalProfit, setTotalProfit] = useState(0);
   const [totalStarMoney, setTotalStarMoney] = useState(0);
+  const [createAtStart, setCreateAtStart] = useState("");
+  const [createAtEnd, setCreateAtEnd] = useState("");
 
   const calBySelected = () => {
     const checkBoxes = document.getElementsByClassName(
@@ -94,6 +98,25 @@ export default function ProfitTable() {
     },
   ];
 
+  const handleFilter = () => {
+    // setIsLoading(true);
+    // incomeServices.getAll().then((res) => {
+    destroyTable("#profit-table");
+    //   setIncomeList(res.data);
+    setTimeout(() => initTable("0", "#profit-table"), 100);
+    // setIsLoading(false);
+  };
+
+  const handleResetFilter = () => {
+    setCreateAtStart("");
+    setCreateAtEnd("");
+    // incomeServices.getAll().then((res) => {
+    destroyTable("#profit-table");
+    //   setIncomeList(res.data);
+    setTimeout(() => initTable("0", "#profit-table"), 100);
+    // });
+  };
+
   useEffect(() => {
     destroyTable("#profit-table");
     setTimeout(() => initTable("0", "#profit-table"), 100);
@@ -110,13 +133,53 @@ export default function ProfitTable() {
                 <h2 className="card-title">ตารางคำนวณรวม</h2>
               </div>
               <div className="card-body">
+                <div className="container-fluid my-3">
+                  <div className="row text-center">
+                    <div className="col-sm-6">
+                      <TextInput
+                        label={"Filter วันที่ขายเริ่ม"}
+                        setValue={setCreateAtStart}
+                        type={"date"}
+                        icon={"far fa-calendar-alt"}
+                        value={createAtStart}
+                      />
+                    </div>
+                    <div className="col-sm-6">
+                      <TextInput
+                        label={"Filter วันที่ขายสิ้นสุด"}
+                        setValue={setCreateAtEnd}
+                        type={"date"}
+                        icon={"far fa-calendar-alt"}
+                        value={createAtEnd}
+                      />
+                    </div>
+                    <div className="col-sm-6">
+                      <br />
+                      <button
+                        className="btn btn-primary mt-2"
+                        onClick={handleFilter}
+                      >
+                        ค้นหา
+                      </button>
+                    </div>
+                    <div className="col-sm-6">
+                      <br />
+                      <button
+                        className="btn btn-warning mt-2"
+                        onClick={handleResetFilter}
+                      >
+                        ล้างค่า
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 <TableCommon
                   id="profit-table"
                   columns={columns}
                   row={mockData.map((item) => {
                     return (
                       <tr key={item.ID} className="text-center">
-                        <td>{item.DATE_KAY}</td>
+                        <td>{convertDateToThaiV2(new Date(item.DATE_KAY))}</td>
                         <td
                           style={{ cursor: "pointer" }}
                           onClick={() => {

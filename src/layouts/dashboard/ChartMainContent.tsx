@@ -175,7 +175,7 @@ export default function ChartMainContent() {
             <div className="card col-sm-4">
               <div className="card-body pb-0">
                 <div className="text-center">
-                  <p>{"รายจ่าย"}</p>
+                  <p>รายจ่าย (รวมดึงเงินออก)</p>
                   <p className="h3">{summary?.OUTCOME.toLocaleString()}</p>
                 </div>
               </div>
