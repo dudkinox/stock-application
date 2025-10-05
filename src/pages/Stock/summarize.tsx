@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import TableCommon from "../../common/Table";
 import initTable, { destroyTable } from "../../common/DataTable";
 import blogSelectCal from "../../common/SelectRow";
+import { convertDateToThaiV2 } from "../../common/DateFormat";
 
 export default function Summarize() {
   const [totalInstallment, setTotalInstallment] = React.useState(0);
@@ -52,12 +53,12 @@ export default function Summarize() {
   };
 
   const summarizeHeader = [
-    "สาขา",
+    "วันที่ผ่อน",
     blogSelectCal(selectAll),
     "ชื่อลูกค้า",
     "ผ่อนครั้งที่",
     "ราคาผ่อน",
-    "วันที่ผ่อน",
+    "สาขา",
     "สถานะ",
   ];
 
@@ -98,7 +99,7 @@ export default function Summarize() {
         row={mockData.map((item) => {
           return (
             <tr key={item.CUSTOMER_NAME} className="text-center">
-              <td>{item.BRANCH}</td>
+              <td>{convertDateToThaiV2(new Date(item.DATE_PAYMENT))}</td>
               <td
                 style={{ cursor: "pointer" }}
                 onClick={() => {
@@ -121,7 +122,7 @@ export default function Summarize() {
               <td>{item.CUSTOMER_NAME}</td>
               <td>{item.INSTALLMENT_NO}</td>
               <td>{item.INSTALLMENT.toLocaleString()} บาท</td>
-              <td>{item.DATE_PAYMENT}</td>
+              <td>{item.BRANCH}</td>
               <td>{item.STATUS}</td>
             </tr>
           );

@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import HeaderPageCommon from "../../common/HeaderPageCommon";
 import InitGraph from "../../common/Graph";
 import { DashboardContext } from "../../contexts/DashboardContext";
 import ModalCommon from "../../common/Modal";
@@ -8,7 +7,6 @@ import DashboardServices from "../../services/DashboardService";
 import { GetDashboardSumResponse } from "../../Models/Response/GetDashboardSumResponse";
 import { AppContext } from "../../contexts";
 import GetBuyTotalResponse from "../../Models/Response/GetBuyTotalResponse";
-import BalanceDetail from "./BalanceDetail";
 import initTable, { destroyTable } from "../../common/DataTable";
 import GetBalanceDetailResponse from "../../Models/Response/GetBalanceDetailResponse";
 
