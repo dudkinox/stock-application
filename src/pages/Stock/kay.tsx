@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { StockContext } from "../../contexts/StockContext";
 import { convertDateToThaiV2 } from "../../common/DateFormat";
 import TextInput from "../../common/TextInput";
+import blogSelectCal from "../../common/SelectRow";
 
 export function StockKayPage() {
   const { majorUser, setIsLoading, deleteStock, isEdit, isDelete } =
@@ -61,29 +62,9 @@ export function StockKayPage() {
     updateTotalProfitFromSelection();
   };
 
-  function blogSelectCal() {
-    return (
-      <div className="form-check" onClick={selectAll}>
-        <input
-          className="form-check-input"
-          type="checkbox"
-          id="flexCheckDefault"
-          style={{ cursor: "pointer" }}
-        />
-        <label
-          className="form-check-label"
-          htmlFor="flexCheckDefault"
-          style={{ cursor: "pointer" }}
-        >
-          ติ๊กเพื่อเลือกทั้งหมด
-        </label>
-      </div>
-    );
-  }
-
   const stockTableHeadersAdmin = [
     "timestamp",
-    blogSelectCal(),
+    blogSelectCal(selectAll),
     "รหัสเอกสาร",
     "สาขา",
     "วันที่ขาย",
@@ -410,7 +391,8 @@ export function StockKayPage() {
                       Number(item.MONTH) * Number(item.INSTALLMENT) +
                       Number(item.STAR_MONEY) -
                       Number(item.COST);
-                    const totalInstallment = Number(item.INSTALLMENT) * Number(item.MONTH);
+                    const totalInstallment =
+                      Number(item.INSTALLMENT) * Number(item.MONTH);
 
                     return (
                       <tr key={item.ID} className="text-center">
