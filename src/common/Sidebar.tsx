@@ -112,6 +112,19 @@ export default function SidebarCommon() {
                       <p>ผ่อน</p>
                     </a>
                   </li>
+                  <li className="nav-item">
+                    <a
+                      href={PathEnum.STOCK_INSTALLMENT_SUMMARY}
+                      className={`nav-link ${
+                        pathUrl === PathEnum.STOCK_INSTALLMENT_SUMMARY
+                          ? "active"
+                          : ""
+                      }`}
+                    >
+                      <i className="far fa-circle nav-icon" />
+                      <p>สรุป</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
 

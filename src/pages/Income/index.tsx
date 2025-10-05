@@ -32,6 +32,8 @@ export default function IncomePage() {
   const [updateIdFund, setUpdateIdFund] = useState<string>("");
   const [fetchMajor, setFetchMajor] = useState<MajorResponse[]>([]);
   const [isExcept, setIsExcept] = useState<boolean>(false);
+  const [createAtStart, setCreateAtStart] = useState<string>("");
+  const [createAtEnd, setCreateAtEnd] = useState<string>("");
 
   let fundTotal = 0;
   let incomeTotal = 0;
@@ -353,6 +355,32 @@ export default function IncomePage() {
       });
   };
 
+  const handleFilter = () => {
+    setIsLoading(true);
+    incomeServices.getAll().then((res) => {
+      destroyTable("#income-table");
+      setIncomeList(res.data);
+      setTimeout(
+        () => initTable(res.data.length.toString() ?? "0", "#income-table"),
+        100
+      );
+      setIsLoading(false);
+    });
+  };
+
+  const handleResetFilter = () => {
+    setCreateAtStart("");
+    setCreateAtEnd("");
+    incomeServices.getAll().then((res) => {
+      destroyTable("#income-table");
+      setIncomeList(res.data);
+      setTimeout(
+        () => initTable(res.data.length.toString() ?? "0", "#income-table"),
+        100
+      );
+    });
+  };
+
   useEffect(() => {
     setIsLoading(true);
     MajorServices.getMajors()
@@ -485,6 +513,46 @@ export default function IncomePage() {
             }
           />
           <div className="card-body">
+            <div className="container-fluid my-3">
+              <div className="row text-center">
+                <div className="col-sm-6">
+                  <TextInput
+                    label={"Filter timestamp เริ่ม"}
+                    setValue={setCreateAtStart}
+                    type={"date"}
+                    icon={"far fa-calendar-alt"}
+                    value={createAtStart}
+                  />
+                </div>
+                <div className="col-sm-6">
+                  <TextInput
+                    label={"Filter timestamp สิ้นสุด"}
+                    setValue={setCreateAtEnd}
+                    type={"date"}
+                    icon={"far fa-calendar-alt"}
+                    value={createAtEnd}
+                  />
+                </div>
+                <div className="col-sm-6">
+                  <br />
+                  <button
+                    className="btn btn-primary mt-2"
+                    onClick={handleFilter}
+                  >
+                    ค้นหา
+                  </button>
+                </div>
+                <div className="col-sm-6">
+                  <br />
+                  <button
+                    className="btn btn-warning mt-2"
+                    onClick={handleResetFilter}
+                  >
+                    ล้างค่า
+                  </button>
+                </div>
+              </div>
+            </div>
             <div
               className="tablecommon-responsive"
               style={{

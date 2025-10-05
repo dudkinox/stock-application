@@ -32,7 +32,7 @@ export default function TextInput({
   value,
   bgColor,
   onClick,
-}: TextInputProps) {
+}: Readonly<TextInputProps>) {
   return (
     <div className="form-group">
       <label htmlFor={id} className="float-left">
