@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { AlertError, AlertWarning } from "../../common/ToastrCommon";
 import MajorServices from "../../services/MajorService";
 import { convertDateToThaiV2 } from "../../common/DateFormat";
+import Summarize from "./summarize";
 
 export function StockInstallmentPaymentPage() {
   const { majorUser, setIsLoading, isEdit, isDelete, deleteStock } =
@@ -296,8 +297,7 @@ export function StockInstallmentPaymentPage() {
                   role="tabpanel"
                   aria-labelledby="custom-tabs-three-profile-tab"
                 >
-                  สำหรับดูว่ามีใครใกล้ครบกำหนดการเก็บเงินบ้าง (feature
-                  นี้สำหรับผ่านการทดสอบการใช้งานแล้วระดับหนึ่งถึงจะนำเอาเข้ามา)
+                  <Summarize />
                 </div>
               </div>
             </div>
