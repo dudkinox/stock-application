@@ -9,10 +9,13 @@ import { AppContext } from "../../contexts";
 
 export default function ProfitTable() {
   const [totalFund, setTotalFund] = useState(0);
-  const [totalInstallment, setTotalInstallment] = useState(0);
-  const [totalKay, setTotalKay] = useState(0);
-  const [totalProfit, setTotalProfit] = useState(0);
   const [totalStarMoney, setTotalStarMoney] = useState(0);
+  const [totalInstallment, setTotalInstallment] = useState(0);
+  const [totalEquipment, setTotalEquipment] = useState(0);
+  const [totalExpense, setTotalExpense] = useState(0);
+  const [tun, setTun] = useState(0);
+  const [totalNet, setTotalNet] = useState(0);
+
   const [profitTableList, setProfitTableList] = useState<
     GetProfitTableResponse[]
   >([]);
@@ -22,40 +25,48 @@ export default function ProfitTable() {
     const checkBoxes = document.getElementsByClassName(
       "row-check"
     ) as HTMLCollectionOf<HTMLInputElement>;
-    let total = 0;
+    let totalBuy = 0;
     let totalStarMoney = 0;
-    let totalFund = 0;
     let totalInstallment = 0;
-    let totalKay = 0;
+    let totalEquipment = 0;
+    let totalExpense = 0;
+    let tun = 0;
+    let totalNet = 0;
 
     for (const element of checkBoxes) {
       if (element.checked) {
         const id = element.id.replace("row-", "");
         const item = profitTableList.find((s) => s.MAJOR === id);
-        total += item ? Number(item.TOTAL_PROFIT) : 0;
+        totalBuy += item ? Number(item.TOTAL_BUY) : 0;
         totalStarMoney += item ? Number(item.TOTAL_STAR_MONEY) : 0;
-        totalFund += item ? Number(item.TOTAL_FOUND) : 0;
         totalInstallment += item ? Number(item.TOTAL_INSTALLMENT) : 0;
-        totalKay += item ? Number(item.TOTAL_PRICE) : 0;
+        totalEquipment += item ? Number(item.TOTAL_EQUIPMENT) : 0;
+        totalExpense += item ? Number(item.TOTAL_EXPENSE) : 0;
+        tun += item ? Number(item.TUN) : 0;
+        totalNet += item ? Number(item.TOTAL_NET) : 0;
       }
     }
 
     return {
-      profit: total,
+      fund: totalBuy,
       starMoney: totalStarMoney,
-      fund: totalFund,
       installment: totalInstallment,
-      kay: totalKay,
+      equipment: totalEquipment,
+      expense: totalExpense,
+      tun: tun,
+      net: totalNet,
     };
   };
 
   const updateTotalFromSelection = () => {
     const calculateAll = calBySelected();
-    setTotalProfit(calculateAll.profit);
     setTotalFund(calculateAll.fund);
-    setTotalInstallment(calculateAll.installment);
-    setTotalKay(calculateAll.kay);
     setTotalStarMoney(calculateAll.starMoney);
+    setTotalInstallment(calculateAll.installment);
+    setTotalEquipment(calculateAll.equipment);
+    setTotalExpense(calculateAll.expense);
+    setTun(calculateAll.tun);
+    setTotalNet(calculateAll.net);
   };
 
   const selectAll = () => {
@@ -75,15 +86,13 @@ export default function ProfitTable() {
   const columns = [
     "สาขา",
     blogSelectCal(selectAll),
-    "เงินดาว",
+    "ค่าซื้อเครื่องเข้า",
+    "เงินดาวน์",
+    "รายการผ่อน",
+    "อุปกรณ์",
+    "รายจ่าย",
     "ทุน",
-    "ยอดผ่อน",
-    <>
-      ราคาขาย
-      <br />
-      (เงินดาว + ผ่อน)
-    </>,
-    "กำไร",
+    "สุทธิ",
   ];
 
   useEffect(() => {
@@ -139,17 +148,21 @@ export default function ProfitTable() {
                             onChange={updateTotalFromSelection}
                           />
                         </td>
+                        <td>{Number(item.TOTAL_BUY).toLocaleString()} บาท</td>
                         <td>
                           {Number(item.TOTAL_STAR_MONEY).toLocaleString()} บาท
                         </td>
-                        <td>{Number(item.TOTAL_FOUND).toLocaleString()} บาท</td>
                         <td>
                           {Number(item.TOTAL_INSTALLMENT).toLocaleString()} บาท
                         </td>
-                        <td>{Number(item.TOTAL_PRICE).toLocaleString()} บาท</td>
                         <td>
-                          {Number(item.TOTAL_PROFIT).toLocaleString()} บาท
+                          {Number(item.TOTAL_EQUIPMENT).toLocaleString()} บาท
                         </td>
+                        <td>
+                          {Number(item.TOTAL_EXPENSE).toLocaleString()} บาท
+                        </td>
+                        <td>{Number(item.TUN).toLocaleString()} บาท</td>
+                        <td>{Number(item.TOTAL_NET).toLocaleString()} บาท</td>
                       </tr>
                     );
                   })}
@@ -159,8 +172,10 @@ export default function ProfitTable() {
                       <th>{totalStarMoney.toLocaleString()} บาท</th>
                       <th>{totalFund.toLocaleString()} บาท</th>
                       <th>{totalInstallment.toLocaleString()} บาท</th>
-                      <th>{totalKay.toLocaleString()} บาท</th>
-                      <th>{totalProfit.toLocaleString()} บาท</th>
+                      <th>{totalEquipment.toLocaleString()} บาท</th>
+                      <th>{totalExpense.toLocaleString()} บาท</th>
+                      <th>{tun.toLocaleString()} บาท</th>
+                      <th>{totalNet.toLocaleString()} บาท</th>
                     </tr>
                   }
                 />
