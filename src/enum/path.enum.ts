@@ -6,7 +6,7 @@ export enum PathEnum {
   STOCK_KAY = "/stock-kay",
   STOCK_EQUIPMENT = "/stock-equipment",
   STOCK_INSTALLMENT_PAYMENT = "/stock-installment-payment",
-  STOCK_INSTALLMENT_SUMMARY = "/stock-installment-summary",
+  STOCK_INSTALLMENT_SUMMARY = "/profit-table",
   CUSTOMER = "/customer",
   MANAGE_USER = "/manage-user",
   INCOME_LIST = "/income-list",

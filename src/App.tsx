@@ -23,6 +23,7 @@ import { StockInstallmentPaymentPage } from "./pages/Stock/InstallmentPaymentPag
 import StockAddPage from "./pages/Stock/add";
 import PageDown from "./layouts/page/pageDown";
 import PageUp from "./layouts/page/pageUp";
+import ProfitTable from "./pages/ProfitTable";
 
 export default function App() {
   const { isLogin, isLoading, majorUser } = useContext(AppContext);
@@ -132,6 +133,14 @@ export default function App() {
                 <CustomerContextProvider>
                   <CustomerPage />
                 </CustomerContextProvider>
+              </StockContextProvider>
+            }
+          />
+          <Route
+            path="/profit-table"
+            element={
+              <StockContextProvider>
+                <ProfitTable />
               </StockContextProvider>
             }
           />
