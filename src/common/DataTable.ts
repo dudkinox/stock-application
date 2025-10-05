@@ -1,6 +1,10 @@
 export default function initTable(max: string, id?: string) {
   let options = {};
-  if (id === "#kay-table") {
+  if (
+    id === "#kay-table" ||
+    id === "#profit-table" ||
+    id === "#table-summarize"
+  ) {
     options = { columnDefs: [{ orderable: false, targets: [1] }] };
   }
   options = {
