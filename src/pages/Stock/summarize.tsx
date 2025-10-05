@@ -111,7 +111,7 @@ export default function Summarize() {
               <td>{item.INSTALLMENT_NO}</td>
               <td>{Number(item.PRICE_TOTAL).toLocaleString()} บาท</td>
               <td>{item.MAJOR}</td>
-              <td>{item.MAJOR}</td>
+              <td>{item.STATUS}</td>
             </tr>
           );
         })}

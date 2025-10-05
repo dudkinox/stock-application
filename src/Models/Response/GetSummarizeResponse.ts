@@ -4,5 +4,6 @@ export interface GetSummarizeResponse {
   CUSTOMER: string;
   MAJOR: string;
   INSTALLMENT_NO: string;
+  STATUS: string;
   PRICE_TOTAL: string;
 }

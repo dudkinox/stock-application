@@ -1,4 +1,5 @@
 import Https from "../Https/Index";
+import { GetProfitTableResponse } from "../Models/Response/GetProfitTableResponse";
 import { GetStockResponse } from "../Models/Response/GetStockResponse";
 import { GetSummarizeResponse } from "../Models/Response/GetSummarizeResponse";
 import { InsertStockResponse as StatusStockResponse } from "../Models/Response/InsertStockResponse";
@@ -102,6 +103,10 @@ const GetInstallmentSummarizeService = (major: string) => {
   );
 };
 
+const GetProfitTableService = () => {
+  return Https.get<GetProfitTableResponse[]>(`/apis/stocks/calculate/`);
+};
+
 const StockService = {
   InsertStock: InsertStockService,
   GetStock: GetStockService,
@@ -116,6 +121,7 @@ const StockService = {
   GetStockInstallmentPaymentAll: GetStockInstallmentPaymentAllService,
   GetStockInstallment: GetStockInstallmentService,
   GetInstallmentSummarize: GetInstallmentSummarizeService,
+  GetProfitTable: GetProfitTableService,
 };
 
 export default StockService;
