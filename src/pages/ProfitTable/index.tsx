@@ -9,12 +9,14 @@ export default function ProfitTable() {
   const [totalInstallment, setTotalInstallment] = useState(0);
   const [totalKay, setTotalKay] = useState(0);
   const [totalProfit, setTotalProfit] = useState(0);
+  const [totalStarMoney, setTotalStarMoney] = useState(0);
 
   const calBySelected = () => {
     const checkBoxes = document.getElementsByClassName(
       "row-check"
     ) as HTMLCollectionOf<HTMLInputElement>;
     let total = 0;
+    let totalStarMoney = 0;
     let totalFund = 0;
     let totalInstallment = 0;
     let totalKay = 0;
@@ -24,6 +26,7 @@ export default function ProfitTable() {
         const id = element.id.replace("row-", "");
         const item = mockData.find((s) => s.ID === id);
         total += item ? Number(item.PROFIT) : 0;
+        totalStarMoney += item ? Number(item.TOTAL_STAR_MONEY) : 0;
         totalFund += item ? Number(item.COST) : 0;
         totalInstallment += item ? Number(item.TOTAL_INSTALLMENT) : 0;
         totalKay += item ? Number(item.SELLING_PRICE) : 0;
@@ -32,6 +35,7 @@ export default function ProfitTable() {
 
     return {
       profit: total,
+      starMoney: totalStarMoney,
       fund: totalFund,
       installment: totalInstallment,
       kay: totalKay,
@@ -44,6 +48,7 @@ export default function ProfitTable() {
     setTotalFund(calculateAll.fund);
     setTotalInstallment(calculateAll.installment);
     setTotalKay(calculateAll.kay);
+    setTotalStarMoney(calculateAll.starMoney);
   };
 
   const selectAll = () => {
@@ -63,15 +68,21 @@ export default function ProfitTable() {
   const columns = [
     "สาขา",
     blogSelectCal(selectAll),
+    "เงินดาว",
     "ทุน",
     "ยอดผ่อน",
-    "ราคาขาย",
+    <>
+      ราคาขาย
+      <br />
+      (เงินดาว + ผ่อน)
+    </>,
     "กำไร",
   ];
   const mockData = [
     {
       ID: "1",
       MAJOR: "สาขา A",
+      TOTAL_STAR_MONEY: "5000",
       COST: "10000",
       TOTAL_INSTALLMENT: "15000",
       SELLING_PRICE: "16000",
@@ -121,6 +132,9 @@ export default function ProfitTable() {
                             onChange={updateTotalFromSelection}
                           />
                         </td>
+                        <td>
+                          {Number(item.TOTAL_STAR_MONEY).toLocaleString()} บาท
+                        </td>
                         <td>{Number(item.COST).toLocaleString()} บาท</td>
                         <td>
                           {Number(item.TOTAL_INSTALLMENT).toLocaleString()} บาท
@@ -135,6 +149,7 @@ export default function ProfitTable() {
                   foot={
                     <tr className="text-center">
                       <th colSpan={2}>รวม</th>
+                      <th>{totalStarMoney.toLocaleString()} บาท</th>
                       <th>{totalFund.toLocaleString()} บาท</th>
                       <th>{totalInstallment.toLocaleString()} บาท</th>
                       <th>{totalKay.toLocaleString()} บาท</th>
