@@ -87,7 +87,7 @@ export default function Summarize() {
         row={sumList.map((item) => {
           return (
             <tr key={item.ID} className="text-center">
-              <td>{convertDateToThaiV2(new Date(item.DATE))}</td>
+              <td>{convertDateToThaiV2(new Date(item.DATE), true)}</td>
               <td
                 style={{ cursor: "pointer" }}
                 onClick={() => {
