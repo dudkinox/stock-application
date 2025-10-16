@@ -75,7 +75,7 @@ export default function ByeMenuInsert({
             })
           }
           type={"date"}
-          placeholder={"วันที่ขาย"}
+          placeholder={"วันที่ขาย (ปี ค.ศ.)"}
           value={String(edit.payload.DATE).split(" ")[0]}
         />
       )}

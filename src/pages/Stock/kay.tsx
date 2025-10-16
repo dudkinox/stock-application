@@ -355,7 +355,7 @@ export function StockKayPage() {
                     </div>
                     <div className="col-sm-5">
                       <TextInput
-                        label={"Filter วันที่ขายเริ่มต้น"}
+                        label={"Filter วันที่ขายเริ่มต้น (ปี ค.ศ.):"}
                         setValue={setFilterDateStart}
                         type={"date"}
                         icon={"far fa-calendar-alt"}
@@ -364,7 +364,7 @@ export function StockKayPage() {
                     </div>
                     <div className="col-sm-5">
                       <TextInput
-                        label={"Filter วันที่ขายสิ้นสุด"}
+                        label={"Filter วันที่ขายสิ้นสุด (ปี ค.ศ.):"}
                         setValue={setFilterDateEnd}
                         type={"date"}
                         icon={"far fa-calendar-alt"}

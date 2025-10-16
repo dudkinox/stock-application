@@ -423,7 +423,7 @@ export default function IncomePage() {
                 <div className="modal-body">
                   <div className="container-fluid">
                     <TextInput
-                      label={"วันที่:"}
+                      label={"วันที่ (ปี ค.ศ.):"}
                       icon={"far fa-calendar-alt"}
                       setValue={setDate}
                       type={"date"}

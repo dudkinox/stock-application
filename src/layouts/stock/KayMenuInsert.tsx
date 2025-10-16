@@ -168,7 +168,7 @@ export default function KayMenuInsert({
               })
         }
         type={"date"}
-        placeholder={"วันที่ขาย"}
+        placeholder={"วันที่ขาย (ปี ค.ศ.)"}
         value={
           !updateKay
             ? datePayment

@@ -175,7 +175,7 @@ export function StockByePage() {
                       />
                     )}
                     <TextInput
-                      label={"วันที่:"}
+                      label={"วันที่ (ปี ค.ศ.):"}
                       icon={"far fa-calendar-alt"}
                       setValue={setDate}
                       type={"date"}
@@ -236,7 +236,7 @@ export function StockByePage() {
                 </div>
                 <div className="col-sm-5">
                   <TextInput
-                    label={"Filter วันที่ซื้อเริ่มต้น"}
+                    label={"Filter วันที่ซื้อเริ่มต้น (ปี ค.ศ.):"}
                     setValue={setFilterDateStart}
                     type={"date"}
                     icon={"far fa-calendar-alt"}
@@ -245,7 +245,7 @@ export function StockByePage() {
                 </div>
                 <div className="col-sm-5">
                   <TextInput
-                    label={"Filter วันที่ซื้อสิ้นสุด"}
+                    label={"Filter วันที่ซื้อสิ้นสุด (ปี ค.ศ.):"}
                     setValue={setFilterDateEnd}
                     type={"date"}
                     icon={"far fa-calendar-alt"}

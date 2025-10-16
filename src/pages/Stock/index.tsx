@@ -299,7 +299,7 @@ export default function StockPage() {
                       />
                     )}
                     <TextInput
-                      label={"วันที่:"}
+                      label={"วันที่ (ปี ค.ศ.):"}
                       icon={"far fa-calendar-alt"}
                       setValue={setDate}
                       type={"date"}
