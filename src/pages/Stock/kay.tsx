@@ -30,23 +30,6 @@ export function StockKayPage() {
   const [totalStarMoney, setTotalStarMoney] = useState<number>(0);
   const navigate = useNavigate();
 
-  const stockTableHeaders = [
-    "timestamp",
-    "เลือก",
-    "รหัสเอกสาร",
-    "สาขา",
-    "วันที่ขาย",
-    "ชื่อลูกค้า",
-    "เบอร์โทร",
-    "รุ่น",
-    "imei",
-    "เงินดาว",
-    "ผ่อนกี่เดือน",
-    "ผ่อนเดือนละ",
-    "จ่ายทุกวันที่",
-    "แก้ไข / ลบ",
-  ];
-
   const selectAll = () => {
     const checkBoxes = document.getElementsByClassName(
       "row-check"
@@ -61,6 +44,25 @@ export function StockKayPage() {
 
     updateTotalProfitFromSelection();
   };
+
+  const stockTableHeaders = [
+    "timestamp",
+    "เลือก",
+    "รหัสเอกสาร",
+    "สาขา",
+    "วันที่ขาย",
+    "ชื่อลูกค้า",
+    "เบอร์โทร",
+    "รุ่น",
+    "imei",
+    "เงินดาว",
+    "ผ่อนกี่เดือน",
+    "ผ่อนเดือนละ",
+    "จ่ายทุกวันที่",
+    "ยอดผ่อน",
+    "ผ่อนมาแล้ว",
+    "แก้ไข / ลบ",
+  ];
 
   const stockTableHeadersAdmin = [
     "timestamp",
@@ -77,6 +79,7 @@ export function StockKayPage() {
     "ผ่อนเดือนละ",
     "จ่ายทุกวันที่",
     "ยอดผ่อน",
+    "ผ่อนมาแล้ว",
     "กำไร",
     "แก้ไข / ลบ",
   ];
@@ -205,6 +208,7 @@ export function StockKayPage() {
       destroyTable("#kay-table");
       setStock(res.data);
       setTotalProfit(0);
+      setTotalStarMoney(0);
       setTimeout(
         () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
         100
@@ -439,6 +443,7 @@ export function StockKayPage() {
                         </td>
                         <td>{new Date(item.DATE_PAYMENT).getDate()}</td>
                         <td>{totalInstallment.toLocaleString()} บาท</td>
+                        <td>test</td>
                         {majorUser.toLocaleLowerCase() === "admin" && (
                           <td>
                             <span className="d-none">{profit}</span>
