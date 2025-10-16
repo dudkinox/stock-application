@@ -445,8 +445,10 @@ export function StockKayPage() {
                         </td>
                         <td>{new Date(item.DATE_PAYMENT).getDate()}</td>
                         <td>{totalInstallment.toLocaleString()} บาท</td>
-                        <td>test</td>
-                        <td>ค้าง</td>
+                        <td>
+                          {Number(item.INSTALLMENT_NO).toLocaleString()} บาท
+                        </td>
+                        <td>{Number(item.PRICE_TOTAL).toLocaleString()} บาท</td>
                         {majorUser.toLocaleLowerCase() === "admin" && (
                           <td>
                             <span className="d-none">{profit}</span>
@@ -501,11 +503,11 @@ export function StockKayPage() {
                   })}
                   foot={
                     <tr className="text-center">
-                      <td colSpan={5}>รวม</td>
-                      <td>{totalProfit.toLocaleString()} บาท</td>
-                      <td colSpan={4}></td>
+                      <td colSpan={9}>รวม</td>
                       <td>{totalStarMoney.toLocaleString()} บาท</td>
-                      <td colSpan={4}></td>
+                      <td colSpan={6}></td>
+                      <td>{totalProfit.toLocaleString()} บาท</td>
+                      <td></td>
                     </tr>
                   }
                 />

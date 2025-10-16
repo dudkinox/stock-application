@@ -476,6 +476,15 @@ export function StockContextProvider({ children }: Readonly<ChildrenProps>) {
             ) {
               AlertWarning("กรุณากรอกข้อมูลให้ครบถ้วน");
             } else {
+              let baseParams =
+                "?date=" +
+                baseInsert.date +
+                "&id_card=" +
+                installmentPayment.id +
+                "&customer_status=" +
+                baseInsert.customerStatus +
+                "&major=" +
+                baseInsert.major;
               insertStock(baseParams, camelToSnakeObject(installmentPayment));
               isSuccess = true;
             }
