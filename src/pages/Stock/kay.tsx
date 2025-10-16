@@ -6,7 +6,10 @@ import HeaderPageCommon from "../../common/HeaderPageCommon";
 import initTable, { destroyTable } from "../../common/DataTable";
 import { useNavigate } from "react-router-dom";
 import { StockContext } from "../../contexts/StockContext";
-import { convertDateToThaiV2 } from "../../common/DateFormat";
+import {
+  convertDateToThaiV2,
+  convertDateToThaiV3,
+} from "../../common/DateFormat";
 import TextInput from "../../common/TextInput";
 import blogSelectCal from "../../common/SelectRow";
 
@@ -430,7 +433,7 @@ export function StockKayPage() {
                         <td>{`${item.CODE}-${item.ID}`}</td>
                         <td>{item.MAJOR}</td>
                         <td>
-                          {convertDateToThaiV2(new Date(item.DATE_PAYMENT))}
+                          {convertDateToThaiV3(new Date(item.DATE_PAYMENT))}
                         </td>
                         <td>{item.CUSTOMER}</td>
                         <td>{item.TEL}</td>
