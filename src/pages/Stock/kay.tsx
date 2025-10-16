@@ -446,9 +446,9 @@ export function StockKayPage() {
                         <td>{new Date(item.DATE_PAYMENT).getDate()}</td>
                         <td>{totalInstallment.toLocaleString()} บาท</td>
                         <td>
-                          {Number(item.INSTALLMENT_NO).toLocaleString()} บาท
+                          {Number(item.MAX_INSTALLMENT_NO).toLocaleString()} บาท
                         </td>
-                        <td>{Number(item.PRICE_TOTAL).toLocaleString()} บาท</td>
+                        <td>{Number(item.TOTAL_PRICE).toLocaleString()} บาท</td>
                         {majorUser.toLocaleLowerCase() === "admin" && (
                           <td>
                             <span className="d-none">{profit}</span>
