@@ -505,7 +505,11 @@ export function StockKayPage() {
                     <tr className="text-center">
                       <td colSpan={9}>รวม</td>
                       <td>{totalStarMoney.toLocaleString()} บาท</td>
-                      <td colSpan={6}></td>
+                      {majorUser.toLocaleLowerCase() === "admin" ? (
+                        <td colSpan={6}></td>
+                      ) : (
+                        <td colSpan={5}></td>
+                      )}
                       <td>{totalProfit.toLocaleString()} บาท</td>
                       <td></td>
                     </tr>
