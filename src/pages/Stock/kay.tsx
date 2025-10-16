@@ -61,6 +61,7 @@ export function StockKayPage() {
     "จ่ายทุกวันที่",
     "ยอดผ่อน",
     "ผ่อนมาแล้ว",
+    "ค้างชำระ",
     "แก้ไข / ลบ",
   ];
 
@@ -80,6 +81,7 @@ export function StockKayPage() {
     "จ่ายทุกวันที่",
     "ยอดผ่อน",
     "ผ่อนมาแล้ว",
+    "ค้างชำระ",
     "กำไร",
     "แก้ไข / ลบ",
   ];
@@ -444,6 +446,7 @@ export function StockKayPage() {
                         <td>{new Date(item.DATE_PAYMENT).getDate()}</td>
                         <td>{totalInstallment.toLocaleString()} บาท</td>
                         <td>test</td>
+                        <td>ค้าง</td>
                         {majorUser.toLocaleLowerCase() === "admin" && (
                           <td>
                             <span className="d-none">{profit}</span>
