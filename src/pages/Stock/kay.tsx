@@ -30,6 +30,7 @@ export function StockKayPage() {
   const [filterDateStart, setFilterDateStart] = useState<string>("");
   const [filterDateEnd, setFilterDateEnd] = useState<string>("");
   const [totalProfit, setTotalProfit] = useState<number>(0);
+  const [totalInstallment, setTotalInstallment] = useState<number>(0);
   const [totalStarMoney, setTotalStarMoney] = useState<number>(0);
   const navigate = useNavigate();
 
@@ -125,6 +126,7 @@ export function StockKayPage() {
       destroyTable("#kay-table");
       setStock(res.data);
       setTotalProfit(0);
+      setTotalInstallment(0);
       setTotalStarMoney(0);
       const checkBoxes = document.getElementsByClassName(
         "row-check"
@@ -155,6 +157,7 @@ export function StockKayPage() {
       destroyTable("#kay-table");
       setStock(res.data);
       setTotalProfit(0);
+      setTotalInstallment(0);
       setTotalStarMoney(0);
       setTimeout(
         () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
@@ -167,6 +170,28 @@ export function StockKayPage() {
   const updateTotalProfitFromSelection = () => {
     setTotalProfit(calProfitBySelected());
     setTotalStarMoney(calStarMoneyBySelected());
+    setTotalInstallment(calInstallmentBySelected());
+  };
+
+  const calInstallmentBySelected = () => {
+    const checkBoxes = document.getElementsByClassName(
+      "row-check"
+    ) as HTMLCollectionOf<HTMLInputElement>;
+    let total = 0;
+
+    for (const element of checkBoxes) {
+      if (element.checked) {
+        const id = element.id.replace("row-", "");
+        const item = stock.find((s) => s.ID === id);
+        if (!item) continue;
+        const totalInstallment = Number(item.INSTALLMENT) * Number(item.MONTH);
+        const installmentCurrent =
+          Number(item.TOTAL_PRICE) - Number(totalInstallment);
+        total += installmentCurrent;
+      }
+    }
+
+    return total;
   };
 
   const calProfitBySelected = () => {
@@ -403,7 +428,7 @@ export function StockKayPage() {
                     const totalInstallment =
                       Number(item.INSTALLMENT) * Number(item.MONTH);
                     const installmentCurrent =
-                      Number(totalInstallment) - Number(item.TOTAL_PRICE);
+                      Number(item.TOTAL_PRICE) - Number(totalInstallment);
 
                     return (
                       <tr key={item.ID} className="text-center">
@@ -509,10 +534,11 @@ export function StockKayPage() {
                       <td colSpan={9}>รวม</td>
                       <td>{totalStarMoney.toLocaleString()} บาท</td>
                       {majorUser.toLocaleLowerCase() === "admin" ? (
-                        <td colSpan={6}></td>
-                      ) : (
                         <td colSpan={5}></td>
+                      ) : (
+                        <td colSpan={4}></td>
                       )}
+                      <td>{totalInstallment.toLocaleString()} บาท</td>
                       <td>{totalProfit.toLocaleString()} บาท</td>
                       <td></td>
                     </tr>
