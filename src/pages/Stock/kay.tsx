@@ -399,6 +399,8 @@ export function StockKayPage() {
                       Number(item.COST);
                     const totalInstallment =
                       Number(item.INSTALLMENT) * Number(item.MONTH);
+                    const installmentCurrent =
+                      Number(totalInstallment) - Number(item.TOTAL_PRICE);
 
                     return (
                       <tr key={item.ID} className="text-center">
@@ -445,10 +447,8 @@ export function StockKayPage() {
                         </td>
                         <td>{new Date(item.DATE_PAYMENT).getDate()}</td>
                         <td>{totalInstallment.toLocaleString()} บาท</td>
-                        <td>
-                          {Number(item.MAX_INSTALLMENT_NO).toLocaleString()} บาท
-                        </td>
                         <td>{Number(item.TOTAL_PRICE).toLocaleString()} บาท</td>
+                        <td>{installmentCurrent.toLocaleString()} บาท</td>
                         {majorUser.toLocaleLowerCase() === "admin" && (
                           <td>
                             <span className="d-none">{profit}</span>
