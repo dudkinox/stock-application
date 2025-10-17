@@ -7,3 +7,7 @@
 
 ทดสอบได้ที่ link https://sabuyphone-admin.com
 หรือเทสได้ที่ localhost:5173
+
+รหัสเข้าใช้
+admin
+654321
