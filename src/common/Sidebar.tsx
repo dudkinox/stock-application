@@ -1,27 +1,27 @@
 import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../contexts";
 import { PathEnum } from "../enum/path.enum";
-import { ModeEnum } from "../enum/mode.enum";
+import { ThemesEnum } from "../enum/mode.enum";
 
 export default function SidebarCommon() {
   const { pathUrl, isLogin, majorUser } = useContext(AppContext);
-  const [theme, setTheme] = useState<ModeEnum>(ModeEnum.DARK);
+  const [theme, setTheme] = useState<ThemesEnum>(ThemesEnum.DARK);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as ModeEnum | null;
+    const savedTheme = localStorage.getItem("theme") as ThemesEnum | null;
     if (savedTheme) {
       setTheme(savedTheme);
-      document.body.classList.toggle("dark-mode", savedTheme === ModeEnum.DARK);
-      document.body.classList.toggle("light-mode", savedTheme === ModeEnum.LIGHT);
+      document.body.classList.toggle("dark-mode", savedTheme === ThemesEnum.DARK);
+      document.body.classList.toggle("light-mode", savedTheme === ThemesEnum.LIGHT);
     }
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === ModeEnum.DARK ? ModeEnum.LIGHT : ModeEnum.DARK;
+    const newTheme = theme === ThemesEnum.DARK ? ThemesEnum.LIGHT : ThemesEnum.DARK;
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
-    document.body.classList.toggle("dark-mode", newTheme === ModeEnum.DARK);
-    document.body.classList.toggle("light-mode", newTheme === ModeEnum.LIGHT);
+    document.body.classList.toggle("dark-mode", newTheme === ThemesEnum.DARK);
+    document.body.classList.toggle("light-mode", newTheme === ThemesEnum.LIGHT);
   };
 
   return (
@@ -213,9 +213,9 @@ export default function SidebarCommon() {
       <div className="d-flex  justify-content-around">
         <button
           onClick={toggleTheme}
-          className={`btn btn-sm ${theme === ModeEnum.DARK ? "btn-outline-light" : "btn-dark"}`}
+          className={`btn btn-sm ${theme === ThemesEnum.DARK ? "btn-outline-light" : "btn-dark"}`}
         >
-          {theme === ModeEnum.DARK ? "🌞 Light" : "🌙 Dark"}
+          {theme === ThemesEnum.DARK ? "🌞 Light" : "🌙 Dark"}
         </button>
 
       </div>
