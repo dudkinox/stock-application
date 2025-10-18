@@ -4,21 +4,40 @@
   font-family: "Mali";
 }
 
-.main-bg {
+.dark-mode .main-bg {
   background-color: #e91d63 !important;
 }
 
-a {
+.light-mode .main-bg {
+  background-color: #080707 !important;
+}
+
+.dark-mode a {
   color: rgb(255, 255, 255) !important;
 }
 
-.nav-link.active {
-  color: #e91d63 !important;
+.light-mode a {
+  color: #333333 !important;
 }
 
-.primary-btn {
+.dark-mode .nav-link.active {
+  color: #ece5e5 !important;
+}
+
+.light-mode .nav-link.active {
+  color: #ece5e5 !important;
+}
+
+.dark-mode .primary-btn {
   background-color: #e91d63 !important;
   border-color: #e91d63 !important;
+  box-shadow: none;
+  color: rgb(255, 255, 255) !important;
+}
+
+.light-mode .primary-btn {
+  background-color: #090808 !important;
+  border-color: #080707 !important;
   box-shadow: none;
   color: rgb(255, 255, 255) !important;
 }
@@ -27,8 +46,8 @@ a.nav-link.active {
   color: #fff !important;
 }
 
-.dark-mode .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
-.dark-mode .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+.dark-mode .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
+.dark-mode .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
   background-color: #d11b59;
 }
 
@@ -42,6 +61,23 @@ a.nav-link.active {
 .dark-mode textarea:-webkit-autofill:focus,
 .dark-mode textarea:-webkit-autofill:hover {
   -webkit-text-fill-color: #f00;
+}
+
+.light-mode .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
+.light-mode .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+  background-color: #0c0b0c;
+}
+
+.light-mode input:-webkit-autofill,
+.light-mode input:-webkit-autofill:focus,
+.light-mode input:-webkit-autofill:hover,
+.light-mode select:-webkit-autofill,
+.light-mode select:-webkit-autofill:focus,
+.light-mode select:-webkit-autofill:hover,
+.light-mode textarea:-webkit-autofill,
+.light-mode textarea:-webkit-autofill:focus,
+.light-mode textarea:-webkit-autofill:hover {
+  -webkit-text-fill-color: rgb(12, 10, 10);
 }
 
 .vh-90 {
@@ -67,12 +103,20 @@ a.nav-link.active {
   opacity: 0.85;
 }
 
-[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active,
-[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active:focus,
-[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active:hover {
+.dark-mode .nav-treeview>.nav-item>.nav-link.active,
+.dark-mode .nav-treeview>.nav-item>.nav-link.active:focus,
+.dark-mode .nav-treeview>.nav-item>.nav-link.active:hover {
   background-color: rgb(233 29 99);
   color: #343a40;
 }
+
+.light-mode .nav-treeview>.nav-item>.nav-link.active,
+.light-mode .nav-treeview>.nav-item>.nav-link.active:focus,
+.light-mode .nav-treeview>.nav-item>.nav-link.active:hover {
+  background-color: rgb(14, 13, 13);
+  color: #343a40;
+}
+
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -84,7 +128,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.fab-btn {
+.dark-mode .fab-btn {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -97,9 +141,28 @@ input[type="number"] {
   transition: all 0.3s ease;
 }
 
-.fab-btn:hover {
+.light-mode .fab-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #080103, #090607);
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(240, 235, 235, 0.978);
+  transition: all 0.3s ease;
+}
+
+.dark-mode .fab-btn:hover {
   transform: translateY(-5px) scale(1.08);
   background: linear-gradient(135deg, #ff3366, #ff004d);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+}
+
+.light-mode .fab-btn:hover {
+  transform: translateY(-5px) scale(1.08);
+  background: linear-gradient(135deg, #0c0b0b, #070707);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
 }
 
@@ -113,11 +176,13 @@ input[type="number"] {
 
 /* เอฟเฟกต์แยกสำหรับขึ้น/ลง */
 .page-down-btn:hover i {
-  transform: translateY(3px); /* ลง */
+  transform: translateY(3px);
+  /* ลง */
 }
 
 .page-up-btn:hover i {
-  transform: translateY(-3px); /* ขึ้น */
+  transform: translateY(-3px);
+  /* ขึ้น */
 }
 
 /* --- ตำแหน่ง --- */
@@ -130,8 +195,10 @@ input[type="number"] {
 
 .page-up {
   position: fixed;
-  bottom: 90px; /* ให้อยู่เหนือ page-down */
-  right: 20px; /* ใช้มุมเดียวกัน */
+  bottom: 90px;
+  /* ให้อยู่เหนือ page-down */
+  right: 20px;
+  /* ใช้มุมเดียวกัน */
   z-index: 99999;
 }
 
@@ -152,16 +219,19 @@ input[type="number"] {
     left: 38%;
   }
 }
+
 @media screen and (max-width: 425px) {
   .gif {
     left: 30%;
   }
 }
+
 @media screen and (max-width: 375px) {
   .gif {
     left: 25%;
   }
 }
+
 @media screen and (max-width: 320px) {
   .gif {
     left: 20%;
