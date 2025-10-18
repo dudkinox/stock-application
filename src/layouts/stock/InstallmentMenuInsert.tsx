@@ -150,7 +150,7 @@ export default function InstallmentMenuInsert({
                   PaymentService.InstallmentNumber(documentId).then((res) => {
                     String(res.data) === "false"
                       ? ($("#alert-installment-modal") as any).modal("show")
-                      : setInstallmentNo(Number(res.data) + 1);
+                      : setInstallmentNo(Number(res.data));
                   });
                 }}
               >
