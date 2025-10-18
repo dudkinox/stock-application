@@ -1,26 +1,27 @@
 import { useContext, useState, useEffect } from "react";
 import { AppContext } from "../contexts";
 import { PathEnum } from "../enum/path.enum";
+import { ModeEnum } from "../enum/mode.enum";
 
 export default function SidebarCommon() {
   const { pathUrl, isLogin, majorUser } = useContext(AppContext);
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<ModeEnum>(ModeEnum.DARK);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark";
+    const savedTheme = localStorage.getItem("theme") as ModeEnum | null;
     if (savedTheme) {
       setTheme(savedTheme);
-      document.body.classList.toggle("dark-mode", savedTheme === "dark");
-      document.body.classList.toggle("light-mode", savedTheme === "light");
+      document.body.classList.toggle("dark-mode", savedTheme === ModeEnum.DARK);
+      document.body.classList.toggle("light-mode", savedTheme === ModeEnum.LIGHT);
     }
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
+    const newTheme = theme === ModeEnum.DARK ? ModeEnum.LIGHT : ModeEnum.DARK;
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
-    document.body.classList.toggle("dark-mode", newTheme === "dark");
-    document.body.classList.toggle("light-mode", newTheme === "light");
+    document.body.classList.toggle("dark-mode", newTheme === ModeEnum.DARK);
+    document.body.classList.toggle("light-mode", newTheme === ModeEnum.LIGHT);
   };
 
   return (
@@ -212,9 +213,9 @@ export default function SidebarCommon() {
       <div className="d-flex  justify-content-around">
         <button
           onClick={toggleTheme}
-          className={`btn btn-sm ${theme === "dark" ? "btn-outline-light" : "btn-dark"}`}
+          className={`btn btn-sm ${theme === ModeEnum.DARK ? "btn-outline-light" : "btn-dark"}`}
         >
-          {theme === "dark" ? "🌞 Light" : "🌙 Dark"}
+          {theme === ModeEnum.DARK ? "🌞 Light" : "🌙 Dark"}
         </button>
 
       </div>
