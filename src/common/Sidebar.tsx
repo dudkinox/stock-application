@@ -209,16 +209,17 @@ export default function SidebarCommon() {
         )}
 
       </div>
+      {isLogin !== "" && (
+        <div className="d-flex  justify-content-around">
+          <button
+            onClick={toggleTheme}
+            className={`btn btn-sm ${theme === ThemesEnum.DARK ? "btn-outline-light" : "btn-dark"}`}
+          >
+            {theme === ThemesEnum.DARK ? "🌞 Light" : "🌙 Dark"}
+          </button>
 
-      <div className="d-flex  justify-content-around">
-        <button
-          onClick={toggleTheme}
-          className={`btn btn-sm ${theme === ThemesEnum.DARK ? "btn-outline-light" : "btn-dark"}`}
-        >
-          {theme === ThemesEnum.DARK ? "🌞 Light" : "🌙 Dark"}
-        </button>
-
-      </div>
+        </div>
+      )}
     </aside>
   );
 }
