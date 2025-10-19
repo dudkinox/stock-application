@@ -9,13 +9,11 @@ import { ThemesEnum } from '../../enum/mode.enum'
 export default function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const { setIsLoading } = useContext(AppContext)
+  const { setIsLoading, setTheme } = useContext(AppContext)
 
-useEffect(() => {
-  document.body.classList.remove(ThemesEnum.LIGHT)
-  document.body.classList.add(ThemesEnum.DARK)
-  localStorage.setItem("theme", ThemesEnum.DARK)
-}, [])
+  useEffect(() => {
+    setTheme(ThemesEnum.DARK)
+  }, [setTheme])
 
   const login = (e: any) => {
     e.preventDefault()

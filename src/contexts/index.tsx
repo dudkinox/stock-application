@@ -2,6 +2,7 @@ import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { AlertError, AlertSuccess } from "../common/ToastrCommon";
 import AccountServices from "../services/AccountService";
 import StockService from "../services/StockServices";
+import { ThemesEnum } from "../enum/mode.enum";
 
 interface AppContextProps {
   pathUrl: string;
@@ -15,11 +16,13 @@ interface AppContextProps {
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
   deleteStock: (id: string, major: string) => () => void;
+  theme: ThemesEnum;
+  setTheme: (theme: ThemesEnum) => void;
 }
 
 export const AppContext = createContext<AppContextProps>({
   pathUrl: "",
-  setPathUrl: () => {},
+  setPathUrl: () => { },
   isLogin: "",
   majorUser: "",
   isEdit: () => false,
@@ -27,8 +30,10 @@ export const AppContext = createContext<AppContextProps>({
   editPermission: "",
   deletePermission: "",
   isLoading: false,
-  setIsLoading: () => {},
-  deleteStock: () => () => {},
+  setIsLoading: () => { },
+  deleteStock: () => () => { },
+  theme: ThemesEnum.DARK,
+  setTheme: () => { }
 });
 
 interface ChildrenProps {
@@ -42,6 +47,11 @@ export function AppContextProvider({ children }: Readonly<ChildrenProps>) {
   const editPermission = sessionStorage.getItem("can_edit") ?? "";
   const deletePermission = sessionStorage.getItem("can_delete") ?? "";
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [theme, setTheme] = useState<ThemesEnum>(() => {
+    const savedTheme = localStorage.getItem("theme") as ThemesEnum | null;
+    return savedTheme ?? ThemesEnum.DARK;
+  });
 
   const isEdit = () => editPermission === "TRUE";
   const isDelete = () => deletePermission === "TRUE";
@@ -67,6 +77,18 @@ export function AppContextProvider({ children }: Readonly<ChildrenProps>) {
         setIsLoading(false);
       });
   };
+  useEffect(() => {
+    document.body.classList.remove("dark-mode", "light-mode");
+    document.body.classList.add(theme === ThemesEnum.DARK ? "dark-mode" : "light-mode");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+  useEffect(() => {
+    if (!isLogin) {
+      setTheme(ThemesEnum.DARK);
+      document.body.classList.remove("light-mode");
+      document.body.classList.add("dark-mode");
+    }
+  }, [isLogin]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -123,6 +145,8 @@ export function AppContextProvider({ children }: Readonly<ChildrenProps>) {
       isLoading,
       setIsLoading,
       deleteStock,
+      theme,
+      setTheme,
     }),
     [
       pathUrl,
@@ -136,6 +160,8 @@ export function AppContextProvider({ children }: Readonly<ChildrenProps>) {
       isLoading,
       setIsLoading,
       deleteStock,
+      theme,
+      setTheme,
     ]
   );
 
