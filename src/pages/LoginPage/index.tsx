@@ -1,14 +1,19 @@
 import ContentLayOut from '../../layouts/ContentLayOut'
 import Logo from '../../assets/logo.png'
 import AccountServices from '../../services/AccountService'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AlertError, AlertSuccess } from '../../common/ToastrCommon'
 import { AppContext } from '../../contexts'
+import { ThemesEnum } from '../../enum/mode.enum'
 
 export default function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const { setIsLoading } = useContext(AppContext)
+  const { setIsLoading, setTheme } = useContext(AppContext)
+
+  useEffect(() => {
+    setTheme(ThemesEnum.DARK)
+  }, [setTheme])
 
   const login = (e: any) => {
     e.preventDefault()
