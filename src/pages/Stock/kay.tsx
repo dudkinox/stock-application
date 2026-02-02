@@ -1,21 +1,17 @@
-import { useContext, useEffect, useState } from "react";
-import TableCommon from "../../common/Table";
-import StockService from "../../services/StockServices";
-import { AppContext } from "../../contexts";
-import HeaderPageCommon from "../../common/HeaderPageCommon";
-import initTable, { destroyTable } from "../../common/DataTable";
-import { useNavigate } from "react-router-dom";
-import { StockContext } from "../../contexts/StockContext";
-import {
-  convertDateToThaiV2,
-  convertDateToThaiV3,
-} from "../../common/DateFormat";
-import TextInput from "../../common/TextInput";
-import blogSelectCal from "../../common/SelectRow";
+import { useContext, useEffect, useState } from 'react';
+import TableCommon from '../../common/Table';
+import StockService from '../../services/StockServices';
+import { AppContext } from '../../contexts';
+import HeaderPageCommon from '../../common/HeaderPageCommon';
+import initTable, { destroyTable } from '../../common/DataTable';
+import { useNavigate } from 'react-router-dom';
+import { StockContext } from '../../contexts/StockContext';
+import { convertDateToThaiV2, convertDateToThaiV3 } from '../../common/DateFormat';
+import TextInput from '../../common/TextInput';
+import blogSelectCal from '../../common/SelectRow';
 
 export function StockKayPage() {
-  const { majorUser, setIsLoading, deleteStock, isEdit, isDelete } =
-    useContext(AppContext);
+  const { majorUser, setIsLoading, deleteStock, isEdit, isDelete } = useContext(AppContext);
   const {
     setMajorInsert,
     setImei,
@@ -25,10 +21,10 @@ export function StockKayPage() {
   } = useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
   const [buyList, setBuyList] = useState<any[]>([]);
-  const [createAtStart, setCreateAtStart] = useState<string>("");
-  const [createAtEnd, setCreateAtEnd] = useState<string>("");
-  const [filterDateStart, setFilterDateStart] = useState<string>("");
-  const [filterDateEnd, setFilterDateEnd] = useState<string>("");
+  const [createAtStart, setCreateAtStart] = useState<string>('');
+  const [createAtEnd, setCreateAtEnd] = useState<string>('');
+  const [filterDateStart, setFilterDateStart] = useState<string>('');
+  const [filterDateEnd, setFilterDateEnd] = useState<string>('');
   const [totalProfit, setTotalProfit] = useState<number>(0);
   const [totalInstallment, setTotalInstallment] = useState<number>(0);
   const [totalStarMoney, setTotalStarMoney] = useState<number>(0);
@@ -36,11 +32,9 @@ export function StockKayPage() {
 
   const selectAll = () => {
     const checkBoxes = document.getElementsByClassName(
-      "row-check"
+      'row-check',
     ) as HTMLCollectionOf<HTMLInputElement>;
-    const mainCheckBox = document.getElementById(
-      "flexCheckDefault"
-    ) as HTMLInputElement;
+    const mainCheckBox = document.getElementById('flexCheckDefault') as HTMLInputElement;
 
     for (const element of checkBoxes) {
       element.checked = mainCheckBox.checked;
@@ -50,65 +44,60 @@ export function StockKayPage() {
   };
 
   const stockTableHeaders = [
-    "timestamp",
-    "เลือก",
-    "รหัสเอกสาร",
-    "สาขา",
-    "วันที่ขาย",
-    "ชื่อลูกค้า",
-    "เบอร์โทร",
-    "รุ่น",
-    "imei",
-    "เงินดาว",
-    "ผ่อนกี่เดือน",
-    "ผ่อนเดือนละ",
-    "จ่ายทุกวันที่",
-    "ยอดผ่อน",
-    "ผ่อนมาแล้ว",
-    "ค้างชำระ",
-    "แก้ไข / ลบ",
+    'timestamp',
+    'เลือก',
+    'รหัสเอกสาร',
+    'สาขา',
+    'วันที่ขาย',
+    'ชื่อลูกค้า',
+    'เบอร์โทร',
+    'รุ่น',
+    'imei',
+    'เงินดาว',
+    'ผ่อนกี่เดือน',
+    'ผ่อนเดือนละ',
+    'จ่ายทุกวันที่',
+    'ยอดผ่อน',
+    'ผ่อนมาแล้ว',
+    'ค้างชำระ',
+    'แก้ไข / ลบ',
   ];
 
   const stockTableHeadersAdmin = [
-    "timestamp",
+    'timestamp',
     blogSelectCal(selectAll),
-    "รหัสเอกสาร",
-    "สาขา",
-    "วันที่ขาย",
-    "ชื่อลูกค้า",
-    "เบอร์โทร",
-    "รุ่น",
-    "imei",
-    "เงินดาว",
-    "ผ่อนกี่เดือน",
-    "ผ่อนเดือนละ",
-    "จ่ายทุกวันที่",
-    "ยอดผ่อน",
-    "ผ่อนมาแล้ว",
-    "ค้างชำระ",
-    "กำไร",
-    "แก้ไข / ลบ",
+    'รหัสเอกสาร',
+    'สาขา',
+    'วันที่ขาย',
+    'ชื่อลูกค้า',
+    'เบอร์โทร',
+    'รุ่น',
+    'imei',
+    'เงินดาว',
+    'ผ่อนกี่เดือน',
+    'ผ่อนเดือนละ',
+    'จ่ายทุกวันที่',
+    'ยอดผ่อน',
+    'ผ่อนมาแล้ว',
+    'ค้างชำระ',
+    'กำไร',
+    'แก้ไข / ลบ',
   ];
 
   const stockBuyListTableHeaders = [
-    "timestamp",
-    "รหัสเอกสาร",
-    "สาขา",
-    "Serial Number",
-    "รุ่น",
-    "imei",
-    "แหล่งที่มา",
-    "Battery",
-    "ขาย",
-    "แก้ไข / ลบ",
+    'timestamp',
+    'รหัสเอกสาร',
+    'สาขา',
+    'Serial Number',
+    'รุ่น',
+    'imei',
+    'แหล่งที่มา',
+    'Battery',
+    'ขาย',
+    'แก้ไข / ลบ',
   ];
 
-  const handlerKay = (
-    id: string,
-    majorInsert: string,
-    version: string,
-    imei: string
-  ) => {
+  const handlerKay = (id: string, majorInsert: string, version: string, imei: string) => {
     setMajorInsert(majorInsert);
     setVersion(version);
     setImei(imei);
@@ -118,30 +107,25 @@ export function StockKayPage() {
   };
 
   const handleResetFilter = () => {
-    setCreateAtStart("");
-    setCreateAtEnd("");
-    setFilterDateStart("");
-    setFilterDateEnd("");
+    setCreateAtStart('');
+    setCreateAtEnd('');
+    setFilterDateStart('');
+    setFilterDateEnd('');
     StockService.GetStockKay(majorUser).then((res) => {
-      destroyTable("#kay-table");
+      destroyTable('#kay-table');
       setStock(res.data);
       setTotalProfit(0);
       setTotalInstallment(0);
       setTotalStarMoney(0);
       const checkBoxes = document.getElementsByClassName(
-        "row-check"
+        'row-check',
       ) as HTMLCollectionOf<HTMLInputElement>;
       for (const element of checkBoxes) {
         element.checked = false;
       }
-      const mainCheckBox = document.getElementById(
-        "flexCheckDefault"
-      ) as HTMLInputElement;
+      const mainCheckBox = document.getElementById('flexCheckDefault') as HTMLInputElement;
       if (mainCheckBox) mainCheckBox.checked = false;
-      setTimeout(
-        () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
-        100
-      );
+      setTimeout(() => initTable(res.data.length.toString() ?? '0', '#kay-table'), 100);
     });
   };
 
@@ -152,17 +136,14 @@ export function StockKayPage() {
       createAtStart,
       createAtEnd,
       filterDateStart,
-      filterDateEnd
+      filterDateEnd,
     ).then((res) => {
-      destroyTable("#kay-table");
+      destroyTable('#kay-table');
       setStock(res.data);
       setTotalProfit(0);
       setTotalInstallment(0);
       setTotalStarMoney(0);
-      setTimeout(
-        () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
-        100
-      );
+      setTimeout(() => initTable(res.data.length.toString() ?? '0', '#kay-table'), 100);
       setIsLoading(false);
     });
   };
@@ -175,18 +156,17 @@ export function StockKayPage() {
 
   const calInstallmentBySelected = () => {
     const checkBoxes = document.getElementsByClassName(
-      "row-check"
+      'row-check',
     ) as HTMLCollectionOf<HTMLInputElement>;
     let total = 0;
 
     for (const element of checkBoxes) {
       if (element.checked) {
-        const id = element.id.replace("row-", "");
+        const id = element.id.replace('row-', '');
         const item = stock.find((s) => s.ID === id);
         if (!item) continue;
         const totalInstallment = Number(item.INSTALLMENT) * Number(item.MONTH);
-        const installmentCurrent =
-          Number(item.TOTAL_PRICE) - Number(totalInstallment);
+        const installmentCurrent = Number(item.TOTAL_PRICE) - Number(totalInstallment);
         total += installmentCurrent;
       }
     }
@@ -196,13 +176,13 @@ export function StockKayPage() {
 
   const calProfitBySelected = () => {
     const checkBoxes = document.getElementsByClassName(
-      "row-check"
+      'row-check',
     ) as HTMLCollectionOf<HTMLInputElement>;
     let total = 0;
 
     for (const element of checkBoxes) {
       if (element.checked) {
-        const id = element.id.replace("row-", "");
+        const id = element.id.replace('row-', '');
         const item = stock.find((s) => s.ID === id);
         const profit =
           Number(item.MONTH) * Number(item.INSTALLMENT) +
@@ -217,13 +197,13 @@ export function StockKayPage() {
 
   const calStarMoneyBySelected = () => {
     const checkBoxes = document.getElementsByClassName(
-      "row-check"
+      'row-check',
     ) as HTMLCollectionOf<HTMLInputElement>;
     let total = 0;
 
     for (const element of checkBoxes) {
       if (element.checked) {
-        const id = element.id.replace("row-", "");
+        const id = element.id.replace('row-', '');
         const item = stock.find((s) => s.ID === id);
         total += Number(item.STAR_MONEY);
       }
@@ -235,35 +215,29 @@ export function StockKayPage() {
   useEffect(() => {
     setIsLoading(true);
     StockService.GetStockKay(majorUser).then((res) => {
-      destroyTable("#kay-table");
+      destroyTable('#kay-table');
       setStock(res.data);
       setTotalProfit(0);
       setTotalStarMoney(0);
-      setTimeout(
-        () => initTable(res.data.length.toString() ?? "0", "#kay-table"),
-        100
-      );
+      setTimeout(() => initTable(res.data.length.toString() ?? '0', '#kay-table'), 100);
     });
     StockService.GetStockBye(majorUser).then((res) => {
-      destroyTable("#buy-table");
+      destroyTable('#buy-table');
       setBuyList(res.data);
-      setTimeout(
-        () => initTable(res.data.length.toString() ?? "0", "#buy-table"),
-        100
-      );
+      setTimeout(() => initTable(res.data.length.toString() ?? '0', '#buy-table'), 100);
       setIsLoading(false);
     });
   }, []);
 
   return (
     <div className="content-wrapper">
-      <HeaderPageCommon title={"stock"} />
+      <HeaderPageCommon title={'stock'} />
       <section className="content">
         <div className="container-fluid">
           <div className="row">
             <div className="card col-12">
               <div className="card-header">
-                <h2 className="card-title">{"เครื่องที่มีในคลัง"}</h2>
+                <h2 className="card-title">{'เครื่องที่มีในคลัง'}</h2>
               </div>
 
               <div className="card-body">
@@ -271,7 +245,7 @@ export function StockKayPage() {
                   id="buy-table"
                   columns={stockBuyListTableHeaders}
                   row={buyList.map((item) =>
-                    item.STATUS === "0" ? (
+                    item.STATUS === 0 ? (
                       <tr key={item.ID} className="text-center">
                         <td>
                           <span className="d-none">{item.CREATED_AT}</span>
@@ -288,14 +262,7 @@ export function StockKayPage() {
                           <button
                             type="button"
                             className="btn primary-btn"
-                            onClick={() =>
-                              handlerKay(
-                                item.ID,
-                                item.MAJOR,
-                                item.VERSION,
-                                item.IMEI
-                              )
-                            }
+                            onClick={() => handlerKay(item.ID, item.MAJOR, item.VERSION, item.IMEI)}
                           >
                             ขาย
                           </button>
@@ -306,7 +273,7 @@ export function StockKayPage() {
                               type="button"
                               className="btn btn-warning"
                               onClick={() => {
-                                sessionStorage.setItem("majorEdit", item.MAJOR);
+                                sessionStorage.setItem('majorEdit', item.MAJOR);
                                 setUpdateKay(true);
                                 navigate(`/stock/add?type=bye&id=${item.ID}`);
                               }}
@@ -314,10 +281,7 @@ export function StockKayPage() {
                               แก้ไข
                             </button>
                           ) : (
-                            <button
-                              type="button"
-                              className="btn btn-warning disabled"
-                            >
+                            <button type="button" className="btn btn-warning disabled">
                               แก้ไข
                             </button>
                           )}
@@ -331,10 +295,7 @@ export function StockKayPage() {
                               ลบ
                             </button>
                           ) : (
-                            <button
-                              type="button"
-                              className="btn my-3 btn-danger disabled"
-                            >
+                            <button type="button" className="btn my-3 btn-danger disabled">
                               ลบ
                             </button>
                           )}
@@ -342,69 +303,63 @@ export function StockKayPage() {
                       </tr>
                     ) : (
                       <></>
-                    )
+                    ),
                   )}
                 />
               </div>
             </div>
             <div className="card col-12">
               <div className="card-header">
-                <h2 className="card-title">{"ขายไปแล้ว"}</h2>
+                <h2 className="card-title">{'ขายไปแล้ว'}</h2>
               </div>
               <div className="card-body">
                 <div className="container-fluid">
                   <div className="row text-center">
                     <div className="col-sm-5">
                       <TextInput
-                        label={"Filter timestamp เริ่ม"}
+                        label={'Filter timestamp เริ่ม'}
                         setValue={setCreateAtStart}
-                        type={"date"}
-                        icon={"far fa-calendar-alt"}
+                        type={'date'}
+                        icon={'far fa-calendar-alt'}
                         value={createAtStart}
                       />
                     </div>
                     <div className="col-sm-5">
                       <TextInput
-                        label={"Filter timestamp สิ้นสุด"}
+                        label={'Filter timestamp สิ้นสุด'}
                         setValue={setCreateAtEnd}
-                        type={"date"}
-                        icon={"far fa-calendar-alt"}
+                        type={'date'}
+                        icon={'far fa-calendar-alt'}
                         value={createAtEnd}
                       />
                     </div>
                     <div className="col-sm-2">
                       <br />
-                      <button
-                        className="btn btn-primary mt-2"
-                        onClick={handleFilter}
-                      >
+                      <button className="btn btn-primary mt-2" onClick={handleFilter}>
                         ค้นหา
                       </button>
                     </div>
                     <div className="col-sm-5">
                       <TextInput
-                        label={"Filter วันที่ขายเริ่มต้น (ปี ค.ศ.):"}
+                        label={'Filter วันที่ขายเริ่มต้น (ปี ค.ศ.):'}
                         setValue={setFilterDateStart}
-                        type={"date"}
-                        icon={"far fa-calendar-alt"}
+                        type={'date'}
+                        icon={'far fa-calendar-alt'}
                         value={filterDateStart}
                       />
                     </div>
                     <div className="col-sm-5">
                       <TextInput
-                        label={"Filter วันที่ขายสิ้นสุด (ปี ค.ศ.):"}
+                        label={'Filter วันที่ขายสิ้นสุด (ปี ค.ศ.):'}
                         setValue={setFilterDateEnd}
-                        type={"date"}
-                        icon={"far fa-calendar-alt"}
+                        type={'date'}
+                        icon={'far fa-calendar-alt'}
                         value={filterDateEnd}
                       />
                     </div>
                     <div className="col-sm-2">
                       <br />
-                      <button
-                        className="btn btn-warning mt-2"
-                        onClick={handleResetFilter}
-                      >
+                      <button className="btn btn-warning mt-2" onClick={handleResetFilter}>
                         ล้างค่า
                       </button>
                     </div>
@@ -416,7 +371,7 @@ export function StockKayPage() {
                 <TableCommon
                   id="kay-table"
                   columns={
-                    majorUser.toLocaleLowerCase() === "admin"
+                    majorUser.toLocaleLowerCase() === 'admin'
                       ? stockTableHeadersAdmin
                       : stockTableHeaders
                   }
@@ -425,10 +380,8 @@ export function StockKayPage() {
                       Number(item.MONTH) * Number(item.INSTALLMENT) +
                       Number(item.STAR_MONEY) -
                       Number(item.COST);
-                    const totalInstallment =
-                      Number(item.INSTALLMENT) * Number(item.MONTH);
-                    const installmentCurrent =
-                      Number(item.TOTAL_PRICE) - Number(totalInstallment);
+                    const totalInstallment = Number(item.INSTALLMENT) * Number(item.MONTH);
+                    const installmentCurrent = Number(item.TOTAL_PRICE) - Number(totalInstallment);
 
                     return (
                       <tr key={item.ID} className="text-center">
@@ -437,10 +390,10 @@ export function StockKayPage() {
                           {convertDateToThaiV2(new Date(item.CREATED_AT))}
                         </td>
                         <td
-                          style={{ cursor: "pointer" }}
+                          style={{ cursor: 'pointer' }}
                           onClick={() => {
                             const checkBox = document.getElementById(
-                              `row-${item.ID}`
+                              `row-${item.ID}`,
                             ) as HTMLInputElement;
 
                             checkBox.checked = !checkBox.checked;
@@ -457,9 +410,7 @@ export function StockKayPage() {
                         </td>
                         <td>{`${item.CODE}-${item.ID}`}</td>
                         <td>{item.MAJOR}</td>
-                        <td>
-                          {convertDateToThaiV2(new Date(item.DATE_PAYMENT))}
-                        </td>
+                        <td>{convertDateToThaiV2(new Date(item.DATE_PAYMENT))}</td>
                         <td>{item.CUSTOMER}</td>
                         <td>{item.TEL}</td>
                         <td>{item.VERSION}</td>
@@ -477,7 +428,7 @@ export function StockKayPage() {
                         <td>{totalInstallment.toLocaleString()} บาท</td>
                         <td>{Number(item.TOTAL_PRICE).toLocaleString()} บาท</td>
                         <td>{installmentCurrent.toLocaleString()} บาท</td>
-                        {majorUser.toLocaleLowerCase() === "admin" && (
+                        {majorUser.toLocaleLowerCase() === 'admin' && (
                           <td>
                             <span className="d-none">{profit}</span>
                             <p className="badge badge-success mx-1">
@@ -491,7 +442,7 @@ export function StockKayPage() {
                               type="button"
                               className="btn btn-warning"
                               onClick={() => {
-                                sessionStorage.setItem("majorEdit", item.MAJOR);
+                                sessionStorage.setItem('majorEdit', item.MAJOR);
                                 navigate(`/stock/add?type=kay`, {
                                   state: { id: item.ID },
                                 });
@@ -501,10 +452,7 @@ export function StockKayPage() {
                               แก้ไข
                             </button>
                           ) : (
-                            <button
-                              type="button"
-                              className="btn btn-warning disabled"
-                            >
+                            <button type="button" className="btn btn-warning disabled">
                               แก้ไข
                             </button>
                           )}
@@ -518,10 +466,7 @@ export function StockKayPage() {
                               ลบ
                             </button>
                           ) : (
-                            <button
-                              type="button"
-                              className="btn btn-danger disabled"
-                            >
+                            <button type="button" className="btn btn-danger disabled">
                               ลบ
                             </button>
                           )}
@@ -533,7 +478,7 @@ export function StockKayPage() {
                     <tr className="text-center">
                       <td colSpan={9}>รวม</td>
                       <td>{totalStarMoney.toLocaleString()} บาท</td>
-                      {majorUser.toLocaleLowerCase() === "admin" ? (
+                      {majorUser.toLocaleLowerCase() === 'admin' ? (
                         <td colSpan={5}></td>
                       ) : (
                         <td colSpan={4}></td>
