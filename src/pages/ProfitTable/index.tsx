@@ -6,6 +6,7 @@ import blogSelectCal from "../../common/SelectRow";
 import StockService from "../../services/StockServices";
 import { GetProfitTableResponse } from "../../Models/Response/GetProfitTableResponse";
 import { AppContext } from "../../contexts";
+import AllRecordsTable from "../../layouts/stock/AllRecordsTable";
 
 export default function ProfitTable() {
   const [totalFund, setTotalFund] = useState(0);
@@ -182,6 +183,7 @@ export default function ProfitTable() {
               </div>
             </div>
           </div>
+          <AllRecordsTable />
         </div>
       </section>
     </div>
