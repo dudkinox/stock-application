@@ -20,6 +20,10 @@ interface DashboardContextProps {
   setType: (value: string) => void;
   duration: string;
   setDuration: (value: string) => void;
+  startDate: string;
+  setStartDate: (value: string) => void;
+  endDate: string;
+  setEndDate: (value: string) => void;
   typeStock: string[];
   setTypeStock: (value: []) => void;
   totalSum: string;
@@ -39,6 +43,10 @@ export const DashboardContext = createContext<DashboardContextProps>({
   setType: () => {},
   duration: "",
   setDuration: () => {},
+  startDate: "",
+  setStartDate: () => {},
+  endDate: "",
+  setEndDate: () => {},
   typeStock: [],
   setTypeStock: () => {},
   totalSum: "",
@@ -60,6 +68,11 @@ export function DashboardProvider({ children }: ChildrenProps) {
   const [branch, setBranch] = useState<string>("ทั้งหมด");
   const [type, setType] = useState<string>("");
   const [duration, setDuration] = useState<string>("ทั้งหมด");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState(() => {
+    const today = new Date();
+    return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  });
   const [totalSum, setTotalSum] = useState<string>("");
   const [totalProfit, setTotalProfit] = useState<string>("");
   const [desiredProfit, setDesiredProfit] = useState<number>(0);
@@ -83,15 +96,6 @@ export function DashboardProvider({ children }: ChildrenProps) {
         AlertError(err.response.data.message);
         setIsLoading(false);
       });
-    DashboardServices.getSumDate(branch, type, duration)
-      .then((res) => {
-        setDesiredProfit(res.data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        AlertError(err.response.data.message);
-        setIsLoading(false);
-      });
   }, []);
 
   return (
@@ -103,6 +107,10 @@ export function DashboardProvider({ children }: ChildrenProps) {
         setBranch,
         type,
         setType,
+        startDate,
+        setStartDate,
+        endDate,
+        setEndDate,
         duration,
         setDuration,
         typeStock: typeStock,

@@ -1,49 +1,44 @@
 import { useContext, useEffect, useState } from "react";
-import InitGraph from "../../common/Graph";
+import { AlertError } from "../../common/ToastrCommon";
 import { DashboardContext } from "../../contexts/DashboardContext";
 import ModalCommon from "../../common/Modal";
 import TextInput from "../../common/TextInput";
 import DashboardServices from "../../services/DashboardService";
 import { GetDashboardSumResponse } from "../../Models/Response/GetDashboardSumResponse";
 import { AppContext } from "../../contexts";
-import GetBuyTotalResponse from "../../Models/Response/GetBuyTotalResponse";
-import initTable, { destroyTable } from "../../common/DataTable";
-import GetBalanceDetailResponse from "../../Models/Response/GetBalanceDetailResponse";
 
 export default function ChartMainContent() {
-  const { branch, type, duration, totalSum, desiredProfit } =
+  const { branch, type, startDate, endDate, totalSum, desiredProfit, setTotalSum, setDesiredProfit } =
     useContext(DashboardContext);
   const [profit, setProfit] = useState<string>("");
   const [summary, setSummary] = useState<GetDashboardSumResponse>();
   const [percentage, setPercentage] = useState<number>(0);
-  const [buyTotal, setBuyTotal] = useState<GetBuyTotalResponse>();
-  const [balanceDetail, setBalanceDetail] = useState<
-    GetBalanceDetailResponse[]
-  >([]);
   const { setIsLoading } = useContext(AppContext);
 
   useEffect(() => {
-    InitGraph(branch, type, duration);
-    setIsLoading(true);
-    DashboardServices.getProfit().then((res) => {
-      setProfit(res.data);
+    if (!endDate || (startDate && startDate > endDate)) return;
+    let active = true;
+    const dates = { start_date: startDate, end_date: endDate };
+    Promise.all([
+      DashboardServices.getProfit(),
+      DashboardServices.getSummary(branch, dates),
+      DashboardServices.getPercentage(dates),
+      DashboardServices.getTypeSelected(branch, type, dates),
+      DashboardServices.getSumDate(branch, type, "ทั้งหมด", dates),
+    ]).then(([profitResult, summaryResult, percentageResult, countResult, sumResult]) => {
+      if (!active) return;
+      setProfit(profitResult.data);
+      setSummary(summaryResult.data);
+      setPercentage(Number(percentageResult.data) || 0);
+      setTotalSum(countResult.data.toString());
+      setDesiredProfit(sumResult.data);
+    }).catch((error) => {
+      if (active) AlertError(error.response?.data?.message ?? "โหลดข้อมูลสรุปไม่สำเร็จ");
+    }).finally(() => {
+      if (active) setIsLoading(false);
     });
-    DashboardServices.getSummary(branch).then((res) => {
-      setSummary(res.data);
-    });
-    DashboardServices.getPercentage().then((res) => {
-      setPercentage(res.data);
-    });
-    DashboardServices.getBuyTotal(branch).then((res) => {
-      setBuyTotal(res.data);
-    });
-    DashboardServices.getBalanceDetail(branch).then((res) => {
-      setTimeout(() => destroyTable());
-      setBalanceDetail(res.data);
-      setTimeout(() => initTable(res.data.length.toString() ?? "0"), 100);
-      setIsLoading(false);
-    });
-  }, [setProfit, setSummary, setPercentage, branch]);
+    return () => { active = false; };
+  }, [branch, type, startDate, endDate]);
 
   return (
     <>
@@ -79,7 +74,7 @@ export default function ChartMainContent() {
             <div className="card col-sm-6">
               <div className="card-body pb-0">
                 <div className="text-center">
-                  <p>{type === "" ? "-" : `ยอด${type}ทั้งหมด`} </p>
+                  <p>{type === "" ? "-" : `ยอด${type}ในช่วงที่เลือก`} </p>
                   <p className="h3">
                     {type === "" ? "0" : `${totalSum} เครื่อง`}{" "}
                   </p>
@@ -89,7 +84,7 @@ export default function ChartMainContent() {
             <div className="card col-sm-6">
               <div className="card-body pb-0">
                 <div className="text-center">
-                  <p>กำไรทั้งหมด </p>
+                  <p>กำไรรวมทุกสาขาในช่วงที่เลือก</p>
                   <p className="h3">{percentage.toLocaleString()} บาท </p>
                 </div>
               </div>
@@ -124,7 +119,7 @@ export default function ChartMainContent() {
                             : type === "ซื้อ"
                             ? "จ่าย"
                             : "รับ"
-                        }จาก${type}${duration}นี้`}
+                        }จาก${type}ในช่วงที่เลือก`}
                   </p>
                   <p className="h3">
                     {type !== ""
@@ -189,7 +184,7 @@ export default function ChartMainContent() {
             <div className="card col-sm-12">
               <div className="card-body pb-0">
                 <div className="text-center">
-                  <p>{"เงินที่เหลือของร้าน"}</p>
+                  <p>{"เงินที่เหลือของร้านในช่วงที่เลือก"}</p>
                   <p className="h3">
                     {(summary?.REMAINING ?? 0).toLocaleString()} บาท
                   </p>

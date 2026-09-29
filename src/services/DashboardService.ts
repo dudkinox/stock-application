@@ -3,13 +3,18 @@ import GetBalanceDetailResponse from "../Models/Response/GetBalanceDetailRespons
 import GetBuyTotalResponse from "../Models/Response/GetBuyTotalResponse";
 import { GetDashboardSumResponse } from "../Models/Response/GetDashboardSumResponse";
 
+export interface DashboardDateRange {
+  start_date: string;
+  end_date: string;
+}
+
 const getDashboardService = () => {
   return Https.get<[]>(`/apis/dashboard/get/`);
 };
 
-const getTypeSelectedService = (major: string, type: string) => {
+const getTypeSelectedService = (major: string, type: string, dates?: DashboardDateRange) => {
   return Https.get<[]>(
-    `/apis/dashboard/count-type/?major=${major}&type=${type}`
+    `/apis/dashboard/count-type/`, { params: { major, type, ...dates } }
   );
 };
 
@@ -21,19 +26,19 @@ const postWantMoneyService = (data: any) => {
   return Https.post(`/apis/dashboard/profit/`, data);
 };
 
-const getSummaryService = (major: string) => {
+const getSummaryService = (major: string, dates?: DashboardDateRange) => {
   return Https.get<GetDashboardSumResponse>(
-    `/apis/dashboard/summary/?major=${major === "ทั้งหมด" ? "" : major}`
+    `/apis/dashboard/summary/`, { params: { major, ...dates } }
   );
 };
 
-const getPercentageService = () => {
-  return Https.get<number>(`/apis/dashboard/percentage/`);
+const getPercentageService = (dates?: DashboardDateRange) => {
+  return Https.get<number>(`/apis/dashboard/percentage/`, { params: dates });
 };
 
-const getSumDateService = (major: string, type: string, date: string) => {
+const getSumDateService = (major: string, type: string, date: string, dates?: DashboardDateRange) => {
   return Https.get<number>(
-    `/apis/dashboard/sum-date/?type=${type}&duration=${date}&major=${major}`
+    `/apis/dashboard/sum-date/`, { params: { type, duration: date, major, ...dates } }
   );
 };
 
