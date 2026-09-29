@@ -5,18 +5,40 @@ import IsMenuInsert from "../../layouts/stock/IsMenuInsert";
 import ByeMenuInsert from "../../layouts/stock/ByeMenuInsert";
 import InstallmentMenuInsert from "../../layouts/stock/InstallmentMenuInsert";
 import KayMenuInsert from "../../layouts/stock/KayMenuInsert";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import StockService from "../../services/StockServices";
 import { AlertError, AlertSuccess } from "../../common/ToastrCommon";
 import { AppContext } from "../../contexts";
+import { PathEnum } from "../../enum/path.enum";
 
 export default function StockAddPage() {
   const { isMenuInsert, handlerSubmit, updateKey } = useContext(StockContext);
   const { setIsLoading } = useContext(AppContext);
   const state = useLocation();
+  const navigate = useNavigate();
   const id =
-    new URLSearchParams(useLocation().search).get("id") ?? state.state.id;
-  const addType = new URLSearchParams(useLocation().search).get("type");
+    new URLSearchParams(state.search).get("id") ?? state.state?.id ?? 0;
+  const addType = new URLSearchParams(state.search).get("type");
+
+  const cancelHandler = () => {
+    if (window.history.state?.idx > 0) {
+      navigate(-1);
+      return;
+    }
+
+    const returnPath =
+      addType === "bye"
+        ? PathEnum.STOCK_BYE
+        : addType === "kay"
+        ? PathEnum.STOCK_KAY
+        : addType === "equipment"
+        ? PathEnum.STOCK_EQUIPMENT
+        : addType === "installment"
+        ? PathEnum.STOCK_INSTALLMENT_PAYMENT
+        : PathEnum.STOCK_SUM;
+
+    navigate(returnPath, { replace: true });
+  };
 
   const [edit, setEdit] = useState({
     stockType: "",
@@ -73,12 +95,19 @@ export default function StockAddPage() {
           <div className="text-center">
             <button
               type="button"
-              className="btn primary-btn col-3 my-3"
+              className="btn primary-btn col-3 my-3 mr-2"
               onClick={
                 id === 0 || !updateKey ? handlerSubmit : updateHandlerSubmit
               }
             >
               บันทึก
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary col-3 my-3"
+              onClick={cancelHandler}
+            >
+              ยกเลิก
             </button>
           </div>
         </>
