@@ -13,6 +13,7 @@ import { AlertError, AlertWarning } from "../../common/ToastrCommon";
 import MajorServices from "../../services/MajorService";
 import { convertDateToThaiV2 } from "../../common/DateFormat";
 import Summarize from "./summarize";
+import initTable from "../../common/DataTable";
 
 export function StockInstallmentPaymentPage() {
   const { majorUser, setIsLoading, isEdit, isDelete, deleteStock } =
@@ -36,6 +37,68 @@ export function StockInstallmentPaymentPage() {
     setInstallmentNo,
   } = useContext(StockContext);
   const [stock, setStock] = useState<any[]>([]);
+  const [stockLoaded, setStockLoaded] = useState(false);
+  const [summaryBranch, setSummaryBranch] = useState("ทั้งหมด");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState(() => {
+    const today = new Date();
+    return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  });
+  const [visibleSummary, setVisibleSummary] = useState({ count: 0, total: 0 });
+  const invalidDates = Boolean(startDate && endDate && startDate > endDate);
+  const allTotal =
+    stock.reduce(
+      (total, item) => total + Math.round(Number(item.PRICE_TOTAL || 0) * 100),
+      0,
+    ) / 100;
+
+  useEffect(() => {
+    if (!stockLoaded) return;
+    const table = $("#installment-payment-table") as any;
+    initTable(stock.length.toString(), "#installment-payment-table");
+    return () => {
+      table.DataTable().destroy();
+    };
+  }, [stock, stockLoaded]);
+
+  useEffect(() => {
+    if (!stockLoaded) return;
+    const table = $("#installment-payment-table") as any;
+    const filters = ($.fn as any).dataTable.ext.search;
+    const filter = (settings: any, _data: string[], index: number) => {
+      if (settings.nTable.id !== "installment-payment-table") return true;
+      const item = stock[index];
+      if (!item || invalidDates) return false;
+      const itemDate = String(item.DATE ?? "").slice(0, 10);
+      return (
+        (summaryBranch === "ทั้งหมด" || item.MAJOR === summaryBranch) &&
+        (!startDate || itemDate >= startDate) &&
+        (!endDate || (itemDate !== "" && itemDate <= endDate))
+      );
+    };
+    filters.push(filter);
+    const updateSummary = () => {
+      const indexes: number[] = table
+        .DataTable()
+        .rows({ search: "applied" })
+        .indexes()
+        .toArray();
+      const cents = indexes.reduce(
+        (sum, index) =>
+          sum + Math.round(Number(stock[index]?.PRICE_TOTAL || 0) * 100),
+        0,
+      );
+      setVisibleSummary({ count: indexes.length, total: cents / 100 });
+    };
+    table.on("draw.dt.installmentSummary", updateSummary);
+    table.DataTable().draw();
+    return () => {
+      table.off("draw.dt.installmentSummary", updateSummary);
+      const index = filters.indexOf(filter);
+      if (index !== -1) filters.splice(index, 1);
+    };
+  }, [stock, stockLoaded, summaryBranch, startDate, endDate, invalidDates]);
+
   const stockTableHeaders = [
     "timestamp",
     "รหัสเอกสาร",
@@ -68,7 +131,7 @@ export function StockInstallmentPaymentPage() {
     id: string,
     majorInsert: string,
     installmentNo: number,
-    priceTotal: string
+    priceTotal: string,
   ) => {
     sessionStorage.setItem("majorEdit", majorInsert);
     setStockID(id);
@@ -84,6 +147,7 @@ export function StockInstallmentPaymentPage() {
     StockService.GetStockInstallmentPaymentAll(majorUser)
       .then((res) => {
         setStock(res.data);
+        setStockLoaded(true);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -225,7 +289,68 @@ export function StockInstallmentPaymentPage() {
                   aria-labelledby="custom-tabs-three-home-tab"
                 >
                   <div className="card-body">
+                    <div className="row">
+                      {majorUser === "admin" && (
+                        <div className="col-12 col-md-4 form-group">
+                          <label htmlFor="installment-summary-branch">
+                            สาขา
+                          </label>
+                          <select
+                            id="installment-summary-branch"
+                            className="form-control"
+                            value={summaryBranch}
+                            onChange={(e) => setSummaryBranch(e.target.value)}
+                          >
+                            <option value="ทั้งหมด">ทั้งหมด</option>
+                            {fetchMajor.map((item) => (
+                              <option key={item.ID} value={item.NAME}>
+                                {item.NAME}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      )}
+                      <div className="col-12 col-md-4 form-group">
+                        <label htmlFor="installment-summary-start">
+                          วันที่เริ่มต้น (ค.ศ.)
+                        </label>
+                        <input
+                          id="installment-summary-start"
+                          type="date"
+                          className="form-control"
+                          value={startDate}
+                          max={endDate || undefined}
+                          onChange={(e) => setStartDate(e.target.value)}
+                        />
+                        {!startDate && (
+                          <small>ทั้งหมด — ไม่จำกัดวันที่เริ่มต้น</small>
+                        )}
+                      </div>
+                      <div className="col-12 col-md-4 form-group">
+                        <label htmlFor="installment-summary-end">
+                          วันที่สิ้นสุด (ค.ศ.)
+                        </label>
+                        <input
+                          id="installment-summary-end"
+                          type="date"
+                          className="form-control"
+                          value={endDate}
+                          min={startDate || undefined}
+                          onChange={(e) => setEndDate(e.target.value)}
+                        />
+                        {!endDate && (
+                          <small>ทั้งหมด — ไม่จำกัดวันที่สิ้นสุด</small>
+                        )}
+                      </div>
+                    </div>
+                    {invalidDates && (
+                      <p className="text-danger" role="alert">
+                        วันที่สิ้นสุดต้องไม่ก่อนวันที่เริ่มต้น
+                      </p>
+                    )}
+
                     <TableCommon
+                      id="installment-payment-table"
                       columns={stockTableHeaders}
                       row={stock.map((item) => (
                         <tr key={item.ID} className="text-center">
@@ -235,7 +360,7 @@ export function StockInstallmentPaymentPage() {
                           </td>
                           <td>{`${item.CODE}-${item.ID}`}</td>
                           <td>
-                            <span className="d-none">{item.CREATED_AT}</span>
+                            <span className="d-none">{item.DATE}</span>
                             {convertDateToThaiV2(new Date(item.DATE))}
                           </td>
                           <td>{item.MAJOR}</td>
@@ -253,7 +378,7 @@ export function StockInstallmentPaymentPage() {
                                     item.ID,
                                     item.MAJOR,
                                     item.INSTALLMENT_NO,
-                                    item.PRICE_TOTAL
+                                    item.PRICE_TOTAL,
                                   )
                                 }
                               >
@@ -289,6 +414,37 @@ export function StockInstallmentPaymentPage() {
                         </tr>
                       ))}
                     />
+                  </div>
+                  <div className="row" aria-live="polite">
+                    <div className="col-12 col-md-6">
+                      <div className="card card-body text-center">
+                        <p>ยอดผ่อนตามตัวกรองและคำค้นหา</p>
+                        <strong className="h3">
+                          {visibleSummary.total.toLocaleString("th-TH", {
+                            maximumFractionDigits: 2,
+                          })}{" "}
+                          บาท
+                        </strong>
+                        <span>
+                          {visibleSummary.count.toLocaleString()} รายการ
+                        </span>
+                      </div>
+                    </div>
+                    <div className="col-12 col-md-6">
+                      <div className="card card-body text-center">
+                        <p>
+                          ยอดผ่อนทั้งหมดทุกวันที่
+                          {majorUser !== "admin" && ` — ${majorUser}`}
+                        </p>
+                        <strong className="h3">
+                          {allTotal.toLocaleString("th-TH", {
+                            maximumFractionDigits: 2,
+                          })}{" "}
+                          บาท
+                        </strong>
+                        <span>{stock.length.toLocaleString()} รายการ</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div
