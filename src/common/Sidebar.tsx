@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../contexts";
 import { PathEnum } from "../enum/path.enum";
 import { ThemesEnum } from "../enum/mode.enum";
@@ -6,6 +6,7 @@ import ThemeToggle from "./Themes";
 
 export default function SidebarCommon() {
   const { pathUrl, isLogin, majorUser, theme } = useContext(AppContext);
+  const [isStockMenuOpen, setIsStockMenuOpen] = useState(true);
 
   return (
     <aside
@@ -35,9 +36,7 @@ export default function SidebarCommon() {
           <nav className="mt-2">
             <ul
               className="nav nav-pills nav-sidebar flex-column"
-              data-widget="treeview"
               role="menu"
-              data-accordion="false"
             >
               {majorUser === "admin" && (
                 <li className="nav-item">
@@ -65,15 +64,21 @@ export default function SidebarCommon() {
                 </li>
               )}
 
-              <li className="nav-item menu-open">
-                <a href="#" className="nav-link">
+              <li className={`nav-item ${isStockMenuOpen ? "menu-open" : ""}`}>
+                <button
+                  type="button"
+                  className="nav-link stock-menu-toggle"
+                  aria-expanded={isStockMenuOpen}
+                  aria-controls="stock-submenu"
+                  onClick={() => setIsStockMenuOpen((isOpen) => !isOpen)}
+                >
                   <i className="nav-icon fas fa-tachometer-alt" />
                   <p>
                     คลังสินค้า
                     <i className="right fas fa-angle-left" />
                   </p>
-                </a>
-                <ul className="nav nav-treeview">
+                </button>
+                <ul id="stock-submenu" className="nav nav-treeview">
                   <li className="nav-item">
                     <a
                       href={PathEnum.STOCK_KAY}

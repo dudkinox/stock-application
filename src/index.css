@@ -4,6 +4,14 @@
   font-family: "Mali";
 }
 
+.nav-sidebar .stock-menu-toggle {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
 .dark-mode .main-bg {
   background-color: #e91d63 !important;
 }
