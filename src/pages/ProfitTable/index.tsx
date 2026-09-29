@@ -170,8 +170,8 @@ export default function ProfitTable() {
                   foot={
                     <tr className="text-center">
                       <th colSpan={2}>รวม</th>
-                      <th>{totalStarMoney.toLocaleString()} บาท</th>
                       <th>{totalFund.toLocaleString()} บาท</th>
+                      <th>{totalStarMoney.toLocaleString()} บาท</th>
                       <th>{totalInstallment.toLocaleString()} บาท</th>
                       <th>{totalEquipment.toLocaleString()} บาท</th>
                       <th>{totalExpense.toLocaleString()} บาท</th>

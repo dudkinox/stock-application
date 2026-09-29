@@ -443,8 +443,8 @@ export function StockKayPage() {
                               className="btn btn-warning"
                               onClick={() => {
                                 sessionStorage.setItem('majorEdit', item.MAJOR);
-                                navigate(`/stock/add?type=kay`, {
-                                  state: { id: item.ID },
+                                navigate(`/stock/add?type=kay&id=${item.ID}`, {
+                                  state: { id: item.ID, mode: "edit" },
                                 });
                                 setUpdateKay(true);
                               }}

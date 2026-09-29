@@ -139,7 +139,7 @@ export function StockInstallmentPaymentPage() {
     setPriceTotal(priceTotal);
     setInstallmentNo(installmentNo);
     setUpdateKey(true);
-    navigate(`/stock/add?type=installment`, { state: { id } });
+    navigate(`/stock/add?type=installment&id=${id}`, { state: { id, mode: "edit" } });
   };
 
   useEffect(() => {

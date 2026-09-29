@@ -11,6 +11,7 @@ import ModalCommon from "../../common/Modal";
 
 interface InstallmentMenuInsertProps {
   id: string;
+  isEditing: boolean;
   setEdit: React.Dispatch<
     React.SetStateAction<{
       stockType: string;
@@ -27,9 +28,11 @@ interface InstallmentMenuInsertProps {
 
 export default function InstallmentMenuInsert({
   id,
+  isEditing,
   setEdit,
   edit,
 }: Readonly<InstallmentMenuInsertProps>) {
+  const updateKey = isEditing;
   const { majorUser } = useContext(AppContext);
   const {
     installmentNo,
@@ -39,7 +42,6 @@ export default function InstallmentMenuInsert({
     setStockType,
     setDocumentId,
     documentId,
-    updateKey,
   } = useContext(StockContext);
   const [selectDocId, setSelectDocId] = useState<any[]>([]);
   const [dataCustomer, setDataCustomer] = useState({
@@ -57,23 +59,27 @@ export default function InstallmentMenuInsert({
   }, []);
 
   useEffect(() => {
-    if (!updateKey) {
-      StockService.GetStockKay(majorUser).then((res) => {
-        const filter = res.data.filter((fil) => fil.ID === documentId)[0];
-
-        setPriceTotal(filter.INSTALLMENT);
-        setDataCustomer({
-          CUSTOMER_NAME: filter.CUSTOMER,
-          ID_CARD: filter.ID_CARD,
-        });
-      });
-    }
-  }, [documentId]);
+    if (updateKey) return;
+    let active = true;
+    setPriceTotal("");
+    setDataCustomer({ CUSTOMER_NAME: "", ID_CARD: "" });
+    if (!documentId) return;
+    StockService.GetStockKay(majorUser).then((res) => {
+      if (!active) return;
+      const customer = res.data.find((item) => String(item.ID) === String(documentId));
+      if (!customer) return;
+      setPriceTotal(customer.INSTALLMENT ?? "");
+      setDataCustomer({ CUSTOMER_NAME: customer.CUSTOMER ?? "", ID_CARD: customer.ID_CARD ?? "" });
+    }).catch(() => {
+      if (active) setDataCustomer({ CUSTOMER_NAME: "", ID_CARD: "" });
+    });
+    return () => { active = false; };
+  }, [documentId, majorUser, updateKey]);
 
   useEffect(() => {
     const major = sessionStorage.getItem("majorEdit");
 
-    if (major) {
+    if (isEditing && major) {
       StockService.GetStockInstallment(id).then((res) => {
         setEdit({
           stockType: "ผ่อน",

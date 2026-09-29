@@ -12,6 +12,7 @@ import TextInput from "../../common/TextInput";
 
 interface KayMenuInsertProps {
   id: string;
+  isEditing: boolean;
   setEdit: React.Dispatch<
     React.SetStateAction<{
       stockType: string;
@@ -28,9 +29,11 @@ interface KayMenuInsertProps {
 
 export default function KayMenuInsert({
   id,
+  isEditing,
   setEdit,
   edit,
 }: Readonly<KayMenuInsertProps>) {
+  const updateKay = isEditing;
   const {
     setCustomerStatus,
     setCustomer,
@@ -51,7 +54,6 @@ export default function KayMenuInsert({
     setInstallment,
     datePayment,
     setDatePayment,
-    updateKey: updateKay,
   } = useContext(StockContext);
   const { setPathUrl, setIsLoading, majorUser } = useContext(AppContext);
   const [selectCustomer, setSelectCustomer] = useState<GetCustomerResponse[]>(
@@ -102,7 +104,7 @@ export default function KayMenuInsert({
 
   useEffect(() => {
     const major = sessionStorage.getItem("majorEdit");
-    if (major) {
+    if (isEditing && major) {
       StockService.GetFindStockById(id, major, "ขาย").then((res) => {
         setEdit({
           stockType: "ขาย",

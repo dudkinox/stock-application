@@ -93,7 +93,7 @@ export function StockEquipmentPage() {
     setRepair(repair);
     setSum(sum);
     setUpdateKay(true);
-    navigate(`/stock/add?type=equipment`, { state: { id } });
+    navigate(`/stock/add?type=equipment&id=${id}`, { state: { id, mode: "edit" } });
   };
 
   useEffect(() => {

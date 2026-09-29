@@ -18,6 +18,7 @@ export default function StockAddPage() {
   const navigate = useNavigate();
   const id =
     new URLSearchParams(state.search).get("id") ?? state.state?.id ?? 0;
+  const isEditing = Number(id) !== 0 && (new URLSearchParams(state.search).has("id") || state.state?.mode === "edit" || updateKey);
   const addType = new URLSearchParams(state.search).get("type");
 
   const cancelHandler = () => {
@@ -71,7 +72,7 @@ export default function StockAddPage() {
 
   return (
     <ContentLayOut
-      title={"เพิ่มข้อมูล"}
+      title={isEditing ? "แก้ไขข้อมูล" : "เพิ่มข้อมูล"}
       topic={
         id === 0 ? `รหัสเอกสารจะถูกสร้างขึ้นหลังกดบันทึก` : `รหัสเอกสาร : ${id}`
       }
@@ -84,20 +85,21 @@ export default function StockAddPage() {
             <ByeMenuInsert id={id} setEdit={setEdit} edit={edit} />
           )}
           {addType === "kay" && (
-            <KayMenuInsert setEdit={setEdit} edit={edit} id={id} />
+            <KayMenuInsert isEditing={isEditing} setEdit={setEdit} edit={edit} id={id} />
           )}
           {addType === "equipment" && (
             <IsMenuInsert id={id} setEdit={setEdit} edit={edit} />
           )}
           {addType === "installment" && (
-            <InstallmentMenuInsert id={id} setEdit={setEdit} edit={edit} />
+            <InstallmentMenuInsert isEditing={isEditing} id={id} setEdit={setEdit} edit={edit} />
           )}
           <div className="text-center">
             <button
               type="button"
               className="btn primary-btn col-3 my-3 mr-2"
+              disabled={isEditing && (!edit.stockType || !edit.major || !(edit.payload as { ID?: unknown }).ID)}
               onClick={
-                id === 0 || !updateKey ? handlerSubmit : updateHandlerSubmit
+                isEditing ? updateHandlerSubmit : handlerSubmit
               }
             >
               บันทึก
